@@ -28,21 +28,21 @@
 			  </ol>
 			  
 			</div>
-			<div class="main">
+			<div class="main col-8">
 			<!-- Intro -->
 			<div id="intro" class="container">
 				<header>
 					<h1>Borrowed Books | API Documentation</h1>
 				</header>
-				<p >The Borrowed Books API allows directly interaction
-					with the borrowing books platform, and get details about Borrowed Books.<br> 
-					<strong>Some typical use cases include: </strong>
-					<span>Get all Borrowed Books, Get books by category,
-						Get books from search category & phone.</span>
+				<p>The Borrowed Books API allows directly interaction
+					with the borrowing books platform,<br> and get details about Borrowed Books.</p> 
+					<p><strong>Some typical use cases include: </strong>
+					<blockquote>Get all Borrowed Books<br> Get books by category<br>
+						Get books from search category & phone</blockquote>
 				</p>
 				<p>The requests should be in GET / POST Method.<br>
 				The result will return in JSON Object.<br>
-				If your URL request is wrong you will will recieve Error JSON Object.
+				If your URL request is wrong you will recieve Error in JSON Object.
 				</p>
 				<p>
 					<a id="git" href="https://github.com/yshur/borrowed_books.git" target="_blank" class="button">
@@ -63,7 +63,8 @@
 					Method:  <strong>GET</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="includes/getAllBooks.png">
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllBooks.PNG">
+					
 				</div>    
 
 				<!-- getByCategory -->
@@ -80,7 +81,7 @@
 					Parameter name:  <strong>category</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="includes/getByCategory.png">
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getByCategory.PNG">
 				</div>
 					
 				<!-- getCategoryPhone -->
@@ -100,7 +101,7 @@
 					Example of 'phone' can be '0587588846'</p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="includes/getCategoryPhone.png">
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getCategoryPhone.PNG">
 
 				</div>
 			</div>
@@ -121,7 +122,7 @@
 							you will recieve general error object.<br>
 							The error object includes the deatails of legitimate API</p>
 							<p>Example of error in JSON Object:</p>
-							<img src="includes/errorUrl.png">
+							<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/errorUrl.PNG">
 						
 					</li>
 					<li id="emptyResult" class="col-sm">
@@ -130,7 +131,7 @@
 							<p>If you enter parameters that dont match to any documents in my DB,<br>
 							you should recieve an empty array</p>
 							<p>Example of empty array in Query:</p>
-							<img src="includes/emptyResult.png">
+							<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/emptyResult.PNG">
 					
 					</li>
 					<li id="errorMlab" class="col-sm">
@@ -138,7 +139,7 @@
 							<p>If my server have an error with connection to my DB,<br>
 							you should recieve an error object that describes the error</p>
 							<p>Example of error in JSON Object:</p>
-							<img src="includes/errorMlab.png">
+							<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/errorMlab.PNG">
 						
 					</li>
 				

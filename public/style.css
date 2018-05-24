@@ -1,5 +1,8 @@
-body {
-    font-family: "Lato", sans-serif;
+h1 {
+    margin: 10px;
+}
+h2 {
+    margin: 10px;	
 }
 
 .sidenav {
@@ -28,7 +31,7 @@ body {
 
 .main {
     margin-left: 220px; /* Same as the width of the sidenav */
-    font-size: 15px; /* Increased text to enable scrolling */
+    font-size: 18px; /* Increased text to enable scrolling */
     padding: 0px 10px;
 }
 
