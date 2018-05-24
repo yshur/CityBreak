@@ -111,28 +111,11 @@ exports.getBooksByBorrowerPhone = (req,res) => {
     // return foundItems;
 };
 
-exports.getBooksByCategoryAndPhone = (req,res,next) => {
+exports.getBooksByCategoryAndPhone = (req,res) => {
     var category = req.params.category,
         phone = req.params.phone;
     console.log('getBooksByCategoryAndPhone');
     console.log(`category = ${req.params.category}, phone = ${req.params.phone}`);
-    getCategoryPhone(res, category, phone);
-    next();
-};
-
-exports.postBooksByCategoryAndPhone = (req,res,next) => {
-    var category = req.body.category,
-        phone = req.body.phone;
-    console.log('getBooksByCategoryAndPhone');
-    console.log(`post: category = ${req.body.category}, phone = ${req.body.phone}`);
-    getCategoryPhone(res, category, phone); 
-    next();   
-};
-
-getCategoryPhone = (res, category, phone) => {
-  //  console.log('getCategoryPhone');
-  //  console.log(`category = ${category}, phone = ${phone}`);
-
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
@@ -152,7 +135,17 @@ getCategoryPhone = (res, category, phone) => {
             console.log(`connection error: ${err}`);
             res.status(200).json(`{ connection error : ${err}`); 
         }
-    ); 
+    );    
+    // getCategoryPhone(res, category, phone);
+    // next();
+};
+
+getCategoryPhone = (res, category, phone) => {
+    console.log('getCategoryPhone');
+    console.log(`category = ${category}, phone = ${phone}`);
+
+
+    
 
     // var foundItems = [];
     // for(let i in data) {

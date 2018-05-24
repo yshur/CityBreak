@@ -23,20 +23,33 @@ app.all('*', (req, res, next) => {
 });
 
 app.get('/', (req,res) => {
-	//console.log(`__dirname: ${__dirname}`);
-	res.sendFile(`${__dirname}/index.html`);
+	console.log(`__dirname: ${__dirname}`);
+	res.status(200).sendFile(`${__dirname}/index.html`);
 });
 
 app.get('/getAllBooks', data.getAllBooks);
 app.post('/getBooksByCategory/', data.getBooksByCategory);
-app.post('/getBooksByBorrowerPhone/', data.getBooksByBorrowerPhone);
-
 app.get('/getBooksByCategoryAndPhone/:category/:phone', data.getBooksByCategoryAndPhone);
-app.put('/getBooksByCategoryAndPhone/:category/:phone', data.getBooksByCategoryAndPhone);
-app.post('/getBooksByCategoryAndPhone/', data.postBooksByCategoryAndPhone);
 
 app.all('*', function(req, res) {
-  var error = {"error":"item not found"};
+  var error = {"error":"url not found",
+  				"help": {
+  					"url1": {
+  						"url": "/getAllBooks",
+  						"method": "get",
+  						"params": "none"
+  					},
+  					"url2": {
+  						"url": "/getBooksByCategory",
+  						"method": "post",
+  						"params":"category"
+  					},
+  					"url3": {
+  						"url": "/getBooksByCategoryAndPhone/:category/:phone",
+  						"method": "get",
+  						"params": "category & phone on the url"
+  					}
+  				}};
   res.status(200).json(error);
 });
 
