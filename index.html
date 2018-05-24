@@ -1,153 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>API Documentation | Borrowed Books</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="includes/style.css" />
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="includes/style.css">
+		<title>Borrowed Books | API Documentation</title>
 
     </head>
     <body>
 
-        <!-- Header -->
-            <div id="header">
+        <!-- wrapper -->
+			<div class="sidenav">
+			
+			  <a href="#intro">About</a>
+			  <a href="#getAllBooks">Get All Books</a>
+			  <a href="#getByCategory">Get By Category</a>
+			  <a href="#getCategoryPhone">Get By Category And Phone</a>
+			  <a href="#errors">Errors:</a>
+			  <ol>
+				<li><a href="#errorUrl">URL Error</a></li>
+				<li><a href="#emptyResult">Empty Result</a></li>
+				<li><a href="#errorMlab">Connection Error</a></li>
+			  </ol>
+			  
+			</div>
+			<div class="main">
+			<!-- Intro -->
+			<div id="intro" class="container">
+				<header>
+					<h1>Borrowed Books | API Documentation</h1>
+				</header>
+				<p >The Borrowed Books API allows directly interaction
+					with the borrowing books platform, and get details about Borrowed Books.<br> 
+					<strong>Some typical use cases include: </strong>
+					<span>Get all Borrowed Books, Get books by category,
+						Get books from search category & phone.</span>
+				</p>
+				<p>The requests should be in GET / POST Method.<br>
+				The result will return in JSON Object.<br>
+				If your URL request is wrong you will will recieve Error JSON Object.
+				</p>
+				<p>
+					<a id="git" href="https://github.com/yshur/borrowed_books.git" target="_blank" class="button">
+					<var>Borrowed Books on Github</var></a>
+				</p>
+			</div>
+			
+			<div class="row container">
+			
+				<!-- getAllBooks -->
+				<div id="getAllBooks" class="col-sm">
+					<header>
+						<h2>Get All Borrowed Books</h2>
+					</header>
+					<p>You can find all Borrowed Books, by entering the following URL:<br>
+					<blockquote><a href= "http://localhost:3000/getAllBooks" target="_blank" >
+					<var> http://localhost:3000/getAllBooks</var></a><br>
+					Method:  <strong>GET</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="includes/getAllBooks.png">
+				</div>    
 
-            </div>
+				<!-- getByCategory -->
+				<div id="getByCategory" class="col-sm">
+					<header>
+						<h2>Get Books By category</h2>
+					</header>
+					<p >You can find Borrowed Books by their category.<br>
+						You need sending parameter 'category' to the following URL:</p>
+					<blockquote><a href="http://localhost:3000/getBooksByCategory" target="_blank" >
+					<var>http://localhost:3000/getBooksByCategory</var></a></p>
+					
+					<p>Method:  <strong>POST</strong><br>
+					Parameter name:  <strong>category</strong></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="includes/getByCategory.png">
+				</div>
+					
+				<!-- getCategoryPhone -->
+				<div id="getCategoryPhone" class="col-sm">
 
-        <!-- Main -->
-            <div id="main">
+					<header>
+						<h2>Get Books By Category and Borrower Phone (Category/Phone)</h2>
+					</header>
 
-                <!-- Intro -->
-                    <div id="top" class="container">
-                        
+					<p >You can find Borrowed Books with category and phone filter<br>
+						For get it, you need entering the following URL:<br>
+					<blockquote><a href="http://localhost:3000/getBooksByCategoryAndPhone/psychology/0587588846" target="_blank" >
+					<var>http://localhost:3000/getBooksByCategoryAndPhone/[CATEGORY]/[PHONE]</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <strong>/category/phone</strong></p>
+					<p>Example of 'category' can be 'psychology'<br>
+					Example of 'phone' can be '0587588846'</p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="includes/getCategoryPhone.png">
 
-                            <header>
-                                <h2 class="alt"><strong>Borrowed Books | API Documentation</strong></h2>
-                                <p class="left">The Borrowed Books API allows directly interaction
-									with the borrowing books platform, and get details about Borrowed Books.<br> 
-									<strong>Some typical use cases include:</strong><br>
-									<blockquote>
-										Get all Borrowed Books<br>
-										Get books by category<br>
-										Get books from search category & phone<br>
-									</blockquote>
-                                </p>
-								<p class="left">The requests should be in GET / POST Method.<br>
-                                The result will return in JSON Object.<br>
-                                If your URL request is wrong you will will recieve Error JSON Object.
-                                </p>
-                            </header>
+				</div>
+			</div>
+			<!-- errors -->
 
-                            <footer>
-                                <a href="https://github.com/yshur/borrowed_books.git" target="_blank" class="button">View Borrowed Books Code on Github</a> 
-                            </footer>
+			<div id="errors" class="container">
 
-                    </div>
-                    
+				<header>
+					<h2>Possible Errors</h2>
+				</header>
 
-                <!-- getAllBooks -->
-                    
-					<div id="getAllBooks" class="container">
-
-						<header>
-							<h2>Get All Borrowed Books</h2>
-						</header>
-
-						<p class="left">You can find all Borrowed Books, by entering the following URL:</p>
-						<blockquote><a href= "http://localhost:3000/getAllBooks" target="_blank" > http://localhost:3000/getAllBooks</a>
-						<p><u>Method:</u> <strong>GET</strong></p>
-						</blockquote>
-						<p class="left">Example of result in JSON Object:</p>
-						<img src="includes/getAllBooks.png">
+				<p>There are 3 types of error:<br>
+				<ol class="row">
+					<li id="errorUrl" class="col-sm">
+					<h4>URL error</h4>
 						
-
-					</div>
-                    
-
-                <!-- getByCategory -->
-                        <div id="getByCategory" class="container">
-
-                            <header>
-                                <h2>Get Books By category</h2>
-                            </header>
-
-                            <p class="left">You can find Borrowed Books by their category.<br>
-								You need sending parameter 'category' to the following URL:</p>
-                            <blockquote><a href="http://localhost:3000/getBooksByCategory" target="_blank" >http://localhost:3000/getBooksByCategory</a>
-							
-							<p><u>Method:</u> <strong>POST</strong></p>
-							<p><u>Parameter name:</u> <strong>category</strong></p>
-							</blockquote>
-                            <p class="left">Example of result in JSON Object:</p>
-                            <img src="includes/getByCategory.png">
-
-                        </div>
-
-
-                <!-- getCategoryPhone -->
-
-                        <div id="getCategoryPhone" class="container">
-
-                            <header>
-                                <h2>Get Books By Category and Borrower Phone (Category/Phone)</h2>
-                            </header>
-
-                            <p class="left">You can find Borrowed Books with category and phone filter<br>
-								For get it, you need entering the following URL:</p>
-                            <blockquote><a href="http://localhost:3000/getBooksByCategoryAndPhone/psychology/0587588846" target="_blank" >
-							http://localhost:3000/getBooksByCategoryAndPhone/[CATEGORY, like 'psychology']/[PHONE, like '0587588846']</a><br>
-							<p><u>Method:</u> <strong>POST</strong></p>
-							<p><u>Parameters name:</u> <strong>/category/phone</strong></p>
-							</blockquote>
-                            <p class="left">Example of result in JSON Object:</p>
-                            <img src="includes/getCategoryPhone.png">
-
-                        </div>
-                <!-- errors -->
-
-                        <div id="errors" class="container">
-
-                            <header>
-                                <h2>Possible Errors</h2>
-                            </header>
-
-                            <p class="left">There are 3 types of error:<br>
-							<ol>
-								<li>
-									<blockquote>
-										<p>If you enter URL that no specified in the API, <br>
-										you will recieve general error object.<br>
-										The error object includes the deatails of legitimate API</p>
-										<p>Example of error in JSON Object:</p>
-										<img src="includes/errorUrl.png">
-									</blockquote>
-								</li>
-								<li>
-									<blockquote>
-										<p>If you enter parameters that dont match to any documents in my DB,<br>
-										you should recieve an empty array</p>
-										<p>Example of empty array in Query:</p>
-										<img src="includes/emptyResult.png">
-									</blockquote>
-								</li>
-								<li>
-									<blockquote>
-										<p>If my server have an error with connection to my DB,<br>
-										you should recieve an error object that describes the error</p>
-										<p>Example of error in JSON Object:</p>
-										<img src="includes/errorMlab.png">
-									</blockquote>
-								</li>
-							
-							</ol>
-
-                        </div>                  
-
-            </div>
+							<p>If you enter URL that no specified in the API, <br>
+							you will recieve general error object.<br>
+							The error object includes the deatails of legitimate API</p>
+							<p>Example of error in JSON Object:</p>
+							<img src="includes/errorUrl.png">
+						
+					</li>
+					<li id="emptyResult" class="col-sm">
+						<h4>Empty Result</h4>
+						
+							<p>If you enter parameters that dont match to any documents in my DB,<br>
+							you should recieve an empty array</p>
+							<p>Example of empty array in Query:</p>
+							<img src="includes/emptyResult.png">
+					
+					</li>
+					<li id="errorMlab" class="col-sm">
+						<h4>connection error to mlab</h4>
+							<p>If my server have an error with connection to my DB,<br>
+							you should recieve an error object that describes the error</p>
+							<p>Example of error in JSON Object:</p>
+							<img src="includes/errorMlab.png">
+						
+					</li>
+				
+				</ol>
+			
+			</div>                  
+					
+        </div>
 
         <!-- Scripts -->
-
 
     </body>
 </html>
