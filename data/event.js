@@ -22,16 +22,22 @@ var mongoose = require('mongoose'),
                 type: String, 
                 enum: ['new', 'admin', 'active', 'delete' ] 
             },
-            user-equipments:[{
-                equipment-id: String,
+            userEquipments:[{
+                equipmentId: {
+                    type: Schema.Types.ObjectId,
+                    ref:'equipment'
+                },
                 quantity: Number
             }]
         }],
         category: [String],
-        required-equipment:[{
-            equipment-id: String,
-            max-quantity: Number,
-            min-quantity: Number,
+        requiredEquipment:[{
+            equipmentId: {
+                type: Schema.Types.ObjectId,
+                ref:'equipment'
+            },
+            maxQuantity: Number,
+            minQuantity: Number,
         }]    
     });
 

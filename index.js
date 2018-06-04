@@ -27,29 +27,29 @@ app.get('/', (req,res) => {
 	res.status(200).sendFile(`${__dirname}/index.html`);
 });
 
-app.get('/getAllBooks', data.getAllBooks);
-app.post('/getBooksByCategory/', data.getBooksByCategory);
-app.get('/getBooksByCategoryAndPhone/:category/:phone', data.getBooksByCategoryAndPhone);
+app.get('/getAllUsers', data.getAllUsers);
+app.post('/createUser/', data.createUser);
+app.post('/getUser/', data.getUser);
+
+app.get('/getAllCategories', data.getAllUsers);
+app.post('/createCategory/', data.createUser);
+
+app.post('/createChat/', data.createChat);
+app.post('/getChat/', data.getChat);
+
+app.get('/getAllEquipments', data.getAllEquipments);
+app.get('/getEquipmentsByCategory/:category', data.getEquipmentsByCategory);
+app.post('/createEquipment/', data.createEquipment);
+
+app.get('/getAllEvents', data.getAllEvents);
+app.get('/getEvent/:event', data.getEvent);
+app.post('/createEvent/', data.createEvent);
 
 app.all('*', function(req, res) {
-  var error = {"error":"url not found",
-  				"help": {
-  					"url1": {
-  						"url": "/getAllBooks",
-  						"method": "get",
-  						"params": "none"
-  					},
-  					"url2": {
-  						"url": "/getBooksByCategory",
-  						"method": "post",
-  						"params":"category"
-  					},
-  					"url3": {
-  						"url": "/getBooksByCategoryAndPhone/:category/:phone",
-  						"method": "get",
-  						"params": "category & phone on the url"
-  					}
-  				}};
+  var error = {
+    "error":"url not found",
+  	"help": "TBD"
+  };
   res.status(200).json(error);
 });
 

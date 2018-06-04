@@ -2,7 +2,11 @@
 // var data = require('./data.json');
 var mongoose = require('mongoose'),
     consts = require('./consts'),
-    Book = require('./book'),
+    User = require('./user'),
+    Chat = require('./chat'),
+    Event = require('./event'),
+    Category = require('./category'),
+    Equipment = require('./equipment'),
     options = {
         server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
