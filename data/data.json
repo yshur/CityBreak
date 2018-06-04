@@ -1,100 +1,71 @@
-[ 
-	{
-        "book_name": "The End of History and the Last Man",
-		"author": "Francis Fukuyama",
-		"categories": [
-			"democracy", "liberalism", "capitalism", "communism", "politics", "japan"
-		],
-		"borrow_date": "15/05/2018",
-		"return_date": "15/06/2018",
-		"borrower": {
-			"name": "Yair Cohen",
-			"email": "yair.cohen@hotmail.com",
-			"phone": "0545858658"
-		}
-    },
-	{
-        "book_name": "The Magic Mountain",
-		"author": "Thomas Mann",
-		"categories": [
-			"novels", "fin de siècle", "philosophy", "german"
-		],
-		"borrow_date": "26/04/2018",
-		"return_date": "26/06/2018",
-		"borrower": {
-			"name": "David Cohen",
-			"email": "david.cohen@hotmail.com",
-			"phone": "0547788658"
-		}
-    },	
-	{
-        "book_name": "The Prince",
-		"author": "Niccolò Machiavelli",
-		"categories": [
-			"democracy", "politics", "philosophy", "italian"
-		],
-		"borrow_date": "25/03/2018",
-		"return_date": "25/06/2018",
-		"borrower": {
-			"name": "Sharon Dahan",
-			"email": "sharon.dahan@hotmail.com",
-			"phone": "0536895623"
-		}
-    },	
+// users collection 
+
+[
     {
-        "book_name": "The Idiot",
-		"author": "Fyodor Dostoevsky",
-		"categories": [
-			"russia", "psychology", "crime", "philosophy", "politics"
-		],
-		"borrow_date": "14/04/2018",
-		"return_date": "14/06/2018",
-		"borrower": {
-			"name": "Sarah Feldman",
-			"email": "sara.feldman@hotmail.com",
-			"phone": "0529653377"
-		}
-    },	
-	{
-        "book_name": "David Copperfield",
-		"author": "Charles Dickens",
-		"categories": [
-			"english", "novels", "social", "comedy"
-		],
-		"borrow_date": "15/03/2018",
-		"return_date": "15/06/2018",
-		"borrower": {
-			"name": "Lior Yarchi",
-			"email": "lior.yarchi@hotmail.com",
-			"phone": "0503336253"
-		}
-    },	
-	{
-        "book_name": "Mr. Mani",
-		"author": "A. B. Yehoshua",
-		"categories": [
-			"israel", "zionizm", "psychology", "history", "politics"
-		],
-		"borrow_date": "30/04/2018",
-		"return_date": "30/07/2018",
-		"borrower": {
-			"name": "Liron Ezra",
-			"email": "liron.ezra@hotmail.com",
-			"phone": "0587588846"
-		}
-    },	
-	{
-        "book_name": "If This Is a Man",
-		"author": "Primo Levi",
-		"categories": [
-			"italian", "documentary", "holocaust", "history", "biography"
-		],
-		"borrow_date": "08/05/2018",
-		"return_date": "08/08/2018",
-		"borrower": {
-			"name": "Avi Lis",
-			"email": "avi.lis@hotmail.com",
-			"phone": "0589563322"
-		}
-    }	
+        "full-name": "roi shmueli",
+        "phone": "0528803825",
+        "email": "roishmueli1@gmail.com",
+        "password" : "1234",
+        "image" : "url"           
+    }
+]
+
+// equipments collection
+
+
+[
+    {
+        "name": "water",
+        "category": [
+            "all",
+            "food",
+            "trip"
+        ]
+    }
+]
+
+// events collection
+
+[
+    {
+        "name": "barbecue",
+        "decription": "celebrating birthday",
+        "time": "2018-05-12 04:04:03",
+        "creator": "user id",
+        "place": "tel aviv",
+        "participants":[{
+            "user-id": "user id",
+            "status": "admin",
+            "user-equipments":[{
+                "equipment-id":"equipment-id"
+                "quantity":"0"
+            }]
+        }],
+        "category": [
+            "food",
+            "music",
+            "play"
+        ],
+        "required-equipment":[{
+            "equipment-id":"equipment-id",
+            "max-quantity":"0",
+            "min-quantity":"0",
+        }]
+    }
+]
+
+// chats collection
+
+
+[
+    {
+        "eventid": "eventid",
+        "messages": [
+            {
+                "user-id": "user-id",
+                "time": "time",
+                "text": "text"
+            }
+        ]
+    }
 ]

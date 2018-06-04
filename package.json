@@ -1,16 +1,19 @@
 {
-  "name": "borrowed_books",
+  "name": "eventbreak",
   "version": "1.0.0",
-  "description": "",
+  "description": "TBD",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Yair Shur",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yshur/eventbreak.git"
+  },
+  "author": "yshur  & rshmueli",
   "license": "ISC",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "express": "^4.16.3",
-    "mongoose": "^5.1.2"
-  }
+  "bugs": {
+    "url": "https://github.com/yshur/eventbreak/issues"
+  },
+  "homepage": "https://github.com/yshur/eventbreak#readme"
 }
