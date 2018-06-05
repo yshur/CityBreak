@@ -8,23 +8,24 @@ var mongoose = require('mongoose'),
         },
         decription: String,
         time: Date,
+        timeCreated: { type: Date, default: Date.now },
         creator: {
-            type: Schema.Types.ObjectId,
-            ref:'user'
-        },
+                    type: mongoose.Schema.ObjectId,
+                    ref: 'user'
+                },
         place: String,
         participants:[{
             user: {
-                type: Schema.Types.ObjectId,
-                ref:'user'
-            },
+                    type: mongoose.Schema.ObjectId,
+                    ref: 'user'
+                },
             status: { 
                 type: String, 
                 enum: ['new', 'admin', 'active', 'delete' ] 
             },
             userEquipments:[{
                 equipmentId: {
-                    type: Schema.Types.ObjectId,
+                    type: mongoose.Schema.ObjectId,
                     ref:'equipment'
                 },
                 quantity: Number
@@ -33,7 +34,7 @@ var mongoose = require('mongoose'),
         category: [String],
         requiredEquipment:[{
             equipmentId: {
-                type: Schema.Types.ObjectId,
+                type: mongoose.Schema.ObjectId,
                 ref:'equipment'
             },
             maxQuantity: Number,

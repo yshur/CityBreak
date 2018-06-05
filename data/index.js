@@ -12,6 +12,23 @@ var mongoose = require('mongoose'),
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
     };
 
+exports.getAllUsers = (req, res) => {};
+exports.createUser = (req, res) => {};
+exports.getUser = (req, res) => {};
+exports.getAllUsers = (req, res) => {};
+exports.createUser = (req, res) => {};
+
+exports.createChat = (req, res) => {};
+exports.getChat = (req, res) => {};
+
+exports.getAllEquipments = (req, res) => {};
+exports.getEquipmentsByCategory = (req, res) => {};
+exports.createEquipment = (req, res) => {};
+
+exports.getAllEvents = (req, res) => {};
+exports.getEvent = (req, res) => {};
+exports.createEvent = (req, res) => {};
+
 exports.getAllBooks = (req, res) => {
     console.log('getAllBooks');
     // return data;
