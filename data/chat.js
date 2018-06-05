@@ -3,16 +3,16 @@ var mongoose = require('mongoose'),
     user = require('./user'),    
     chatSchema = new mongoose.Schema({
         event: {
-          type: Schema.Types.ObjectId,
+          type: mongoose.Schema.ObjectId,
           ref:'event'
        },
         messages: [
             {
                 user: {
-                  type: Schema.Types.ObjectId,
+                  type: mongoose.Schema.ObjectId,
                   ref:'user'
                 },
-                time: Date,
+                time: { type: Date, default: Date.now },
                 text: String
             }
         ]     
