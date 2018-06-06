@@ -12,37 +12,20 @@ var mongoose = require('mongoose'),
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
     };
 
-exports.getAllUsers = (req, res) => {};
-exports.createUser = (req, res) => {};
-exports.getUser = (req, res) => {};
-exports.getAllUsers = (req, res) => {};
-exports.createUser = (req, res) => {};
-
-exports.createChat = (req, res) => {};
-exports.getChat = (req, res) => {};
-
-exports.getAllEquipments = (req, res) => {};
-exports.getEquipmentsByCategory = (req, res) => {};
-exports.createEquipment = (req, res) => {};
-
-exports.getAllEvents = (req, res) => {};
-exports.getEvent = (req, res) => {};
-exports.createEvent = (req, res) => {};
-
-exports.getAllBooks = (req, res) => {
-    console.log('getAllBooks');
+exports.getAllUsers = (req, res) => {
+    console.log('getAllUsers');
     // return data;
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-            Book.find( {},
-                (err, book) => {
+            User.find( {},
+                (err, user) => {
                     if (err) {
                         console.log(`err: ${err}`);
                         res.status(200).json(`{ err : ${err}`);
                     }
-                    console.log(book);
-                    res.status(200).json(book);
+                    console.log(user);
+                    res.status(200).json(user);
                    // mongoose.disconnect();
                 }
             )
@@ -53,6 +36,89 @@ exports.getAllBooks = (req, res) => {
         }
     );   
 };
+exports.createUser = (req, res) => {};
+exports.getUser = (req, res) => {};
+
+exports.createChat = (req, res) => {};
+exports.getChat = (req, res) => {};
+
+exports.getAllEquipments = (req, res) => {
+    console.log('getAllEquipments');
+    // return data;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            Equipment.find( {},
+                (err, equipment) => {
+                    if (err) {
+                        console.log(`err: ${err}`);
+                        res.status(200).json(`{ err : ${err}`);
+                    }
+                    console.log(equipment);
+                    res.status(200).json(equipment);
+                   // mongoose.disconnect();
+                }
+            )
+        }, 
+        err => {
+            console.log(`connection error: ${err}`);
+            res.status(200).json(`{ connection error : ${err}`); 
+        }
+    );   
+};
+exports.getEquipmentsByCategory = (req, res) => {
+    var category = req.params.category;
+    console.log('getEquipmentsByCategory');
+    console.log(`get: category = ${req.params.category}`);
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            Equipment.find( { categories: { $in: [category] } },
+                (err, equipment) => {
+                    if (err) {
+                        console.log(`err: ${err}`);
+                        res.status(200).json(`{ err : ${err}`);
+                    }
+                    console.log(equipment);
+                    res.status(200).json(equipment);
+                   // mongoose.disconnect();
+                }
+            )
+        }, 
+        err => {
+            console.log(`connection error: ${err}`);
+            res.status(200).json(`{ connection error : ${err}`); 
+        }
+    ); 
+};
+exports.createEquipment = (req, res) => {};
+
+exports.getAllEvents = (req, res) => {
+    console.log('getAllEvents');
+    // return data;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            Event.find( {},
+                (err, event) => {
+                    if (err) {
+                        console.log(`err: ${err}`);
+                        res.status(200).json(`{ err : ${err}`);
+                    }
+                    console.log(event);
+                    res.status(200).json(event);
+                   // mongoose.disconnect();
+                }
+            )
+        }, 
+        err => {
+            console.log(`connection error: ${err}`);
+            res.status(200).json(`{ connection error : ${err}`); 
+        }
+    );   
+};
+exports.getEvent = (req, res) => {};
+exports.createEvent = (req, res) => {};
 
 exports.getBooksByCategory = (req, res) => {
     var category = req.body.category;
@@ -78,19 +144,6 @@ exports.getBooksByCategory = (req, res) => {
             res.status(200).json(`{ connection error : ${err}`); 
         }
     ); 
-    // var foundItems = [];
-    // for(let i in data) {
-    //     if(data[i].categories.includes(category) == true) {
-    //         // console.log(data[i].name);
-    //         foundItems.push(data[i]);
-    //     }
-    // }
-
-    // if(foundItems.length == 0) {
-    //     foundItems.push({"err":"book not found"});
-    // } 
-    // console.log(`${foundItems}`);    
-    // return foundItems;
 };
 
 exports.getBooksByBorrowerPhone = (req,res) => {
@@ -117,19 +170,7 @@ exports.getBooksByBorrowerPhone = (req,res) => {
             res.status(200).json(`{ connection error : ${err}`); 
         }
     ); 
-    // var foundItems = [];
-    // for(let i in data) {
-    //     if(data[i].borrower.phone == phone) {
-    //         // console.log(data[i].name);
-    //         foundItems.push(data[i]);
-    //     }
-    // }
-
-    // if(foundItems.length == 0) {
-    //     foundItems.push({"err":"book not found"});
-    // } 
-    // console.log(`${foundItems}`);    
-    // return foundItems;
+   
 };
 
 exports.getBooksByCategoryAndPhone = (req,res) => {
@@ -157,28 +198,4 @@ exports.getBooksByCategoryAndPhone = (req,res) => {
             res.status(200).json(`{ connection error : ${err}`); 
         }
     );    
-    // getCategoryPhone(res, category, phone);
-    // next();
-};
-
-getCategoryPhone = (res, category, phone) => {
-    console.log('getCategoryPhone');
-    console.log(`category = ${category}, phone = ${phone}`);
-
-
-    
-
-    // var foundItems = [];
-    // for(let i in data) {
-    //     if((data[i].borrower.phone == phone) && (data[i].categories.includes(category) == true)) {
-    //         // console.log(data[i].name);
-    //         foundItems.push(data[i]);
-    //     }
-    // }
-
-    // if(foundItems.length == 0) {
-    //     foundItems.push({"err":"book not found"});
-    // } 
-    // console.log(`${foundItems}`);    
-    // return foundItems;
 };

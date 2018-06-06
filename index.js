@@ -28,7 +28,7 @@ app.get('/', (req,res) => {
 });
 
 app.get('/getAllUsers', data.getAllUsers);
-/*app.post('/createUser/', data.createUser);
+app.post('/createUser/', data.createUser);
 app.post('/getUser/', data.getUser);
 
 app.get('/getAllCategories', data.getAllUsers);
@@ -44,7 +44,7 @@ app.post('/createEquipment/', data.createEquipment);
 app.get('/getAllEvents', data.getAllEvents);
 app.get('/getEvent/:event', data.getEvent);
 app.post('/createEvent/', data.createEvent);
-*/
+
 app.all('*', function(req, res) {
   var error = {
     "error":"url not found",
