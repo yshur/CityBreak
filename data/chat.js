@@ -1,21 +1,14 @@
+'use strice';//JS engine use strict parsing
+// var data = require('./data.json');
 var mongoose = require('mongoose'),
-    event = require('./event'),
-    user = require('./user'),    
-    chatSchema = new mongoose.Schema({
-        event: {
-          type: mongoose.Schema.ObjectId,
-          ref:'event'
-       },
-        messages: [
-            {
-                user: {
-                  type: mongoose.Schema.ObjectId,
-                  ref:'user'
-                },
-                time: { type: Date, default: Date.now },
-                text: String
-            }
-        ]     
-    });
+    consts = require('./consts'),
+    User = require('./schemas/user'),
+    Chat = require('./schemas/chat'),
+    Event = require('./schemas/event'),
+    options = {
+        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+    };
 
-module.exports = mongoose.model('Chat', chatSchema);
+exports.createChat = (req, res) => {};
+exports.getChat = (req, res) => {};

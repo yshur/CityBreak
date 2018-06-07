@@ -1,9 +1,12 @@
-var mongoose = require('mongoose'),
-    categorySchema = new mongoose.Schema({
-        name: {
-            type:String,
-            index:1
-        },
-    });
+'use strice';//JS engine use strict parsing
 
-module.exports = mongoose.model('Category', categorySchema);
+var mongoose = require('mongoose'),
+    consts = require('./consts'),
+    Category = require('./schemas/category'),
+    options = {
+        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+    };
+
+exports.getAllCategories = (req, res) => {};
+exports.createCategory = (req, res) => {};

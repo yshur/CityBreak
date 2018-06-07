@@ -2,7 +2,11 @@ const express = require ('express'),
 	bodyParser = require('body-parser'),
 	app = express(),
 	port = process.env.PORT || 3000,
-	data = require('./data');
+	user = require('./data/user'),
+    event = require('./data/event'),
+    chat = require('./data/chat'),
+    category = require('./data/category'),
+    equipment = require('./data/equipment');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -27,23 +31,23 @@ app.get('/', (req,res) => {
 	res.status(200).sendFile(`${__dirname}/index.html`);
 });
 
-app.get('/getAllUsers', data.getAllUsers);
-app.post('/createUser/', data.createUser);
-app.post('/getUser/', data.getUser);
+app.get('/getAllUsers', user.getAllUsers);
+app.post('/createUser/', user.createUser);
+app.post('/getUser/', user.getUser);
 
-app.get('/getAllCategories', data.getAllUsers);
-app.post('/createCategory/', data.createUser);
+app.get('/getAllCategories', category.getAllCategories);
+app.post('/createCategory', category.createCategory);
 
-app.post('/createChat/', data.createChat);
-app.post('/getChat/', data.getChat);
+app.post('/createChat/', chat.createChat);
+app.post('/getChat/', chat.getChat);
 
-app.get('/getAllEquipments', data.getAllEquipments);
-app.get('/getEquipmentsByCategory/:category', data.getEquipmentsByCategory);
-app.post('/createEquipment/', data.createEquipment);
+app.get('/getAllEquipments', equipment.getAllEquipments);
+app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
+app.post('/createEquipment/', equipment.createEquipment);
 
-app.get('/getAllEvents', data.getAllEvents);
-app.get('/getEvent/:event', data.getEvent);
-app.post('/createEvent/', data.createEvent);
+app.get('/getAllEvents', event.getAllEvents);
+app.get('/getEvent/:event', event.getEvent);
+app.post('/createEvent/', event.createEvent);
 
 app.all('*', function(req, res) {
   var error = {
