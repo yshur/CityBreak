@@ -2,148 +2,17 @@
 // var data = require('./data.json');
 var mongoose = require('mongoose'),
     consts = require('./consts'),
-    User = require('./user'),
-    Chat = require('./chat'),
-    Event = require('./event'),
-    Category = require('./category'),
-    Equipment = require('./equipment'),
+    User = require('./schemas/user'),
+    Chat = require('./schemas/chat'),
+    Event = require('./schemas/event'),
+    Category = require('./schemas/category'),
+    Equipment = require('./schemas/equipment'),
     options = {
         server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
     };
 
-exports.getAllUsers = (req, res) => {
-    console.log('getAllUsers');
-    // return data;
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            User.find( {},
-                (err, user) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(user);
-                    res.status(200).json(user);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
-        }
-    );   
-};
-exports.createUser = (req, res) => {
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            var newUser = new User({
-                full_name: "Yair Shur",
-                phone: "0522909908",
-                email: "yairShur@gmail.com",
-                password: "yyyyy",
-                image: "url"
-            });
-            newUser.save(
-                (err) => {
-                    if(err)
-                        console.log(`err: ${err}`);
-                    else {
-                        console.log(`Saved document: ${JSON.stringfiy(newUser)}`);
-                        mongoose.disconnect();
-                    }
-                });
-        },
-        err =>{
-            console.log(`connection error: ${err}`);
-        }
-    );
-};
-exports.getUser = (req, res) => {};
 
-exports.createChat = (req, res) => {};
-exports.getChat = (req, res) => {};
-
-exports.getAllEquipments = (req, res) => {
-    console.log('getAllEquipments');
-    // return data;
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            Equipment.find( {},
-                (err, equipment) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(equipment);
-                    res.status(200).json(equipment);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
-        }
-    );   
-};
-exports.getEquipmentsByCategory = (req, res) => {
-    var category = req.params.category;
-    console.log('getEquipmentsByCategory');
-    console.log(`get: category = ${req.params.category}`);
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            Equipment.find( { categories: { $in: [category] } },
-                (err, equipment) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(equipment);
-                    res.status(200).json(equipment);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
-        }
-    ); 
-};
-exports.createEquipment = (req, res) => {};
-
-exports.getAllEvents = (req, res) => {
-    console.log('getAllEvents');
-    // return data;
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            Event.find( {},
-                (err, event) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(event);
-                    res.status(200).json(event);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
-        }
-    );   
-};
-exports.getEvent = (req, res) => {};
-exports.createEvent = (req, res) => {};
 
 exports.getBooksByCategory = (req, res) => {
     var category = req.body.category;
