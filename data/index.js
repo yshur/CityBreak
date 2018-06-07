@@ -36,7 +36,32 @@ exports.getAllUsers = (req, res) => {
         }
     );   
 };
-exports.createUser = (req, res) => {};
+exports.createUser = (req, res) => {
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var newUser = new User({
+                full_name: "Yair Shur",
+                phone: "0522909908",
+                email: "yairShur@gmail.com",
+                password: "yyyyy",
+                image: "url"
+            });
+            newUser.save(
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        console.log(`Saved document: ${JSON.stringfiy(newUser)}`);
+                        mongoose.disconnect();
+                    }
+                });
+        },
+        err =>{
+            console.log(`connection error: ${err}`);
+        }
+    );
+};
 exports.getUser = (req, res) => {};
 
 exports.createChat = (req, res) => {};
