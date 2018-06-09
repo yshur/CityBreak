@@ -60,3 +60,4 @@ exports.createUser = (req, res) => {
     );
 };
 exports.getUser = (req, res) => {};
+exports.updateUser = (req, res) => {};

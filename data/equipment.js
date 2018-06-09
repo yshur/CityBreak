@@ -88,3 +88,4 @@ exports.createEquipment = (req, res) => {
     );
 };
 
+exports.updateEquipment = (req, res) => {};

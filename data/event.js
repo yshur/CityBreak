@@ -35,6 +35,7 @@ exports.getAllEvents = (req, res) => {
     );   
 };
 exports.getEvent = (req, res) => {};
+exports.updateEvent = (req, res) => {};
 
 exports.createEvent = (req, res) => {
     var name = req.body.name;
@@ -64,7 +65,7 @@ exports.createEvent = (req, res) => {
                 name: name,
                 decription: decription,
                 time: Date.now(),
-                //creator: ,
+                //creator: user_id, 
                 place: place,
                 participants: [{
                     user_id,

@@ -34,9 +34,11 @@ app.get('/', (req,res) => {
 app.get('/getAllUsers', user.getAllUsers);
 app.post('/createUser/', user.createUser);
 app.post('/getUser/', user.getUser);
+app.post('/updateUser/', user.updateUser);
 
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
+app.post('/updateCategory', category.updateCategory);
 
 app.post('/createChat/', chat.createChat);
 app.post('/getChat/', chat.getChat);
@@ -44,10 +46,12 @@ app.post('/getChat/', chat.getChat);
 app.get('/getAllEquipments', equipment.getAllEquipments);
 app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
 app.post('/createEquipment/', equipment.createEquipment);
+app.post('/updateEquipment/', equipment.updateEquipment);
 
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:event', event.getEvent);
 app.post('/createEvent/', event.createEvent);
+app.post('/updateEvent/', event.updateEvent);
 
 app.all('*', function(req, res) {
   var error = {
