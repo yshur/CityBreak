@@ -78,6 +78,7 @@ exports.createEquipment = (req, res) => {
                         console.log(`err: ${err}`);
                     else {
                         res.status(200).json(newEquipment);
+                        console.log(`${category1}, ${category2}, ${category3} added successfully`)
                         //mongoose.disconnect();
                     }
                 });
@@ -88,4 +89,22 @@ exports.createEquipment = (req, res) => {
     );
 };
 
-exports.updateEquipment = (req, res) => {};
+exports.updateEquipment = (req, res) => {
+    var name = req.body.name;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var conditions = {name: 'knife'}
+            update = {'name': name},
+            //opts = {multi: true};
+            Equipment.update(conditions, update,
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        //console.log(`Updated document: ${Equipment}`);
+                    }
+                })
+
+    });
+};
