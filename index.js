@@ -32,9 +32,11 @@ app.get('/', (req,res) => {
 });
 
 app.get('/getAllUsers', user.getAllUsers);
+app.post('/deleteUserByName/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.post('/getUser/', user.getUser);
 app.post('/updateUser/', user.updateUser);
+
 
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
