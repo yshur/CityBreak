@@ -9,10 +9,10 @@ var mongoose = require('mongoose'),
         decription: String,
         time: Date,
         timeCreated: { type: Date, default: Date.now },
-        creator: {
+        creator: [{
                     type: mongoose.Schema.ObjectId,
                     ref: 'user'
-                },
+                }],
         place: String,
         participants:[{
             user: {

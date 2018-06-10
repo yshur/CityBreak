@@ -49,11 +49,19 @@ exports.createUser = (req, res) => {
     .then(
         () => {
             var newUser = new User({
+<<<<<<< HEAD
                 full_name: full_name,
                 phone: phone,
                 email: email,
                 password: password,
                 image: image
+=======
+                name: "Yair Shur",
+                phone: "0522909908",
+                email: "yairShur@gmail.com",
+                password: "yyyyy",
+                image: "url"
+>>>>>>> c31f27478350373c3fb749cc47c59b5dbc1a3d49
             });
             newUser.save(
                 (err) => {
@@ -71,6 +79,7 @@ exports.createUser = (req, res) => {
         }
     );
 };
+<<<<<<< HEAD
 exports.getUser = (req, res) => {
     var userid = req.params.userid;
     console.log('getUser');
@@ -95,4 +104,30 @@ exports.getUser = (req, res) => {
             res.status(200).json(`{ connection error : ${err}`); 
         }
     ); 
+=======
+exports.getUser = (req, res) => {};
+exports.updateUser = (req, res) => {};
+
+exports.deleteUserByName = (req, res) => {
+    var name = req.body.name;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var conditions = {name: name};
+
+            User.remove(conditions,
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        console.log(`Removed document`);
+                        User.findOne({name: name},
+                            (err) => {
+                                console.log(`Removed user ${name} `);
+                            });
+                    };
+                });
+        });
+
+>>>>>>> c31f27478350373c3fb749cc47c59b5dbc1a3d49
 };

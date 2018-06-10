@@ -32,11 +32,19 @@ app.get('/', (req,res) => {
 });
 
 app.get('/getAllUsers', user.getAllUsers);
+app.post('/deleteUserByName/', user.deleteUser);
 app.post('/createUser/', user.createUser);
+<<<<<<< HEAD
 app.get('/getUser/:userid', user.getUser);
+=======
+app.post('/getUser/', user.getUser);
+app.post('/updateUser/', user.updateUser);
+
+>>>>>>> c31f27478350373c3fb749cc47c59b5dbc1a3d49
 
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
+app.post('/updateCategory', category.updateCategory);
 
 app.post('/createChat/', chat.createChat);
 app.get('/getChat/:chatid', chat.getChat);
@@ -44,10 +52,12 @@ app.get('/getChat/:chatid', chat.getChat);
 app.get('/getAllEquipments', equipment.getAllEquipments);
 app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
 app.post('/createEquipment/', equipment.createEquipment);
+app.post('/updateEquipment/', equipment.updateEquipment);
 
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);
 app.post('/createEvent/', event.createEvent);
+app.post('/updateEvent/', event.updateEvent);
 
 app.all('*', function(req, res) {
   var error = {
