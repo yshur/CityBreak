@@ -58,32 +58,57 @@ exports.getEquipmentsByCategory = (req, res) => {
     ); 
 };
 exports.createEquipment = (req, res) => {
-    var ename = req.body.ename,
-        category = req.body.category;
-    console.log('createCategory');
-    console.log(`post: ename = ${req.body.ename},
+     var name = req.body.name;
+    var category = req.body.category;
+    var category1 = req.body.category1;
+    var category2 = req.body.category2;
+    var category3 = req.body.category3;
+  console.log('createCategory');
+    console.log(`post: name = ${req.body.name},
         category = ${req.body.category}`);
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
             var newEquipment = new Equipment({
-                name: ename,
-                category: [category]
+              name: name,
+                category: [
+                    category1, category2, category3
+                ]
             });
             newEquipment.save(
                 (err) => {
                     if(err)
                         console.log(`err: ${err}`);
                     else {
-                        console.log(`Saved document: ${newEquipment}`);
-                        res.status(200).json(newEquipment);
-                        mongoose.disconnect();
+                      res.status(200).json(newEquipment);
+                        console.log(`${category1}, ${category2}, ${category3} added successfully`)
+                        //mongoose.disconnect();
                     }
                 });
         },
         err =>{
             console.log(`connection error: ${err}`);
         }
-    );    
+
+  );
 };
 
+exports.updateEquipment = (req, res) => {
+    var name = req.body.name;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var conditions = {name: 'knife'}
+            update = {'name': name},
+            //opts = {multi: true};
+            Equipment.update(conditions, update,
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        //console.log(`Updated document: ${Equipment}`);
+                    }
+                })
+
+    });
+};

@@ -49,7 +49,7 @@ exports.createUser = (req, res) => {
     .then(
         () => {
             var newUser = new User({
-                full_name: full_name,
+              full_name: full_name,
                 phone: phone,
                 email: email,
                 password: password,
@@ -95,4 +95,28 @@ exports.getUser = (req, res) => {
             res.status(200).json(`{ connection error : ${err}`); 
         }
     ); 
+};
+
+exports.updateUser = (req, res) => {};
+
+exports.deleteUserByName = (req, res) => {
+    var name = req.body.name;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var conditions = {name: name};
+
+            User.remove(conditions,
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        console.log(`Removed document`);
+                        User.findOne({name: name},
+                            (err) => {
+                                console.log(`Removed user ${name} `);
+                            });
+                    };
+                });
+        });
 };

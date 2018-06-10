@@ -29,31 +29,34 @@ exports.getAllCategories = (req, res) => {
             console.log(`connection error: ${err}`);
             res.status(200).json(`{ connection error : ${err}`); 
         }
-    ); 
+        ); 
 };
-exports.createCategory = (req, res) => {
-    var cname = req.body.cname;
+
+  exports.createCategory = (req, res) => {
+    var name = req.body.name;
     console.log('createCategory');
-    console.log(`post: cname = ${req.body.cname}`);
-    mongoose.connect(consts.MLAB_KEY)
+    console.log(`post: name = ${req.body.name}`);
+  mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
             var newCategory = new Category({
-                name: cname
+              name: name
             });
             newCategory.save(
                 (err) => {
                     if(err)
                         console.log(`err: ${err}`);
                     else {
-                        console.log(`Saved document: ${newCategory}`);
-                        res.status(200).json(newCategory);
-                        mongoose.disconnect();
+                      res.status(200).json(newCategory);
+                        console.log(`Category ${name} added successfully`);
+                        //mongoose.disconnect();
                     }
                 });
         },
         err =>{
             console.log(`connection error: ${err}`);
         }
-    );    
+    );
 };
+
+exports.updateCategory = (req, res) => {};
