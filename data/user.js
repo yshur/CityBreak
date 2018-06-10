@@ -38,7 +38,7 @@ exports.createUser = (req, res) => {
     .then(
         () => {
             var newUser = new User({
-                full_name: "Yair Shur",
+                name: "Yair Shur",
                 phone: "0522909908",
                 email: "yairShur@gmail.com",
                 password: "yyyyy",
@@ -61,3 +61,26 @@ exports.createUser = (req, res) => {
 };
 exports.getUser = (req, res) => {};
 exports.updateUser = (req, res) => {};
+
+exports.deleteUserByName = (req, res) => {
+    var name = req.body.name;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var conditions = {name: name};
+
+            User.remove(conditions,
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        console.log(`Removed document`);
+                        User.findOne({name: name},
+                            (err) => {
+                                console.log(`Removed user ${name} `);
+                            });
+                    };
+                });
+        });
+
+};
