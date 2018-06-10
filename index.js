@@ -33,20 +33,20 @@ app.get('/', (req,res) => {
 
 app.get('/getAllUsers', user.getAllUsers);
 app.post('/createUser/', user.createUser);
-app.post('/getUser/', user.getUser);
+app.get('/getUser/:userid', user.getUser);
 
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
 
 app.post('/createChat/', chat.createChat);
-app.post('/getChat/', chat.getChat);
+app.get('/getChat/:chatid', chat.getChat);
 
 app.get('/getAllEquipments', equipment.getAllEquipments);
 app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
 app.post('/createEquipment/', equipment.createEquipment);
 
 app.get('/getAllEvents', event.getAllEvents);
-app.get('/getEvent/:event', event.getEvent);
+app.get('/getEvent/:eventid', event.getEvent);
 app.post('/createEvent/', event.createEvent);
 
 app.all('*', function(req, res) {

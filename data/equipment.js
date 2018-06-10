@@ -57,5 +57,33 @@ exports.getEquipmentsByCategory = (req, res) => {
         }
     ); 
 };
-exports.createEquipment = (req, res) => {};
+exports.createEquipment = (req, res) => {
+    var ename = req.body.ename,
+        category = req.body.category;
+    console.log('createCategory');
+    console.log(`post: ename = ${req.body.ename},
+        category = ${req.body.category}`);
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var newEquipment = new Equipment({
+                name: ename,
+                category: [category]
+            });
+            newEquipment.save(
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        console.log(`Saved document: ${newEquipment}`);
+                        res.status(200).json(newEquipment);
+                        mongoose.disconnect();
+                    }
+                });
+        },
+        err =>{
+            console.log(`connection error: ${err}`);
+        }
+    );    
+};
 

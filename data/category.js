@@ -8,5 +8,52 @@ var mongoose = require('mongoose'),
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
     };
 
-exports.getAllCategories = (req, res) => {};
-exports.createCategory = (req, res) => {};
+exports.getAllCategories = (req, res) => {
+    console.log('getAllCategories');
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            Category.find( {},
+                (err, category) => {
+                    if (err) {
+                        console.log(`err: ${err}`);
+                        res.status(200).json(`{ err : ${err}`);
+                    }
+                    console.log(category);
+                    res.status(200).json(category);
+                   // mongoose.disconnect();
+                }
+            )
+        }, 
+        err => {
+            console.log(`connection error: ${err}`);
+            res.status(200).json(`{ connection error : ${err}`); 
+        }
+    ); 
+};
+exports.createCategory = (req, res) => {
+    var cname = req.body.cname;
+    console.log('createCategory');
+    console.log(`post: cname = ${req.body.cname}`);
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            var newCategory = new Category({
+                name: cname
+            });
+            newCategory.save(
+                (err) => {
+                    if(err)
+                        console.log(`err: ${err}`);
+                    else {
+                        console.log(`Saved document: ${newCategory}`);
+                        res.status(200).json(newCategory);
+                        mongoose.disconnect();
+                    }
+                });
+        },
+        err =>{
+            console.log(`connection error: ${err}`);
+        }
+    );    
+};
