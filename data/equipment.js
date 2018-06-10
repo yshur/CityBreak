@@ -58,16 +58,19 @@ exports.getEquipmentsByCategory = (req, res) => {
     ); 
 };
 exports.createEquipment = (req, res) => {
-    var name = req.body.name;
+     var name = req.body.name;
     var category = req.body.category;
     var category1 = req.body.category1;
     var category2 = req.body.category2;
     var category3 = req.body.category3;
+  console.log('createCategory');
+    console.log(`post: name = ${req.body.name},
+        category = ${req.body.category}`);
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
             var newEquipment = new Equipment({
-                name: name,
+              name: name,
                 category: [
                     category1, category2, category3
                 ]
@@ -77,7 +80,7 @@ exports.createEquipment = (req, res) => {
                     if(err)
                         console.log(`err: ${err}`);
                     else {
-                        res.status(200).json(newEquipment);
+                      res.status(200).json(newEquipment);
                         console.log(`${category1}, ${category2}, ${category3} added successfully`)
                         //mongoose.disconnect();
                     }
@@ -86,7 +89,8 @@ exports.createEquipment = (req, res) => {
         err =>{
             console.log(`connection error: ${err}`);
         }
-    );
+
+  );
 };
 
 exports.updateEquipment = (req, res) => {

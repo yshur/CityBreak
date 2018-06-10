@@ -10,7 +10,6 @@ var mongoose = require('mongoose'),
 
 exports.getAllCategories = (req, res) => {
     console.log('getAllCategories');
-    // return data;
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
@@ -30,24 +29,25 @@ exports.getAllCategories = (req, res) => {
             console.log(`connection error: ${err}`);
             res.status(200).json(`{ connection error : ${err}`); 
         }
-    );   
+        ); 
 };
 
-exports.createCategory = (req, res) => {
+  exports.createCategory = (req, res) => {
     var name = req.body.name;
-    
-    mongoose.connect(consts.MLAB_KEY)
+    console.log('createCategory');
+    console.log(`post: name = ${req.body.name}`);
+  mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
             var newCategory = new Category({
-                name: name
+              name: name
             });
             newCategory.save(
                 (err) => {
                     if(err)
                         console.log(`err: ${err}`);
                     else {
-                        res.status(200).json(newCategory);
+                      res.status(200).json(newCategory);
                         console.log(`Category ${name} added successfully`);
                         //mongoose.disconnect();
                     }
