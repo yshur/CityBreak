@@ -94,15 +94,15 @@ exports.updateEquipment = (req, res) => {
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-            var conditions = {name: 'knife'}
+            var conditions = {name: 'waterrrr'}
             update = {'name': name},
-            //opts = {multi: true};
-            Equipment.update(conditions, update,
+            opts = {multi: true};
+            Equipment.update(conditions, update, opts,
                 (err) => {
                     if(err)
                         console.log(`err: ${err}`);
                     else {
-                        //console.log(`Updated document: ${Equipment}`);
+                        console.log(`Updated Equipment: ${name}`);
                     }
                 })
 
