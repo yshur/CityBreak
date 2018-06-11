@@ -32,7 +32,7 @@ app.get('/', (req,res) => {
 });
 
 app.get('/getAllUsers', user.getAllUsers);
-app.post('/deleteUserByName/', user.deleteUserByName);
+app.post('/deleteUserByName/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 
 app.get('/getUser/:userid', user.getUser);

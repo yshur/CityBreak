@@ -100,7 +100,7 @@ exports.getUser = (req, res) => {
 
 exports.updateUser = (req, res) => {};
 
-exports.deleteUserByName = (req, res) => {
+exports.deleteUser = (req, res) => {
     var name = req.body.name;
     mongoose.connect(consts.MLAB_KEY)
     .then(
