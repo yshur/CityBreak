@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
             index:1
         },
         phone: {
-            type:String
+            type:String,
+            unique : true
         },
         email: {
             type:String,
