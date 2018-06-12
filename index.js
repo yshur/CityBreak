@@ -40,7 +40,6 @@ app.post('/updateUser/:userid', user.updateUser);
 
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
-app.post('/updateCategory', category.updateCategory);
 
 app.post('/createChat/', chat.createChat);
 app.get('/getChat/:chatid', chat.getChat);
@@ -48,7 +47,7 @@ app.get('/getChat/:chatid', chat.getChat);
 app.get('/getAllEquipments', equipment.getAllEquipments);
 app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
 app.post('/createEquipment/', equipment.createEquipment);
-app.post('/updateEquipment/', equipment.updateEquipment);
+app.post('/updateEquipment/:equipmentid', equipment.updateEquipment);
 
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);
