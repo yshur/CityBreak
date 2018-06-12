@@ -58,14 +58,14 @@ exports.getEquipmentsByCategory = (req, res) => {
     ); 
 };
 exports.createEquipment = (req, res) => {
-     var name = req.body.name;
+    var name = req.body.name;
     var category = req.body.category;
     var category1 = req.body.category1;
     var category2 = req.body.category2;
     var category3 = req.body.category3;
-   console.log('createCategory');
+    console.log('createCategory');
     console.log(`post: ename = ${req.body.ename},
-        category = ${req.body.category}`);
+                category = ${req.body.category}`);
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
@@ -92,22 +92,26 @@ exports.createEquipment = (req, res) => {
     );    
 };
 
-exports.updateEquipment = (req, res) => {
-    var name = req.body.name;
+exports.updateEquipment = (req, res) => {}
+/*    var equipmentid = req.params.equipmentid;
+    var category = req.body.category;
+    var category1 = req.body.category1;
+    var category2 = req.body.category2;
+    var category3 = req.body.category3;
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-            var conditions = {name: 'waterrrr'}
-            update = {'name': name},
-            opts = {multi: true};
-            Equipment.update(conditions, update, opts,
-                (err) => {
-                    if(err)
-                        console.log(`err: ${err}`);
-                    else {
-                        console.log(`Updated Equipment: ${name}`);
-                    }
-                })
+                var conditions = {category: {$set :{category1: category1, category2: category2, category3: category3}}}//: category1}, category2: category[1], category3: category[2]}
+                opts = {multi: true};
+                Equipment.findByIdAndUpdate(equipmentid, conditions, opts,
+                    (err, equipment) => {
+                        if(err)
+                            console.log(`err: ${err}`);
+                        else {
+                            console.log(`Updated user: ${equipment}`)
+                            res.status(200).json(equipment);
+                        }
+                    })
+        });
 
-    });
-};
+}*/
