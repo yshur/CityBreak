@@ -62,7 +62,7 @@ exports.createUser = (req, res) => {
                     else {
                         console.log(`Saved document: ${newUser}`);
                         res.status(200).json(newUser);
-                        mongoose.disconnect();
+                        //mongoose.disconnect();
                     }
                 });
         },
@@ -79,7 +79,7 @@ exports.getUser = (req, res) => {
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-            User.findOne( { _id: { $eq: userid } },
+            User.findById(userid,
                 (err, user) => {
                     if (err) {
                         console.log(`err: ${err}`);
@@ -97,9 +97,7 @@ exports.getUser = (req, res) => {
         }
     ); 
 };
-
-exports.updateUser = (req, res) => {};
-
+exports.updateUser = (req, res) => {}
 exports.deleteUserByName = (req, res) => {
     var name = req.body.name;
     mongoose.connect(consts.MLAB_KEY)
