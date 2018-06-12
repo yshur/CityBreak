@@ -97,7 +97,30 @@ exports.getUser = (req, res) => {
         }
     ); 
 };
-exports.updateUser = (req, res) => {}
+exports.updateUser = (req, res) => {
+    var userid = req.params.userid;
+    var full_name = req.body.full_name;
+        phone = req.body.phone,
+        email = req.body.email,
+        password = req.body.password,
+        image = req.body.image;
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+                var conditions = {phone: phone, email:email, password:password, image:image}
+                opts = {multi: true};
+                User.findByIdAndUpdate(userid, conditions, opts,
+                    (err, user) => {
+                        if(err)
+                            console.log(`err: ${err}`);
+                        else {
+                            console.log(`Updated user: ${user}`)
+                            res.status(200).json(user);
+                        }
+                    })
+        });
+
+}
 exports.deleteUserByName = (req, res) => {
     var name = req.body.name;
     mongoose.connect(consts.MLAB_KEY)
