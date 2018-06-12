@@ -122,11 +122,11 @@ exports.updateUser = (req, res) => {
 
 }
 exports.deleteUserByName = (req, res) => {
-    var name = req.body.name;
+    var full_name = req.body.full_name;
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-            var conditions = {name: name};
+            var conditions = {full_name: full_name};
 
             User.remove(conditions,
                 (err) => {
@@ -134,9 +134,10 @@ exports.deleteUserByName = (req, res) => {
                         console.log(`err: ${err}`);
                     else {
                         console.log(`Removed document`);
-                        User.findOne({name: name},
+                        User.findOne({full_name: full_name},
                             (err) => {
-                                console.log(`Removed user ${name} `);
+                                console.log(`Removed user ${full_name} `);
+                                res.status(200).json(`Removed user ${full_name}`);
                             });
                     };
                 });
