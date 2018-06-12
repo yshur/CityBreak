@@ -60,5 +60,4 @@ exports.createCategory = (req, res) => {
 };
 
 
-exports.updateCategory = (req, res) => {};
 
