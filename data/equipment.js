@@ -39,7 +39,7 @@ exports.getEquipmentsByCategory = (req, res) => {
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-            Equipment.find( { categories: { $in: [category] } },
+            Equipment.find( { category: { $in: [category] } },
                 (err, equipment) => {
                     if (err) {
                         console.log(`err: ${err}`);
