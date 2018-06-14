@@ -5,6 +5,7 @@ const express = require ('express'),
 	user = require('./data/user'),
     event = require('./data/event'),
     category = require('./data/category');
+    require('./database');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -29,27 +30,27 @@ app.get('/', (req,res) => {
 	res.status(200).sendFile(`${__dirname}/index.html`);
 });
 
+/*---------------- User Routes ----------------*/
 app.get('/getAllUsers', user.getAllUsers);
 app.post('/deleteUserByName/', user.deleteUserByName);
 app.post('/createUser/', user.createUser);
-
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
 
+/*--------------- Category Routes ------------*/
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
-
-app.get('/getChat/:chatid', event.getChat);
-
 app.get('/getEquipmentsByCategory/:category', category.getEquipmentsByCategory);
-
 app.post('/addEquipmentToCategory/', category.addEquipmentToCategory);
 
+/*--------------- Event Routes ---------------*/
+app.get('/getChat/:chatid', event.getChat);
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);
 app.post('/createEvent/', event.createEvent);
 app.post('/updateEvent/', event.updateEvent);
 
+/*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
   var error = {
     "error":"url not found",
