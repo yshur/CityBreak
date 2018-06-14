@@ -93,7 +93,7 @@ exports.createEquipment = (req, res) => {
 };
 
 exports.updateEquipment = (req, res) => {}
-/*    var equipmentid = req.params.equipmentid;
+    /*var equipmentid = req.params.equipmentid;
     var category = req.body.category;
     var category1 = req.body.category1;
     var category2 = req.body.category2;
@@ -101,9 +101,10 @@ exports.updateEquipment = (req, res) => {}
     mongoose.connect(consts.MLAB_KEY)
     .then(
         () => {
-                var conditions = {category: {$set :{category1: category1, category2: category2, category3: category3}}}//: category1}, category2: category[1], category3: category[2]}
-                opts = {multi: true};
-                Equipment.findByIdAndUpdate(equipmentid, conditions, opts,
+                var conditions = {category: {$set :{category1: category1, 
+                                category2: category2, category3:category3}}}//: category1}, category2: category[1], category3: category[2]}
+                //opts = {multi: true};
+                Equipment.findByIdAndUpdate(equipmentid, conditions, 
                     (err, equipment) => {
                         if(err)
                             console.log(`err: ${err}`);
