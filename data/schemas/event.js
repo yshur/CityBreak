@@ -1,6 +1,5 @@
 var mongoose = require('mongoose'),
     user = require('./user'),
-    equipment = require('./equipment'),
     eventSchema = new mongoose.Schema({
         name: {
             type:String,
@@ -39,7 +38,17 @@ var mongoose = require('mongoose'),
             },
             maxQuantity: Number,
             minQuantity: Number,
-        }]    
+        }],
+        messages: [
+            {
+                user: {
+                  type: mongoose.Schema.ObjectId,
+                  ref:'user'
+                },
+                time: { type: Date, default: Date.now },
+                text: String
+            }
+        ]         
     });
 
 module.exports = mongoose.model('Event', eventSchema);

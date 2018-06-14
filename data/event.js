@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
     User = require('./schemas/user'),
     Event = require('./schemas/event'),
     Category = require('./schemas/category'),
-    Equipment = require('./schemas/equipment'),
     options = {
         server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
@@ -165,4 +164,31 @@ exports.createEvent = (req, res) => {
             console.log(`connection error: ${err}`);
         }
     );
+};
+
+
+exports.getChat = (req, res) => {
+    var chatid = req.params.chatid;
+    console.log('getChat');
+    console.log(`get: chatid = ${req.params.chatid}`);
+    mongoose.connect(consts.MLAB_KEY)
+    .then(
+        () => {
+            Event.findOne( { _id: { $eq: chatid } },
+                (err, chat) => {
+                    if (err) {
+                        console.log(`err: ${err}`);
+                        res.status(200).json(`{ err : ${err}`);
+                    }
+                    console.log(event);
+                    res.status(200).json(event);
+                   // mongoose.disconnect();
+                }
+            )
+        }, 
+        err => {
+            console.log(`connection error: ${err}`);
+            res.status(200).json(`{ connection error : ${err}`); 
+        }
+    ); 
 };

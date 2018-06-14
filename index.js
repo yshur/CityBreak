@@ -4,9 +4,7 @@ const express = require ('express'),
 	port = process.env.PORT || 3000,
 	user = require('./data/user'),
     event = require('./data/event'),
-    chat = require('./data/chat'),
-    category = require('./data/category'),
-    equipment = require('./data/equipment');
+    category = require('./data/category');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -41,13 +39,12 @@ app.post('/updateUser/', user.updateUser);
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
 
-app.post('/createChat/', chat.createChat);
-app.get('/getChat/:chatid', chat.getChat);
+app.get('/getChat/:chatid', event.getChat);
 
-app.get('/getAllEquipments', equipment.getAllEquipments);
-app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
-app.post('/createEquipment/', equipment.createEquipment);
-app.post('/addCategoryToEquipment/', equipment.addCategoryToEquipment);
+app.get('/getAllEquipments', category.getAllEquipments);
+app.get('/getEquipmentsByCategory/:category', category.getEquipmentsByCategory);
+app.post('/createEquipment/', category.createEquipment);
+app.post('/addCategoryToEquipment/', category.addCategoryToEquipment);
 
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);

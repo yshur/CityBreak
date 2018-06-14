@@ -1,13 +1,5 @@
 'use strice';//JS engine use strict parsing
 
-var mongoose = require('mongoose'),
-    consts = require('./consts'),
-    Equipment = require('./schemas/equipment'),
-    options = {
-        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
-    };
-
 exports.getAllEquipments = (req, res) => {
     console.log('getAllEquipments');
     // return data;

@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
             type:String,
             index:1
         },
+        equipments: [String]
     });
 
 module.exports = mongoose.model('Category', categorySchema);
