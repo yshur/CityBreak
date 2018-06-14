@@ -98,7 +98,7 @@ exports.getUser = (req, res) => {
     ); 
 };
 exports.updateUser = (req, res) => {
-    var userid = req.params.userid;
+    var userid = req.body.userid;
     var full_name = req.body.full_name;
         phone = req.body.phone,
         email = req.body.email,

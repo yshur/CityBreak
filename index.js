@@ -36,7 +36,7 @@ app.post('/deleteUserByName/', user.deleteUserByName);
 app.post('/createUser/', user.createUser);
 
 app.get('/getUser/:userid', user.getUser);
-app.post('/updateUser/:userid', user.updateUser);
+app.post('/updateUser/', user.updateUser);
 
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
