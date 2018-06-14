@@ -47,7 +47,7 @@ app.get('/getChat/:chatid', chat.getChat);
 app.get('/getAllEquipments', equipment.getAllEquipments);
 app.get('/getEquipmentsByCategory/:category', equipment.getEquipmentsByCategory);
 app.post('/createEquipment/', equipment.createEquipment);
-app.post('/updateEquipment/:equipmentid', equipment.updateEquipment);
+app.post('/addCategoryToEquipment/', equipment.addCategoryToEquipment);
 
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);
