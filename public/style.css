@@ -1,8 +1,11 @@
 h1 {
     margin: 10px;
+    font-family: 'Love Ya Like A Sister', cursive;
+    text-align: center;
 }
 h2 {
     margin: 10px;	
+    font-family: 'Love Ya Like A Sister', cursive;
 }
 
 .sidenav {
@@ -15,6 +18,7 @@ h2 {
     background-color: #111;
     overflow-x: hidden;
     padding-top: 20px;
+    font-family: 'Neuton', serif;
 }
 
 .sidenav a {
@@ -33,6 +37,7 @@ h2 {
     margin-left: 220px; /* Same as the width of the sidenav */
     font-size: 18px; /* Increased text to enable scrolling */
     padding: 0px 10px;
+    font-family: 'Cabin', sans-serif;
 }
 
 @media screen and (max-height: 450px) {
