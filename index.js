@@ -51,10 +51,10 @@ app.post('/createEvent/', event.createEvent);
 app.post('/setTimeEvent/', event.setTimeEvent);
 app.post('/setPlaceEvent/', event.setPlaceEvent);
 app.post('/setEqEvent/', event.setEqEvent);
+app.post('/addCategoryEvent/', event.addCategoryEvent);
 
 app.post('/sendMessage/', event.sendMessage);
-app.get('/inviteUser/:eventid/:userid', event.inviteUser);
-app.get('/approveUser/:eventid/:userid', event.approveUser);
+app.post('/inviteUser/', event.inviteUser);
 app.post('/setUserEquip/', event.setUserEquip);
 
 /*--------------- Others Routes -------------*/

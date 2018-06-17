@@ -22,7 +22,7 @@ var mongoose = require('mongoose'),
             required:true
         },
         participants:[{
-            user: {
+            userid: {
                 type: mongoose.Schema.ObjectId,
                 ref: 'user'
             },
@@ -31,19 +31,18 @@ var mongoose = require('mongoose'),
                 enum: ['new', 'admin', 'active', 'delete' ] 
             },
             userEquipments:[{
-                equipmentId: {
-                    type: mongoose.Schema.ObjectId,
-                    ref:'equipment'
-                },
+                equipmentName: String,
                 quantity: Number
             }]
         }],
         category: [String],
-        equipment:[{
-            equipmentId: String,
-            maxQuantity: Number,
-            minQuantity: Number,
-        }],
+        equipment:[
+        {
+            equipmentName: String,
+            max_quantity: Number,
+            min_quantity: Number,
+        }
+        ],
         chat: [
             {
                 user: {
