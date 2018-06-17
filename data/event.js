@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
 
 exports.getAllEvents = (req, res) => {
     console.log('getAllEvents');
-    // return data;
     Event.find( {},
         (err, event) => {
             if (err) {
@@ -35,16 +34,16 @@ exports.getEvent = (req, res) => {
         }
     );
 };
-exports.createEventYair = (req, res) => {
+exports.createEvent = (req, res) => {
     var name = req.body.name,
-        decription = req.body.decription,
+        description = req.body.description,
         time = req.body.time,
         creator = req.body.creator,
         place = req.body.place,
         category = req.body.category;
     console.log('createEvent');
     console.log(`post: name = ${req.body.name},
-        decription = ${req.body.decription},
+        description = ${req.body.description},
         time = ${req.body.time},
         creator = ${req.body.creator},
         place = ${req.body.place},
@@ -52,7 +51,7 @@ exports.createEventYair = (req, res) => {
 
     var newEvent = new Event({
         name: name,
-        decription: decription,
+        description: description,
         time: time,
         creator: creator,
         place: place,
@@ -67,65 +66,57 @@ exports.createEventYair = (req, res) => {
                 res.status(200).json(newEvent);
             }
         });
-
 };
 
-exports.updateEvent = (req, res) => {};
+exports.setTimeEvent = (req, res) => {
+    var eventid = req.body.eventid,
+        time = req.body.time;
 
-exports.createEvent = (req, res) => {
-    var name = req.body.name;
-    var decription = req.body.decription;
-    var time = req.body.time;
-    var place = req.body.place;
-    var participants = req.body.participants;
-    var user_id = req.body.user_id;
-    var status = req.body.status;
-    var user_equipments = req.body.user_equipments;
-    var equipment_id = req.body.equipment_id;
-    var quantity = req.body.quantity;
-    var category = req.body.category;
-    var category1 = req.body.category1;
-    var category2 = req.body.category2;
-    var category3 = req.body.category3;
-    var required_equipment = req.body.required_equipment;
-    var equipment_id = req.body.equipment_id;
-    var max_quantity = req.body.max_quantity;
-    var min_quantity = req.body.min_quantity;
-
-    var newEvent = new Event({
-        name: name,
-        decription: decription,
-        time: time,
-        creator: user_id,
-        place: place,
-        participants: [{
-            user_id,
-            status,
-            user_equipments: [{
-                equipment_id,
-                quantity
-            }]
-        }],
-        category: [
-            category1, category2, category3
-        ],
-        required_equipment: [{
-            equipment_id,
-            max_quantity,
-            min_quantity
-        }]
-    });
-    newEvent.save(
-        (err) => {
+    var conditions = {time: time}
+    opts = {multi: true};
+    Event.findByIdAndUpdate(eventid, conditions, opts,
+        (err, event) => {
             if(err)
                 console.log(`err: ${err}`);
             else {
-                console.log(`Saved document: ${newEvent}`);
-                res.status(200).json(newEvent);
-                //mongoose.disconnect();
+                console.log(`Updated event: ${event}`)
+                res.status(200).json(event);
             }
-        });
+        });    
+};
+exports.setPlaceEvent = (req, res) => {
+    var eventid = req.body.eventid,
+        place = req.body.place;
 
+    var conditions = {place: place}
+    opts = {multi: true};
+    Event.findByIdAndUpdate(eventid, conditions, opts,
+        (err, event) => {
+            if(err)
+                console.log(`err: ${err}`);
+            else {
+                console.log(`Updated event: ${event}`)
+                res.status(200).json(event);
+            }
+        });    
+};
+exports.setEqEvent = (req, res) => {
+    var eventid = req.body.eventid,
+        equipment = req.body.equipment,
+        max_quantity = req.body.max_quantity,
+        min_quantity = req.body.min_quantity;
+
+    var conditions = { $push: { equipment: {equipment, max_quantity, min_quantity } } }
+        opts = {multi: true};
+    Event.findByIdAndUpdate(eventid, conditions, opts,
+        (err, event) => {
+            if(err)
+                console.log(`err: ${err}`);
+            else {
+                console.log(`Updated event: ${event}`)
+                res.status(200).json(event);
+            }
+        }); 
 };
 
 
@@ -135,13 +126,13 @@ exports.getChat = (req, res) => {
     console.log(`get: eventid = ${req.params.eventid}`);
 
     Event.findOne( { _id: { $eq: eventid } },
-        (err, chat) => {
+        (err, event) => {
             if (err) {
                 console.log(`err: ${err}`);
                 res.status(200).json(`{ err : ${err}`);
             }
-            console.log(event);
-            res.status(200).json(event);
+            console.log(event.chat);
+            res.status(200).json(event.chat);
         }
     );
 

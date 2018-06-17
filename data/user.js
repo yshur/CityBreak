@@ -88,7 +88,7 @@ exports.updateUser = (req, res) => {
                 console.log(`Updated user: ${user}`)
                 res.status(200).json(user);
             }
-        })
+        });
 };
 
 exports.deleteUserByName = (req, res) => {

@@ -48,7 +48,10 @@ app.get('/getChat/:eventid', event.getChat);
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);
 app.post('/createEvent/', event.createEvent);
-app.post('/updateEvent/', event.updateEvent);
+app.post('/setTimeEvent/', event.setTimeEvent);
+app.post('/setPlaceEvent/', event.setPlaceEvent);
+app.post('/setEqEvent/', event.setEqEvent);
+
 app.post('/sendMessage/', event.sendMessage);
 app.get('/inviteUser/:eventid/:userid', event.inviteUser);
 app.get('/approveUser/:eventid/:userid', event.approveUser);

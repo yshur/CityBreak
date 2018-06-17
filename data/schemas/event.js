@@ -3,21 +3,29 @@ var mongoose = require('mongoose'),
     eventSchema = new mongoose.Schema({
         name: {
             type:String,
-            index:1
+            index:1,
+            required:true
         },
-        decription: String,
-        time: Date,
+        description: String,
+        time: {
+            type: Date,
+            required:true
+        },
         timeCreated: { type: Date, default: Date.now },
         creator: [{
                     type: mongoose.Schema.ObjectId,
-                    ref: 'user'
+                    ref: 'user',
+                    required:true
                 }],
-        place: String,
+        place: {
+            type: String,
+            required:true
+        },
         participants:[{
             user: {
-                    type: mongoose.Schema.ObjectId,
-                    ref: 'user'
-                },
+                type: mongoose.Schema.ObjectId,
+                ref: 'user'
+            },
             status: { 
                 type: String, 
                 enum: ['new', 'admin', 'active', 'delete' ] 
@@ -31,15 +39,12 @@ var mongoose = require('mongoose'),
             }]
         }],
         category: [String],
-        requiredEquipment:[{
-            equipmentId: {
-                type: mongoose.Schema.ObjectId,
-                ref:'equipment'
-            },
+        equipment:[{
+            equipmentId: String,
             maxQuantity: Number,
             minQuantity: Number,
         }],
-        messages: [
+        chat: [
             {
                 user: {
                   type: mongoose.Schema.ObjectId,
