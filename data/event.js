@@ -1,60 +1,37 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
-    consts = require('./consts'),
     User = require('./schemas/user'),
     Event = require('./schemas/event'),
-    Category = require('./schemas/category'),
-    options = {
-        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
-    };
+    Category = require('./schemas/category');
+
 exports.getAllEvents = (req, res) => {
     console.log('getAllEvents');
     // return data;
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            Event.find( {},
-                (err, event) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(event);
-                    res.status(200).json(event);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
+    Event.find( {},
+        (err, event) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err}`);
+            }
+            console.log(event);
+            res.status(200).json(event);
         }
-    );   
+    );
 };
 exports.getEvent = (req, res) => {
     var eventid = req.params.eventid;
     console.log('getEvent');
     console.log(`get: eventid = ${req.params.eventid}`);
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            Event.findOne( { _id: { $eq: eventid } },
-                (err, event) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(event);
-                    res.status(200).json(event);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
+
+    Event.findOne( { _id: { $eq: eventid } },
+        (err, event) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err}`);
+            }
+            console.log(event);
+            res.status(200).json(event);
         }
     );
 };
@@ -73,32 +50,24 @@ exports.createEventYair = (req, res) => {
         place = ${req.body.place},
         category = ${req.body.category}`);
 
-      mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            var newEvent = new Event({
-                name: name,
-                decription: decription,
-                time: time,
-                creator: creator,
-                place: place,
-                category: category
-            });
-            newEvent.save(
-                (err) => {
-                    if(err)
-                        console.log(`err: ${err}`);
-                    else {
-                        console.log(`Saved document: ${newEvent}`);
-                        res.status(200).json(newEvent);
-                        //mongoose.disconnect();
-                    }
-                });
-        },
-        err =>{
-            console.log(`connection error: ${err}`);
-        }
-    );
+    var newEvent = new Event({
+        name: name,
+        decription: decription,
+        time: time,
+        creator: creator,
+        place: place,
+        category: category
+    });
+    newEvent.save(
+        (err) => {
+            if(err)
+                console.log(`err: ${err}`);
+            else {
+                console.log(`Saved document: ${newEvent}`);
+                res.status(200).json(newEvent);
+            }
+        });
+
 };
 
 exports.updateEvent = (req, res) => {};
@@ -123,72 +92,92 @@ exports.createEvent = (req, res) => {
     var max_quantity = req.body.max_quantity;
     var min_quantity = req.body.min_quantity;
 
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            var newEvent = new Event({
-                name: name,
-                decription: decription,
-                time: time,
-                creator: user_id,
-                place: place,
-                participants: [{
-                    user_id,
-                    status,
-                    user_equipments: [{
-                        equipment_id,
-                        quantity
-                    }]
-                }],
-                category: [
-                    category1, category2, category3
-                ],
-                required_equipment: [{
-                    equipment_id,
-                    max_quantity,
-                    min_quantity
-                }]
-            });
-            newEvent.save(
-                (err) => {
-                    if(err)
-                        console.log(`err: ${err}`);
-                    else {
-                        console.log(`Saved document: ${newEvent}`);
-                        res.status(200).json(newEvent);
-                        //mongoose.disconnect();
-                    }
-                });
-        },
-        err =>{
-            console.log(`connection error: ${err}`);
-        }
-    );
+    var newEvent = new Event({
+        name: name,
+        decription: decription,
+        time: time,
+        creator: user_id,
+        place: place,
+        participants: [{
+            user_id,
+            status,
+            user_equipments: [{
+                equipment_id,
+                quantity
+            }]
+        }],
+        category: [
+            category1, category2, category3
+        ],
+        required_equipment: [{
+            equipment_id,
+            max_quantity,
+            min_quantity
+        }]
+    });
+    newEvent.save(
+        (err) => {
+            if(err)
+                console.log(`err: ${err}`);
+            else {
+                console.log(`Saved document: ${newEvent}`);
+                res.status(200).json(newEvent);
+                //mongoose.disconnect();
+            }
+        });
+
 };
 
 
 exports.getChat = (req, res) => {
-    var chatid = req.params.chatid;
+    var eventid = req.params.eventid;
     console.log('getChat');
-    console.log(`get: chatid = ${req.params.chatid}`);
-    mongoose.connect(consts.MLAB_KEY)
-    .then(
-        () => {
-            Event.findOne( { _id: { $eq: chatid } },
-                (err, chat) => {
-                    if (err) {
-                        console.log(`err: ${err}`);
-                        res.status(200).json(`{ err : ${err}`);
-                    }
-                    console.log(event);
-                    res.status(200).json(event);
-                   // mongoose.disconnect();
-                }
-            )
-        }, 
-        err => {
-            console.log(`connection error: ${err}`);
-            res.status(200).json(`{ connection error : ${err}`); 
+    console.log(`get: eventid = ${req.params.eventid}`);
+
+    Event.findOne( { _id: { $eq: eventid } },
+        (err, chat) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err}`);
+            }
+            console.log(event);
+            res.status(200).json(event);
         }
-    ); 
+    );
+
+};
+
+exports.sendMessage = (req, res) => {
+    var eventid = req.body.eventid,
+        userid = req.body.userid,
+        message = req.body.message;
+    console.log('sendMessage');
+    console.log(`post: eventid = ${req.body.eventid},
+        userid = ${req.body.userid},
+        message = ${req.body.message}`);
+};
+exports.inviteUser = (req, res) => {
+    var eventid = req.params.eventid,
+        userid = req.params.userid;
+    console.log('inviteUser');
+    console.log(`get: eventid = ${req.body.eventid},
+        userid = ${req.body.userid}`);
+};
+exports.approveUser = (req, res) => {
+    var eventid = req.params.eventid,
+        userid = req.params.userid;
+    console.log('approveUser');
+    console.log(`get: eventid = ${req.body.eventid},
+        userid = ${req.body.userid}`);    
+};
+exports.setUserEquip = (req, res) => {
+    var eventid = req.body.eventid,
+        userid = req.body.userid,
+        equip_name = req.body.equip_name,
+        equip_amount = req.body.equip_amount;
+    console.log('sendMessage');
+    console.log(`post: eventid = ${req.body.eventid},
+        userid = ${req.body.userid},
+        equip_name = ${req.body.equip_name},
+        equip_amount = ${req.body.equip_amount}`);    
 };

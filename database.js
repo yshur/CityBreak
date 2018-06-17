@@ -1,11 +1,12 @@
 var consts = require('./data/consts'),
     mongoose = require('mongoose');
     mongoose.connect(consts.MLAB_KEY);
-//define the MODEL
-//var Ideas = require('./models/idea'),
-  //  options = {
-    //autoReconnect :true
-//};
+
+var options = {
+    autoReconnect :true,
+    server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+    replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+};
 mongoose.connect(consts.MLAB_KEY)
 .then(
     () => {

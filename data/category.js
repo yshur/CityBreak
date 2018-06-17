@@ -1,11 +1,7 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
-    Category = require('./schemas/category'),
-    options = {
-        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
-    };
+    Category = require('./schemas/category');
 
 exports.getAllCategories = (req, res) => {
     console.log('getAllCategories');
@@ -38,9 +34,9 @@ exports.createCategory = (req, res) => {
         });    
 };
 
-exports.getEquipmentsByCategory = (req, res) => {
+exports.getCategory = (req, res) => {
     var category = req.params.category;
-    console.log('getEquipmentsByCategory');
+    console.log('getCategory');
     console.log(`get: category = ${req.params.category}`);
     
     Category.find( { name: { $eq: category } },

@@ -40,15 +40,19 @@ app.post('/updateUser/', user.updateUser);
 /*--------------- Category Routes ------------*/
 app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
-app.get('/getEquipmentsByCategory/:category', category.getEquipmentsByCategory);
+app.get('/getCategory/:category', category.getCategory);
 app.post('/addEquipmentToCategory/', category.addEquipmentToCategory);
 
 /*--------------- Event Routes ---------------*/
-app.get('/getChat/:chatid', event.getChat);
+app.get('/getChat/:eventid', event.getChat);
 app.get('/getAllEvents', event.getAllEvents);
 app.get('/getEvent/:eventid', event.getEvent);
 app.post('/createEvent/', event.createEvent);
 app.post('/updateEvent/', event.updateEvent);
+app.post('/sendMessage/', event.sendMessage);
+app.get('/inviteUser/:eventid/:userid', event.inviteUser);
+app.get('/approveUser/:eventid/:userid', event.approveUser);
+app.post('/setUserEquip/', event.setUserEquip);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
