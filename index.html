@@ -7,8 +7,11 @@
 
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-		<link rel="stylesheet" href="includes/style.css">
-		<title>Borrowed Books | API Documentation</title>
+		<link rel="stylesheet" href="public/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Love+Ya+Like+A+Sister" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Neuton" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+		<title>Event Break | API Documentation</title>
 
     </head>
     <body>
@@ -17,7 +20,7 @@
 			<div class="sidenav">
 			
 			  <a href="#intro">About</a>
-			  <a href="#getAllBooks">Get All Books</a>
+			  <a href="#getAllEvents">Get All Events</a>
 			  <a href="#getByCategory">Get By Category</a>
 			  <a href="#getCategoryPhone">Get By Category And Phone</a>
 			  <a href="#errors">Errors:</a>
@@ -32,17 +35,17 @@
 			<!-- Intro -->
 			<div id="intro" class="container">
 				<header>
-					<h1>Borrowed Books | API Documentation</h1>
+					<h1>Event Break | API Documentation</h1>
 				</header>
-				<p>The Borrowed Books API allows directly interaction
-					with the borrowing books platform,<br> and get details about Borrowed Books.</p> 
+				<p>The Event Break API allows directly interaction
+					with the Event Break platform,<br> and get details about all the events.</p> 
 					<p><strong>Some typical use cases include: </strong>
-					<blockquote>Get all Borrowed Books<br> Get books by category<br>
-						Get books from search category & phone</blockquote>
+					<blockquote>Get all Events<br> Get all users<br>
+						Get all equipment per event</blockquote>
 				</p>
 				<p>The requests should be in GET / POST Method.<br>
 				The result will return in JSON Object.<br>
-				If your URL request is wrong you will recieve Error in JSON Object.
+				If your URL request is wrong you will recieve JSON Object Error.
 				</p>
 				<p>
 					<a id="git" href="https://github.com/yshur/borrowed_books.git" target="_blank" class="button">
@@ -52,18 +55,18 @@
 			
 			<div class="row container">
 			
-				<!-- getAllBooks -->
-				<div id="getAllBooks" class="col-sm">
+				<!-- getAllEvents -->
+				<div id="getAllEvents" class="col-sm">
 					<header>
-						<h2>Get All Borrowed Books</h2>
+						<h2>Get All Events</h2>
 					</header>
-					<p>You can find all Borrowed Books, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllBooks" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllBooks</var></a><br>
+					<p>You can find all Events, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>GET</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllBooks.PNG">
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
 					
 				</div>    
 
