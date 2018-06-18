@@ -77,18 +77,19 @@
 					<p>You can find each Event, by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>GET</strong></p>
+					Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/eventid</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
 					
 				</div>
-				<!-- createEvent -->
-				<div id="createEvent" class="col-sm-9">
+				<!-- addCategoryEvent -->
+				<div id="addCategoryEvent" class="col-sm-9">
 					<header>
-						<h3>Create Event</h3>
+						<h3>Add Category Event</h3>
 					</header>
-					<p>Create your own Event and invite your freinds, by entering the following URL:<br>
+					<p>Add category to event, by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>POST</strong></p>
@@ -97,6 +98,49 @@
 					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
 					
 				</div>
+				<!-- setEqEvent -->
+				<div id="setEqEvent" class="col-sm-9">
+					<header>
+						<h3>Set Equipment Event</h3>
+					</header>
+					<p>Set Equipment to Event , by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>
+				<!-- setUserEquip -->
+				<div id="setUserEquip" class="col-sm-9">
+					<header>
+						<h3>Set User Equipment</h3>
+					</header>
+					<p>Set user Equipment to Event , by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>
+
+				<!-- inviteUser -->
+				<div id="inviteUser" class="col-sm-9">
+					<header>
+						<h3>invite User</h3>
+					</header>
+					<p>invite User, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>                
 				<!-- setTimeEvent -->
 				<div id="setTimeEvent" class="col-sm-9">
 					<header>
@@ -105,7 +149,8 @@
 					<p>Set event time, by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong></p>
+					Method:  <strong>POST</strong><br>
+					Parameters name: <strong>/eventid/time</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
@@ -119,12 +164,55 @@
 					<p>Set event place, by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: <strong>/eventid/place</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>
+				<!-- getChat -->
+				<div id="getChat" class="col-sm-9">
+					<header>
+						<h3>Get Chat</h3>
+					</header>
+					<p>Get chat, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>GET</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>
+				<!-- sendMessage -->
+				<div id="sendMessage" class="col-sm-9">
+					<header>
+						<h3>Send Message</h3>
+					</header>
+					<p>Send Message, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>POST</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
 					
-				</div>                
+				</div>
+				<!-- inviteUser -->
+				<div id="inviteUser" class="col-sm-9">
+					<header>
+						<h3>invite User</h3>
+					</header>
+					<p>invite User, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>                                                        
 				<!-- getByCategory -->
 				<div id="getEquipmentByCategory" class="col-sm">
 					<header>
