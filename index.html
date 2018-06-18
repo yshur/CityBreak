@@ -38,7 +38,7 @@
 					<h1>Event Break | API Documentation</h1>
 				</header>
 				<p>The Event Break API allows directly interaction
-					with the Event Break platform,<br> and get details about all the events.</p> 
+					with the Event Break platform,<br> and get details about all our events.</p> 
 					<p><strong>Some typical use cases include: </strong>
 					<blockquote>Get all Events<br> Get all users<br>
 						Get all equipment per event</blockquote>
@@ -54,11 +54,11 @@
 			</div>
 			
 			<div class="row container">
-			
+				<h1>Events Methodes:</h1>
 				<!-- getAllEvents -->
-				<div id="getAllEvents" class="col-sm">
+				<div id="getAllEvents" class="col-sm-9">
 					<header>
-						<h2>Get All Events</h2>
+						<h3>Get All Events</h3>
 					</header>
 					<p>You can find all Events, by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
@@ -68,20 +68,73 @@
 					<p>Example of result in JSON Object:</p>
 					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
 					
-				</div>    
-
-				<!-- getByCategory -->
-				<div id="getByCategory" class="col-sm">
+				</div>
+				<!-- getEvent -->
+				<div id="getEvent" class="col-sm-9">
 					<header>
-						<h2>Get Books By category</h2>
+						<h3>Get Event</h3>
 					</header>
-					<p >You can find Borrowed Books by their category.<br>
-						You need sending parameter 'category' to the following URL:</p>
+					<p>You can find each Event, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>GET</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>
+				<!-- createEvent -->
+				<div id="createEvent" class="col-sm-9">
+					<header>
+						<h3>Create Event</h3>
+					</header>
+					<p>Create your own Event and invite your freinds, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>
+				<!-- setTimeEvent -->
+				<div id="setTimeEvent" class="col-sm-9">
+					<header>
+						<h3>Set Time Event</h3>
+					</header>
+					<p>Set event time, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>                              
+				<!-- setPlaceEvent -->
+				<div id="setPlaceEvent" class="col-sm-9">
+					<header>
+						<h3>Set Place Event</h3>
+					</header>
+					<p>Set event place, by entering the following URL:<br>
+					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>POST</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getAllEvents.PNG">
+					
+				</div>                
+				<!-- getByCategory -->
+				<div id="getEquipmentByCategory" class="col-sm">
+					<header>
+						<h3>Get Equipments By Category</h3>
+					</header>
+					<p >You can find equipments by their category.<br> </p>
 					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
 					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
 					
-					<p>Method:  <strong>POST</strong><br>
-					Parameter name:  <strong>category</strong></p>
+					<p>Method:  <strong>Get</strong><br></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/getByCategory.PNG">
