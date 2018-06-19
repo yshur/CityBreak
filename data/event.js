@@ -268,7 +268,7 @@ exports.deleteEvent = (req, res) => {
     var eventid = req.body.eventid;
     var conditions = {_id: eventid};
 
-    User.remove(conditions,
+    Event.remove(conditions,
         (err) => {
             if(err){
                 console.log(`err: ${err}`);

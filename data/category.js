@@ -62,7 +62,7 @@ exports.addEquipmentToCategory = (req, res) => {
             if(err)
                 console.log(`err: ${err}`);
             else {
-                console.log(`Updated user: ${category}`)
+                console.log(`Updated Category: ${category}`)
                 res.status(200).json(category);
             }
         })
@@ -71,14 +71,14 @@ exports.deleteCategory = (req, res) => {
     var categoryid = req.body.categoryid;
     var conditions = {_id: categoryid};
 
-    User.remove(conditions,
+    Category.remove(conditions,
         (err) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             } else {
                 console.log(`Removed document`);
-                User.findOne({_id: eventid},
+                Category.findOne({_id: categoryid},
                     (err) => {
                         console.log(`Removed category id=${categoryid} `);
                         res.status(200).json({result: `Removed ${categoryid}`});
