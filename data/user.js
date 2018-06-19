@@ -78,9 +78,9 @@ exports.updateUser = (req, res) => {
         password = req.body.password,
         image = req.body.image;
 
-    //var conditions = {phone: phone, email:email, password:password, image:image}
-    //opts = {multi: true};
-    User.update(userid, {$set: req.body},
+    var conditions = {phone: phone, email:email, password:password, image:image}
+    opts = {multi: true};
+    User.findByIdAndUpdate(userid, conditions, opts,
         (err, user) => {
             if(err)
                 console.log(`err: ${err}`);

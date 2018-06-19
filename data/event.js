@@ -59,8 +59,10 @@ exports.createEvent = (req, res) => {
     });
     newEvent.save(
         (err) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Saved document: ${newEvent}`);
                 res.status(200).json(newEvent);
@@ -73,11 +75,16 @@ exports.setTimeEvent = (req, res) => {
         time = req.body.time;
 
     var conditions = {time: time}
-    opts = {multi: true};
+        opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Updated event: ${event}`)
                 res.status(200).json(event);
@@ -89,11 +96,16 @@ exports.setPlaceEvent = (req, res) => {
         place = req.body.place;
 
     var conditions = {place: place}
-    opts = {multi: true};
+            opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Updated event: ${event}`)
                 res.status(200).json(event);
@@ -105,11 +117,16 @@ exports.addCategoryEvent = (req, res) => {
         category = req.body.category;
 
     var conditions = {$push:{category: category} }
-    opts = {multi: true};
+        opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Updated event: ${event}`)
                 res.status(200).json(event);
@@ -126,11 +143,16 @@ exports.setEqEvent = (req, res) => {
         equipmentName: equipment, 
         max_quantity: max_quantity,
         min_quantity: min_quantity } } }
-    opts = {multi: true};
+        opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Updated event: ${event}`)
                 res.status(200).json(event);
@@ -168,11 +190,16 @@ exports.sendMessage = (req, res) => {
     var conditions = { $push: { chat: {
             userid: userid, 
             text: message } } }
-        opts = {multi: true};
+        opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Updated chat: ${event.chat}`)
                 res.status(200).json(event.chat);
@@ -191,11 +218,16 @@ exports.inviteUser = (req, res) => {
     var conditions = { $push: { participants: {
             userid: userid, 
             status: status } } }
-        opts = {multi: true};
+        opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
             else {
                 console.log(`Updated event: ${event}`)
                 res.status(200).json(event);
@@ -217,14 +249,37 @@ exports.setUserEquip = (req, res) => {
         userEquipments: {  
             equipmentName: equip_name, quantity:quantity }
         } } 
-        opts = {multi: true};
+        opts = {
+            runValidators: true,
+            multi: true
+        };
     Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
-            else {
+                res.status(300).json(err);
+            } else {
                 console.log(`Updated event: ${event}`)
                 res.status(200).json(event);
             }
         });   
+};
+exports.deleteEvent = (req, res) => {
+    var eventid = req.body.eventid;
+    var conditions = {_id: eventid};
+
+    User.remove(conditions,
+        (err) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            } else {
+                console.log(`Removed document`);
+                User.findOne({_id: eventid},
+                    (err) => {
+                        console.log(`Removed event id=${eventid} `);
+                        res.status(200).json({result:`Removed ${eventid}`});
+                    });
+            };
+        });
 };
