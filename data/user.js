@@ -78,9 +78,9 @@ exports.updateUser = (req, res) => {
         password = req.body.password,
         image = req.body.image;
 
-    var conditions = {phone: phone, email:email, password:password, image:image}
-    opts = {multi: true};
-    User.findByIdAndUpdate(userid, conditions, opts,
+    //var conditions = {phone: phone, email:email, password:password, image:image}
+    //opts = {multi: true};
+    User.update(userid, {$set: req.body},
         (err, user) => {
             if(err)
                 console.log(`err: ${err}`);
@@ -88,7 +88,7 @@ exports.updateUser = (req, res) => {
                 console.log(`Updated user: ${user}`)
                 res.status(200).json(user);
             }
-        });
+        })
 };
 
 exports.deleteUserByName = (req, res) => {
