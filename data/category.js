@@ -67,3 +67,22 @@ exports.addEquipmentToCategory = (req, res) => {
             }
         })
 }
+exports.deleteCategory = (req, res) => {
+    var categoryid = req.body.categoryid;
+    var conditions = {_id: categoryid};
+
+    User.remove(conditions,
+        (err) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            } else {
+                console.log(`Removed document`);
+                User.findOne({_id: eventid},
+                    (err) => {
+                        console.log(`Removed category id=${categoryid} `);
+                        res.status(200).json({result: `Removed ${categoryid}`});
+                    });
+            };
+        });
+};

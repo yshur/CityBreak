@@ -44,9 +44,10 @@ exports.createUser = (req, res) => {
     });
     newUser.save(
         (err) => {
-            if(err)
+            if(err) {
                 console.log(`err: ${err}`);
-            else {
+                res.status(300).json(err);
+            } else {
                 console.log(`Saved document: ${newUser}`);
                 res.status(200).json(newUser);
             }
@@ -72,39 +73,41 @@ exports.getUser = (req, res) => {
 
 exports.updateUser = (req, res) => {
     var userid = req.body.userid;
-    var full_name = req.body.full_name;
-        phone = req.body.phone,
-        email = req.body.email,
-        password = req.body.password,
-        image = req.body.image;
+    var phone = req.body.phone,
+        email = req.body.email;
 
-    var conditions = {phone: phone, email:email, password:password, image:image}
-    opts = {multi: true};
+    var conditions = {phone: phone, email:email}
+    opts = {
+        multi: true,
+        runValidators: true
+    };
     User.findByIdAndUpdate(userid, conditions, opts,
         (err, user) => {
-            if(err)
+            if(err) {
                 console.log(`err: ${err}`);
-            else {
+                res.status(300).json(err);
+            } else {
                 console.log(`Updated user: ${user}`)
                 res.status(200).json(user);
             }
         });
 };
 
-exports.deleteUserByName = (req, res) => {
-    var full_name = req.body.full_name;
-    var conditions = {full_name: full_name};
+exports.deleteUser = (req, res) => {
+    var userid = req.body.userid;
+    var conditions = {_id: userid};
 
     User.remove(conditions,
         (err) => {
-            if(err)
+            if(err){
                 console.log(`err: ${err}`);
-            else {
+                res.status(300).json(err);
+            } else {
                 console.log(`Removed document`);
-                User.findOne({full_name: full_name},
+                User.findOne({_id: userid},
                     (err) => {
-                        console.log(`Removed user ${full_name} `);
-                        res.status(200).json(`Removed user ${full_name}`);
+                        console.log(`Removed user id=${userid} `);
+                        res.status(200).json({result:`Removed ${userid}`});
                     });
             };
         });

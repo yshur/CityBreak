@@ -32,7 +32,7 @@ app.get('/', (req,res) => {
 
 /*---------------- User Routes ----------------*/
 app.get('/getAllUsers', user.getAllUsers);
-app.post('/deleteUserByName/', user.deleteUserByName);
+app.post('/deleteUser/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
@@ -42,6 +42,7 @@ app.get('/getAllCategories', category.getAllCategories);
 app.post('/createCategory', category.createCategory);
 app.get('/getCategory/:category', category.getCategory);
 app.post('/addEquipmentToCategory/', category.addEquipmentToCategory);
+app.post('/deleteCategory/', category.deleteCategory);
 
 /*--------------- Event Routes ---------------*/
 app.get('/getChat/:eventid', event.getChat);
@@ -56,6 +57,7 @@ app.post('/addCategoryEvent/', event.addCategoryEvent);
 app.post('/sendMessage/', event.sendMessage);
 app.post('/inviteUser/', event.inviteUser);
 app.post('/setUserEquip/', event.setUserEquip);
+app.post('/deleteEvent/', event.deleteEvent);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
