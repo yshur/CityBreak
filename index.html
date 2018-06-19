@@ -33,7 +33,7 @@
 			    <a href="#createEvent">CreateEvent</a>
 			    <a href="#setTimeEvent">SetTimeEvent</a>
 			    <a href="#setPlaceEvent">SetPlaceEvent</a>
-			    <a href="#setEqEvent">SetEqEvent</a>
+			    <a href="#setEqEvent">SetEquipmentEvent</a>
 			    <a href="#addCategoryEvent">AddCategoryEvent</a>
 			    <a href="#getChat">GetChat</a>
 			    <a href="#sendMessage">SendMessage</a>
@@ -175,7 +175,7 @@
 					Method:  <strong>POST</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/setUserEquip.png">
 					
 				</div>
 
@@ -190,7 +190,7 @@
 					Method:  <strong>POST</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/inviteUser.png">
 					
 				</div>                
 				<!-- setTimeEvent -->
@@ -198,14 +198,15 @@
 					<header>
 						<h3>Set Time Event</h3>
 					</header>
-					<p>Set event time, by entering the following URL:<br>
+					<p>Set time that you want the event will be.<br> call getEvent method to see your changed.<br>
+					by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>POST</strong><br>
 					Parameters name: <strong>/eventid/time</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/setTime.png">
 					
 				</div>                              
 				<!-- setPlaceEvent -->
@@ -213,14 +214,14 @@
 					<header>
 						<h3>Set Place Event</h3>
 					</header>
-					<p>Set event place, by entering the following URL:<br>
+					<p>Set the place thet you want the event will be.<br> call getEvent method to see your changed. by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>POST</strong><br>
 					Parameters name: <strong>/eventid/place</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/setPlace.png">
 					
 				</div>
 				<!-- getChat -->
@@ -228,13 +229,13 @@
 					<header>
 						<h3>Get Chat</h3>
 					</header>
-					<p>Get chat, by entering the following URL:<br>
+					<p>Here you can see all the messages has been sent in specific event. <br> by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>GET</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/getChat.png">
 					
 				</div>
 				<!-- sendMessage -->
@@ -242,13 +243,13 @@
 					<header>
 						<h3>Send Message</h3>
 					</header>
-					<p>Send Message, by entering the following URL:<br>
+					<p>Send Message to chat, after you sent message call getChat method to see your meassge and all the outhers messages<br> by entering the following URL:<br>
 					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
 					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
 					Method:  <strong>POST</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/sendMessage.png">
 					
 				</div>
 				<!-- inviteUser -->
