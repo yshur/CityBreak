@@ -12,7 +12,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Love+Ya+Like+A+Sister" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Neuton" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
-		<script src="public/script.js"> </script>
+		<script src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/script.js"> </script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -148,7 +148,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/createEvent.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/createEvent.png">
 					
 				</div>
 				<!-- addCategoryEvent -->
@@ -167,7 +167,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/addCategoryEvent.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addCategoryEvent.png">
 					
 				</div>
 				<!-- setEqEvent -->
@@ -188,7 +188,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/setEqEvent.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setEqEvent.png">
 					
 				</div>
 				<!-- setUserEquip -->
@@ -209,7 +209,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/setUserEquip.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setUserEquip.png">
 					
 				</div>
 
@@ -229,7 +229,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/inviteUser.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/inviteUser.png">
 					
 				</div>                
 				<!-- setTimeEvent -->
@@ -249,7 +249,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/setTime.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setTime.png">
 					
 				</div>                              
 				<!-- setPlaceEvent -->
@@ -268,7 +268,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/setPlace.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setPlace.png">
 					
 				</div>
 				<!-- getChat -->
@@ -283,7 +283,7 @@
 					Parameters name: <strong>/eventid</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/getChat.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getChat.png">
 					
 				</div>
 				<!-- sendMessage -->
@@ -303,7 +303,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="public/sendMessage.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/sendMessage.png">
 					
 				</div>
 				<!-- deleteEvent -->
@@ -352,7 +352,7 @@
 					Parameters name: <strong>/userid</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="public/getUser.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getUser.png">
 				</div>
 				<!-- createUser -->
 				<div id="createUser" class="col-sm">
@@ -404,8 +404,6 @@
 					<p>Method:  <strong>DELETE</strong><br>
 					Parameters name: <ul>
 						<li><b>userid:</b> user id</li>
-						<li><b>phone:</b> phone format ("058-545-6578")</li>
-						<li><b>email:</b> email format ("ys@shenkar.com")</li>
 					</ul>
 					</p></blockquote>
 					<p >Example of result in JSON Object:</p>
@@ -440,7 +438,7 @@
 					Parameters name: <strong>/category</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="public/getCategory.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getCategory.png">
 				</div>
 				<!-- createCategory -->
 				<div id="createCategory" class="col-sm">
@@ -457,7 +455,7 @@
 					</p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="public/createCategory.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/createCategory.png">
 				</div>
 				<!-- addEquipmentToCategory -->
 				<div id="addEquipmentToCategory" class="col-sm">
@@ -473,7 +471,7 @@
 						<li><b>equipment:</b> string</li>
 					</ul>
 					<p >Example of result in JSON Object:</p>
-					<img src="public/addEquipmentToCategory.png">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEquipmentToCategory.png">
 				</div>
 				<div id="deleteCategory" class="col-sm">
 					<header>
@@ -482,9 +480,9 @@
 					<p >You can delete each category.<br> </p>
 					<blockquote><a href="https://eventbreak.herokuapp.com/deleteCategory" target="_blank" >
 					<var>https://eventbreak.herokuapp.com/deleteCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br>
+					<p>Method:  <strong>DELETE</strong><br>
 					Parameters name: <ul>
-						<li><b>name:</b> string</li>
+						<li><b>categoryid:</b> category id</li>
 					</ul>
 					</p>
 					</blockquote>
@@ -507,7 +505,7 @@
 							you will recieve general error object.<br>
 							The error object includes the deatails of legitimate API.</p>
 							<p>Example of error in JSON Object:</p>
-							<img src="public/urlError.png">
+							<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/urlError.png">
 							<blockquote><a href="https://eventbreak.herokuapp.com/deleteCategodcbvry" target="_blank" >
 								<var>https://eventbreak.herokuapp.com/deleteCategodcbvryry</var></a></p></blockquote>
 						
