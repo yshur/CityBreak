@@ -309,7 +309,7 @@
 				<!-- deleteEvent -->
 				<div id="deleteEvent" class="col-sm-9">
 					<header>
-						<h3>Send Message</h3>
+						<h3>Delete Event</h3>
 					</header>
 					<p>you can delete event by using event id, without any password or identification<br> by entering the following URL:<br>
 					<blockquote><a href= "http://localhost:3000/deleteEvent" target="_blank" >
@@ -337,6 +337,7 @@
 					<p>Method:  <strong>GET</strong><br></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
+					<a href="http://localhost:3000/getAllUsers" target="_blank"><button>Get Json</button></a>
 					<img src="">
 				</div>
 				<!-- getUser -->
@@ -351,7 +352,7 @@
 					Parameters name: <strong>/userid</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/getUser.png">
 				</div>
 				<!-- createUser -->
 				<div id="createUser" class="col-sm">
@@ -370,7 +371,7 @@
 						<li><b>image:</b> http url to image file</li>
 					</ul>
 					</p></blockquote>
-					<p >Example of result in JSON Object:</p>
+					<p >The json result should be same like Get User method</p>
 					<img src="">
 				</div>
 				<!-- updateUser -->
@@ -424,6 +425,7 @@
 					<p>Method:  <strong>GET</strong><br></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
+					<a href="http://localhost:3000/getAllCategories" target="_blank"><button>Get Json</button></a>
 					<img src="">
 				</div>
 				<!-- getCategory -->
@@ -431,14 +433,14 @@
 					<header>
 						<h3>Get Category</h3>
 					</header>
-					<p >You can get specific category with his belong equipment by categoryid.<br> </p>
-					<blockquote><a href="http://localhost:3000/getCategory/5b222b0a2a59a929f4a17838" target="_blank" >
+					<p >You can get specific category with his belong equipment by category name.<br> </p>
+					<blockquote><a href="http://localhost:3000/getCategory/food" target="_blank" >
 					<var>http://localhost:3000/getCategory/5b222b0a2a59a929f4a17838</var></a></p>
 					<p>Method:  <strong>GET</strong><br>
-					Parameters name: <strong>/categoryid</strong></p>
+					Parameters name: <strong>/category</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/getCategory.png">
 				</div>
 				<!-- createCategory -->
 				<div id="createCategory" class="col-sm">
@@ -455,7 +457,7 @@
 					</p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/createCategory.png">
 				</div>
 				<!-- addEquipmentToCategory -->
 				<div id="addEquipmentToCategory" class="col-sm">
@@ -471,7 +473,7 @@
 						<li><b>equipment:</b> string</li>
 					</ul>
 					<p >Example of result in JSON Object:</p>
-					<img src="">
+					<img src="public/addEquipmentToCategory.png">
 				</div>
 				<div id="deleteCategory" class="col-sm">
 					<header>
@@ -491,12 +493,11 @@
 				</div>
 				</section>
 				
-			</div>
+			
 			<!-- errors -->
-			<section class="container row errors">
 					
-							<h2>Possible Errors</h2>
-
+				<h1>Possible Errors:</h1>
+				<section class="errors">
 				<div id="errorUrl" class="col-sm">
 				<header>
 						<h3>URL error</h3>
@@ -504,9 +505,9 @@
 						
 							<p>If you enter URL that no specified in the API, <br>
 							you will recieve general error object.<br>
-							The error object includes the deatails of legitimate API</p>
+							The error object includes the deatails of legitimate API.</p>
 							<p>Example of error in JSON Object:</p>
-							<img src="">
+							<img src="public/urlError.png">
 							<blockquote><a href="http://localhost:3000/deleteCategodcbvry" target="_blank" >
 								<var>http://localhost:3000/deleteCategodcbvryry</var></a></p></blockquote>
 						
@@ -516,40 +517,40 @@
 					<header>
 						<h3>Empty Result</h3>
 					</header>
-							<p>If you enter parameters that dont match to any documents in my DB,<br>
-							you should recieve an empty array</p>
-							<p>Example of empty array in Query:</p>
+							<p>If you enter parameters that dont match to any documents in our DB,<br>
+							you should recieve an empty array.</p>
+							<!-- <p>Example of empty array in Query:</p> -->
 							<img src="">
 					
 					</div>
 					<div id="errorMlab" class="col-sm">
 					<header>
-						<h3>connection error to mlab</h3>
+						<h3>Connection error to mlab</h3>
 					</header>
 						
-							<p>If my server have an error with connection to my DB,<br>
-							you should recieve an error object that describes the error</p>
-							<p>Example of error in JSON Object:</p>
+							<p>If our server have an error with connection to our DB,<br>
+							you should recieve an error object that describes the error.</p>
+							<!-- <p>Example of error in JSON Object:</p> -->
 							<img src="">
 						
 					</div>
 					<div id="errorFormat" class="col-sm">
 					<header>
-						<h3>format error</h3>
+						<h3>Format error</h3>
 					</header>
 				
 							<p>If you enter variables that their format don't match to our schema, <br>
 							you will recieve mongoose validation error.</p>
-							<p>Example of error in JSON Object:</p>
+							<!-- <p>Example of error in JSON Object:</p> -->
 							<img src="">
 						
 					</div>
-				
+				</section>
 			
-			</div>                  
+				</div>                  
 					
-        </div>
-
+        	</div>
+		</div>
         <script>
         	//* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
 			var dropdown = document.getElementsByClassName("dropdown-btn");

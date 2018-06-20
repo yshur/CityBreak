@@ -32,6 +32,9 @@ h3 {
 .categories{
     background: #DCDCDC;
 }
+.errors{
+    background:  #ffcccc;
+}
 #intro{
     margin-left: 50px;
 }
