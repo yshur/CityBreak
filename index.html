@@ -39,6 +39,7 @@
 			    <a href="#sendMessage">SendMessage</a>
 			    <a href="#inviteUser">InviteUser</a>
 			    <a href="#setUserEquip">SetUserEquip</a>
+				<a href="#deleteEvent">deleteEvent</a>
 			  </div>
 			  <button class="dropdown-btn">User Methodes 
 			    <i class="fa fa-caret-down"></i>
@@ -48,7 +49,7 @@
 			    <a href="#getUser">GetUser</a>
 			    <a href="#createUser">CreateUser</a>
 			    <a href="#updateUser">UpdateUser</a>
-			    <a href="#deleteUserByName">DeleteUserByName</a>
+			    <a href="#deleteUser">DeleteUser</a>
 			  </div>
 			  <button class="dropdown-btn">Categories Methodes 
 			    <i class="fa fa-caret-down"></i>
@@ -58,8 +59,17 @@
 			    <a href="#getCategory">Get Category</a>
 			    <a href="#createCategory">Create Category</a>
 			    <a href="#addEquipmentToCategory">Add Equipment To Category</a>
+				<a href="#deleteCategory">DeleteCategory</a>
 			  </div>
-			  
+			    <button class="dropdown-btn">Possible Errors 
+			    <i class="fa fa-caret-down"></i>
+			  </button>
+			  <div class="dropdown-container">
+			    <a href="#errorUrl">URL Error</a>
+			    <a href="#emptyResult">Empty Result</a>
+			    <a href="#errorMlab">Connection Error</a>
+			    <a href="#errorFormat">Format Error</a>
+			  </div>
 
 			</div>
 	
@@ -73,9 +83,9 @@
 					with the Event Break platform,<br> and get details about all our events.</p> 
 					<p><strong>Some typical use cases include: </strong>
 					<blockquote>Get all Events<br> Get all users<br>
-						Get all equipment per event</blockquote>
+						Get all Categories</blockquote>
 				</p>
-				<p>The requests should be in GET / POST Method.<br>
+				<p>The requests should be in GET / POST /DELETE Method.<br>
 				The result will return in JSON Object.<br>
 				If your URL request is wrong you will recieve JSON Object Error.
 				</p>
@@ -94,8 +104,8 @@
 						<h3>Get All Events</h3>
 					</header>
 					<p>You can find all Events, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					<blockquote><a href= "http://localhost:3000/getAllEvents" target="_blank" >
+					<var> http://localhost:3000/getAllEvents</var></a><br>
 					Method:  <strong>GET</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
@@ -109,8 +119,8 @@
 						<h3>Get Event</h3>
 					</header>
 					<p>You can find each Event, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					<blockquote><a href= "http://localhost:3000/getEvent/5b268bac193d8f1d88fd309f" target="_blank" >
+					<var> http://localhost:3000/getEvent/5b268bac193d8f1d88fd309f</var></a><br>
 					Method:  <strong>GET</strong><br>
 					Parameters name: <strong>/eventid</strong></p>
 					</blockquote>
@@ -124,11 +134,18 @@
 					<header>
 						<h3>Create Event</h3>
 					</header>
-					<p>You can create your	 Event, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					<p>You can create your Event, by entering the following URL:<br>
+					<blockquote><a href= "http://localhost:3000/createEvent" target="_blank" >
+					<var> http://localhost:3000/createEvent</var></a><br>
 					Method:  <strong>POST</strong><br>
-					Parameters name: <strong>/name/description/time/creator/place/category</strong></p>
+					Parameters name: <ul>
+						<li><b>name:</b> string of the event name</li>
+						<li><b>description:</b> string of the event description</li>
+						<li><b>time:</b> date format ("2018-06-20 20:19:00") of the event timing</li>
+						<li><b>creator:</b> user id of the creator</li>
+						<li><b>place:</b> string of the event place</li>
+						<li><b>category:</b> string with category</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/createEvent.png">
@@ -140,10 +157,14 @@
 						<h3>Add Category Event</h3>
 					</header>
 					<p>Add category to event, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					<blockquote><a href= "http://localhost:3000/addCategoryEvent" target="_blank" >
+					<var> http://localhost:3000/addCategoryEvent</var></a><br>
 					Method:  <strong>POST</strong><br>
-					Parameters name: <strong>/eventid/category</strong></p>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>category:</b> string with category</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/addCategoryEvent.png">
@@ -155,10 +176,16 @@
 						<h3>Set Equipment Event</h3>
 					</header>
 					<p>Add equipment include max and min quantity to Event , by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
+					<blockquote><a href= "http://localhost:3000/setEqEvent" target="_blank" >
+					<var> http://localhost:3000/setEqEvent</var></a><br>
 					Method:  <strong>POST</strong><br>
-					Parameters name: <strong>/eventid/equipment/max_quantity/min_quantity</strong></p>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>equipment:</b> string</li>
+						<li><b>max_quantity:</b> number</li>
+						<li><b>min_quantity:</b> number</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/setEqEvent.png">
@@ -170,9 +197,16 @@
 						<h3>Set User Equipment</h3>
 					</header>
 					<p>Set user Equipment to Event , by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong></p>
+					<blockquote><a href= "http://localhost:3000/setUserEquip" target="_blank" >
+					<var> http://localhost:3000/setUserEquip</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>userid:</b> user id</li>
+						<li><b>equipment:</b> string</li>
+						<li><b>quantity:</b> number</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/setUserEquip.png">
@@ -185,9 +219,14 @@
 						<h3>invite User</h3>
 					</header>
 					<p>invite User, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong></p>
+					<blockquote><a href= "http://localhost:3000/inviteUser" target="_blank" >
+					<var> http://localhost:3000/inviteUser</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>userid:</b> user id</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/inviteUser.png">
@@ -200,10 +239,14 @@
 					</header>
 					<p>Set time that you want the event will be.<br> call getEvent method to see your changed.<br>
 					by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong><br>
-					Parameters name: <strong>/eventid/time</strong></p>
+					<blockquote><a href= "http://localhost:3000/setTimeEvent" target="_blank" >
+					<var> http://localhost:3000/setTimeEvent</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>time:</b> date format ("2018-06-20 20:19:00")</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/setTime.png">
@@ -215,10 +258,14 @@
 						<h3>Set Place Event</h3>
 					</header>
 					<p>Set the place thet you want the event will be.<br> call getEvent method to see your changed. by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong><br>
-					Parameters name: <strong>/eventid/place</strong></p>
+					<blockquote><a href= "http://localhost:3000/setPlaceEvent" target="_blank" >
+					<var> http://localhost:3000/setPlaceEvent</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>place:</b> string</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/setPlace.png">
@@ -230,9 +277,10 @@
 						<h3>Get Chat</h3>
 					</header>
 					<p>Here you can see all the messages has been sent in specific event. <br> by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>GET</strong></p>
+					<blockquote><a href= "http://localhost:3000/getChat/b268bac193d8f1d88fd309f" target="_blank" >
+					<var> http://localhost:3000/getChat5/b268bac193d8f1d88fd309f</var></a><br>
+					Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/eventid</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/getChat.png">
@@ -244,31 +292,39 @@
 						<h3>Send Message</h3>
 					</header>
 					<p>Send Message to chat, after you sent message call getChat method to see your meassge and all the outhers messages<br> by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong></p>
+					<blockquote><a href= "http://localhost:3000/sendMessage" target="_blank" >
+					<var> http://localhost:3000/sendMessage</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>userid:</b> user id</li>
+						<li><b>message:</b> string</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="public/sendMessage.png">
 					
 				</div>
-				<!-- inviteUser -->
-				<div id="inviteUser" class="col-sm-9">
+				<!-- deleteEvent -->
+				<div id="deleteEvent" class="col-sm-9">
 					<header>
-						<h3>invite User</h3>
+						<h3>Send Message</h3>
 					</header>
-					<p>invite User, by entering the following URL:<br>
-					<blockquote><a href= "https://borrowed-books.herokuapp.com/getAllEvents" target="_blank" >
-					<var> https://borrowed-books.herokuapp.com/getAllEvents</var></a><br>
-					Method:  <strong>POST</strong></p>
+					<p>you can delete event by using event id, without any password or identification<br> by entering the following URL:<br>
+					<blockquote><a href= "http://localhost:3000/deleteEvent" target="_blank" >
+					<var> http://localhost:3000/deleteEvent</var></a><br>
+					Method:  <strong>DELETE</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
 					<img src="">
 					
-				</div>                                                        
-				
-			</section>
-			<h1>Users Methodes:</h1>
+				</div>
+            </section>                                          
 			<section class="users">
 				<!-- getAllUsers -->
 				<div id="getAllUsers" class="col-sm">
@@ -276,8 +332,8 @@
 						<h3>Get All Users</h3>
 					</header>
 					<p >You can get list of all users.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
+					<blockquote><a href="http://localhost:3000/getAllUsers" target="_blank" >
+					<var>http://localhost:3000/getAllUsers</var></a></p>
 					<p>Method:  <strong>GET</strong><br></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
@@ -289,9 +345,10 @@
 						<h3>Get User</h3>
 					</header>
 					<p >You can get each user by their userid.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>GET</strong><br></p>
+					<blockquote><a href="http://localhost:3000/getUser/5b1fbbc4422bdc38c84e530b" target="_blank" >
+					<var>http://localhost:3000/getUser/5b1fbbc4422bdc38c84e530b</var></a></p>
+					<p>Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/userid</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
@@ -302,11 +359,17 @@
 						<h3>Create User</h3>
 					</header>
 					<p >You can create user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					
-					<p>Method:  <strong>POST</strong><br></p>
-					</blockquote>
+					<blockquote><a href="http://localhost:3000/createUser" target="_blank" >
+					<var>http://localhost:3000/createUser</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>full_name:</b> string (like "Moshe Zuchmir")</li>
+						<li><b>phone:</b> phone format ("058-545-6578")</li>
+						<li><b>email:</b> email format ("ys@shenkar.com")</li>
+						<li><b>password:</b> string</li>
+						<li><b>image:</b> http url to image file</li>
+					</ul>
+					</p></blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
 				</div>
@@ -316,24 +379,34 @@
 						<h3>Update User</h3>
 					</header>
 					<p >You can update each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
+					<blockquote><a href="http://localhost:3000/updateUser" target="_blank" >
+					<var>http://localhost:3000/updateUser</var></a></p>
 					
-					<p>Method:  <strong>POST</strong><br></p>
-					</blockquote>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>userid:</b> user id</li>
+						<li><b>phone:</b> phone format ("058-545-6578")</li>
+						<li><b>email:</b> email format ("ys@shenkar.com")</li>
+					</ul>
+					</p></blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
 				</div>
-				<!-- deleteUserByName -->
-				<div id="deleteUserByName" class="col-sm">
+				<!-- deleteUser -->
+				<div id="deleteUser" class="col-sm">
 					<header>
-						<h3>Delete User By Name</h3>
+						<h3>Delete User</h3>
 					</header>
-					<p >You can delete each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br></p>
-					</blockquote>
+					<p>you can delete user by using user id, without any password or identification<br> by entering the following URL:<br>
+					<blockquote><a href="http://localhost:3000/deleteUser" target="_blank" >
+					<var>http://localhost:3000/deleteUser</var></a></p>
+					<p>Method:  <strong>DELETE</strong><br>
+					Parameters name: <ul>
+						<li><b>userid:</b> user id</li>
+						<li><b>phone:</b> phone format ("058-545-6578")</li>
+						<li><b>email:</b> email format ("ys@shenkar.com")</li>
+					</ul>
+					</p></blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
 				</div>
@@ -345,10 +418,10 @@
 					<header>
 						<h3>Get All Categories</h3>
 					</header>
-					<p >You can delete each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br></p>
+					<p >You can get all categories list with their belong equipment.<br> </p>
+					<blockquote><a href="http://localhost:3000/getAllCategories" target="_blank" >
+					<var>http://localhost:3000/getAllCategories</var></a></p>
+					<p>Method:  <strong>GET</strong><br></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
@@ -358,10 +431,11 @@
 					<header>
 						<h3>Get Category</h3>
 					</header>
-					<p >You can delete each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br></p>
+					<p >You can get specific category with his belong equipment by categoryid.<br> </p>
+					<blockquote><a href="http://localhost:3000/getCategory/5b222b0a2a59a929f4a17838" target="_blank" >
+					<var>http://localhost:3000/getCategory/5b222b0a2a59a929f4a17838</var></a></p>
+					<p>Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/categoryid</strong></p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
@@ -371,10 +445,14 @@
 					<header>
 						<h3>Create Category</h3>
 					</header>
-					<p >You can delete each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br></p>
+					<p >You can create category.<br> </p>
+					<blockquote><a href="http://localhost:3000/createCategory" target="_blank" >
+					<var>http://localhost:3000/createCategory</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>name:</b> string</li>
+					</ul>
+					</p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
@@ -384,22 +462,29 @@
 					<header>
 						<h3>Add Equipment To Category</h3>
 					</header>
-					<p >You can delete each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br></p>
-					</blockquote>
+					<p >You can add equipment to category.<br> </p>
+					<blockquote><a href="http://localhost:3000/addEquipmentToCategory" target="_blank" >
+					<var>http://localhost:3000/addEquipmentToCategory</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>categoryid:</b> category id</li>
+						<li><b>equipment:</b> string</li>
+					</ul>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
 				</div>
-				<div id="deleteUserByName" class="col-sm">
+				<div id="deleteCategory" class="col-sm">
 					<header>
-						<h3>Delete User By Name</h3>
+						<h3>Delete Category</h3>
 					</header>
-					<p >You can delete each user.<br> </p>
-					<blockquote><a href="https://borrowed-books.herokuapp.com/getBooksByCategory" target="_blank" >
-					<var>https://borrowed-books.herokuapp.com/getBooksByCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br></p>
+					<p >You can delete each category.<br> </p>
+					<blockquote><a href="http://localhost:3000/deleteCategory" target="_blank" >
+					<var>http://localhost:3000/deleteCategory</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>name:</b> string</li>
+					</ul>
+					</p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
 					<img src="">
@@ -408,44 +493,58 @@
 				
 			</div>
 			<!-- errors -->
+			<section class="container row errors">
+					
+							<h2>Possible Errors</h2>
 
-			<div id="errors" class="container">
-
+				<div id="errorUrl" class="col-sm">
 				<header>
-					<h2>Possible Errors</h2>
-				</header>
-
-				<p>There are 3 types of error:<br>
-				<ol class="row">
-					<li id="errorUrl" class="col-sm">
-					<h4>URL error</h4>
+						<h3>URL error</h3>
+					</header>
 						
 							<p>If you enter URL that no specified in the API, <br>
 							you will recieve general error object.<br>
 							The error object includes the deatails of legitimate API</p>
 							<p>Example of error in JSON Object:</p>
-							<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/errorUrl.PNG">
+							<img src="">
+							<blockquote><a href="http://localhost:3000/deleteCategodcbvry" target="_blank" >
+								<var>http://localhost:3000/deleteCategodcbvryry</var></a></p></blockquote>
 						
-					</li>
-					<li id="emptyResult" class="col-sm">
-						<h4>Empty Result</h4>
+					</div>
+					<div id="emptyResult" class="col-sm">
 						
+					<header>
+						<h3>Empty Result</h3>
+					</header>
 							<p>If you enter parameters that dont match to any documents in my DB,<br>
 							you should recieve an empty array</p>
 							<p>Example of empty array in Query:</p>
-							<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/emptyResult.PNG">
+							<img src="">
 					
-					</li>
-					<li id="errorMlab" class="col-sm">
-						<h4>connection error to mlab</h4>
+					</div>
+					<div id="errorMlab" class="col-sm">
+					<header>
+						<h3>connection error to mlab</h3>
+					</header>
+						
 							<p>If my server have an error with connection to my DB,<br>
 							you should recieve an error object that describes the error</p>
 							<p>Example of error in JSON Object:</p>
-							<img src="https://raw.githubusercontent.com/yshur/borrowed_books/master/public/errorMlab.PNG">
+							<img src="">
 						
-					</li>
+					</div>
+					<div id="errorFormat" class="col-sm">
+					<header>
+						<h3>format error</h3>
+					</header>
 				
-				</ol>
+							<p>If you enter variables that their format don't match to our schema, <br>
+							you will recieve mongoose validation error.</p>
+							<p>Example of error in JSON Object:</p>
+							<img src="">
+						
+					</div>
+				
 			
 			</div>                  
 					
