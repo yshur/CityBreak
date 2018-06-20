@@ -41,6 +41,7 @@ var mongoose = require('mongoose'),
             equipmentName: String,
             max_quantity: Number,
             min_quantity: Number,
+            current_quantity: Number 
         }
         ],
         chat: [
