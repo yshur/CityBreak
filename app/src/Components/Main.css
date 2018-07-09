@@ -1,15 +1,15 @@
-p{
+.main p{
     font-size: 70px;
     text-align: center;
     font-family: 'Markazi Text', serif;
     margin-top: 230px;
 }
-span{
+.mainSpan{
     background: #ffb84d;
     border-radius: 15px;
     color: white;
-    ; width:200px;
-    ; hight:150px;
+    /*width:200px;*/
+    /*hight:150px;*/
     padding:10px;
 }
 body{
@@ -23,4 +23,20 @@ body{
     position: relative;
     top: -90px;
     font-family: 'Song Myung', serif;
+}
+
+/*--------------------------------Admin--------------------------------*/
+
+.admin p{
+    font-size: 20px;
+    display: inline;
+}
+.admin button{
+    padding: 10px;
+    margin: 10px;
+    margin-left: 25%;
+}
+.admin h1{
+    margin-bottom: 250px;
+    text-align: center;
 }

@@ -6,9 +6,9 @@ class Main extends Component{
     render(){
         return (
             <div className='main'>
-                <p> Event <span>Break</span> </p>
+                <p> Event <span className="mainSpan">Break</span> </p>
                 <span className="subTitle"> Events in one place </span>
-                    
+
             </div>
         )
     }

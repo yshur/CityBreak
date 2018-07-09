@@ -22,12 +22,12 @@ class Header extends Component {
         return (
             <div style={this.header}>
                 <div className="admin" style={this.admin}>
-                    <NavLink exact to="/" activeStyle={this.active}>
+                    <NavLink exact to="/Admin" activeStyle={this.active}>
                     Admin
                     </NavLink>
                 </div>
                 <div className="client" style={this.client}>
-                    <NavLink to="/" activeStyle={this.active}>
+                    <NavLink to="/Client" activeStyle={this.active}>
                     Client
                     </NavLink>
                 </div>

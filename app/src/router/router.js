@@ -1,6 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import Main from "../Components/Main";
+import Admin from "../Components/Admin";
 import Header from "../Header"
 
 const ReactRouter =()=>{
@@ -8,6 +9,7 @@ const ReactRouter =()=>{
         <React.Fragment>
             <Header/>
             <Route exact path="/" component={Main}/>
+            <Route path="/Admin" component={Admin}/>
         </React.Fragment>
         );
 }
