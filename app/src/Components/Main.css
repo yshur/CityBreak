@@ -1,0 +1,26 @@
+p{
+    font-size: 70px;
+    text-align: center;
+    font-family: 'Markazi Text', serif;
+    margin-top: 230px;
+}
+span{
+    background: #ffb84d;
+    border-radius: 15px;
+    color: white;
+    ; width:200px;
+    ; hight:150px;
+    padding:10px;
+}
+body{
+    border: 1px solid black;
+    height: 640px;
+}
+.subTitle{
+    background: none;
+    color:  #707070;
+    margin-left: 23px;
+    position: relative;
+    top: -90px;
+    font-family: 'Song Myung', serif;
+}
