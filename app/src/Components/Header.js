@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import { NavLink } from "react-router-dom";
+import { LogedInUser } from './LogedInUser'
 
 class Header extends Component {
     active = {
@@ -21,6 +22,12 @@ class Header extends Component {
     render() {
         return (
             <div style={this.header}>
+            
+                <NavLink exact to="/" activeStyle={this.style} >
+                    <LogedInUser />
+
+                    Event Break
+                </NavLink>
                 <div className="admin" style={this.admin}>
                     <NavLink exact to="/Admin" activeStyle={this.active}>
                     Admin
