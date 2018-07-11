@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import Main from "../Components/Main";
 import Admin from "../Components/Admin";
-import Header from "../Component/Header"
+import Header from "../Components/Header"
 
 const ReactRouter =()=>{
     return (
