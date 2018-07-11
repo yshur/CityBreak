@@ -24,7 +24,7 @@ class Header extends Component {
             <div style={this.header}>
             
                 <NavLink exact to="/" activeStyle={this.style} >
-                    <LogedInUser />
+                    
 
                     Event Break
                 </NavLink>
