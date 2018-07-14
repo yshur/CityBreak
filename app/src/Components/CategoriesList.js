@@ -26,9 +26,9 @@ class CategoriesList extends Component {
        })
        .then((data) => {
          var self=this;
-             data.map((Category) => {
-                 console.log(Category)
-                 self.add(Category._id, Category.name);
+             data.map((category) => {
+                 console.log(category)
+                 self.add(category._id, category.name, category.equipments );
              })
       })
    // } else if (this.props.method === 'post') {
@@ -58,16 +58,15 @@ class CategoriesList extends Component {
    // }
   }
 
- eachCategory(Category, i) {
-   // console.log(Category)
+ eachCategory(category, i) {
+   console.log(category)
    return (
    <div className="card" >
         <div className="card-body">
-       <Category key={Category._id} index={Category._id}
+       <Category key={category._id} index={category._id}
        onChange={this.update}
        onDelete={this.delete}>
-         <h5 className="card-title">{Category.name}</h5>
-         <p className="card-text">{Category.equipments}</p>
+         <h5 className="card-title">{category.name}</h5>
        </Category>
         </div>
         </div>
@@ -87,23 +86,24 @@ class CategoriesList extends Component {
      Categories: prevState.Categories.filter(Category => Category._id !== _id)
    }))
  }
- add(_id, name) {
-   // console.log(typeof _id)
+ add(_id, name, equipments) {
+   console.log(typeof _id)
    if ((typeof _id) !== 'string') {
      var _id = this.numFor_id++;
      var name = "some name";
-  //   var equipments = [];
+     var equipments = [];
    }
-
+   console.log(this.state.Categories)
    this.setState(prevState => ({
      Categories: [
        ...prevState.Categories,
        {
          _id:_id,
          name: name,
-    //     equipments: equipments,
+         equipments: equipments,
        }]
    }))
+   console.log(this.state.Categories)
 
  }
 
