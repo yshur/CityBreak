@@ -94,3 +94,12 @@ h4{
  /* background: url(images/img1.jpg) center no-repeat;*/
   background-size: cover;
 }
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: #e6ffe6;
+   color: black;
+   text-align: center;
+}

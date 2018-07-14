@@ -33,7 +33,7 @@ class Header extends Component {
             <nav className="navbar navbar-light bg-light justify-content-between">
                 <img src = {logo}></img>
                 <div style={this.header}>
-                <NavLink exact to="/users" activeStyle={this.style} >
+                <NavLink exact to="/userInterface" activeStyle={this.style} >
                     Sign in
                 </NavLink>
                 </div>

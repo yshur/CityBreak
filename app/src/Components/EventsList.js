@@ -82,6 +82,9 @@ class EventsList extends Component {
 					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Place:</b> {Event.place}</p>
 				</EventItem>
         </div>
+        <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+        </div>
         </div>
 
 		)
