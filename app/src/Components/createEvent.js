@@ -311,6 +311,9 @@ class CreateEvent extends Component {
     		 <div className="card CategoriesList" style={{width: 50+'em', marginBottom: 7+'px'}}>
     			 	<CategoriesList key='22536' index='22536' />
     		</div>
+        <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+        </div>
       </div>
   		)
   	}
@@ -336,6 +339,9 @@ class CreateEvent extends Component {
       <div className="card EquipmentsList" style={{width: 50+'em', marginBottom: 7+'px'}}>
          <CategoriesList key='22538' index='22538' />
      </div>
+     <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+        </div>
    </div>
   	)
   }
@@ -361,6 +367,9 @@ class CreateEvent extends Component {
         <div className="card UsersList" style={{width: 50+'em', marginBottom: 7+'px'}}>
            <UsersList key='22540' index='22540' />
        </div>
+       <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+        </div>
      </div>
 		)
 	}
@@ -373,25 +382,32 @@ class CreateEvent extends Component {
    		console.log(this.state.newEvent)
    		console.log(this.state.url)
       return (
-      <div className="card" >
+      <div className="card">
+      <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px" }}>Event Details</h2>
           <div className="card-body">
           <EventDetails key={this.state.newEvent._id} index={this.state.newEvent._id}
           onChange={this.update}
           onDelete={this.delete}>
-            <h5 className="card-title">{this.state.newEvent.name}</h5>
-            <p className="card-text">{this.state.newEvent.description}</p>
-            <p className="card-text">Time: {this.state.newEvent.time}</p>
-            <p className="card-text">Place: {this.state.newEvent.place}</p>
-            <p className="card-text">Creator: {this.state.newEvent.creator}</p>
-            <p className="card-text">Categories: {this.state.newEvent.categories}</p>
-            <p className="card-text">Equipments: {this.state.newEvent.equipments}</p>
-            <p className="card-text">Participants: {this.state.newEvent.participants}</p>
+            <h5 className="card-title" style={{marginLeft: "10px"}}>Event Name:{this.state.newEvent.name}</h5>
+            <p className="card-text" style={{marginLeft: "10px"}}>Description:{this.state.newEvent.description}</p>
+            <p className="card-text" style={{marginLeft: "10px"}}>Time: {this.state.newEvent.time}</p>
+            <p className="card-text" style={{marginLeft: "10px"}}>Place: {this.state.newEvent.place}</p>
+            <p className="card-text" style={{marginLeft: "10px"}}>Creator: {this.state.newEvent.creator}</p>
+            <p className="card-text" style={{marginLeft: "10px"}}>Categories: {this.state.newEvent.categories}</p>
+            <p className="card-text" style={{marginLeft: "10px"}}>Equipments: {this.state.newEvent.equipments}</p>
+            <p className="card-text" style={{marginLeft: "10px"}}>Participants: {this.state.newEvent.participants}</p>
 
           </EventDetails>
-          <button type="submit" className="btn btn-default" onClick={this.nextForm} >Continue Set Event</button>
-          <button type="submit" className="btn btn-default" onClick={this.previusForm} >Back</button>
+          <button type="submit" className="btn btn-primary" onClick={this.nextForm} >Continue Set Event</button>
+          <button type="submit" className="btn btn-primary" onClick={this.previusForm} >Back</button>
 
           </div>
+          <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+        </div>
+        <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+        </div>
           </div>
 
       )
@@ -421,6 +437,9 @@ class CreateEvent extends Component {
 
           </EventDetails>
 
+          </div>
+          <div class="footer">
+            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
           </div>
           </div>
 
