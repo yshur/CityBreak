@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import EventItem from './EventItem'
 import MdAdd from 'react-icons/lib/md/add'
+import barbecue from './barbecue.jpg'
 
 class EventsList extends Component {
 	numFor_id = 4;
@@ -31,7 +32,7 @@ class EventsList extends Component {
 	            		self.add(Event._id, Event.creator, Event.category,
                     Event.timeCreated, Event.equipment, Event.chat,
                     Event.name, Event.description, Event.time,
-                    Event.place, Event.participants, Event.required_equipment
+                    Event.place, Event.participants, Event.required_equipment, Event.image
                   );
 
 	        		})
@@ -67,14 +68,16 @@ class EventsList extends Component {
 		// console.log(Event)
 		return (
 		<div className="card" >
-        <div className="card-body">
+        
+        <div className="card-body" style= {{padding: "10px"}}>
 				<EventItem key={Event._id} index={Event._id}
 				onChange={this.update}
 				onDelete={this.delete}>
-					<h5 className="card-title">{Event.name}</h5>
-					<p className="card-text">{Event.description}</p>
-					<p className="card-text">Time: {Event.time}</p>
-					<p className="card-text">Place: {Event.place}</p>
+                    <img className="card-img-top" src={Event.image}  alt="Card image cap" style={{padding:"5px"}}/>
+					<h5 className="card-title" style={{marginTop: "15px", fontFamily: 'Love Ya Like A Sister', fontWeight: "bold"}}>{Event.name}</h5>
+					<p className="card-text" style={{fontFamily: "Roboto Condensed"}}>{Event.description}</p>
+					<p className="card-text" style={{fontFamily: "Roboto Condensed"}}>Time: {Event.time}</p>
+					<p className="card-text" style={{fontFamily: "Roboto Condensed"}}>Place: {Event.place}</p>
 				</EventItem>
         </div>
         </div>
@@ -96,7 +99,7 @@ class EventsList extends Component {
 		}))
 	}
 	add(_id, creator, category, timeCreated, equipment, chat,
-    name, description, time, place, participants, required_equipment) {
+    name, description, time, place, participants, required_equipment, image) {
 		// console.log(typeof _id)
 		// if ((typeof _id) !== 'string') {
 		// 	var _id = this.numFor_id++;
@@ -120,6 +123,7 @@ class EventsList extends Component {
           name:name,
           description: description,
           time: time,
+          image: image,
           place: place,
           participants: participants,
           required_equipment: required_equipment
@@ -131,12 +135,15 @@ class EventsList extends Component {
 	render() {
 		console.log(this.state.Events);
 		return (
-		 <div className="card EventsList" style={{width: 50+'em', marginBottom: 7+'px'}}>
+            <div>
+                <h4 style={{fontFamily: 'Love Ya Like A Sister'}}> Events List </h4>
+		 <div className="card EventsList" style={{width: 22.5+'em', marginBottom: 7+'px', padding: '5px'}}>
 		 	{this.state.Events.map(this.eachEvent)}
 			<br/><button onClick={this.add}
 			_id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>
 			Add <MdAdd/></button>
 		</div>
+        </div>
 		)
 
 	}
