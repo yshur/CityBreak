@@ -12,48 +12,36 @@ var mongoose = require('mongoose'),
             required:true
         },
         timeCreated: { type: Date, default: Date.now },
-        creator: [{
-                    type: mongoose.Schema.ObjectId,
-                    ref: 'user',
-                    required:true
-                }],
+        creator: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'user',
+            required:true
+        },
         place: {
             type: String,
             required:true
         },
-        participants:[{
-            userid: {
-                type: mongoose.Schema.ObjectId,
-                ref: 'user'
-            },
-            status: { 
-                type: String, 
-                enum: ['new', 'admin', 'active', 'delete' ] 
-            },
-            userEquipments:[{
-                equipmentName: String,
-                quantity: Number
-            }]
+        image: String,
+        participant:[{
+            type: mongoose.Schema.ObjectId,
+            ref: 'user'
         }],
         category: [String],
-        equipment:[
-        {
-            equipmentName: String,
-            max_quantity: Number,
-            min_quantity: Number,
-            current_quantity: Number 
-        }
-        ],
-        chat: [
-            {
-                user: {
-                  type: mongoose.Schema.ObjectId,
-                  ref:'user'
-                },
-                time: { type: Date, default: Date.now },
-                text: String
-            }
-        ]         
+        equipment:[{
+            name: String,
+            current: { type: Boolean, default:false },
+            userid: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user'            }
+        }],
+        chat: [{
+            user: {
+              type: mongoose.Schema.ObjectId,
+              ref:'user'
+            },
+            time: { type: Date, default: Date.now },
+            text: String
+        }]
     });
 
 module.exports = mongoose.model('Event', eventSchema);

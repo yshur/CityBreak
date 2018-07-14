@@ -34,7 +34,7 @@ exports.createUser = (req, res) => {
         email = ${req.body.email},
         password = ${req.body.password},
         image = ${req.body.image}`);
-    
+
     var newUser = new User({
         full_name: full_name,
         phone: phone,
@@ -78,8 +78,9 @@ exports.updateUser = (req, res) => {
 
     var conditions = {phone: phone, email:email}
     opts = {
+        runValidators: true,
         multi: true,
-        runValidators: true
+        new: true
     };
     User.findByIdAndUpdate(userid, conditions, opts,
         (err, user) => {

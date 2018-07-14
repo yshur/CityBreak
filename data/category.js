@@ -3,8 +3,8 @@
 var mongoose = require('mongoose'),
     Category = require('./schemas/category');
 
-exports.getAllCategories = (req, res) => {
-    console.log('getAllCategories');
+exports.getAllEquipments = (req, res) => {
+    console.log('getAllEquipments');
     Category.find( {},
         (err, category) => {
             if (err) {
@@ -16,29 +16,12 @@ exports.getAllCategories = (req, res) => {
         }
     )
 };
-exports.createCategory = (req, res) => {
-    var name = req.body.name;
-    console.log('createCategory');
-    console.log(`post: name = ${req.body.name}`);
-    var newCategory = new Category({
-        name: name
-    });
-    newCategory.save(
-        (err) => {
-            if(err)
-                console.log(`err: ${err}`);
-            else {
-                console.log(`Saved document: ${newCategory}`);
-                res.status(200).json(newCategory);
-            }
-        });    
-};
 
 exports.getCategory = (req, res) => {
     var category = req.params.category;
     console.log('getCategory');
     console.log(`get: category = ${req.params.category}`);
-    
+
     Category.find( { name: { $eq: category } },
         (err, equipment) => {
             if (err) {
@@ -51,22 +34,27 @@ exports.getCategory = (req, res) => {
     )
 };
 
-exports.addEquipmentToCategory = (req, res) => {
+exports.addEquipment = (req, res) => {
     var equipment = req.body.equipment;
-    var categoryid = req.body.categoryid;
-    
-    var conditions = { $push: { equipments: equipment } },
-    opts = {multi: true};
-    Category.findByIdAndUpdate(categoryid, conditions, opts,
-        (err, category) => {
-            if(err)
-                console.log(`err: ${err}`);
-            else {
-                console.log(`Updated Category: ${category}`)
-                res.status(200).json(category);
-            }
-        })
+    var category = req.body.category;
+    console.log('addEquipment');
+    console.log(`post: equipment = ${req.body.equipment},
+      category = ${req.body.category}`);
+      var newCategory = new Category({
+            name: category,
+            equipment: equipment
+        });
+        newCategory.save(
+            (err) => {
+                if(err)
+                    console.log(`err: ${err}`);
+                else {
+                    console.log(`Saved document: ${newCategory}`);
+                    res.status(200).json(newCategory);
+                }
+            });
 }
+
 exports.deleteCategory = (req, res) => {
     var categoryid = req.body.categoryid;
     var conditions = {_id: categoryid};
