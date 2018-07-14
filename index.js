@@ -38,10 +38,10 @@ app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
 
 /*--------------- Category Routes ------------*/
-app.get('/getAllCategories', category.getAllCategories);
-app.post('/createCategory', category.createCategory);
+app.get('/getAllCategories', category.getAllEquipments);
+// app.post('/createCategory', category.createCategory);
 app.get('/getCategory/:category', category.getCategory);
-app.post('/addEquipmentToCategory/', category.addEquipmentToCategory);
+app.post('/addEquipment/', category.addEquipment);
 app.delete('/deleteCategory/', category.deleteCategory);
 
 /*--------------- Event Routes ---------------*/
@@ -51,7 +51,7 @@ app.get('/getEvent/:eventid', event.getEvent);
 app.post('/createEvent/', event.createEvent);
 app.post('/setTimeEvent/', event.setTimeEvent);
 app.post('/setPlaceEvent/', event.setPlaceEvent);
-app.post('/setEqEvent/', event.setEqEvent);
+app.post('/addEqEvent/', event.addEqEvent);
 app.post('/addCategoryEvent/', event.addCategoryEvent);
 
 app.post('/sendMessage/', event.sendMessage);

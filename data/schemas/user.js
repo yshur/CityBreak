@@ -13,15 +13,9 @@ var mongoose = require('mongoose'),
             unique : true
         },
         password : String,
-        image : String      
+        image : String
     });
 
-    userSchema.path('full_name').set(
-        (val) => {
-            let sVal = String(val).toUpperCase();
-            console.log(`capitalized: ${sVal}`);
-            return sVal;
-        })
     userSchema.path('phone').validate(
         (val) => {
             return /\d{3}-\d{3}-\d{4}/.test(val);
