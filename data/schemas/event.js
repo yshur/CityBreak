@@ -32,7 +32,7 @@ var mongoose = require('mongoose'),
             current: { type: Boolean, default:false },
             userid: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user'            }
+              ref: 'user' }
         }],
         chat: [{
             user: {

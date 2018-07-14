@@ -16,7 +16,19 @@ exports.getAllEquipments = (req, res) => {
         }
     )
 };
-
+exports.getAllCategories = (req, res) => {
+    console.log('getAllCategories');
+    Category.find( {},
+        (err, category) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err}`);
+            }
+            console.log(category);
+            res.status(200).json(category);
+        }
+    )
+};
 exports.getCategory = (req, res) => {
     var category = req.params.category;
     console.log('getCategory');

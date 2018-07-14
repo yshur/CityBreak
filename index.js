@@ -38,7 +38,8 @@ app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
 
 /*--------------- Category Routes ------------*/
-app.get('/getAllCategories', category.getAllEquipments);
+app.get('/getAllCategories', category.getAllCategories);
+app.get('/getAllEquipments', category.getAllEquipments);
 // app.post('/createCategory', category.createCategory);
 app.get('/getCategory/:category', category.getCategory);
 app.post('/addEquipment/', category.addEquipment);

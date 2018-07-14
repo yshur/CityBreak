@@ -244,9 +244,8 @@ exports.setUserEquip = (req, res) => {
         userid = ${req.body.userid},
         equipment = ${req.body.equipment}`);
 
-    var conditions = { equipment: {
+    var conditions = { $push: {equipment: {
         $in:{name: equipment},
-        $set:{
         name: equipment,
         userid: userid,
         current: true
