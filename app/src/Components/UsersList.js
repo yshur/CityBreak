@@ -82,13 +82,13 @@ class UsersList extends Component {
 				<UserItem key={User._id} index={User._id}
 				onChange={this.update}
 				onDelete={this.delete}>
-					<li className="list-group-item" style = {this.h5}>{User.full_name} 	
+					<li className="list-group-item" style = {this.h5}>{User.full_name}
 					<div style = {this.profile}>
 				  	<img src={profilePic}/>
 				  	</div>
 				  	</li>
 				</UserItem>
-        
+
         </div>
 
 		)
@@ -140,7 +140,7 @@ class UsersList extends Component {
 		return (
 		<div>
 		<h4> Add a Friend </h4>
-		<input class="form-control mr-sm-2"  style ={this.serach} type="search" placeholder="Search" aria-label="Search"></input>		
+		<input class="form-control mr-sm-2"  style ={this.serach} type="search" placeholder="Search" aria-label="Search"></input>
 		 <div className="list-group list-group-flush " >
 		 	{this.state.Users.map(this.eachUser)}
 			<br/><button onClick={this.add}
