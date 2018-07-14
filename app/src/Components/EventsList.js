@@ -73,8 +73,8 @@ class EventsList extends Component {
 				onDelete={this.delete}>
 					<h5 className="card-title">{Event.name}</h5>
 					<p className="card-text">{Event.description}</p>
-					<p className="card-text">time: {Event.time}</p>
-					<p className="card-text">place: {Event.place}</p>
+					<p className="card-text">Time: {Event.time}</p>
+					<p className="card-text">Place: {Event.place}</p>
 				</EventItem>
         </div>
         </div>
