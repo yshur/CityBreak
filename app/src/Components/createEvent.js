@@ -3,6 +3,7 @@ import EventDetails from './EventDetails'
 import CategoriesList from './CategoriesList'
 import EquipmentsList from './EquipmentsList'
 import UsersList from './UsersList'
+import axios from 'axios'
 
 class CreateEvent extends Component {
 
@@ -18,11 +19,11 @@ class CreateEvent extends Component {
       categories: "",
       equipment: "",
       users: "",
-      newEvent: {},
-      url: "https://eventbreak.herokuapp.com/createEvent",
+      url: "",
       method: "post",
-    params: "{creator:'5b1fd44078396b17983c8732'"
-    }
+      params: "",
+      newEvent: {}
+  }
     this.renderForm1 = this.renderForm1.bind(this);
     this.renderForm2 = this.renderForm2.bind(this);
     this.renderForm3 = this.renderForm3.bind(this);
@@ -37,6 +38,9 @@ class CreateEvent extends Component {
     this.setEvent5 = this.setEvent5.bind(this);
     this.previusForm = this.previusForm.bind(this);
     this.nextForm = this.nextForm.bind(this);
+    this.createEvent = this.createEvent.bind(this);
+    this.setEqEvent = this.setEqEvent.bind(this);
+    this.inviteUser = this.inviteUser.bind(this);
 
   }
   previusForm(e) {
@@ -61,66 +65,64 @@ class CreateEvent extends Component {
       editing: this.state.editing+1
     });
   }
+
+  createEvent() {
+    console.log("createEvent")
+    var url = "https://eventbreak.herokuapp.com/createEvent"
+
+    axios.post(url, {
+		    'creator': this.state.userid,
+        'time': this.state.time,
+        'place': this.state.place,
+        'name': this.state.name,
+        'description': this.state.desc,
+        'category': this.state.category,
+
+		})
+		.then((res) => {
+				console.log("res.data" + res.data)
+        this.setState({
+          newEvent: res.data
+        });
+		 })
+
+  }
+  setEqEvent(equipment) {
+    console.log("setEqEvent")
+    var url = "https://eventbreak.herokuapp.com/setEqEvent"
+    axios.post(url, {
+		    'eventid': this.state.newEvent._id,
+        'equipment': equipment,
+        'max_quantity': 1,
+        'min_quantity': 1,
+		})
+		.then((res) => {
+				console.log("res.data" + res.data)
+        this.setState({
+          newEvent: res.data
+        });
+		 })
+
+  }
+  inviteUser(user) {
+    console.log("inviteUser")
+    var url = "https://eventbreak.herokuapp.com/inviteUser"
+    axios.post(url, {
+		    'eventid': this.state.newEvent._id,
+        'userid': user,
+		})
+		.then((res) => {
+				console.log(res.data)
+        this.setState({
+          newEvent: res.data
+        });
+		 })
+
+  }
+
   componentDidMount() {
     console.log("componentDidMount")
-    console.log(this.state.editing)
-    console.log(this.state.newEvent)
-    console.log(this.state.url)
-
-  	if(this.state.editing === 3) {
-  		var params = this.state.params
-  		fetch(this.state.url, {
-  		  method: 'POST',
-  		  headers: {
-  		    Accept: 'application/json',
-  		    'Content-Type': 'application/json',
-  		  },
-  		  body: JSON.stringify({
-  		  	params
-  		  }),
-  		})
-  		.then((res) => {
-  				console.log("res" + res)
-  				return res.json();
-  			})
-  			.then((data) => {
-  				console.log("data" + data)
-  				var self=this;
-          		data.map((event) => {
-              		console.log(event)
-                  this.setState({
-               			newEvent: event
-               		});
-          		})
-  		 })
-  	} else if(this.state.editing === 4) {
-  		var params = this.state.params
-  		fetch(this.state.url, {
-  		  method: 'POST',
-  		  headers: {
-  		    Accept: 'application/json',
-  		    'Content-Type': 'application/json',
-  		  },
-  		  body: JSON.stringify({
-  		  	params
-  		  }),
-  		})
-  		.then((res) => {
-  				console.log(res)
-  				return res.json();
-  			})
-  			.then((data) => {
-  				console.log(data)
-  				var self=this;
-          		data.map((event) => {
-              		console.log(event)
-                  this.setState({
-               			newEvent: event,
-                    editing: 5
-               		});
-          		})
-  		 })
-  	}  else if(this.state.editing === 6) {
+    if(this.state.editing === 6) {
   		var params = this.state.params
   		fetch(this.state.url, {
   		  method: 'POST',
@@ -195,7 +197,8 @@ class CreateEvent extends Component {
       editing: this.state.editing+1
 
     });
-    this.componentDidMount();
+    console.log(this.state.params)
+    this.createEvent()
   }
   setEvent4(e) {
     console.log("setEvent4")
@@ -211,7 +214,8 @@ class CreateEvent extends Component {
         +",max_quantity:1,min_quantity:1}",
       editing: this.state.editing+1
   	});
-
+    console.log(this.state.params)
+    this.setEqEvent(equipments)
   }
   setEvent5(e) {
     console.log("setEvent5")
@@ -228,6 +232,7 @@ class CreateEvent extends Component {
       editing: this.state.editing+1
 
     });
+    this.inviteUser(users)
   }
 
   renderForm1() {
@@ -337,7 +342,7 @@ class CreateEvent extends Component {
       <div>
   			<div className="container" style={{width: 50+'em', marginBottom: 7+'px'}}>
   			  <h2>Create New Event</h2>
-          <h4>Equipments</h4>
+          <h4>Participants</h4>
   			  <form onSubmit={this.setEvent5}>
   			    <div className="form-group">
   			      <label>Event Participants:</label>
@@ -348,7 +353,7 @@ class CreateEvent extends Component {
           <br /><button type="submit" className="btn btn-default" onClick={this.previusForm} >Back</button>
   			</div>
         <div className="card UsersList" style={{width: 50+'em', marginBottom: 7+'px'}}>
-           <CategoriesList key='22540' index='22540' />
+           <UsersList key='22540' index='22540' />
        </div>
      </div>
 		)
