@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import MdSave from 'react-icons/lib/md/save'
 import MdAdd from 'react-icons/lib/md/add'
 import Background from './bk.jpg';
+import { NavLink } from "react-router-dom";
 
 
 
@@ -18,7 +19,9 @@ class Admin extends Component{
                     <h5> Manage your events </h5>
                     <button className= "add"><MdAdd/></button>
                     <div className="adminOp1">
+                      <NavLink exact to="/createEvent" activeStyle={this.style} >
                         <button><MdSave/></button><p>Create event</p>
+                      </NavLink>
                     </div>
                     <div className="adminOp2">
                         <button><MdSave/></button><p>Get all events</p>
@@ -28,7 +31,7 @@ class Admin extends Component{
                     </div>
             </div>
             )
-    }          
+    }
 }
 
 export default Admin

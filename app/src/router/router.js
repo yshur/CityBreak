@@ -7,6 +7,7 @@ import UsersList from "../Components/UsersList"
 import EventsList from "../Components/EventsList"
 import CategoriesList from "../Components/CategoriesList"
 import EquipmentsList from "../Components/EquipmentsList"
+import CreateEvent from "../Components/createEvent"
 
 const ReactRouter =()=>{
     return (
@@ -18,6 +19,7 @@ const ReactRouter =()=>{
             <Route exact path="/events" component={EventsList}/>
             <Route exact path="/categories" component={CategoriesList}/>
             <Route exact path="/equipments" component={EquipmentsList}/>
+            <Route exact path="/createEvent" component={CreateEvent}/>
 
         </React.Fragment>
         );
