@@ -17,16 +17,24 @@ class UsersList extends Component {
 	}
 
 	componentDidMount() {
+		console.log("componentDidMount")
+
 		// var url = this.props.url;
 		// if(this.props.method === 'get') {
     var url = "https://eventbreak.herokuapp.com/getAllUsers";
+		console.log(url)
+
 			fetch(url)
 				.then((res) => {
+					console.log(res)
+
 					return res.json();
 				})
 				.then((data) => {
+					console.log(data)
+
 					var self=this;
-	        		data.TopStories.map((User) => {
+	        		data.map((User) => {
 	            		console.log(User)
 	            		self.add(User._id, User.full_name, User.phone, User.email, User.password, User.image );
 
@@ -60,7 +68,7 @@ class UsersList extends Component {
 	 }
 
 	eachUser(User, i) {
-		// console.log(User)
+		console.log(User)
 		return (
 		<div className="card" >
         <div className="card-body">
@@ -93,7 +101,7 @@ class UsersList extends Component {
 		}))
 	}
 	add(_id, full_name, phone, email, password, image) {
-		// console.log(typeof _id)
+		console.log(typeof _id)
 		if ((typeof _id) !== 'string') {
 			var _id = this.numFor_id++;
 			var full_name = "some name";
