@@ -88,7 +88,6 @@ class UsersList extends Component {
 				  	</div>
 				  	</li>
 				</UserItem>
-
         </div>
 
 		)
