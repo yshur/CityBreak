@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import UserItem from './UserItem'
 import MdAdd from 'react-icons/lib/md/add'
+import profilePic from './profilePic.jpg'
+import './Main.css'
 
 class UsersList extends Component {
 	numFor_id = 4;
@@ -66,20 +68,27 @@ class UsersList extends Component {
 		// 	 })
 		// }
 	 }
-
+	 profile = {
+	 	float: "right"
+	 }
+	 h5 = {
+	 	display: "inline-block",
+	 	fontFamily: 'Song Myung'
+	 }
 	eachUser(User, i) {
 		console.log(User)
 		return (
-		<div className="card" >
-        <div className="card-body">
+		<div className="list-group list-group-flush" >
 				<UserItem key={User._id} index={User._id}
 				onChange={this.update}
 				onDelete={this.delete}>
-					<h5 className="card-title">{User.full_name}</h5>
-					
-				  <image src='{User.image}' />
+					<li className="list-group-item" style = {this.h5}>{User.full_name} 	
+					<div style = {this.profile}>
+				  	<img src={profilePic}/>
+				  	</div>
+				  	</li>
 				</UserItem>
-        </div>
+        
         </div>
 
 		)
@@ -123,15 +132,21 @@ class UsersList extends Component {
 		}))
 
 	}
-
+	search = {
+		padding: "45px"
+	}
 	render() {
 		console.log(this.state.Users);
 		return (
-		 <div className="card UsersList" style={{width: 50+'em', marginBottom: 7+'px'}}>
+		<div>
+		<h4> Add a Friend </h4>
+		<input class="form-control mr-sm-2"  style ={this.serach} type="search" placeholder="Search" aria-label="Search"></input>		
+		 <div className="list-group list-group-flush " >
 		 	{this.state.Users.map(this.eachUser)}
 			<br/><button onClick={this.add}
 			_id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>
 			Add <MdAdd/></button>
+		</div>
 		</div>
 		)
 

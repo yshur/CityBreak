@@ -13,7 +13,7 @@
     padding:10px;
 }
 body{
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     height: 640px;
 }
 .subTitle{
@@ -42,11 +42,11 @@ body{
     width: 50px;
     background: orange;
 }
-.admin h1{
+/*.admin h1{
     text-align: center;
     font-family: 'Song Myung', serif;
     padding-top: 40px;
-}
+}*/
 .admin h5{
     text-align: center;
     margin-top: -20px;
@@ -62,3 +62,26 @@ button.add{
     margin-top: 70px
 }
 
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 0px;    
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.125);
+    width: 100%;
+}
+.form-control {
+    background-color: #f0f5f5;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+h4{
+    margin: 15px;
+}
