@@ -73,11 +73,13 @@ class EventsList extends Component {
 				<EventItem key={Event._id} index={Event._id}
 				onChange={this.update}
 				onDelete={this.delete}>
+                <section className= "imgLeft" style={{float:"left", width:"100px", height: "100px"}}>
                     <img className="card-img-top" src={Event.image}  alt="Card image cap" style={{padding:"5px"}}/>
-					<h5 className="card-title" style={{marginTop: "15px", fontFamily: 'Love Ya Like A Sister', fontWeight: "bold"}}>{Event.name}</h5>
-					<p className="card-text" style={{fontFamily: "Roboto Condensed"}}>{Event.description}</p>
-					<p className="card-text" style={{fontFamily: "Roboto Condensed"}}>Time: {Event.time}</p>
-					<p className="card-text" style={{fontFamily: "Roboto Condensed"}}>Place: {Event.place}</p>
+				</section>	
+                    <h5 className="card-title" style={{marginTop: "15px", marginBottom:"0px", fontFamily: 'Love Ya Like A Sister', fontWeight: "bold"}}>{Event.name}</h5>
+					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>{Event.description}</p>
+					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Time:</b> {Event.time}</p>
+					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Place:</b> {Event.place}</p>
 				</EventItem>
         </div>
         </div>
