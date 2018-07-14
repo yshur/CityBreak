@@ -5,6 +5,7 @@ import { UsersList } from "./UsersList"
 import { EventsList } from "./EventsList"
 import { CategoriesList } from "./CategoriesList"
 import { EquipmentsList } from "./EquipmentsList"
+import logo from './logo.PNG';
 
 class Header extends Component {
     active = {
@@ -23,43 +24,20 @@ class Header extends Component {
     client = {
         padding: "5px"
     }
+    logo = {
+        width:"80px",
+        height: "120px"
+    }
     render() {
         return (
-            <div style={this.header}>
-                <NavLink exact to="/" activeStyle={this.style} >
-                    Event Break
+            <nav className="navbar navbar-light bg-light justify-content-between">
+                <img src = {logo}></img>
+                <div style={this.header}>
+                <NavLink exact to="/users" activeStyle={this.style} >
+                    Sign in
                 </NavLink>
-                <div className="admin" style={this.admin}>
-                    <NavLink exact to="/Admin" activeStyle={this.active}>
-                    Admin
-                    </NavLink>
                 </div>
-                <div className="client" style={this.client}>
-                    <NavLink to="/Client" activeStyle={this.active}>
-                    Client
-                    </NavLink>
-                </div>
-                <div className="users" style={this.client}>
-                    <NavLink to="/users" activeStyle={this.active}>
-                    Users
-                    </NavLink>
-                </div>
-                <div className="events" style={this.client}>
-                    <NavLink to="/events" activeStyle={this.active}>
-                    Events
-                    </NavLink>
-                </div>
-                <div className="categories" style={this.client}>
-                    <NavLink to="/categories" activeStyle={this.active}>
-                    Categories
-                    </NavLink>
-                </div>
-                <div className="equipments" style={this.client}>
-                    <NavLink to="/equipments" activeStyle={this.active}>
-                    Equipments
-                    </NavLink>
-                </div>
-            </div>
+            </nav>
         );
     }
 }

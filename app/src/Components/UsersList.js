@@ -76,9 +76,7 @@ class UsersList extends Component {
 				onChange={this.update}
 				onDelete={this.delete}>
 					<h5 className="card-title">{User.full_name}</h5>
-					<p className="card-text">email: {User.email}</p>
-					<p className="card-text">phone: {User.phone}</p>
-					<p className="card-text">pass: {User.password}</p>
+					
 				  <image src='{User.image}' />
 				</UserItem>
         </div>
