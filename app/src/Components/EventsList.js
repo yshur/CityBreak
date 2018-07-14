@@ -75,8 +75,6 @@ class EventsList extends Component {
 					<p className="card-text">{Event.description}</p>
 					<p className="card-text">time: {Event.time}</p>
 					<p className="card-text">place: {Event.place}</p>
-          <p className="card-text">place: {Event.participants}</p>
-          <p className="card-text">place: {Event.equipments}</p>
 				</EventItem>
         </div>
         </div>
