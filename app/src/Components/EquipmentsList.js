@@ -26,7 +26,7 @@ class EquipmentsList extends Component {
        })
        .then((data) => {
          var self=this;
-             data.TopStories.map((Equipment) => {
+             data.map((Equipment) => {
                  console.log(Equipment)
                  self.add(Equipment.name );
              })

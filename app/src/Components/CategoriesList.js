@@ -26,9 +26,9 @@ class CategoriesList extends Component {
        })
        .then((data) => {
          var self=this;
-             data.TopStories.map((Category) => {
+             data.map((Category) => {
                  console.log(Category)
-                 self.add(Category._id, Category.name, Category.equipments );
+                 self.add(Category._id, Category.name);
              })
       })
    // } else if (this.props.method === 'post') {
@@ -87,12 +87,12 @@ class CategoriesList extends Component {
      Categories: prevState.Categories.filter(Category => Category._id !== _id)
    }))
  }
- add(_id, name, equipments) {
+ add(_id, name) {
    // console.log(typeof _id)
    if ((typeof _id) !== 'string') {
      var _id = this.numFor_id++;
      var name = "some name";
-     var equipments = [];
+  //   var equipments = [];
    }
 
    this.setState(prevState => ({
@@ -101,7 +101,7 @@ class CategoriesList extends Component {
        {
          _id:_id,
          name: name,
-         equipments: equipments,
+    //     equipments: equipments,
        }]
    }))
 

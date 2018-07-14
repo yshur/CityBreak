@@ -26,7 +26,7 @@ class EventsList extends Component {
 				})
 				.then((data) => {
 					var self=this;
-	        		data.TopStories.map((Event) => {
+	        		data.map((Event) => {
 	            		console.log(Event)
 	            		self.add(Event._id, Event.creator, Event.category,
                     Event.timeCreated, Event.equipment, Event.chat,
