@@ -136,7 +136,7 @@ class EventsList extends Component {
 		return (
             <div>
                 <h4 style={{fontFamily: 'Love Ya Like A Sister'}}> Events List </h4>
-							 <div className="card EventsList" style={{width: 22.5+'em', marginBottom: 7+'px', padding: '5px'}}>
+							 <div className="card EventsList" style= {{border: "0px "}}>
 							 		{this.state.Events.map(this.eachEvent)}
 								<br/>
 							</div>
