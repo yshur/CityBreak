@@ -238,24 +238,22 @@ exports.inviteUser = (req, res) => {
 exports.setUserEquip = (req, res) => {
     var eventid = req.body.eventid,
         userid = req.body.userid,
-        equipment = req.body.equipment;
+        equipmentid = req.body.equipmentid;
     console.log('setUserEquip');
     console.log(`post: eventid = ${req.body.eventid},
         userid = ${req.body.userid},
-        equipment = ${req.body.equipment}`);
+        equipmentid = ${req.body.equipmentid}`);
 
-    var conditions = { $push: {equipment: {
-        $in:{name: equipment},
-        name: equipment,
-        userid: userid,
-        current: true
-      } } }
+    var conditions = { $set: {
+      userid: userid,
+      current: true
+      } }
         opts = {
             runValidators: true,
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
+    Event.findByIdAndUpdate({equipment:equipmentid}, conditions, opts,
         (err, event) => {
             if(err){
                 console.log(`err: ${err}`);
