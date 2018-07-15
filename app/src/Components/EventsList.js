@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import EventItem from './EventItem'
-import MdAdd from 'react-icons/lib/md/add'
+import axios from 'axios'
 
 class EventsList extends Component {
 	numFor_id = 4;
@@ -17,9 +17,8 @@ class EventsList extends Component {
 	}
 
 	componentDidMount() {
-		// var url = this.props.url;
-		// if(this.props.method === 'get') {
-    var url = "https://eventbreak.herokuapp.com/getAllEvents";
+		var url = this.props.url;
+		if(this.props.method === 'get') {
 			fetch(url)
 				.then((res) => {
 					return res.json();
@@ -33,35 +32,30 @@ class EventsList extends Component {
                     Event.name, Event.description, Event.time,
                     Event.place, Event.participants, Event.required_equipment, Event.image
                   );
-
-	        		})
+						})
 			 })
-		// } else if (this.props.method === 'post') {
-		// 	var params = this.props.params
-		// 	fetch(this.props.url, {
-		// 	  method: 'POST',
-		// 	  headers: {
-		// 	    Accept: 'application/json',
-		// 	    'Content-Type': 'application/json',
-		// 	  },
-		// 	  body: JSON.stringify({
-		// 	  	params
-		// 	  }),
-		// 	})
-		// 	.then((res) => {
-		// 			console.log(res)
-		// 			return res.json();
-		// 		})
-		// 		.then((data) => {
-		// 			console.log(data)
-		// 			var self=this;
-	  //       		data.TopStories.map((Event) => {
-	  //           		console.log(Event)
-    //               self.add(Event._id, Event.full_name, Event.phone, Event.email, Event.password, Event.image );
-	  //       		})
-		// 	 })
-		// }
-	 }
+		} else if (this.props.method === 'post') {
+			var params = this.props.params
+			console.log(url)
+			console.log(params)
+			axios.post(url, {
+			    params
+			})
+			.then((res) => {
+					console.log(res)
+					var self=this;
+					res.data.map((Event) => {
+							console.log(Event)
+							self.add(Event._id, Event.creator, Event.category,
+								Event.timeCreated, Event.equipment, Event.chat,
+								Event.name, Event.description, Event.time,
+								Event.place, Event.participants, Event.required_equipment, Event.image
+	        		)
+			 })
+		})
+	}
+}
+
 
 	eachEvent(Event, i) {
 		// console.log(Event)
@@ -72,9 +66,10 @@ class EventsList extends Component {
 				<EventItem key={Event._id} index={Event._id}
 				onChange={this.update}
 				onDelete={this.delete}>
+
                 <section className= "imgLeft" style={{float:"left", width:"100px", height: "100px"}}>
                     <img className="card-img-top" src={Event.image}  alt="Card image cap" style={{padding:"5px"}}/>
-				</section>
+								</section>
                     <h5 className="card-title" style={{marginTop: "15px", marginBottom:"0px", fontFamily: 'Love Ya Like A Sister', fontWeight: "bold"}}>{Event.name}</h5>
 					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>{Event.description}</p>
 					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Time:</b> {Event.time}</p>
@@ -141,12 +136,10 @@ class EventsList extends Component {
 		return (
             <div>
                 <h4 style={{fontFamily: 'Love Ya Like A Sister'}}> Events List </h4>
-		 <div className="card EventsList" style={{width: 22.5+'em', marginBottom: 7+'px', padding: '5px'}}>
-		 	{this.state.Events.map(this.eachEvent)}
-			<br/><button onClick={this.add}
-			_id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>
-			Add <MdAdd/></button>
-		</div>
+							 <div className="card EventsList" style={{width: 22.5+'em', marginBottom: 7+'px', padding: '5px'}}>
+							 		{this.state.Events.map(this.eachEvent)}
+								<br/>
+							</div>
         </div>
 		)
 

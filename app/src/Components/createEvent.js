@@ -3,6 +3,7 @@ import EventDetails from './EventDetails'
 import CategoriesList from './CategoriesList'
 import EquipmentsList from './EquipmentsList'
 import UsersList from './UsersList'
+import LogedInUser from './logedInUser'
 import axios from 'axios'
 
 class CreateEvent extends Component {
@@ -11,7 +12,7 @@ class CreateEvent extends Component {
     super(props)
     this.state = {
       editing: 0,
-      userid: "5b1fd44078396b17983c8732",
+      userid: LogedInUser,
       name: "",
       desc: "",
       time: "",
