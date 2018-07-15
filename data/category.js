@@ -18,7 +18,7 @@ exports.getAllEquipments = (req, res) => {
 };
 exports.getAllCategories = (req, res) => {
     console.log('getAllCategories');
-    Category.find( {},
+    Category.distinct('name',
         (err, category) => {
             if (err) {
                 console.log(`err: ${err}`);

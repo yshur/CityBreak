@@ -238,16 +238,16 @@ exports.inviteUser = (req, res) => {
 exports.setUserEquip = (req, res) => {
     var eventid = req.body.eventid,
         userid = req.body.userid,
-        equipmentid = req.body.equipmentid;
+        equipment = req.body.equipment;
     console.log('setUserEquip');
     console.log(`post: eventid = ${req.body.eventid},
         userid = ${req.body.userid},
         equipmentid = ${req.body.equipmentid}`);
 
-    var conditions = { $set: {
-      userid: userid,
-      current: true
-      } }
+    var conditions = {
+       equipment: {$elemMatch: {name: equipment}},
+       $set: {'equipment.$.userid': userid,
+              'equipment.$.current': true} } 
         opts = {
             runValidators: true,
             multi: true,
