@@ -10,6 +10,7 @@ import CreateEvent from "../Components/createEvent"
 import UserInterface from "../Components/userInterface"
 import MyEvents from "../Components/myEvents"
 
+
 const ReactRouter =()=>{
     return (
         <React.Fragment>
@@ -22,6 +23,7 @@ const ReactRouter =()=>{
             <Route exact path="/equipments" component={EquipmentsList}/>
             <Route exact path="/createEvent" component={CreateEvent}/>
             <Route exact path="/userInterface" component={UserInterface}/>
+          
 
         </React.Fragment>
         );
