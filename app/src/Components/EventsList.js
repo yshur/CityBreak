@@ -60,7 +60,7 @@ class EventsList extends Component {
 	eachEvent(Event, i) {
 		// console.log(Event)
 		return (
-		<div className="card" >
+		<div className="card">
 
         <div className="card-body" style= {{padding: "10px"}}>
 				<EventItem key={Event._id} index={Event._id}

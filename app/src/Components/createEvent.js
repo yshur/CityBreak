@@ -244,7 +244,7 @@ class CreateEvent extends Component {
 
     return (
       <div className="container" >
-        <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px" }}>Create New Event</h2>
+        <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px", textAlign: "center" }}>Create New Event</h2>
         <h4 style={{fontFamily: 'Love Ya Like A Sister', marginBottom:"25px", marginLeft:"0px"}}>Name & Description</h4>
         <form onSubmit={this.setEvent1}>
           <div className="form-group">
@@ -270,7 +270,7 @@ class CreateEvent extends Component {
     console.log(this.state.url)
     return (
     	<div className="container">
-    	  <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px" }}>Create New Event</h2>
+    	  <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px", textAlign: "center" }}>Create New Event</h2>
         <h4 style={{fontFamily: 'Love Ya Like A Sister', marginBottom:"25px", marginLeft:"0px"}}>Time & Place</h4>
     	  <form onSubmit={this.setEvent2}>
     	    <div className="form-group">
@@ -298,20 +298,21 @@ class CreateEvent extends Component {
 		return (
       <div>
   			<div className="container" >
-  			  <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px" }}>Create New Event</h2>
+  			  <h2 style={{fontFamily: 'Love Ya Like A Sister', padding:"20px", textAlign: "center" }}>Create New Event</h2>
           <h4 style={{fontFamily: 'Love Ya Like A Sister', marginBottom:"25px", marginLeft:"0px"}}>Categories</h4>
   			  <form onSubmit={this.setEvent3}>
   			    <div className="form-group">
   			      <label>Event Categories:</label>
   			      <input type="text" className="form-control" style={{marginLeft:"0px" , marginTop:"5px"}} placeholder="Enter Event Categories" id="categories" />
   			    </div>
+            <div className="card CategoriesList" style={{width: 50+'em', marginBottom: 7+'px'}}>
+               <CategoriesList key='22536' index='22536' />
+            </div>
   			    <button type="submit" className="btn btn-primary"  onClick={this.setEvent3} >Continue</button>
   			  </form>
           <br /><button type="submit" className="btn btn-primary" onClick={this.previusForm} >Back</button>
   			</div>
-    		 <div className="card CategoriesList" style={{width: 50+'em', marginBottom: 7+'px'}}>
-    			 	<CategoriesList key='22536' index='22536' />
-    		</div>
+    		 
         <div class="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
@@ -325,7 +326,7 @@ class CreateEvent extends Component {
     console.log(this.state.url)
   	return (
       <div>
-  		<div className="container" style={{width: 50+'em', marginBottom: 7+'px'}}>
+  		<div className="container">
   		  <h2>Create New Event</h2>
         <h4>Equipments</h4>
   		  <form onSubmit={this.setEvent4}>
@@ -389,7 +390,7 @@ class CreateEvent extends Component {
           <EventDetails key={this.state.newEvent._id} index={this.state.newEvent._id}
           onChange={this.update}
           onDelete={this.delete}>
-            <h5 className="card-title" style={{marginLeft: "10px"}}>Event Name:{this.state.newEvent.name}</h5>
+            <h5 className="card-title" style={{marginLeft: "10px"}}><b>Event Name:</b>{this.state.newEvent.name}</h5>
             <p className="card-text" style={{marginLeft: "10px"}}>Description:{this.state.newEvent.description}</p>
             <p className="card-text" style={{marginLeft: "10px"}}>Time: {this.state.newEvent.time}</p>
             <p className="card-text" style={{marginLeft: "10px"}}>Place: {this.state.newEvent.place}</p>
@@ -399,7 +400,7 @@ class CreateEvent extends Component {
             <p className="card-text" style={{marginLeft: "10px"}}>Participants: {this.state.newEvent.participants}</p>
 
           </EventDetails>
-          <button type="submit" className="btn btn-primary" onClick={this.nextForm} >Continue Set Event</button>
+          <button type="submit" className="btn btn-primary" onClick={this.nextForm} >Continue Set Event</button><br/><br/>
           <button type="submit" className="btn btn-primary" onClick={this.previusForm} >Back</button>
 
           </div>

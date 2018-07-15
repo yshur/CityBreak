@@ -112,9 +112,6 @@ class CategoriesList extends Component {
    return (
     <div className="card CategoriesList" style={{width: 50+'em', marginBottom: 7+'px'}}>
      {this.state.Categories.map(this.eachCategory)}
-     <br/><button onClick={this.add}
-     _id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>
-     Add <MdAdd/></button>
    </div>
    )
 
