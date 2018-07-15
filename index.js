@@ -54,7 +54,7 @@ app.post('/setTimeEvent/', event.setTimeEvent);
 app.post('/setPlaceEvent/', event.setPlaceEvent);
 app.post('/addEqEvent/', event.addEqEvent);
 app.post('/addCategoryEvent/', event.addCategoryEvent);
-
+app.post('/getUserEvent/', event.getUserEvent);
 app.post('/sendMessage/', event.sendMessage);
 app.post('/inviteUser/', event.inviteUser);
 app.post('/setUserEquip/', event.setUserEquip);

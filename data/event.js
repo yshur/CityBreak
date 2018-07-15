@@ -243,17 +243,17 @@ exports.setUserEquip = (req, res) => {
     console.log(`post: eventid = ${req.body.eventid},
         userid = ${req.body.userid},
         equipment = ${req.body.equipment}`);
-
-    var conditions = {
-       equipment: {$elemMatch: {name: equipment}},
-       $set: {'equipment.$.userid': userid,
-              'equipment.$.current': true} }
+    var conditions = { $push: {equipment: {
+                name: equipment,
+                userid: userid,
+                current: true
+              } } }
         opts = {
             runValidators: true,
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate({equipment:equipmentid}, conditions, opts,
+    Event.findByIdAndUpdate(eventid, conditions, opts,
         (err, event) => {
             if(err){
                 console.log(`err: ${err}`);
@@ -268,7 +268,7 @@ exports.deleteEvent = (req, res) => {
     var eventid = req.body.eventid;
     var conditions = {_id: eventid};
 
-    User.remove(conditions,
+    Event.remove(conditions,
         (err) => {
             if(err){
                 console.log(`err: ${err}`);
@@ -282,4 +282,18 @@ exports.deleteEvent = (req, res) => {
                     });
             };
         });
+};
+exports.getUserEvent = (req, res) => {
+    var userid = req.body.userid;
+    console.log('getUserEvent');
+    Event.find( {participant: {$in:userid}},
+        (err, event) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err}`);
+            }
+            console.log(event);
+            res.status(200).json(event);
+        }
+    );
 };
