@@ -17,7 +17,7 @@ class MyEvents extends Component {
 
 	render() {
 		return (
-		 <div className="card EventsList" style={{width: 50+'em', marginBottom: 7+'px'}}>
+		 <div className="card EventsList" >
 		 	<EventsList key='22536' index='22536' url={this.state.url} method={this.state.method}
 		 		params={this.state.params} />
 		</div>
