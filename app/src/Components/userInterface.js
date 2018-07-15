@@ -29,7 +29,7 @@ class UserInterface extends Component {
                     <div className="card-body" style={{padding:"10px", background: "#ffffcc"}}>
                     <h5 className="card-title">My Events</h5>
                     <p className="card-text">Show all your events that you invited</p>
-                    <NavLink exact to="/events" className="btn btn-primary" activeStyle={this.style} >
+                    <NavLink exact to="/myEvents" className="btn btn-primary" activeStyle={this.style} >
                         My Events
                     </NavLink>
                </div>
