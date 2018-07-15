@@ -66,7 +66,7 @@ class EventsList extends Component {
 	eachEvent(Event, i) {
 		// console.log(Event)
 		return (
-		<div className="card" >
+		<div className="card">
 
         <div className="card-body" style= {{padding: "10px"}}>
 				<EventItem key={Event._id} index={Event._id}
@@ -141,7 +141,7 @@ class EventsList extends Component {
 		return (
             <div>
                 <h4 style={{fontFamily: 'Love Ya Like A Sister'}}> Events List </h4>
-		 <div className="card EventsList" style={{width: 22.5+'em', marginBottom: 7+'px', padding: '5px'}}>
+		 <div className="card EventsList">
 		 	{this.state.Events.map(this.eachEvent)}
 			<br/><button onClick={this.add}
 			_id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>

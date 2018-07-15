@@ -81,7 +81,7 @@ button.add{
     background-color: #f0f5f5;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 330px;
+    /*width: 330px;*/
     margin-left: 13px;
     border-radius: 9px;
 }

@@ -56,10 +56,7 @@ class Category extends Component {
    return (
      <div className='category card-body'>
        <div>{this.props.children}</div>
-       <span>
-         <button className="btn btn-primary" style={{marginRight: 7+'px'}} onClick={this.edit}>Edit <MdEdit /></button>
-         <button className="btn btn-primary" onClick={this.delete}>Delete <MdDelete /></button>
-       </span>
+      
 
      </div>
    )

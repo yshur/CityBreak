@@ -34,7 +34,7 @@ class Header extends Component {
                 <img src = {logo}></img>
                 <div style={this.header}>
                 <NavLink exact to="/userInterface" activeStyle={this.style} >
-                    Sign in
+                    Logged in
                 </NavLink>
                 </div>
             </nav>
