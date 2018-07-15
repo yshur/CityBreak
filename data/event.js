@@ -242,12 +242,12 @@ exports.setUserEquip = (req, res) => {
     console.log('setUserEquip');
     console.log(`post: eventid = ${req.body.eventid},
         userid = ${req.body.userid},
-        equipmentid = ${req.body.equipmentid}`);
+        equipment = ${req.body.equipment}`);
 
     var conditions = {
        equipment: {$elemMatch: {name: equipment}},
        $set: {'equipment.$.userid': userid,
-              'equipment.$.current': true} } 
+              'equipment.$.current': true} }
         opts = {
             runValidators: true,
             multi: true,
