@@ -33,8 +33,9 @@
 			    <a href="#createEvent">CreateEvent</a>
 			    <a href="#setTimeEvent">SetTimeEvent</a>
 			    <a href="#setPlaceEvent">SetPlaceEvent</a>
-			    <a href="#setEqEvent">SetEquipmentEvent</a>
+			    <a href="#addEqEvent">AddEquipmentEvent</a>
 			    <a href="#addCategoryEvent">AddCategoryEvent</a>
+				<a href="#getUserEvent">GetUserEvent</a>
 			    <a href="#getChat">GetChat</a>
 			    <a href="#sendMessage">SendMessage</a>
 			    <a href="#inviteUser">InviteUser</a>
@@ -56,9 +57,9 @@
 			  </button>
 			  <div class="dropdown-container">
 			    <a href="#getAllCategories">Get All Categories</a>
-			    <a href="#getCategory">Get Category</a>
-			    <a href="#createCategory">Create Category</a>
-			    <a href="#addEquipmentToCategory">Add Equipment To Category</a>
+			    <a href="#getAllEquipments">Get All Equipments</a>			    
+				<a href="#getCategory">Get Category</a>
+			    <a href="#addEquipment">Add Equipment</a>
 				<a href="#deleteCategory">DeleteCategory</a>
 			  </div>
 			    <button class="dropdown-btn">Possible Errors 
@@ -83,7 +84,7 @@
 					with the Event Break platform,<br> and get details about all our events.</p> 
 					<p><strong>Some typical use cases include: </strong>
 					<blockquote>Get all Events<br> Get all users<br>
-						Get all Categories</blockquote>
+						Get all Equipments</blockquote>
 				</p>
 				<p>The requests should be in GET / POST /DELETE Method.<br>
 				The result will return in JSON Object.<br>
@@ -94,7 +95,7 @@
 					<var>Event Break on Github</var></a>
 				</p>
 				<p>
-					<a id="git" href="https://www.getpostman.com/collections/92bd99f46d82cb03cb75" target="_blank" class="button">
+					<a id="git" href="https://www.getpostman.com/collections/f8b483e96e53d63be712" target="_blank" class="button">
 					<var>Event Break Collection's of API for postman</var></a>
 				</p>
 			</div>
@@ -149,6 +150,8 @@
 						<li><b>creator:</b> user id of the creator</li>
 						<li><b>place:</b> string of the event place</li>
 						<li><b>category:</b> string with category</li>
+						<li><b>image:</b> string with url of image</li>
+						
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
@@ -174,25 +177,25 @@
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addCategoryEvent.PNG">
 					
 				</div>
-				<!-- setEqEvent -->
-				<div id="setEqEvent" class="col-sm-9">
+				<!-- addEqEvent -->
+				<div id="addEqEvent" class="col-sm-9">
 					<header>
 						<h3>Set Equipment Event</h3>
 					</header>
 					<p>Add equipment include max and min quantity to Event , by entering the following URL:<br>
-					<blockquote><a href= "https://eventbreak.herokuapp.com/setEqEvent" target="_blank" >
-					<var> https://eventbreak.herokuapp.com/setEqEvent</var></a><br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/addEqEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/addEqEvent</var></a><br>
 					Method:  <strong>POST</strong><br>
 					Parameters name: 
 					<ul>
 						<li><b>eventid:</b> event id</li>
 						<li><b>equipment:</b> string</li>
-						<li><b>max_quantity:</b> number</li>
-						<li><b>min_quantity:</b> number</li>
+						<!-- <li><b>max_quantity:</b> number</li>  !-->
+						<!-- <li><b>min_quantity:</b> number</li> !-->
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setEqEvent.PNG">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEqEvent.PNG">
 					
 				</div>
 				<!-- setUserEquip -->
@@ -208,8 +211,8 @@
 					<ul>
 						<li><b>eventid:</b> event id</li>
 						<li><b>userid:</b> user id</li>
-						<li><b>equipment:</b> string</li>
-						<li><b>quantity:</b> number</li>
+						<li><b>equip_name:</b> string</li>
+						<!--	<li><b>quantity:</b> number</li> !-->
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
@@ -275,6 +278,23 @@
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setPlace.PNG">
 					
 				</div>
+				<!-- getUserEvent -->
+				<div id="getUserEvent" class="col-sm-9">
+					<header>
+						<h3>Get User Event</h3>
+					</header>
+					<p>Get all events of specific user<br> by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/getUserEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/getUserEvent</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>userid:</b> user id</li>
+					</ul></p>
+					</blockquote>
+					
+				</div>				
+
 				<!-- getChat -->
 				<div id="getChat" class="col-sm-9">
 					<header>
@@ -430,6 +450,21 @@
 					<a href="https://eventbreak.herokuapp.com/getAllCategories" target="_blank"><button>Get Json</button></a>
 					<img src="">
 				</div>
+				
+				<!-- getAllEquipments -->
+				<div id="getAllEquipments" class="col-sm">
+					<header>
+						<h3>Get All Equipments</h3>
+					</header>
+					<p >You can get all equipments list.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/getAllEquipments" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/getAllEquipments</var></a></p>
+					<p>Method:  <strong>GET</strong><br></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<a href="https://eventbreak.herokuapp.com/getAllEquipments" target="_blank"><button>Get Json</button></a>
+					<img src="">
+				</div>
 				<!-- getCategory -->
 				<div id="getCategory" class="col-sm">
 					<header>
@@ -444,39 +479,26 @@
 					<p >Example of result in JSON Object:</p>
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getCategory.PNG">
 				</div>
-				<!-- createCategory -->
-				<div id="createCategory" class="col-sm">
+				<!-- addEquipment -->
+				<div id="addEquipment" class="col-sm">
 					<header>
 						<h3>Create Category</h3>
 					</header>
 					<p >You can create category.<br> </p>
-					<blockquote><a href="https://eventbreak.herokuapp.com/createCategory" target="_blank" >
-					<var>https://eventbreak.herokuapp.com/createCategory</var></a></p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/addEquipment" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/addEquipment</var></a></p>
 					<p>Method:  <strong>POST</strong><br>
 					Parameters name: <ul>
-						<li><b>name:</b> string</li>
+						<li><b>equipment:</b> string</li>
+						<li><b>category:</b> string</li>
+						
 					</ul>
 					</p>
 					</blockquote>
 					<p >Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/createCategory.PNG">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEquipment.PNG">
 				</div>
-				<!-- addEquipmentToCategory -->
-				<div id="addEquipmentToCategory" class="col-sm">
-					<header>
-						<h3>Add Equipment To Category</h3>
-					</header>
-					<p >You can add equipment to category.<br> </p>
-					<blockquote><a href="https://eventbreak.herokuapp.com/addEquipmentToCategory" target="_blank" >
-					<var>https://eventbreak.herokuapp.com/addEquipmentToCategory</var></a></p>
-					<p>Method:  <strong>POST</strong><br>
-					Parameters name: <ul>
-						<li><b>categoryid:</b> category id</li>
-						<li><b>equipment:</b> string</li>
-					</ul>
-					<p >Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEquipmentToCategory.PNG">
-				</div>
+				
 				<div id="deleteCategory" class="col-sm">
 					<header>
 						<h3>Delete Category</h3>

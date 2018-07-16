@@ -2,6 +2,7 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://shenkar.html5-book.co.il/2017-2018/dcs/dev_180/",
   "dependencies": {
     "auth0-js": "^9.7.2",
     "axios": "^0.18.0",
