@@ -17,7 +17,7 @@ class CreateEvent extends Component {
       desc: "",
       time: "",
       place: "",
-      categories: "",
+      category: "",
       equipment: "",
       users: "",
       url: "",
@@ -42,7 +42,7 @@ class CreateEvent extends Component {
     this.createEvent = this.createEvent.bind(this);
     this.setEqEvent = this.setEqEvent.bind(this);
     this.inviteUser = this.inviteUser.bind(this);
-
+    this.setParamCategory = this.setParamCategory.bind(this);
   }
   previusForm(e) {
     console.log("previusForm")
@@ -90,12 +90,10 @@ class CreateEvent extends Component {
   }
   setEqEvent(equipment) {
     console.log("setEqEvent")
-    var url = "https://eventbreak.herokuapp.com/setEqEvent"
+    var url = "https://eventbreak.herokuapp.com/addEqEvent"
     axios.post(url, {
 		    'eventid': this.state.newEvent._id,
         'equipment': equipment,
-        'max_quantity': 1,
-        'min_quantity': 1,
 		})
 		.then((res) => {
 				console.log("res.data" + res.data)
@@ -120,40 +118,12 @@ class CreateEvent extends Component {
 		 })
 
   }
-
-  componentDidMount() {
-    console.log("componentDidMount")
-    if(this.state.editing === 6) {
-  		var params = this.state.params
-  		fetch(this.state.url, {
-  		  method: 'POST',
-  		  headers: {
-  		    Accept: 'application/json',
-  		    'Content-Type': 'application/json',
-  		  },
-  		  body: JSON.stringify({
-  		  	params
-  		  }),
-  		})
-  		.then((res) => {
-  				console.log(res)
-  				return res.json();
-  			})
-  			.then((data) => {
-  				console.log(data)
-  				var self=this;
-          		data.map((event) => {
-              		console.log(event)
-                  this.setState({
-               			newEvent: event,
-                    editing: 7
-               		});
-          		})
-  		 })
-  	}
+  setParamCategory(category) {
+    console.log('setParamCategory: '+category)
+    this.state.category = category
+    console.log(this.state.category)
 
   }
-
   setEvent1(e) {
     console.log("setEvent1")
 
@@ -187,18 +157,19 @@ class CreateEvent extends Component {
   }
   setEvent3(e) {
     console.log("setEvent3")
-    console.log(this.state.editing)
-    console.log(this.state.newEvent)
-    console.log(this.state.url)
   	e.preventDefault();
-  	var categories = document.getElementById('categories').value
-  	this.setState({
-  		categories: categories,
-      params: this.state.params+"categories:"+categories+"}",
-      editing: this.state.editing+1
-
+    console.log(this.state.editing)
+  	var category = document.getElementById('category').value;
+    console.log(category)
+    this.state.category = category
+    this.state.params += "category:"+category+","
+    this.state.editing +=1
+    this.setState({
+      editing: this.state.editing
     });
+    console.log(this.state.category)
     console.log(this.state.params)
+    console.log(this.state.editing)
     this.createEvent()
   }
   setEvent4(e) {
@@ -212,11 +183,13 @@ class CreateEvent extends Component {
       url: "https://eventbreak.herokuapp.com/setEqEvent",
   		equipments: equipments,
       params: "{eventid:"+this.state.newEvent._id+",equipment:"+equipments
-        +",max_quantity:1,min_quantity:1}",
-      editing: this.state.editing+1
+        +",max_quantity:1,min_quantity:1}"
   	});
     console.log(this.state.params)
     this.setEqEvent(equipments)
+    this.setState({
+      editing: this.state.editing+1
+    });
   }
   setEvent5(e) {
     console.log("setEvent5")
@@ -257,7 +230,7 @@ class CreateEvent extends Component {
           </div>
           <button type="submit" className="btn btn-primary" onClick={this.setEvent1} >Continue</button>
         </form>
-        <div class="footer">
+        <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
       </div>
@@ -284,7 +257,7 @@ class CreateEvent extends Component {
     	    <button type="submit" className="btn btn-primary" onClick={this.setEvent2} >Continue</button>
     	  </form>
         <br /><button type="submit" className="btn btn-primary" onClick={this.previusForm} >Back</button>
-        <div class="footer">
+        <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
     	</div>
@@ -303,17 +276,18 @@ class CreateEvent extends Component {
   			  <form onSubmit={this.setEvent3}>
   			    <div className="form-group">
   			      <label>Event Categories:</label>
-  			      <input type="text" className="form-control" style={{marginLeft:"0px" , marginTop:"5px"}} placeholder="Enter Event Categories" id="categories" />
+  			      <input type="text" className="form-control" style={{marginLeft:"0px" , marginTop:"5px"}} placeholder="Enter Event Categories" id="category" />
   			    </div>
             <div className="card CategoriesList" style={{width: 50+'em', marginBottom: 7+'px'}}>
-               <CategoriesList key='22536' index='22536' />
+               <CategoriesList key='22586' index='22586'
+                  onChange={this.setParamCategory} />
             </div>
   			    <button type="submit" className="btn btn-primary"  onClick={this.setEvent3} >Continue</button>
   			  </form>
           <br /><button type="submit" className="btn btn-primary" onClick={this.previusForm} >Back</button>
   			</div>
-    		 
-        <div class="footer">
+
+        <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
       </div>
@@ -339,9 +313,9 @@ class CreateEvent extends Component {
         <br /><button type="submit" className="btn btn-default" onClick={this.previusForm} >Back</button>
   		</div>
       <div className="card EquipmentsList" style={{width: 50+'em', marginBottom: 7+'px'}}>
-         <CategoriesList key='22538' index='22538' />
+         <EquipmentsList key='2238' index='2238' />
      </div>
-     <div class="footer">
+     <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
    </div>
@@ -369,7 +343,7 @@ class CreateEvent extends Component {
         <div className="card UsersList" style={{width: 50+'em', marginBottom: 7+'px'}}>
            <UsersList key='22540' index='22540' />
        </div>
-       <div class="footer">
+       <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
      </div>
@@ -404,10 +378,10 @@ class CreateEvent extends Component {
           <button type="submit" className="btn btn-primary" onClick={this.previusForm} >Back</button>
 
           </div>
-          <div class="footer">
+          <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
-        <div class="footer">
+        <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
           </div>
@@ -440,7 +414,7 @@ class CreateEvent extends Component {
           </EventDetails>
 
           </div>
-          <div class="footer">
+          <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
           </div>
           </div>
@@ -467,6 +441,8 @@ class CreateEvent extends Component {
         return this.renderForm5()
       case 7:
         return this.renderUI2()
+      default:
+        return this.renderForm1()
     }
 	}
 }

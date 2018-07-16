@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import MdDelete from 'react-icons/lib/md/delete'
-import MdSave from 'react-icons/lib/md/save'
-import MdEdit from 'react-icons/lib/md/edit'
+// import EventDetails from './EventDetails'
 
 class EventItem extends Component {
 
@@ -10,58 +8,76 @@ class EventItem extends Component {
    this.state = {
      editing: false
    }
-   this.edit = this.edit.bind(this)
-   this.delete = this.delete.bind(this)
-   this.save = this.save.bind(this)
    this.renderForm = this.renderForm.bind(this)
    this.renderKindel = this.renderKindel.bind(this)
+   this.setEdit = this.setEdit.bind(this)
+   this.eachItem = this.eachItem.bind(this)
+   this.eachEq = this.eachEq.bind(this)
  }
- edit() {
-   // alert('editing')
-   console.log('editing')
-   this.setState({
-     editing: true
+ setEdit() {
+   console.log("setEdit")
+   console.log(  this.state.editing)
+   if (this.state.editing === false) {
+     this.setState({
+ 			editing: true
+ 		})
+  } else {
+    this.setState({
+			editing: false
+		})
+  }
+  console.log(  this.state.editing)
+ }
+ eachItem(array) {
+   console.log(array)
+   if (typeof array === "undefined") {
+       return;
+   }
+   var c = ""
+   array.map(i => {
+     c += i+", "
    })
-   console.log(`editing = ${this.state.editing}`)
-   // this.render()
+   return c
  }
- delete() {
-   // alert('delete it')
-   console.log('deleting')
-   this.props.onDelete(this.props.index)
- }
- save(e) {
-   e.preventDefault()
-   this.props.onChange(this.newEvent.value, this.props.index)
-   // alert(this.newIdea.value)
-   console.log('saving')
-   this.setState({
-     editing: false
+ eachEq(array) {
+   console.log(array)
+   if (typeof array === "undefined") {
+       return;
+   }
+   var c = ""
+   array.map(i => {
+     if (typeof i.equipmentName === "undefined") {
+         return;
+     }
+     c += i.equipmentName+", "
    })
-
-   console.log(`editing = ${this.state.editing}`)
+   return c
  }
-
  renderForm() {
    return (
-     <div>
-     <form onSubmit={this.save}>
-       <textarea ref={input => this.newEvent = input}/>
-       <button className="btn btn-primary" onClick={this.save}>Save <MdSave/></button>
-     </form>
+     <div className='event card-body'  onClick={this.setEdit}>
+       <div>
+         {this.props.children}
+         <p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>Created by Creator-id: {this.props.event.creator},
+            at {this.props.event.timeCreated}</p>
+         <p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>Categories: {this.eachItem(this.props.event.category)}</p>
+         <p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>Equipment:{this.eachEq(this.props.event.equipment)}</p>
+         <p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>Participants-id:{this.eachItem(this.props.event.participant)}</p>
+
+       </div>
      </div>
    )
  }
  renderKindel() {
    return (
-     <div className='event card-body'>
+     <div  onClick={this.setEdit} className='event card-body'>
        <div>{this.props.children}</div>
      </div>
    )
  }
 
  render() {
-   if (this.state.editing === true)
+    if (this.state.editing === true)
      return this.renderForm();
    else
      return this.renderKindel();

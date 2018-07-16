@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import MdDelete from 'react-icons/lib/md/delete'
-import MdSave from 'react-icons/lib/md/save'
-import MdEdit from 'react-icons/lib/md/edit'
 
 class EventDetails extends Component {
 
@@ -44,11 +41,7 @@ class EventDetails extends Component {
 
  renderForm() {
    return (
-     <div>
-     <form onSubmit={this.save}>
-       <textarea ref={input => this.newEvent = input}/>
-       <button className="btn btn-primary" onClick={this.save}>Save <MdSave/></button>
-     </form>
+     <div className='event card-body'>
      </div>
    )
  }
@@ -56,8 +49,6 @@ class EventDetails extends Component {
    return (
      <div className='event card-body'>
        <div>{this.props.children}</div>
-      
-
      </div>
    )
  }

@@ -84,7 +84,7 @@ class UsersList extends Component {
 				onDelete={this.delete}>
 					<li className="list-group-item" style = {this.h5}>{User.full_name}
 					<div style = {this.profile}>
-				  	<img src={profilePic}/>
+				  	<img src={profilePic}  alt="Card cap"/>
 				  	</div>
 				  	</li>
 				</UserItem>
@@ -107,15 +107,6 @@ class UsersList extends Component {
 		}))
 	}
 	add(_id, full_name, phone, email, password, image) {
-		console.log(typeof _id)
-		if ((typeof _id) !== 'string') {
-			var _id = this.numFor_id++;
-			var full_name = "some name";
-			var phone = "some human name";
-			var email = "some email";
-			var password = "some pass",
-				image = "some image"
-		}
 
 		this.setState(prevState => ({
 			Users: [

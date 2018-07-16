@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import MdDelete from 'react-icons/lib/md/delete'
-import MdSave from 'react-icons/lib/md/save'
-import MdEdit from 'react-icons/lib/md/edit'
 
 class Category extends Component {
 
@@ -47,7 +44,7 @@ class Category extends Component {
      <div>
      <form onSubmit={this.save}>
        <textarea ref={input => this.newCategory = input}/>
-       <button className="btn btn-primary" onClick={this.save}>Save <MdSave/></button>
+       <button className="btn btn-primary" onClick={this.save}>Save </button>
      </form>
      </div>
    )
@@ -56,7 +53,7 @@ class Category extends Component {
    return (
      <div className='category card-body'>
        <div>{this.props.children}</div>
-      
+
 
      </div>
    )

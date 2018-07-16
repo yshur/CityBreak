@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 import EventsList from './EventsList'
 import LogedInUser from './logedInUser'
-import axios from 'axios'
 
 class MyEvents extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-      userid: LogedInUser,
-			url: "https://eventbreak.herokuapp.com/getAllEvents";
+			userid: LogedInUser,
+			url: "https://eventbreak.herokuapp.com/getAllEvents",
 			method: "get",
 			params: ""
 		}

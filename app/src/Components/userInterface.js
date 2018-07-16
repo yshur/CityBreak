@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import UserItem from './UserItem'
 import { NavLink } from "react-router-dom";
 
 
@@ -47,7 +46,7 @@ class UserInterface extends Component {
             </div>
           </div>
         </div>
-        <div class="footer">
+        <div className="footer">
             <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
         </div>
         </div>

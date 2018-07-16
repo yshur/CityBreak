@@ -18,14 +18,14 @@ class EventsList extends Component {
 
 	componentDidMount() {
 		var url = this.props.url;
+		console.log(url)
+		console.log(this.props.method)
 		if(this.props.method === 'get') {
-			fetch(url)
+			axios.get(url)
 				.then((res) => {
-					return res.json();
-				})
-				.then((data) => {
+					console.log(res)
 					var self=this;
-	        		data.map((Event) => {
+					res.data.map((Event) => {
 	            		console.log(Event)
 	            		self.add(Event._id, Event.creator, Event.category,
                     Event.timeCreated, Event.equipment, Event.chat,
@@ -36,7 +36,6 @@ class EventsList extends Component {
 			 })
 		} else if (this.props.method === 'post') {
 			var params = this.props.params
-			console.log(url)
 			console.log(params)
 			axios.post(url, {
 			    params
@@ -60,27 +59,28 @@ class EventsList extends Component {
 	eachEvent(Event, i) {
 		// console.log(Event)
 		return (
-		<div className="card">
+			<div className="card">
+				<div className="card-body" style= {{padding: "10px"}}>
 
-        <div className="card-body" style= {{padding: "10px"}}>
-				<EventItem key={Event._id} index={Event._id}
-				onChange={this.update}
-				onDelete={this.delete}>
+					<EventItem key={Event._id} index={Event._id} event={Event}
+						method={this.props.method}
+						onChange={this.update}
+						onDelete={this.delete}>
 
-                <section className= "imgLeft" style={{float:"left", width:"100px", height: "100px"}}>
-                    <img className="card-img-top" src={Event.image}  alt="Card image cap" style={{padding:"5px"}}/>
-								</section>
-                    <h5 className="card-title" style={{marginTop: "15px", marginBottom:"0px", fontFamily: 'Love Ya Like A Sister', fontWeight: "bold"}}>{Event.name}</h5>
-					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>{Event.description}</p>
-					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Time:</b> {Event.time}</p>
-					<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Place:</b> {Event.place}</p>
-				</EventItem>
-        </div>
-        <div class="footer">
-            <p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
-        </div>
-        </div>
+						<section className= "imgLeft" style={{float:"left", width:"100px", height: "100px"}}>
+						<img className="card-img-top" src={Event.image}  alt="Card cap" style={{padding:"5px"}}/>
+						</section>
+						<h5 className="card-title" style={{marginTop: "15px", marginBottom:"0px", fontFamily: 'Love Ya Like A Sister', fontWeight: "bold"}}>{Event.name}</h5>
+						<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}>{Event.description}</p>
+						<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Time:</b> {Event.time}</p>
+						<p className="card-text" style={{fontFamily: "Roboto Condensed", marginBottom:"0px"}}><b>Place:</b> {Event.place}</p>
+					</EventItem>
 
+				</div>
+				<div className="footer">
+					<p style={{marginTop: "20px"}}> &copy; All right reserved to Roi Shmueli & Yair Shur</p>
+				</div>
+			</div>
 		)
 	}
 	update(newEvent, i) {
@@ -99,15 +99,6 @@ class EventsList extends Component {
 	}
 	add(_id, creator, category, timeCreated, equipment, chat,
     name, description, time, place, participants, required_equipment, image) {
-		// console.log(typeof _id)
-		// if ((typeof _id) !== 'string') {
-		// 	var _id = this.numFor_id++;
-		// 	var name = "some name";
-		// 	var description = "some human name";
-		// 	var creator = "some email";
-		// 	var category = "some pass",
-		// 		image = "some image"
-		// }
 
 		this.setState(prevState => ({
 			Events: [

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Category from './Category'
-import MdAdd from 'react-icons/lib/md/add'
 
 class CategoriesList extends Component {
  numFor_id = 4;
@@ -13,12 +12,9 @@ class CategoriesList extends Component {
    this.update = this.update.bind(this)
    this.delete = this.delete.bind(this)
    this.add = this.add.bind(this)
-   // this.next_id = this.next_id.bind(this)
  }
 
  componentDidMount() {
-   // var url = this.props.url;
-   // if(this.props.method === 'get') {
     var url = "https://eventbreak.herokuapp.com/getAllCategories";
      fetch(url)
        .then((res) => {
@@ -28,79 +24,42 @@ class CategoriesList extends Component {
          var self=this;
              data.map((category) => {
                  console.log(category)
-                 self.add(category._id, category.name, category.equipments );
+                 self.add(category);
              })
       })
-   // } else if (this.props.method === 'post') {
-   // 	var params = this.props.params
-   // 	fetch(this.props.url, {
-   // 	  method: 'POST',
-   // 	  headers: {
-   // 	    Accept: 'application/json',
-   // 	    'Content-Type': 'application/json',
-   // 	  },
-   // 	  body: JSON.stringify({
-   // 	  	params
-   // 	  }),
-   // 	})
-   // 	.then((res) => {
-   // 			console.log(res)
-   // 			return res.json();
-   // 		})
-   // 		.then((data) => {
-   // 			console.log(data)
-   // 			var self=this;
-   //       		data.TopStories.map((Category) => {
-   //           		console.log(Category)
-    //               self.add(Category._id, Category.full_name, Category.phone, Category.email, Category.password, Category.image );
-   //       		})
-   // 	 })
-   // }
   }
-
+ update(name) {
+   console.log('update: '+name)
+   // this.props.onChange(name)
+ }
  eachCategory(category, i) {
    console.log(category)
    return (
    <div className="card" >
         <div className="card-body">
-       <Category key={category._id} index={category._id}
-       onChange={this.update}
-       onDelete={this.delete}>
+       <Category key={i} index={i}
+       onClick={this.update(category.name)} >
          <h5 className="card-title">{category.name}</h5>
        </Category>
         </div>
         </div>
    )
  }
- update(newCategory, i) {
-   console.log('update: '+i+' '+newCategory)
-   this.setState(prevState => ({
-     Categories: prevState.Categories.map(
-       Category => (Category._id !== i) ? Category : {...Category,name:newCategory}
-     )
-   }))
- }
+
  delete(_id) {
    console.log('deleted: '+_id)
    this.setState(prevState => ({
-     Categories: prevState.Categories.filter(Category => Category._id !== _id)
+     Categories: prevState.Categories.filter(Category => Category.name !== _id)
    }))
  }
- add(_id, name, equipments) {
-   console.log(typeof _id)
-   if ((typeof _id) !== 'string') {
-     var _id = this.numFor_id++;
-     var name = "some name";
-     var equipments = [];
-   }
+ add(name) {
+
    console.log(this.state.Categories)
    this.setState(prevState => ({
      Categories: [
        ...prevState.Categories,
        {
-         _id:_id,
-         name: name,
-         equipments: equipments,
+         name: name
        }]
    }))
    console.log(this.state.Categories)

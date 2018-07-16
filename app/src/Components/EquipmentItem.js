@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import MdDelete from 'react-icons/lib/md/delete'
-import MdSave from 'react-icons/lib/md/save'
-import MdEdit from 'react-icons/lib/md/edit'
 
 class EquipmentItem extends Component {
 
@@ -47,7 +44,7 @@ class EquipmentItem extends Component {
      <div>
      <form onSubmit={this.save}>
        <textarea ref={input => this.newEquipment = input}/>
-       <button className="btn btn-primary" onClick={this.save}>Save <MdSave/></button>
+       <button className="btn btn-primary" onClick={this.save}>Save </button>
      </form>
      </div>
    )
@@ -56,11 +53,6 @@ class EquipmentItem extends Component {
    return (
      <div className='equipment card-body'>
        <div>{this.props.children}</div>
-       <span>
-         <button className="btn btn-primary" style={{marginRight: 7+'px'}} onClick={this.edit}>Edit <MdEdit /></button>
-         <button className="btn btn-primary" onClick={this.delete}>Delete <MdDelete /></button>
-       </span>
-
      </div>
    )
  }

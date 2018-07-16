@@ -28,34 +28,9 @@ class EquipmentsList extends Component {
          var self=this;
              data.map((Equipment) => {
                  console.log(Equipment)
-                 self.add(Equipment.name );
+                 self.add(Equipment.equipment );
              })
       })
-   // } else if (this.props.method === 'post') {
-   // 	var params = this.props.params
-   // 	fetch(this.props.url, {
-   // 	  method: 'POST',
-   // 	  headers: {
-   // 	    Accept: 'application/json',
-   // 	    'Content-Type': 'application/json',
-   // 	  },
-   // 	  body: JSON.stringify({
-   // 	  	params
-   // 	  }),
-   // 	})
-   // 	.then((res) => {
-   // 			console.log(res)
-   // 			return res.json();
-   // 		})
-   // 		.then((data) => {
-   // 			console.log(data)
-   // 			var self=this;
-   //       		data.TopStories.map((Equipment) => {
-   //           		console.log(Equipment)
-    //               self.add(Equipment.id, Equipment.full_name, Equipment.phone, Equipment.email, Equipment.password, Equipment.image );
-   //       		})
-   // 	 })
-   // }
   }
 
  eachEquipment(Equipment, i) {

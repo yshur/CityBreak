@@ -1,10 +1,5 @@
 import React, {Component} from "react";
 import { NavLink } from "react-router-dom";
-import { UserModel } from './UserModel'
-import { UsersList } from "./UsersList"
-import { EventsList } from "./EventsList"
-import { CategoriesList } from "./CategoriesList"
-import { EquipmentsList } from "./EquipmentsList"
 import logo from './logo.PNG';
 
 class Header extends Component {
@@ -31,7 +26,10 @@ class Header extends Component {
     render() {
         return (
             <nav className="navbar navbar-light bg-light justify-content-between">
-                <img src = {logo}></img>
+              <NavLink exact to="/" activeStyle={this.style} >
+                <img src = {logo}  alt="Card cap" />
+              </NavLink>
+
                 <div style={this.header}>
                 <NavLink exact to="/userInterface" activeStyle={this.style} >
                     Logged in
