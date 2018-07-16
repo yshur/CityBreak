@@ -84,11 +84,9 @@ class EquipmentsList extends Component {
  render() {
    console.log(this.state.Equipments);
    return (
-    <div className="card EquipmentsList" style={{width: 50+'em', marginBottom: 7+'px'}}>
+    <div className="card EquipmentsList">
      {this.state.Equipments.map(this.eachEquipment)}
-     <br/><button onClick={this.add}
-     id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>
-     Add <MdAdd/></button>
+
    </div>
    )
 

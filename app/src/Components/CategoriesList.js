@@ -69,7 +69,7 @@ class CategoriesList extends Component {
  render() {
    console.log(this.state.Categories);
    return (
-    <div className="card CategoriesList" style={{width: 50+'em', marginBottom: 7+'px'}}>
+    <div className="card CategoriesList">
      {this.state.Categories.map(this.eachCategory)}
    </div>
    )

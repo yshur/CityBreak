@@ -133,9 +133,7 @@ class UsersList extends Component {
 		<input className="form-control mr-sm-2"  style ={this.serach} type="search" placeholder="Search" aria-label="Search"></input>
 		 <div className="list-group list-group-flush " >
 		 	{this.state.Users.map(this.eachUser)}
-			<br/><button onClick={this.add}
-			_id="add" className="btn btn-primary" style={{marginRight: 7+'px'}}>
-			Add <MdAdd/></button>
+		
 		</div>
 		</div>
 		)
