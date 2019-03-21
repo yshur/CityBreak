@@ -23,20 +23,20 @@ exports.getAllUsers = (req, res) => {
 };
 
 exports.createUser = (req, res) => {
-    var full_name = req.body.full_name,
+    var name = req.body.name,
         phone = req.body.phone,
         email = req.body.email,
         password = req.body.password,
         image = req.body.image;
         console.log('createUser');
-        console.log(`post: full_name = ${req.body.full_name},
+        console.log(`post: name = ${req.body.name},
         phone = ${req.body.phone},
         email = ${req.body.email},
         password = ${req.body.password},
         image = ${req.body.image}`);
 
     var newUser = new User({
-        full_name: full_name,
+        name: name,
         phone: phone,
         email: email,
         password: password,
