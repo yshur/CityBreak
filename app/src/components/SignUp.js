@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import './style.css'
+
 
 class SignUp extends Component {
 
@@ -59,7 +59,7 @@ class SignUp extends Component {
   	});
     this.createUser()
   }
-  
+
   render() {
     return (
       <div className="signup-form">
@@ -75,7 +75,7 @@ class SignUp extends Component {
         </div>
         <div className="form-group">
           <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-paper-plane"></i></span>
+            <span className="input-group-addon"><i className="fa fa-phone"></i></span>
             <input type="phone" className="form-control" name="phone" placeholder="Phone Number" id="phone" required="required"/>
           </div>
         </div>
@@ -91,14 +91,6 @@ class SignUp extends Component {
       				<input type="text" className="form-control" name="password" placeholder="Password" id="password" required="required"/>
       			</div>
           </div>
-          <div className="form-group">
-            <div className="input-group">
-              <span className="input-group-addon">
-                <i className="fa fa-lock"></i>
-                <i className="fa fa-check"></i>
-              </span>
-            </div>
-              </div>
               <div className="form-group">
             <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
           </div>
