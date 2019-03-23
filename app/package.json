@@ -1,0 +1,49 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+<<<<<<< HEAD
+  "dependencies": {
+    "axios": "^0.18.0",
+    "react": "^16.8.4",
+    "react-axios": "^2.0.3",
+    "react-dom": "^16.8.4",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8"
+=======
+  "homepage": "http://shenkar.html5-book.co.il/2017-2018/dcs/dev_180/",
+  "dependencies": {
+    "auth0-js": "^9.7.2",
+    "axios": "^0.18.0",
+    "react": "^16.4.1",
+    "react-bootstrap": "^0.32.1",
+    "react-dom": "^16.4.1",
+    "react-google-login": "^3.2.1",
+    "react-google-login-component": "^0.9.3",
+    "react-icons": "^2.2.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4"
+>>>>>>> 56a6717b7bb2c2a5058c1ed1654a4f714076eb06
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+<<<<<<< HEAD
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+=======
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+>>>>>>> 56a6717b7bb2c2a5058c1ed1654a4f714076eb06
+}
