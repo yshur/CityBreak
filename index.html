@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="en">
+  <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="public/style.css">
+		<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Love+Ya+Like+A+Sister" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Neuton" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+		<script src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/script.js"> </script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+		<title>Event Break | API Documentation</title>
+
+    </head>
+    <body>
+
+        <!-- wrapper -->
+			<div class="sidenav">
+			  <a href="#about">About</a>
+			  <button class="dropdown-btn">Events Methodes 
+			    <i class="fa fa-caret-down"></i>
+			  </button>
+			  <div class="dropdown-container">
+			    <a href="#getAllEvents">GetAllEvents</a>
+			    <a href="#getEvent">GetEvent</a>
+			    <a href="#createEvent">CreateEvent</a>
+			    <a href="#setTimeEvent">SetTimeEvent</a>
+			    <a href="#setPlaceEvent">SetPlaceEvent</a>
+			    <a href="#addEqEvent">AddEquipmentEvent</a>
+			    <a href="#addCategoryEvent">AddCategoryEvent</a>
+				<a href="#getUserEvent">GetUserEvent</a>
+			    <a href="#getChat">GetChat</a>
+			    <a href="#sendMessage">SendMessage</a>
+			    <a href="#inviteUser">InviteUser</a>
+			    <a href="#setUserEquip">SetUserEquip</a>
+				<a href="#deleteEvent">deleteEvent</a>
+			  </div>
+			  <button class="dropdown-btn">User Methodes 
+			    <i class="fa fa-caret-down"></i>
+			  </button>
+			  <div class="dropdown-container">
+			    <a href="#getAllUsers">GetAllUsers</a>
+			    <a href="#getUser">GetUser</a>
+			    <a href="#createUser">CreateUser</a>
+			    <a href="#updateUser">UpdateUser</a>
+			    <a href="#deleteUser">DeleteUser</a>
+			  </div>
+			  <button class="dropdown-btn">Categories Methodes 
+			    <i class="fa fa-caret-down"></i>
+			  </button>
+			  <div class="dropdown-container">
+			    <a href="#getAllCategories">Get All Categories</a>
+			    <a href="#getAllEquipments">Get All Equipments</a>			    
+				<a href="#getCategory">Get Category</a>
+			    <a href="#addEquipment">Add Equipment</a>
+				<a href="#deleteCategory">DeleteCategory</a>
+			  </div>
+			    <button class="dropdown-btn">Possible Errors 
+			    <i class="fa fa-caret-down"></i>
+			  </button>
+			  <div class="dropdown-container">
+			    <a href="#errorUrl">URL Error</a>
+			    <a href="#emptyResult">Empty Result</a>
+			    <a href="#errorMlab">Connection Error</a>
+			    <a href="#errorFormat">Format Error</a>
+			  </div>
+
+			</div>
+	
+			<div class="main col-8">
+			<!-- Intro -->
+			<div id="intro" class="container">
+				<header>
+					<h1>Event Break | API Documentation</h1>
+				</header>
+				<p>The Event Break API allows directly interaction
+					with the Event Break platform,<br> and get details about all our events.</p> 
+					<p><strong>Some typical use cases include: </strong>
+					<blockquote>Get all Events<br> Get all users<br>
+						Get all Equipments</blockquote>
+				</p>
+				<p>The requests should be in GET / POST /DELETE Method.<br>
+				The result will return in JSON Object.<br>
+				If your URL request is wrong you will recieve JSON Object Error.
+				</p>
+				<p>
+					<a id="git" href="https://github.com/yshur/eventbreak.git" target="_blank" class="button">
+					<var>Event Break on Github</var></a>
+				</p>
+				<p>
+					<a id="git" href="https://www.getpostman.com/collections/f8b483e96e53d63be712" target="_blank" class="button">
+					<var>Event Break Collection's of API for postman</var></a>
+				</p>
+			</div>
+			
+			<div class="row container">
+				<h1>Events Methodes:</h1>
+				<!-- getAllEvents -->
+				<section class="events">
+				<div id="getAllEvents" class="col-sm">
+					<header>
+						<h3>Get All Events</h3>
+					</header>
+					<p>You can find all Events, by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/getAllEvents" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/getAllEvents</var></a><br>
+					Method:  <strong>GET</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<a href="https://eventbreak.herokuapp.com/getAllEvents" target="_blank"><button>Get Json</button></a>
+					<img src="">
+					
+				</div>
+				<!-- getEvent -->
+				<div id="getEvent" class="col-sm">
+					<header>
+						<h3>Get Event</h3>
+					</header>
+					<p>You can find each Event, by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/getEvent/5b268bac193d8f1d88fd309f" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/getEvent/5b268bac193d8f1d88fd309f</var></a><br>
+					Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/eventid</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<a href="https://eventbreak.herokuapp.com/getEvent/5b268bac193d8f1d88fd309f" target="_blank"><button>Get Json</button></a>
+					<img src="">
+					
+				</div>
+				<!-- createEvent -->
+				<div id="createEvent" class="col-sm-9">
+					<header>
+						<h3>Create Event</h3>
+					</header>
+					<p>You can create your Event, by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/createEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/createEvent</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>name:</b> string of the event name</li>
+						<li><b>description:</b> string of the event description</li>
+						<li><b>time:</b> date format ("2018-06-20 20:19:00") of the event timing</li>
+						<li><b>creator:</b> user id of the creator</li>
+						<li><b>place:</b> string of the event place</li>
+						<li><b>category:</b> string with category</li>
+						<li><b>image:</b> string with url of image</li>
+						
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/createEvent.PNG">
+					
+				</div>
+				<!-- addCategoryEvent -->
+				<div id="addCategoryEvent" class="col-sm-9">
+					<header>
+						<h3>Add Category Event</h3>
+					</header>
+					<p>Add category to event, by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/addCategoryEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/addCategoryEvent</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>category:</b> string with category</li>
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addCategoryEvent.PNG">
+					
+				</div>
+				<!-- addEqEvent -->
+				<div id="addEqEvent" class="col-sm-9">
+					<header>
+						<h3>Set Equipment Event</h3>
+					</header>
+					<p>Add equipment include max and min quantity to Event , by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/addEqEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/addEqEvent</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>equipment:</b> string</li>
+						<!-- <li><b>max_quantity:</b> number</li>  !-->
+						<!-- <li><b>min_quantity:</b> number</li> !-->
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEqEvent.PNG">
+					
+				</div>
+				<!-- setUserEquip -->
+				<div id="setUserEquip" class="col-sm-9">
+					<header>
+						<h3>Set User Equipment</h3>
+					</header>
+					<p>Set user Equipment to Event , by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/setUserEquip" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/setUserEquip</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>userid:</b> user id</li>
+						<li><b>equip_name:</b> string</li>
+						<!--	<li><b>quantity:</b> number</li> !-->
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setUserEquip.PNG">
+					
+				</div>
+
+				<!-- inviteUser -->
+				<div id="inviteUser" class="col-sm-9">
+					<header>
+						<h3>invite User</h3>
+					</header>
+					<p>invite User, by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/inviteUser" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/inviteUser</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>userid:</b> user id</li>
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/inviteUser.PNG">
+					
+				</div>                
+				<!-- setTimeEvent -->
+				<div id="setTimeEvent" class="col-sm-9">
+					<header>
+						<h3>Set Time Event</h3>
+					</header>
+					<p>Set time that you want the event will be.<br> call getEvent method to see your changed.<br>
+					by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/setTimeEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/setTimeEvent</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>time:</b> date format ("2018-06-20 20:19:00")</li>
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setTime.PNG">
+					
+				</div>                              
+				<!-- setPlaceEvent -->
+				<div id="setPlaceEvent" class="col-sm-9">
+					<header>
+						<h3>Set Place Event</h3>
+					</header>
+					<p>Set the place thet you want the event will be.<br> call getEvent method to see your changed. by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/setPlaceEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/setPlaceEvent</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>place:</b> string</li>
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setPlace.PNG">
+					
+				</div>
+				<!-- getUserEvent -->
+				<div id="getUserEvent" class="col-sm-9">
+					<header>
+						<h3>Get User Event</h3>
+					</header>
+					<p>Get all events of specific user<br> by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/getUserEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/getUserEvent</var></a><br>
+						Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>userid:</b> user id</li>
+					</ul></p>
+					</blockquote>
+					
+				</div>				
+
+				<!-- getChat -->
+				<div id="getChat" class="col-sm-9">
+					<header>
+						<h3>Get Chat</h3>
+					</header>
+					<p>Here you can see all the messages has been sent in specific event. <br> by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/getChat/b268bac193d8f1d88fd309f" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/getChat5/b268bac193d8f1d88fd309f</var></a><br>
+					Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/eventid</strong></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getChat.PNG">
+					
+				</div>
+				<!-- sendMessage -->
+				<div id="sendMessage" class="col-sm-9">
+					<header>
+						<h3>Send Message</h3>
+					</header>
+					<p>Send Message to chat, after you sent message call getChat method to see your meassge and all the outhers messages<br> by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/sendMessage" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/sendMessage</var></a><br>
+					Method:  <strong>POST</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+						<li><b>userid:</b> user id</li>
+						<li><b>message:</b> string</li>
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/sendMessage.PNG">
+					
+				</div>
+				<!-- deleteEvent -->
+				<div id="deleteEvent" class="col-sm-9">
+					<header>
+						<h3>Delete Event</h3>
+					</header>
+					<p>you can delete event by using event id, without any password or identification<br> by entering the following URL:<br>
+					<blockquote><a href= "https://eventbreak.herokuapp.com/deleteEvent" target="_blank" >
+					<var> https://eventbreak.herokuapp.com/deleteEvent</var></a><br>
+					Method:  <strong>DELETE</strong><br>
+					Parameters name: 
+					<ul>
+						<li><b>eventid:</b> event id</li>
+					</ul></p>
+					</blockquote>
+					<p>Example of result in JSON Object:</p>
+					<img src="">
+					
+				</div>
+            </section>                                          
+			<section class="users">
+				<!-- getAllUsers -->
+				<div id="getAllUsers" class="col-sm">
+					<header>
+						<h3>Get All Users</h3>
+					</header>
+					<p >You can get list of all users.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/getAllUsers" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/getAllUsers</var></a></p>
+					<p>Method:  <strong>GET</strong><br></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<a href="https://eventbreak.herokuapp.com/getAllUsers" target="_blank"><button>Get Json</button></a>
+					<img src="">
+				</div>
+				<!-- getUser -->
+				<div id="getUser" class="col-sm">
+					<header>
+						<h3>Get User</h3>
+					</header>
+					<p >You can get each user by their userid.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/getUser/5b1fbbc4422bdc38c84e530b" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/getUser/5b1fbbc4422bdc38c84e530b</var></a></p>
+					<p>Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/userid</strong></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getUser.PNG">
+				</div>
+				<!-- createUser -->
+				<div id="createUser" class="col-sm">
+					<header>
+						<h3>Create User</h3>
+					</header>
+					<p >You can create user.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/createUser" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/createUser</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>full_name:</b> string (like "Moshe Zuchmir")</li>
+						<li><b>phone:</b> phone format ("058-545-6578")</li>
+						<li><b>email:</b> email format ("ys@shenkar.com")</li>
+						<li><b>password:</b> string</li>
+						<li><b>image:</b> http url to image file</li>
+					</ul>
+					</p></blockquote>
+					<p >The json result should be same like Get User method</p>
+					<img src="">
+				</div>
+				<!-- updateUser -->
+				<div id="updateUser" class="col-sm">
+					<header>
+						<h3>Update User</h3>
+					</header>
+					<p >You can update each user.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/updateUser" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/updateUser</var></a></p>
+					
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>userid:</b> user id</li>
+						<li><b>phone:</b> phone format ("058-545-6578")</li>
+						<li><b>email:</b> email format ("ys@shenkar.com")</li>
+					</ul>
+					</p></blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="">
+				</div>
+				<!-- deleteUser -->
+				<div id="deleteUser" class="col-sm">
+					<header>
+						<h3>Delete User</h3>
+					</header>
+					<p>you can delete user by using user id, without any password or identification<br> by entering the following URL:<br>
+					<blockquote><a href="https://eventbreak.herokuapp.com/deleteUser" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/deleteUser</var></a></p>
+					<p>Method:  <strong>DELETE</strong><br>
+					Parameters name: <ul>
+						<li><b>userid:</b> user id</li>
+					</ul>
+					</p></blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="">
+				</div>
+			</section>
+			<h1>Categories Methodes:</h1>
+			<section class="categories">
+				<!-- getAllCategories -->
+				<div id="getAllCategories" class="col-sm">
+					<header>
+						<h3>Get All Categories</h3>
+					</header>
+					<p >You can get all categories list with their belong equipment.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/getAllCategories" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/getAllCategories</var></a></p>
+					<p>Method:  <strong>GET</strong><br></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<a href="https://eventbreak.herokuapp.com/getAllCategories" target="_blank"><button>Get Json</button></a>
+					<img src="">
+				</div>
+				
+				<!-- getAllEquipments -->
+				<div id="getAllEquipments" class="col-sm">
+					<header>
+						<h3>Get All Equipments</h3>
+					</header>
+					<p >You can get all equipments list.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/getAllEquipments" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/getAllEquipments</var></a></p>
+					<p>Method:  <strong>GET</strong><br></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<a href="https://eventbreak.herokuapp.com/getAllEquipments" target="_blank"><button>Get Json</button></a>
+					<img src="">
+				</div>
+				<!-- getCategory -->
+				<div id="getCategory" class="col-sm">
+					<header>
+						<h3>Get Category</h3>
+					</header>
+					<p >You can get specific category with his belong equipment by category name.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/getCategory/food" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/getCategory/5b222b0a2a59a929f4a17838</var></a></p>
+					<p>Method:  <strong>GET</strong><br>
+					Parameters name: <strong>/category</strong></p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/getCategory.PNG">
+				</div>
+				<!-- addEquipment -->
+				<div id="addEquipment" class="col-sm">
+					<header>
+						<h3>Add Equipment</h3>
+					</header>
+					<p >You can add equipment.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/addEquipment" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/addEquipment</var></a></p>
+					<p>Method:  <strong>POST</strong><br>
+					Parameters name: <ul>
+						<li><b>equipment:</b> string</li>
+						<li><b>category:</b> string</li>
+						
+					</ul>
+					</p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEquipment.PNG">
+				</div>
+				
+				<div id="deleteCategory" class="col-sm">
+					<header>
+						<h3>Delete Category</h3>
+					</header>
+					<p >You can delete each category.<br> </p>
+					<blockquote><a href="https://eventbreak.herokuapp.com/deleteCategory" target="_blank" >
+					<var>https://eventbreak.herokuapp.com/deleteCategory</var></a></p>
+					<p>Method:  <strong>DELETE</strong><br>
+					Parameters name: <ul>
+						<li><b>categoryid:</b> category id</li>
+					</ul>
+					</p>
+					</blockquote>
+					<p >Example of result in JSON Object:</p>
+					<img src="">
+				</div>
+				</section>
+				
+			
+			<!-- errors -->
+					
+				<h1>Possible Errors:</h1>
+				<section class="errors">
+				<div id="errorUrl" class="col-sm">
+				<header>
+						<h3>URL error</h3>
+					</header>
+						
+							<p>If you enter URL that no specified in the API, <br>
+							you will recieve general error object.<br>
+							The error object includes the deatails of legitimate API.</p>
+							<p>Example of error in JSON Object:</p>
+							<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/urlError.PNG">
+							<blockquote><a href="https://eventbreak.herokuapp.com/deleteCategodcbvry" target="_blank" >
+								<var>https://eventbreak.herokuapp.com/deleteCategodcbvryry</var></a></p></blockquote>
+						
+					</div>
+					<div id="emptyResult" class="col-sm">
+						
+					<header>
+						<h3>Empty Result</h3>
+					</header>
+							<p>If you enter parameters that dont match to any documents in our DB,<br>
+							you should recieve an empty array.</p>
+							<!-- <p>Example of empty array in Query:</p> -->
+							<img src="">
+					
+					</div>
+					<div id="errorMlab" class="col-sm">
+					<header>
+						<h3>Connection error to mlab</h3>
+					</header>
+						
+							<p>If our server have an error with connection to our DB,<br>
+							you should recieve an error object that describes the error.</p>
+							<!-- <p>Example of error in JSON Object:</p> -->
+							<img src="">
+						
+					</div>
+					<div id="errorFormat" class="col-sm">
+					<header>
+						<h3>Format error</h3>
+					</header>
+				
+							<p>If you enter variables that their format don't match to our schema, <br>
+							you will recieve mongoose validation error.</p>
+							<!-- <p>Example of error in JSON Object:</p> -->
+							<img src="">
+						
+					</div>
+				</section>
+			
+				</div>                  
+					
+        	</div>
+		</div>
+        <script>
+        	//* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+			var dropdown = document.getElementsByClassName("dropdown-btn");
+			var i;
+
+			for (i = 0; i < dropdown.length; i++) {
+			  dropdown[i].addEventListener("click", function() {
+			    this.classList.toggle("active");
+			    var dropdownContent = this.nextElementSibling;
+			    if (dropdownContent.style.display === "block") {
+			      dropdownContent.style.display = "none";
+			    } else {
+			      dropdownContent.style.display = "block";
+			    }
+			  });
+			}
+			
+        </script>
+    </body>
+</html>

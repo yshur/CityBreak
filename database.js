@@ -15,4 +15,8 @@ mongoose.connect(consts.MLAB_KEY)
     err => {
         console.log(`connection error: ${err}`);
     }
+<<<<<<< HEAD
  );
+=======
+ );
+>>>>>>> 56a6717b7bb2c2a5058c1ed1654a4f714076eb06

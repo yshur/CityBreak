@@ -2,7 +2,13 @@ const express = require ('express'),
 	bodyParser = require('body-parser'),
 	app = express(),
 	port = process.env.PORT || 3000,
+<<<<<<< HEAD
 	user = require('./data/user');
+=======
+	user = require('./data/user'),
+    event = require('./data/event'),
+    category = require('./data/category');
+>>>>>>> 56a6717b7bb2c2a5058c1ed1654a4f714076eb06
     require('./database');
 
 app.use(bodyParser.json());
@@ -35,6 +41,31 @@ app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
 
+<<<<<<< HEAD
+=======
+/*--------------- Category Routes ------------*/
+app.get('/getAllCategories', category.getAllCategories);
+app.get('/getAllEquipments', category.getAllEquipments);
+app.get('/getCategory/:category', category.getCategory);
+app.post('/addEquipment/', category.addEquipment);
+app.delete('/deleteCategory/', category.deleteCategory);
+
+/*--------------- Event Routes ---------------*/
+app.get('/getChat/:eventid', event.getChat);
+app.get('/getAllEvents', event.getAllEvents);
+app.get('/getEvent/:eventid', event.getEvent);
+app.post('/createEvent/', event.createEvent);
+app.post('/setTimeEvent/', event.setTimeEvent);
+app.post('/setPlaceEvent/', event.setPlaceEvent);
+app.post('/addEqEvent/', event.addEqEvent);
+app.post('/addCategoryEvent/', event.addCategoryEvent);
+app.post('/getUserEvent/', event.getUserEvent);
+app.post('/sendMessage/', event.sendMessage);
+app.post('/inviteUser/', event.inviteUser);
+app.post('/setUserEquip/', event.setUserEquip);
+app.delete('/deleteEvent/', event.deleteEvent);
+
+>>>>>>> 56a6717b7bb2c2a5058c1ed1654a4f714076eb06
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
   var error = {

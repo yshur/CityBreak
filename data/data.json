@@ -1,0 +1,71 @@
+// users collection 
+
+[
+    {
+        "full-name": "roi shmueli",
+        "phone": "0528803825",
+        "email": "roishmueli1@gmail.com",
+        "password" : "1234",
+        "image" : "url"           
+    }
+]
+
+// equipments collection
+
+
+[
+    {
+        "name": "water",
+        "category": [
+            "all",
+            "food",
+            "trip"
+        ]
+    }
+]
+
+// events collection
+
+[
+    {
+        "name": "barbecue",
+        "decription": "celebrating birthday",
+        "time": "2018-05-12 04:04:03",
+        "creator": "user id",
+        "place": "tel aviv",
+        "participants":[{
+            "user-id": "user id",
+            "status": "admin",
+            "user-equipments":[{
+                "equipment-id":"equipment-id"
+                "quantity":"0"
+            }]
+        }],
+        "category": [
+            "food",
+            "music",
+            "play"
+        ],
+        "required-equipment":[{
+            "equipment-id":"equipment-id",
+            "max-quantity":"0",
+            "min-quantity":"0",
+        }]
+    }
+]
+
+// chats collection
+
+
+[
+    {
+        "eventid": "eventid",
+        "messages": [
+            {
+                "user-id": "user-id",
+                "time": "time",
+                "text": "text"
+            }
+        ]
+    }
+]
