@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import UserItem from './UserItem'
-import MdAdd from 'react-icons/lib/md/add'
-import profilePic from './profilePic.jpg'
-import './Main.css'
+// import MdAdd from 'react-icons/lib/md/add'
+// import profilePic from './profilePic.jpg'
+// import './Main.css'
 
 class UsersList extends Component {
 	numFor_id = 4;
@@ -23,7 +23,7 @@ class UsersList extends Component {
 
 		// var url = this.props.url;
 		// if(this.props.method === 'get') {
-    var url = "localhost:3000/getAllUsers";
+    var url = "https://localhost:3000/getAllUsers";
 		console.log(url)
 
 			fetch(url)
@@ -83,9 +83,9 @@ class UsersList extends Component {
 				onChange={this.update}
 				onDelete={this.delete}>
 					<li className="list-group-item" style = {this.h5}>{User.full_name}
-					<div style = {this.profile}>
-				  	<img src={profilePic}  alt="Card cap"/>
-				  	</div>
+					// <div style = {this.profile}>
+
+				  	// </div>
 				  	</li>
 				</UserItem>
         </div>
@@ -133,7 +133,7 @@ class UsersList extends Component {
 		<input className="form-control mr-sm-2"  style ={this.serach} type="search" placeholder="Search" aria-label="Search"></input>
 		 <div className="list-group list-group-flush " >
 		 	{this.state.Users.map(this.eachUser)}
-		
+
 		</div>
 		</div>
 		)

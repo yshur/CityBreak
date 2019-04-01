@@ -3,7 +3,8 @@ const express = require ('express'),
 	app = express(),
 	port = process.env.PORT || 3000,
 	tour = require('./data/tour'),
-	user = require('./data/user');
+	user = require('./data/user'),
+	admin = require('./data/admin');
     require('./database');
 
 app.use(bodyParser.json());
@@ -35,6 +36,13 @@ app.delete('/deleteUser/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
+
+/*---------------- Admin Routes ----------------*/
+app.get('/getAllAdmins', admin.getAllAdmins);
+app.delete('/deleteAdmin/', admin.deleteAdmin);
+app.post('/createAdmin/', admin.createAdmin);
+app.get('/getAdmin/:userid', admin.getAdmin);
+app.post('/updateAdmin/', admin.updateAdmin);
 
 /*---------------- Tour Routes ----------------*/
 app.get('/getCategories', tour.getCategories);

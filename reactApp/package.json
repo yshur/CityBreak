@@ -2,24 +2,27 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://shenkar.html5-book.co.il/2017-2018/dcs/dev_180/",
   "dependencies": {
-    "auth0-js": "^9.7.2",
     "axios": "^0.18.0",
-    "react": "^16.4.1",
-    "react-bootstrap": "^0.32.1",
-    "react-dom": "^16.4.1",
-    "react-google-login": "^3.2.1",
-    "react-google-login-component": "^0.9.3",
-    "react-icons": "^2.2.7",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.8"
+    "bootstrap": "^4.3.1",
+    "react": "^16.8.4",
+    "react-alert": "^5.4.0",
+    "react-axios": "^2.0.3",
+    "react-bootstrap": "^1.0.0-beta.6",
+    "react-dom": "^16.8.4",
+    "react-form": "^3.5.7",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "unpkg": "^0.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "browserslist": [
     ">0.2%",
