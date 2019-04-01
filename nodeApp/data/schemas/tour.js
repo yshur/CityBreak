@@ -1,6 +1,6 @@
 var mongoose = require('mongoose'),
     user = require('./user'),
-    eventSchema = new mongoose.Schema({
+    tourSchema = new mongoose.Schema({
         name: {
             type:String,
             index:1,
@@ -44,4 +44,4 @@ var mongoose = require('mongoose'),
         }]
     });
 
-module.exports = mongoose.model('Event', eventSchema);
+module.exports = mongoose.model('Full_item', tourSchema);

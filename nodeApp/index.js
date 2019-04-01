@@ -2,6 +2,7 @@ const express = require ('express'),
 	bodyParser = require('body-parser'),
 	app = express(),
 	port = process.env.PORT || 3000,
+	tour = require('./data/tour'),
 	user = require('./data/user');
     require('./database');
 
@@ -34,6 +35,12 @@ app.delete('/deleteUser/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
+
+/*---------------- Tour Routes ----------------*/
+app.get('/getCategories', tour.getCategories);
+app.get('/getRandomTours', tour.getRandomTours);
+app.get('/getLongTours', tour.getLongTours);
+app.get('/getAllTours', tour.getAllTours);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {

@@ -2,39 +2,62 @@
 
 var mongoose = require('mongoose'),
     User = require('./schemas/user'),
-    Event = require('./schemas/event'),
+    Tour = require('./schemas/tour'),
     Category = require('./schemas/category');
 
-exports.getAllEvents = (req, res) => {
-    console.log('getAllEvents');
-    Event.find( {},
-        (err, event) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err}`);
-            }
-            console.log(event);
-            res.status(200).json(event);
-        }
-    );
-};
-exports.getEvent = (req, res) => {
-    var eventid = req.params.eventid;
-    console.log('getEvent');
-    console.log(`get: eventid = ${req.params.eventid}`);
+exports.getCategories = (req, res) => {
+    console.log('getCategories');
+	var q = Tour.distinct( "category" );
 
-    Event.findOne( { _id: { $eq: eventid } },
-        (err, event) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err}`);
-            }
-            console.log(event);
-            res.status(200).json(event);
-        }
-    );
+	q.exec(function(err, categories)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
+		}
+		console.log(categories);
+		res.status(200).json(categories);
+	});
 };
-exports.createEvent = (req, res) => {
+exports.getRandomTours = (req, res) => {
+    console.log('getRandomTours');
+	var q = Tour.find().limit(2);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getLongTours = (req, res) => {
+    console.log('getLongTours');
+	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } } }).limit(2);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getAllTours = (req, res) => {
+    console.log('getAllTours');
+	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } } },
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).limit(10);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+
+exports.createTour = (req, res) => {
     var name = req.body.name,
         description = req.body.description,
         time = req.body.time,
@@ -42,7 +65,7 @@ exports.createEvent = (req, res) => {
         place = req.body.place,
         category = req.body.category,
         image = req.body.image;
-    console.log('createEvent');
+    console.log('createTour');
     console.log(`post: name = ${req.body.name},
         description = ${req.body.description},
         time = ${req.body.time},
@@ -52,7 +75,7 @@ exports.createEvent = (req, res) => {
         image = ${req.body.image}`
       );
 
-    var newEvent = new Event({
+    var newTour = new Tour({
         name: name,
         description: description,
         time: time,
@@ -61,21 +84,21 @@ exports.createEvent = (req, res) => {
         category: category,
         image: image
     });
-    newEvent.save(
+    newTour.save(
         (err) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Saved document: ${newEvent}`);
-                res.status(200).json(newEvent);
+                console.log(`Saved document: ${newTour}`);
+                res.status(200).json(newTour);
             }
         });
 };
 
-exports.setTimeEvent = (req, res) => {
-    var eventid = req.body.eventid,
+exports.setTimeTour = (req, res) => {
+    var tourid = req.body.tourid,
         time = req.body.time;
 
     var conditions = {time: time}
@@ -84,20 +107,20 @@ exports.setTimeEvent = (req, res) => {
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Updated event: ${event}`)
-                res.status(200).json(event);
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
             }
         });
 };
-exports.setPlaceEvent = (req, res) => {
-    var eventid = req.body.eventid,
+exports.setPlaceTour = (req, res) => {
+    var tourid = req.body.tourid,
         place = req.body.place;
 
     var conditions = {place: place}
@@ -106,20 +129,20 @@ exports.setPlaceEvent = (req, res) => {
           multi: true,
           new: true
       };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Updated event: ${event}`)
-                res.status(200).json(event);
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
             }
         });
 };
-exports.addCategoryEvent = (req, res) => {
-    var eventid = req.body.eventid,
+exports.addCategoryTour = (req, res) => {
+    var tourid = req.body.tourid,
         category = req.body.category;
 
     var conditions = {$push:{category: category} }
@@ -128,20 +151,20 @@ exports.addCategoryEvent = (req, res) => {
           multi: true,
           new: true
       };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Updated event: ${event}`)
-                res.status(200).json(event);
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
             }
         });
 };
-exports.addEqEvent = (req, res) => {
-    var eventid = req.body.eventid,
+exports.addEqTour = (req, res) => {
+    var tourid = req.body.tourid,
         equipment = req.body.equipment;
 
     var conditions = { $push: { equipment: {
@@ -151,43 +174,43 @@ exports.addEqEvent = (req, res) => {
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Updated event: ${event}`)
-                res.status(200).json(event);
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
             }
         });
 };
 
 
 exports.getChat = (req, res) => {
-    var eventid = req.params.eventid;
+    var tourid = req.params.tourid;
     console.log('getChat');
-    console.log(`get: eventid = ${req.params.eventid}`);
+    console.log(`get: tourid = ${req.params.tourid}`);
 
-    Event.findOne( { _id: { $eq: eventid } },
-        (err, event) => {
+    Tour.findOne( { _id: { $eq: tourid } },
+        (err, tour) => {
             if (err) {
                 console.log(`err: ${err}`);
                 res.status(200).json(`{ err : ${err}`);
             }
-            console.log(event.chat);
-            res.status(200).json(event.chat);
+            console.log(tour.chat);
+            res.status(200).json(tour.chat);
         }
     );
 
 };
 exports.sendMessage = (req, res) => {
-    var eventid = req.body.eventid,
+    var tourid = req.body.tourid,
         userid = req.body.userid,
         message = req.body.message;
     console.log('sendMessage');
-    console.log(`post: eventid = ${req.body.eventid},
+    console.log(`post: tourid = ${req.body.tourid},
         userid = ${req.body.userid},
         message = ${req.body.message}`);
     var conditions = { $push: { chat: {
@@ -198,23 +221,23 @@ exports.sendMessage = (req, res) => {
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Updated chat: ${event.chat}`)
-                res.status(200).json(event.chat);
+                console.log(`Updated chat: ${tour.chat}`)
+                res.status(200).json(tour.chat);
             }
         });
 };
 exports.inviteUser = (req, res) => {
-    var eventid = req.body.eventid,
+    var tourid = req.body.tourid,
         userid = req.body.userid;
     console.log('inviteUser');
-    console.log(`post: eventid = ${req.body.eventid},
+    console.log(`post: tourid = ${req.body.tourid},
         userid = ${req.body.userid}`);
 
     var conditions = { $push: { participant: userid } }
@@ -223,24 +246,24 @@ exports.inviteUser = (req, res) => {
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             }
             else {
-                console.log(`Updated event: ${event}`)
-                res.status(200).json(event);
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
             }
         });
 };
 exports.setUserEquip = (req, res) => {
-    var eventid = req.body.eventid,
+    var tourid = req.body.tourid,
         userid = req.body.userid,
         equipment = req.body.equipment;
     console.log('setUserEquip');
-    console.log(`post: eventid = ${req.body.eventid},
+    console.log(`post: tourid = ${req.body.tourid},
         userid = ${req.body.userid},
         equipment = ${req.body.equipment}`);
     var conditions = { $push: {equipment: {
@@ -253,47 +276,47 @@ exports.setUserEquip = (req, res) => {
             multi: true,
             new: true
         };
-    Event.findByIdAndUpdate(eventid, conditions, opts,
-        (err, event) => {
+    Tour.findByIdAndUpdate(tourid, conditions, opts,
+        (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             } else {
-                console.log(`Updated event: ${event}`)
-                res.status(200).json(event);
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
             }
         });
 };
-exports.deleteEvent = (req, res) => {
-    var eventid = req.body.eventid;
-    var conditions = {_id: eventid};
+exports.deleteTour = (req, res) => {
+    var tourid = req.body.tourid;
+    var conditions = {_id: tourid};
 
-    Event.remove(conditions,
+    Tour.remove(conditions,
         (err) => {
             if(err){
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             } else {
                 console.log(`Removed document`);
-                User.findOne({_id: eventid},
+                User.findOne({_id: tourid},
                     (err) => {
-                        console.log(`Removed event id=${eventid} `);
-                        res.status(200).json({result:`Removed ${eventid}`});
+                        console.log(`Removed tour id=${tourid} `);
+                        res.status(200).json({result:`Removed ${tourid}`});
                     });
             };
         });
 };
-exports.getUserEvent = (req, res) => {
+exports.getUserTour = (req, res) => {
     var userid = req.body.userid;
-    console.log('getUserEvent');
-    Event.find( {participant: {$in:userid}},
-        (err, event) => {
+    console.log('getUserTour');
+    Tour.find( {participant: {$in:userid}},
+        (err, tour) => {
             if (err) {
                 console.log(`err: ${err}`);
                 res.status(200).json(`{ err : ${err}`);
             }
-            console.log(event);
-            res.status(200).json(event);
+            console.log(tour);
+            res.status(200).json(tour);
         }
     );
 };
