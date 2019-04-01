@@ -2,8 +2,7 @@
 
 var mongoose = require('mongoose'),
     User = require('./schemas/user'),
-    Tour = require('./schemas/tour'),
-    Category = require('./schemas/category');
+    Tour = require('./schemas/tour');
 
 exports.getCategories = (req, res) => {
     console.log('getCategories');
