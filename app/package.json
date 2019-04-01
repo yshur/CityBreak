@@ -4,11 +4,16 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
     "react": "^16.8.4",
+    "react-alert": "^5.4.0",
     "react-axios": "^2.0.3",
+    "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.4",
+    "react-form": "^3.5.7",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "unpkg": "^0.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

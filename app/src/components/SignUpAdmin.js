@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import { Redirect } from 'react-router'
-import Home from "./Home";
 
 
-class SignUp extends Component {
+class SignUpAdmin extends Component {
 
   constructor(props) {
     super(props)
@@ -18,12 +16,13 @@ class SignUp extends Component {
       url: "",
       method: "post",
       params: "",
-      newUser: {}
+      newAdmin: {}
   }
-    this.setUser = this.setUser.bind(this);
-    this.createUser = this.createUser.bind(this);
+    this.setAdmin = this.setAdmin.bind(this);
+    this.createAdmin = this.createAdmin.bind(this);
     this.renderSignUp = this.renderSignUp.bind(this);
     this.renderLoggedIn = this.renderLoggedIn.bind(this);
+
   }
   nextForm(e) {
     console.log("nextForm")
@@ -37,9 +36,9 @@ class SignUp extends Component {
     });
   }
 
-  createUser() {
-    console.log("createUser")
-    var url = "http://localhost:3000/createUser"
+  createAdmin() {
+    console.log("createAdmin")
+    var url = "http://localhost:3000/createAdmin"
     axios.post(url, {
 		    'name': this.state.name,
         'phone': this.state.phone,
@@ -49,16 +48,16 @@ class SignUp extends Component {
 		.then((res) => {
 				console.log("res.data" + res.data)
         this.setState({
-          newUser: res.data,
+          newAdmin: res.data,
           logged_in:true
         });
 		 })
 
   }
-  setUser(e) {
-    console.log("setUser")
+  setAdmin(e) {
+    console.log("setAdmin")
     console.log(this.state.editing)
-    console.log(this.state.newUser)
+    console.log(this.state.newAdmin)
     console.log(this.state.url)
   	e.preventDefault();
   	var name = document.getElementById('name').value,
@@ -73,21 +72,22 @@ class SignUp extends Component {
       params: this.state.params+"name:"+name+",phone:"+phone+"email"+email+"password"+password,
       editing: true
   	}, ()=>{
-      this.createUser();
+      this.createAdmin();
   });
+
   }
 
   renderSignUp() {
     return (
       <div className="signup-form">
-      <form onSubmit={this.setUser}>
+      <form onSubmit={this.setAdmin}>
         <h2>Sign Up</h2>
         <p>Please fill in this form to create an account!</p>
         <hr/>
         <div className="form-group">
           <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-user"></i></span>
-            <input type="text" className="form-control" name="name" placeholder="Username" id="name" required="required"/>
+            <span className="input-group-addon"><i className="fa fa-Admin"></i></span>
+            <input type="text" className="form-control" name="name" placeholder="Adminname" id="name" required="required"/>
           </div>
         </div>
         <div className="form-group">
@@ -112,24 +112,19 @@ class SignUp extends Component {
             <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
           </div>
           <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-lg" onClick={this.setUser}>Sign Up</button>
+                  <button type="submit" className="btn btn-primary btn-lg" onClick={this.setAdmin}>Sign Up</button>
               </div>
         </form>
         <div className="text-center">Already have an account? <a href="#">Login here</a></div>
         </div>
+
     )
   }
   renderLoggedIn(){
-    const logged_in = this.state.logged_in;
-    if (logged_in === true)
-    alert(this.state.name + ' You Have Been Successfully Registered!');
     return(
       <div>
-      <Redirect to={{
-            pathname: '/home',
-            state: { name: this.state.name }
-          }}
-      />
+      <p> you have logged in </p>
+      <h1> Welcome {this.state.newAdmin.name} </h1>
       </div>
     )
   }
@@ -141,4 +136,4 @@ class SignUp extends Component {
     }
   }
 }
-export default SignUp
+export default SignUpAdmin
