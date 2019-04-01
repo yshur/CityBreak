@@ -4,19 +4,6 @@ var mongoose = require('mongoose'),
     User = require('./schemas/user'),
     Tour = require('./schemas/tour');
 
-exports.getCategories = (req, res) => {
-    console.log('getCategories');
-	var q = Tour.distinct( "category" );
-
-	q.exec(function(err, categories)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err} }`);
-		}
-		console.log(categories);
-		res.status(200).json(categories);
-	});
-};
 exports.getRandomTours = (req, res) => {
     console.log('getRandomTours');
 	var q = Tour.find().limit(2);

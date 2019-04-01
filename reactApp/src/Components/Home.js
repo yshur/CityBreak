@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Header from "./Header";
+import ToursList from "./ToursList";
 // import Alert from "./Alert";
 
 class Home extends Component {
@@ -15,6 +16,7 @@ class Home extends Component {
       <div>
         <Header/>
         <b>Hi {this.props.location.state.name} </b>
+		<ToursList/>
       </div>
     )
   }
