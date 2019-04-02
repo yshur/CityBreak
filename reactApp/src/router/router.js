@@ -1,10 +1,10 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import UsersList from "../components/UsersList";
-import SignUp from "../components/SignUp";
-import SignUpAdmin from "../components/SignUpAdmin";
-import Home from "../components/Home";
-import Header from "../components/Header";
+import UsersList from "../Components/UsersList";
+import SignUp from "../Components/SignUp";
+import SignUpAdmin from "../Components/SignUpAdmin";
+import Home from "../Components/Home";
+import Header from "../Components/Header";
 
 const ReactRouter =()=>{
     return (

@@ -45,7 +45,6 @@ app.get('/getAdmin/:userid', admin.getAdmin);
 app.post('/updateAdmin/', admin.updateAdmin);
 
 /*---------------- Tour Routes ----------------*/
-app.get('/getCategories', tour.getCategories);
 app.get('/getRandomTours', tour.getRandomTours);
 app.get('/getLongTours', tour.getLongTours);
 app.get('/getAllTours', tour.getAllTours);
