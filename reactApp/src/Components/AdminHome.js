@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Header from "./Header";
-import ToursList from "./ToursList";
+import AdminManagement from "./AdminManagement";
 // import Alert from "./Alert";
 
-class Home extends Component {
+class AdminHome extends Component {
 
   constructor(props) {
     super(props)
@@ -14,11 +14,10 @@ class Home extends Component {
     return(
       <div>
         <Header/>
-        <b>Hi {this.props.location.state.name} </b>
-		    <ToursList/>
+		    <AdminManagement/>
       </div>
     )
   }
 }
 
-export default Home
+export default AdminHome

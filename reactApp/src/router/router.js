@@ -5,6 +5,7 @@ import SignUp from "../Components/SignUp";
 import SignUpAdmin from "../Components/SignUpAdmin";
 import Home from "../Components/Home";
 import Header from "../Components/Header";
+import AdminHome from "../Components/AdminHome";
 
 const ReactRouter =()=>{
     return (
@@ -14,6 +15,7 @@ const ReactRouter =()=>{
             <Route exact path="/signupadmin" component={SignUpAdmin}/>
             <Route exact path="/home" component={Home}/>
             <Route exact path="/header" component={Header}/>
+            <Route exact path="/adminhome" component={AdminHome}/>
         </React.Fragment>
         );
 }
