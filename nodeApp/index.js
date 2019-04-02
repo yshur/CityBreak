@@ -36,6 +36,8 @@ app.delete('/deleteUser/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
+app.post('/SignInUser/', user.SignInUser);
+
 
 /*---------------- Admin Routes ----------------*/
 app.get('/getAllAdmins', admin.getAllAdmins);
