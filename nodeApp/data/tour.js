@@ -42,7 +42,48 @@ exports.getAllTours = (req, res) => {
 		res.status(200).json(tours);
 	});
 };
-
+exports.getNorthTours = (req, res) => {
+    console.log('getNorthTours');
+	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } },"location.lat": { $gt: 32.540422 } },
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).limit(10);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getSouthTours = (req, res) => {
+    console.log('getSouthTours');
+	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } },"location.lat": { $lt: 31.864304 } },
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).limit(10);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getCenterTours = (req, res) => {
+    console.log('getCenterTours');
+	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } },"location.lat": { $lt: 32.540422, $gt: 31.864304 } },
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).limit(10);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
 exports.createTour = (req, res) => {
     var name = req.body.name,
         description = req.body.description,
