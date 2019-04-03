@@ -54,27 +54,31 @@ class SignInUser extends Component {
 
   renderSignIn(){
     return (
-      <div>
+      <div className="signup-form">
       <Form>
+        <h2>Sign Up</h2>
+        <p>Please fill in this form to login</p>
+        <hr/>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control type="email" placeholder="Enter email" id="email" />
           <Form.Text className="text-muted">
-            We'll never share your email with anyone else.
+
           </Form.Text>
         </Form.Group>
-
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" id="password" />
         </Form.Group>
         <Form.Group controlId="formBasicChecbox">
-          <Form.Check type="checkbox" label="Check me out" />
+
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.setUser}>
-          Submit
+        <Button variant="primary" type="submit" onClick={this.setUser} style={{width:'330px', marginBottom:'20px'}}>
+          Login
         </Button>
+        <div className="text-center">Dont have an account? <a href="http://localhost:3001/SignInUser">Sign Up</a></div>
       </Form>
+
       </div>
 
     )
@@ -93,7 +97,6 @@ class SignInUser extends Component {
       </div>
     )
   }
-
   render(){
     if(this.state.logged_in == false){
       return this.renderSignIn()
