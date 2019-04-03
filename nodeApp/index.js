@@ -45,6 +45,7 @@ app.delete('/deleteAdmin/', admin.deleteAdmin);
 app.post('/createAdmin/', admin.createAdmin);
 app.get('/getAdmin/:userid', admin.getAdmin);
 app.post('/updateAdmin/', admin.updateAdmin);
+app.post('/SignInAdmin/', admin.SignInAdmin);
 
 /*---------------- Tour Routes ----------------*/
 app.get('/getRandomTours', tour.getRandomTours);

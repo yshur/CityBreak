@@ -3,24 +3,24 @@ import axios from 'axios'
 import { Redirect } from 'react-router'
 import {Form, FormControl, Button } from 'react-bootstrap';
 
-class SignInUser extends Component {
+class SignInAdmin extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
       email: '',
       password: '',
-      user: {},
+      Admin: {},
       logged_in:false
     }
     this.renderSignIn = this.renderSignIn.bind(this);
     this.renderLoggedIn = this.renderLoggedIn.bind(this);
-    this.setUser = this.setUser.bind(this);
-    this.signInUser = this.signInUser.bind(this);
+    this.setAdmin = this.setAdmin.bind(this);
+    this.signInAdmin = this.signInAdmin.bind(this);
   }
-  signInUser() {
-    console.log("signInUser")
-    var url = "http://localhost:3000/signInUser"
+  signInAdmin() {
+    console.log("signInAdmin")
+    var url = "http://localhost:3000/signInAdmin"
     axios.post(url, {
         'email': this.state.email,
         'pass': this.state.password,
@@ -32,15 +32,15 @@ class SignInUser extends Component {
         this.renderSignIn();
       } else {
         this.setState({
-          user: res.data,
+          Admin: res.data,
           logged_in:true
         });
       }
      })
 
   }
-  setUser(e) {
-    console.log("setUser")
+  setAdmin(e) {
+    console.log("setAdmin")
   	e.preventDefault();
   	var email = document.getElementById('email').value,
         password = document.getElementById('password').value;
@@ -52,7 +52,7 @@ class SignInUser extends Component {
       email: email,
       password: password
   	}, ()=>{
-        this.signInUser();
+        this.signInAdmin();
     });
   }
 }
@@ -60,7 +60,7 @@ class SignInUser extends Component {
     return (
       <div className="signup-form">
       <Form>
-        <h2>Login</h2>
+        <h2>Login for Admin only</h2>
         <p>Please fill in this form to login</p>
         <hr/>
         <Form.Group controlId="formBasicEmail">
@@ -77,10 +77,10 @@ class SignInUser extends Component {
         <Form.Group controlId="formBasicChecbox">
 
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.setUser} style={{width:'330px', marginBottom:'20px'}}>
+        <Button variant="primary" type="submit" onClick={this.setAdmin} style={{width:'330px', marginBottom:'20px'}}>
           Login
         </Button>
-        <div className="text-center">Dont have an account? <a href="http://localhost:3001/SignUp">Sign Up</a></div>
+        <div className="text-center">Dont have an account? <a href="http://localhost:3001/SignUpAdmin">Sign Up</a></div>
       </Form>
 
       </div>
@@ -94,8 +94,8 @@ class SignInUser extends Component {
     return(
       <div>
       <Redirect to={{
-            pathname: '/home',
-            state: { name: this.state.user.name }
+            pathname: '/AdminHome',
+            state: { name: this.state.Admin.name }
           }}
       />
       </div>
@@ -109,4 +109,4 @@ class SignInUser extends Component {
     }
   }
 }
-export default SignInUser
+export default SignInAdmin

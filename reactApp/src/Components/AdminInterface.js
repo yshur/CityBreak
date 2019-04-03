@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Tour from './Tour'
 import {Card, CardGroup} from 'react-bootstrap';
 
-class AdminManagement extends Component {
+class AdminInterface extends Component {
 
 	constructor(props) {
 		super(props)
@@ -75,4 +75,4 @@ class AdminManagement extends Component {
 	}
 }
 
-export default AdminManagement
+export default AdminInterface

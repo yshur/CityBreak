@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Header from "./Header";
-import AdminManagement from "./AdminManagement";
+import AdminInterface from "./AdminInterface";
 // import Alert from "./Alert";
 
 class AdminHome extends Component {
@@ -14,7 +14,8 @@ class AdminHome extends Component {
     return(
       <div>
         <Header/>
-		    <AdminManagement/>
+        <p> xxx </p>
+		    <AdminInterface/>
       </div>
     )
   }

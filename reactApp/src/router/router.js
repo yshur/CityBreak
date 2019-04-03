@@ -6,6 +6,12 @@ import SignUpAdmin from "../Components/SignUpAdmin";
 import Home from "../Components/Home";
 import Header from "../Components/Header";
 import SignInUser from "../Components/SignInUser";
+import SignInAdmin from "../Components/SignInAdmin";
+import AdminHome from "../Components/AdminHome";
+
+
+
+
 
 
 const ReactRouter =()=>{
@@ -18,6 +24,8 @@ const ReactRouter =()=>{
             <Route exact path="/home" component={Home}/>
             <Route exact path="/header" component={Header}/>
             <Route exact path="/signinuser" component={SignInUser}/>
+            <Route exact path="/signinadmin" component={SignInAdmin}/>
+            <Route exact path="/adminhome" component={AdminHome}/>
         </React.Fragment>
         );
 }

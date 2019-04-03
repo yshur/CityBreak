@@ -113,3 +113,18 @@ exports.deleteAdmin = (req, res) => {
             };
         });
 };
+exports.SignInAdmin = (req, res) => {
+    var pass = req.body.pass,
+        email = req.body.email;
+    // return data;
+    Admin.findOne( {"password":pass,"email":email}, {"_id" : 1,"name":1,"phone":1,"email":1},
+        (err, user) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err}`);
+            }
+            console.log(user);
+            res.status(200).json(user);
+        }
+    )
+};
