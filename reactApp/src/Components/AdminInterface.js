@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Tour from './Tour'
+import AdminTour from './AdminTour'
 import {Card, CardGroup} from 'react-bootstrap';
 
 class AdminInterface extends Component {
@@ -11,6 +11,7 @@ class AdminInterface extends Component {
 		}
 		this.eachTour = this.eachTour.bind(this)
 		this.add = this.add.bind(this)
+		this.delete = this.delete.bind(this)
 	}
 	componentDidMount() {
 		 const url = "http://localhost:3000/getAllTours";
@@ -26,13 +27,19 @@ class AdminInterface extends Component {
 		 		})
 			 })
 	 }
+	delete(id) {
+	console.log('deleted: '+id)
+	this.setState(prevState => ({
+		ideas: prevState.ideas.filter(idea => idea.id !== id)
+	}))
+}
 	eachTour(tour, i) {
 		console.log(tour.id)
 		return (
 			<div key={tour._id} index={tour._id} >
 				<CardGroup style={{display:'block', marginLeft:'70px'}}>
 				  <Card style={{maxWidth:"330px",maxHeight:"380px",float:"left", margin:'20px'}}>
-						<Tour >
+						<AdminTour>
 				    <Card.Img variant="top" img="true" style={{width:"300px",height:"200px",margin:'13px'}} src={tour.imagesUrls} />
 				    <Card.Body>
 							<Card.Title style={{color:'black', width:"400px"}}>{tour.title}</Card.Title>
@@ -41,7 +48,7 @@ class AdminInterface extends Component {
 				    <Card.Footer>
 				      <small className="text-muted">Last updated 3 mins ago</small>
 				    </Card.Footer>
-						</Tour>
+						</AdminTour>
 				  </Card>
 				</CardGroup>
 			</div>
