@@ -16,7 +16,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-		<title>Event Break | API Documentation</title>
+		<title>City Break | API Documentation</title>
 
     </head>
     <body>
@@ -24,23 +24,14 @@
         <!-- wrapper -->
 			<div class="sidenav">
 			  <a href="#about">About</a>
-			  <button class="dropdown-btn">Events Methodes 
+			  <button class="dropdown-btn">Tours Methodes 
 			    <i class="fa fa-caret-down"></i>
 			  </button>
 			  <div class="dropdown-container">
-			    <a href="#getAllEvents">GetAllEvents</a>
-			    <a href="#getEvent">GetEvent</a>
-			    <a href="#createEvent">CreateEvent</a>
-			    <a href="#setTimeEvent">SetTimeEvent</a>
-			    <a href="#setPlaceEvent">SetPlaceEvent</a>
-			    <a href="#addEqEvent">AddEquipmentEvent</a>
-			    <a href="#addCategoryEvent">AddCategoryEvent</a>
-				<a href="#getUserEvent">GetUserEvent</a>
-			    <a href="#getChat">GetChat</a>
-			    <a href="#sendMessage">SendMessage</a>
-			    <a href="#inviteUser">InviteUser</a>
-			    <a href="#setUserEquip">SetUserEquip</a>
-				<a href="#deleteEvent">deleteEvent</a>
+			    <a href="#getAllTours">GetAllTours</a>
+			    <a href="#getAreaTours">getAreaTours</a>
+			    <a href="#getPoints">getPoints</a>
+			    <a href="#searchWordInDesc">searchWordInDesc</a>
 			  </div>
 			  <button class="dropdown-btn">User Methodes 
 			    <i class="fa fa-caret-down"></i>
@@ -51,6 +42,7 @@
 			    <a href="#createUser">CreateUser</a>
 			    <a href="#updateUser">UpdateUser</a>
 			    <a href="#deleteUser">DeleteUser</a>
+				<a href="#SignInUser">SignInUser</a>
 			  </div>
 			  <button class="dropdown-btn">Categories Methodes 
 			    <i class="fa fa-caret-down"></i>
@@ -78,12 +70,12 @@
 			<!-- Intro -->
 			<div id="intro" class="container">
 				<header>
-					<h1>Event Break | API Documentation</h1>
+					<h1>Tour Break | API Documentation</h1>
 				</header>
-				<p>The Event Break API allows directly interaction
-					with the Event Break platform,<br> and get details about all our events.</p> 
+				<p>The Tour Break API allows directly interaction
+					with the Tour Break platform,<br> and get details about all our events.</p> 
 					<p><strong>Some typical use cases include: </strong>
-					<blockquote>Get all Events<br> Get all users<br>
+					<blockquote>Get all Tours<br> Get all users<br>
 						Get all Equipments</blockquote>
 				</p>
 				<p>The requests should be in GET / POST /DELETE Method.<br>
@@ -92,56 +84,56 @@
 				</p>
 				<p>
 					<a id="git" href="https://github.com/yshur/eventbreak.git" target="_blank" class="button">
-					<var>Event Break on Github</var></a>
+					<var>Tour Break on Github</var></a>
 				</p>
 				<p>
 					<a id="git" href="https://www.getpostman.com/collections/f8b483e96e53d63be712" target="_blank" class="button">
-					<var>Event Break Collection's of API for postman</var></a>
+					<var>Tour Break Collection's of API for postman</var></a>
 				</p>
 			</div>
 			
 			<div class="row container">
-				<h1>Events Methodes:</h1>
-				<!-- getAllEvents -->
+				<h1>Tours Methodes:</h1>
+				<!-- getAllTours -->
 				<section class="events">
-				<div id="getAllEvents" class="col-sm">
+				<div id="getAllTours" class="col-sm">
 					<header>
-						<h3>Get All Events</h3>
+						<h3>Get All Tours</h3>
 					</header>
-					<p>You can find all Events, by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/getAllEvents" target="_blank" >
-					<var> localhost:3000/getAllEvents</var></a><br>
+					<p>You can find all Tours, by entering the following URL:<br>
+					<blockquote><a href= "localhost:3000/getAllTours" target="_blank" >
+					<var> localhost:3000/getAllTours</var></a><br>
 					Method:  <strong>GET</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<a href="localhost:3000/getAllEvents" target="_blank"><button>Get Json</button></a>
+					<a href="localhost:3000/getAllTours" target="_blank"><button>Get Json</button></a>
 					<img src="">
 					
 				</div>
-				<!-- getEvent -->
-				<div id="getEvent" class="col-sm">
+				<!-- getTour -->
+				<div id="getTour" class="col-sm">
 					<header>
-						<h3>Get Event</h3>
+						<h3>Get Tour</h3>
 					</header>
-					<p>You can find each Event, by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/getEvent/5b268bac193d8f1d88fd309f" target="_blank" >
-					<var> localhost:3000/getEvent/5b268bac193d8f1d88fd309f</var></a><br>
+					<p>You can find each Tour, by entering the following URL:<br>
+					<blockquote><a href= "localhost:3000/getTour/5b268bac193d8f1d88fd309f" target="_blank" >
+					<var> localhost:3000/getTour/5b268bac193d8f1d88fd309f</var></a><br>
 					Method:  <strong>GET</strong><br>
 					Parameters name: <strong>/eventid</strong></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<a href="localhost:3000/getEvent/5b268bac193d8f1d88fd309f" target="_blank"><button>Get Json</button></a>
+					<a href="localhost:3000/getTour/5b268bac193d8f1d88fd309f" target="_blank"><button>Get Json</button></a>
 					<img src="">
 					
 				</div>
-				<!-- createEvent -->
-				<div id="createEvent" class="col-sm-9">
+				<!-- createTour -->
+				<div id="createTour" class="col-sm-9">
 					<header>
-						<h3>Create Event</h3>
+						<h3>Create Tour</h3>
 					</header>
-					<p>You can create your Event, by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/createEvent" target="_blank" >
-					<var> localhost:3000/createEvent</var></a><br>
+					<p>You can create your Tour, by entering the following URL:<br>
+					<blockquote><a href= "localhost:3000/createTour" target="_blank" >
+					<var> localhost:3000/createTour</var></a><br>
 					Method:  <strong>POST</strong><br>
 					Parameters name: <ul>
 						<li><b>name:</b> string of the event name</li>
@@ -155,17 +147,17 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/createEvent.PNG">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/createTour.PNG">
 					
 				</div>
-				<!-- addCategoryEvent -->
-				<div id="addCategoryEvent" class="col-sm-9">
+				<!-- addCategoryTour -->
+				<div id="addCategoryTour" class="col-sm-9">
 					<header>
-						<h3>Add Category Event</h3>
+						<h3>Add Category Tour</h3>
 					</header>
 					<p>Add category to event, by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/addCategoryEvent" target="_blank" >
-					<var> localhost:3000/addCategoryEvent</var></a><br>
+					<blockquote><a href= "localhost:3000/addCategoryTour" target="_blank" >
+					<var> localhost:3000/addCategoryTour</var></a><br>
 					Method:  <strong>POST</strong><br>
 					Parameters name: 
 					<ul>
@@ -174,17 +166,17 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addCategoryEvent.PNG">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addCategoryTour.PNG">
 					
 				</div>
-				<!-- addEqEvent -->
-				<div id="addEqEvent" class="col-sm-9">
+				<!-- addEqTour -->
+				<div id="addEqTour" class="col-sm-9">
 					<header>
-						<h3>Set Equipment Event</h3>
+						<h3>Set Equipment Tour</h3>
 					</header>
-					<p>Add equipment include max and min quantity to Event , by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/addEqEvent" target="_blank" >
-					<var> localhost:3000/addEqEvent</var></a><br>
+					<p>Add equipment include max and min quantity to Tour , by entering the following URL:<br>
+					<blockquote><a href= "localhost:3000/addEqTour" target="_blank" >
+					<var> localhost:3000/addEqTour</var></a><br>
 					Method:  <strong>POST</strong><br>
 					Parameters name: 
 					<ul>
@@ -195,7 +187,7 @@
 					</ul></p>
 					</blockquote>
 					<p>Example of result in JSON Object:</p>
-					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEqEvent.PNG">
+					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/addEqTour.PNG">
 					
 				</div>
 				<!-- setUserEquip -->
@@ -203,7 +195,7 @@
 					<header>
 						<h3>Set User Equipment</h3>
 					</header>
-					<p>Set user Equipment to Event , by entering the following URL:<br>
+					<p>Set user Equipment to Tour , by entering the following URL:<br>
 					<blockquote><a href= "localhost:3000/setUserEquip" target="_blank" >
 					<var> localhost:3000/setUserEquip</var></a><br>
 					Method:  <strong>POST</strong><br>
@@ -239,15 +231,15 @@
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/inviteUser.PNG">
 					
 				</div>                
-				<!-- setTimeEvent -->
-				<div id="setTimeEvent" class="col-sm-9">
+				<!-- setTimeTour -->
+				<div id="setTimeTour" class="col-sm-9">
 					<header>
-						<h3>Set Time Event</h3>
+						<h3>Set Time Tour</h3>
 					</header>
-					<p>Set time that you want the event will be.<br> call getEvent method to see your changed.<br>
+					<p>Set time that you want the event will be.<br> call getTour method to see your changed.<br>
 					by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/setTimeEvent" target="_blank" >
-					<var> localhost:3000/setTimeEvent</var></a><br>
+					<blockquote><a href= "localhost:3000/setTimeTour" target="_blank" >
+					<var> localhost:3000/setTimeTour</var></a><br>
 						Method:  <strong>POST</strong><br>
 					Parameters name: 
 					<ul>
@@ -259,14 +251,14 @@
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setTime.PNG">
 					
 				</div>                              
-				<!-- setPlaceEvent -->
-				<div id="setPlaceEvent" class="col-sm-9">
+				<!-- setPlaceTour -->
+				<div id="setPlaceTour" class="col-sm-9">
 					<header>
-						<h3>Set Place Event</h3>
+						<h3>Set Place Tour</h3>
 					</header>
-					<p>Set the place thet you want the event will be.<br> call getEvent method to see your changed. by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/setPlaceEvent" target="_blank" >
-					<var> localhost:3000/setPlaceEvent</var></a><br>
+					<p>Set the place thet you want the event will be.<br> call getTour method to see your changed. by entering the following URL:<br>
+					<blockquote><a href= "localhost:3000/setPlaceTour" target="_blank" >
+					<var> localhost:3000/setPlaceTour</var></a><br>
 						Method:  <strong>POST</strong><br>
 					Parameters name: 
 					<ul>
@@ -278,14 +270,14 @@
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/setPlace.PNG">
 					
 				</div>
-				<!-- getUserEvent -->
-				<div id="getUserEvent" class="col-sm-9">
+				<!-- getUserTour -->
+				<div id="getUserTour" class="col-sm-9">
 					<header>
-						<h3>Get User Event</h3>
+						<h3>Get User Tour</h3>
 					</header>
 					<p>Get all events of specific user<br> by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/getUserEvent" target="_blank" >
-					<var> localhost:3000/getUserEvent</var></a><br>
+					<blockquote><a href= "localhost:3000/getUserTour" target="_blank" >
+					<var> localhost:3000/getUserTour</var></a><br>
 						Method:  <strong>POST</strong><br>
 					Parameters name: 
 					<ul>
@@ -330,14 +322,14 @@
 					<img src="https://raw.githubusercontent.com/yshur/eventbreak/master/public/sendMessage.PNG">
 					
 				</div>
-				<!-- deleteEvent -->
-				<div id="deleteEvent" class="col-sm-9">
+				<!-- deleteTour -->
+				<div id="deleteTour" class="col-sm-9">
 					<header>
-						<h3>Delete Event</h3>
+						<h3>Delete Tour</h3>
 					</header>
 					<p>you can delete event by using event id, without any password or identification<br> by entering the following URL:<br>
-					<blockquote><a href= "localhost:3000/deleteEvent" target="_blank" >
-					<var> localhost:3000/deleteEvent</var></a><br>
+					<blockquote><a href= "localhost:3000/deleteTour" target="_blank" >
+					<var> localhost:3000/deleteTour</var></a><br>
 					Method:  <strong>DELETE</strong><br>
 					Parameters name: 
 					<ul>
@@ -581,7 +573,7 @@
 			var i;
 
 			for (i = 0; i < dropdown.length; i++) {
-			  dropdown[i].addEventListener("click", function() {
+			  dropdown[i].addTourListener("click", function() {
 			    this.classList.toggle("active");
 			    var dropdownContent = this.nextElementSibling;
 			    if (dropdownContent.style.display === "block") {

@@ -48,9 +48,13 @@ app.post('/updateAdmin/', admin.updateAdmin);
 app.post('/SignInAdmin/', admin.SignInAdmin);
 
 /*---------------- Tour Routes ----------------*/
-app.get('/getRandomTours', tour.getRandomTours);
-app.get('/getLongTours', tour.getLongTours);
 app.get('/getAllTours', tour.getAllTours);
+app.get('/getAreaTours/:value', tour.getAreaTours);
+app.get('/getPoints', tour.getPoints);
+app.get('/searchWordInDesc/:value', tour.searchWordInDesc);
+app.get('/getAreaPoints/:latSouth/:latNorth/:lngWest/:lngEast', tour.getAreaPoints);
+app.get('/titles', tour.getTitles);
+app.get('/desc', tour.getDescriptions);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
