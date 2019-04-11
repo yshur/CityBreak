@@ -4,35 +4,120 @@ var mongoose = require('mongoose'),
     User = require('./schemas/user'),
     Tour = require('./schemas/tour');
 
-exports.getRandomTours = (req, res) => {
-    console.log('getRandomTours');
-	var q = Tour.find().limit(2);
-	q.exec(function(err, tours)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
-		}
-		console.log(tours);
-		res.status(200).json(tours);
-	});
-};
-exports.getLongTours = (req, res) => {
-    console.log('getLongTours');
-	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } } }).limit(2);
-	q.exec(function(err, tours)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
-		}
-		console.log(tours);
-		res.status(200).json(tours);
-	});
-};
 exports.getAllTours = (req, res) => {
     console.log('getAllTours');
 	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } } },
 		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
 		).limit(10);
+		
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getPoints = (req, res) => {
+    console.log('getPoints');
+	var q = Tour.find({"isRoute": false},
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).limit(20);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.searchWordInDesc = (req, res) => {
+
+	var value = req.params.value;
+	console.log('searchWordInDesc: '+value);
+	var q = Tour.find({$or:[
+		{"description": {$regex : ".*"+value+".*"}},
+		{"title": {$regex : ".*"+value+".*"}}
+			]},
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).sort({"location.lat": 1 }).limit(20);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getAreaTours = (req, res) => {
+	var value = req.params.value;
+	var query = {};
+	console.log('getAreaTours: '+value);
+	switch(value) {
+		case 'north':
+			query = {"location.lat":{$gt:32.354013}};
+			break;
+		case 'south':
+			query = {"location.lat":{$lt:31.729801}};
+			break;
+		case 'center':
+			query = {"location.lat":{$gt:31.729801, $lt:32.354013}};
+			break;
+	}
+	console.log('getAreaTours: '+query);
+	var q = Tour.find(query,
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).limit(2);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getAreaPoints = (req, res) => {
+	var latNorth = Number(req.params.latNorth);
+	var lngEast = Number(req.params.lngEast);
+	var latSouth = Number(req.params.latSouth);
+	var lngWest = Number(req.params.lngWest);
+	
+	var query = {
+		"location.lat":{$lt: latNorth, $gt:latSouth},
+		"location.lng":{$lt: lngEast, $gt:lngWest}
+		};
+	console.log(query);
+	var q = Tour.find(query,
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		).sort({"location.lat": 1 }).limit(20);
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getTitles = (req, res) => {
+    console.log('getTitles');
+	var q = Tour.distinct( "title" );
+	q.exec(function(err, tours)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(tours);
+		res.status(200).json(tours);
+	});
+};
+exports.getDescriptions = (req, res) => {
+    console.log('getDescriptions');
+	var q = Tour.distinct( "description" );
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
@@ -82,7 +167,6 @@ exports.createTour = (req, res) => {
             }
         });
 };
-
 exports.setTimeTour = (req, res) => {
     var tourid = req.body.tourid,
         time = req.body.time;
@@ -172,8 +256,6 @@ exports.addEqTour = (req, res) => {
             }
         });
 };
-
-
 exports.getChat = (req, res) => {
     var tourid = req.params.tourid;
     console.log('getChat');
