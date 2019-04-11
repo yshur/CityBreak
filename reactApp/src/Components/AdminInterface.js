@@ -27,10 +27,10 @@ class AdminInterface extends Component {
 		 		})
 			 })
 	 }
-	delete(id) {
-	console.log('deleted: '+id)
+	delete(_id) {
+	console.log('deleted: '+_id)
 	this.setState(prevState => ({
-		ideas: prevState.ideas.filter(idea => idea.id !== id)
+		tours: prevState.tours.filter(tour => tour._id !== _id)
 	}))
 }
 	eachTour(tour, i) {
@@ -40,6 +40,7 @@ class AdminInterface extends Component {
 				<CardGroup style={{display:'block', marginLeft:'70px'}}>
 				  <Card style={{maxWidth:"330px",maxHeight:"380px",float:"left", margin:'20px'}}>
 						<AdminTour>
+						<AdminTour key={tour._id} index={tour._id} onDelete={this.delete} />
 				    <Card.Img variant="top" img="true" style={{width:"300px",height:"200px",margin:'13px'}} src={tour.imagesUrls} />
 				    <Card.Body>
 							<Card.Title style={{color:'black', width:"400px"}}>{tour.title}</Card.Title>
