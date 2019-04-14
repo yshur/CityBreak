@@ -52,7 +52,7 @@ app.get('/getAllTours', tour.getAllTours);
 app.get('/getAreaTours/:value', tour.getAreaTours);
 app.get('/getPoints', tour.getPoints);
 app.get('/searchWordInDesc/:value', tour.searchWordInDesc);
-app.get('/getAreaPoints/:latSouth/:latNorth/:lngWest/:lngEast', tour.getAreaPoints);
+app.get('/getAreaPoints/:lngEast/:latNorth/:latSouth/:lngWest', tour.getAreaPoints);
 app.get('/titles', tour.getTitles);
 app.get('/desc', tour.getDescriptions);
 

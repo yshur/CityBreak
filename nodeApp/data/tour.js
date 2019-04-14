@@ -80,15 +80,17 @@ exports.getAreaTours = (req, res) => {
 		res.status(200).json(tours);
 	});
 };
+
+// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
 exports.getAreaPoints = (req, res) => {
-	var latNorth = Number(req.params.latNorth);
 	var lngEast = Number(req.params.lngEast);
+	var latNorth = Number(req.params.latNorth);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
 	
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
-		"location.lng":{$lt: lngEast, $gt:lngWest}
+		"location.lng":{$gt: lngEast, $lt:lngWest}
 		};
 	console.log(query);
 	var q = Tour.find(query,
