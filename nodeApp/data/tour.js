@@ -9,7 +9,7 @@ exports.getAllTours = (req, res) => {
 	var q = Tour.find({"isRoute": true,"source": { $not: { $eq: "Jeepolog" } } },
 		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
 		).limit(10);
-		
+
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
@@ -87,7 +87,7 @@ exports.getAreaPoints = (req, res) => {
 	var latNorth = Number(req.params.latNorth);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
-	
+
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
 		"location.lng":{$gt: lngEast, $lt:lngWest}
