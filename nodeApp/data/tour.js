@@ -115,11 +115,11 @@ function createRouteFromPoints(req, res, points) {
 	// var result = JSON.parse(points);
 	// console.log(typeof(points));
 	for(let point in points) {
-		
+
 		let pt = JSON.parse(point);
 		let item = points[pt];
 		// console.log(item);
-		console.log(typeof(item["id"]));
+		// console.log(typeof(item["id"]));
 		let lc = item.location;
 		locations[length++] = {
 			'title': item.title
@@ -127,11 +127,11 @@ function createRouteFromPoints(req, res, points) {
 			// 'lng':	 lc.lng
 		}
 	}
-	
+
 	res.status(200).json(locations);
 	// Init API connector
 	// var r = new RouteXL_API_Connector();
-	
+
 	// Get the tour
 	// r.tour( locations , function(result) {
 		// Success
@@ -140,12 +140,12 @@ function createRouteFromPoints(req, res, points) {
 		// Error
 		// res.status(200).json(`{ err : ${error}`);
 	// });
-	
+
 };
 function RouteXL_API_Connector() {
-	
+
 	this.tour = function(locations, success_callback, error_callback) {
-		
+
 		var request = jQuery.ajax({
 
 			beforeSend: function (xhr) {
@@ -157,19 +157,19 @@ function RouteXL_API_Connector() {
 			dataType: "json",
 
 			data: { locations: locations },
-						
+
 		});
-		
+
 		request.done(function( msg ) {
 			success_callback(msg);
 		});
-			 
+
 		request.fail(function( jqXHR, textStatus ) {
 			error_callback(textStatus);
 		});
-		
+
 	};
-	
+
 }
 
 exports.createRouteFromPoints = (req, res, next) => {
@@ -177,7 +177,7 @@ exports.createRouteFromPoints = (req, res, next) => {
 	var latNorth = Number(req.params.latNorth);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
-	
+
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
 		"location.lng":{$gt: lngEast, $lt:lngWest}
