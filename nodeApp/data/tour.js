@@ -14,7 +14,7 @@ exports.getAllTours = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -28,7 +28,7 @@ exports.getPoints = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -47,7 +47,7 @@ exports.searchWordInDesc = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -75,7 +75,7 @@ exports.getAreaTours = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -93,14 +93,14 @@ exports.getAreaPoints = (req, res) => {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
 		"location.lng":{$gt: lngEast, $lt:lngWest}
 		};
-	console.log(query);
+	// console.log(query);
 	var q = Tour.find(query,
 		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
-		).sort({"location.lat": 1 }).limit(20);
+		).sort({"location.lat": 1 }).limit(5);
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		// console.log(tours);
 		createRouteFromPoints(req, res, tours);
@@ -119,12 +119,12 @@ function createRouteFromPoints(req, res, points) {
 		item = JSON.parse(item);
 		// let item = points[index];
 		
-		console.log(typeof(item));
+		// console.log(typeof(item));
 		// console.log(JSON.stringify(item))
 		// console.log(item);
 		let lc = item.location;
 		locations[index] = {
-			title:	item.title,
+			address: item.title,
 			lat: 	lc.lat,
 			lng:	lc.lng
 		}
@@ -135,23 +135,23 @@ function createRouteFromPoints(req, res, points) {
 	RouteXL_API_Connector(req, res, locations);	
 };
 function RouteXL_API_Connector(req, res, locations) {
-	var headers = {
-		'Content-Type': 'application/json'
-	}
+	var data = 'locations='+JSON.stringify(locations);
 	var auth = {
 		username: 'rshmueli',
 		password: 'Citybreak2019!'
 	}
-	console.log(auth);
-	axios.post("https://api.routexl.nl/tour", {locations: locations },
-		{headers: headers, auth:auth }	)
-	  .then(function (response) {
-		console.log(response);
-		res.status(200).json(response);
+	axios({
+		  method: 'post',
+		  url: 'https://api.routexl.nl/tour',
+		  data: data,
+		  auth:auth 
+		}).then(function (response) {
+		console.log(locations);
+		res.status(200).json(response.data);
 	  })
 	  .catch(function (error) {
 		console.log(error);
-		res.status(200).json(`{ err : ${error}`);
+		res.status(200).json(`{ err : ${error} }`);
 	  });
 	
 }
@@ -162,7 +162,7 @@ exports.getTitles = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -174,7 +174,7 @@ exports.getDescriptions = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
