@@ -80,107 +80,15 @@ exports.getAreaTours = (req, res) => {
 		res.status(200).json(tours);
 	});
 };
-
-// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
 exports.getAreaPoints = (req, res) => {
-	var lngEast = Number(req.params.lngEast);
 	var latNorth = Number(req.params.latNorth);
+	var lngEast = Number(req.params.lngEast);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
 
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
-		"location.lng":{$gt: lngEast, $lt:lngWest}
-		};
-	console.log(query);
-	var q = Tour.find(query,
-		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
-		).sort({"location.lat": 1 }).limit(20);
-	q.exec(function(err, tours)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
-		}
-		// console.log(tours);
-		createRouteFromPoints(req, res, tours);
-	});
-};
-function returnPoints(req, res, points) {
-	res.status(200).json(points);
-};
-// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
-function createRouteFromPoints(req, res, points) {
-	var locations = [];
-	var length = 0;
-	// var result = JSON.parse(points);
-	// console.log(typeof(points));
-	for(let point in points) {
-
-		let pt = JSON.parse(point);
-		let item = points[pt];
-		// console.log(item);
-		// console.log(typeof(item["id"]));
-		let lc = item.location;
-		locations[length++] = {
-			'title': item.title
-			// 'lat': 	 lc.lat,
-			// 'lng':	 lc.lng
-		}
-	}
-
-	res.status(200).json(locations);
-	// Init API connector
-	// var r = new RouteXL_API_Connector();
-
-	// Get the tour
-	// r.tour( locations , function(result) {
-		// Success
-		// res.status(200).json(result);
-	// }, function(error) {
-		// Error
-		// res.status(200).json(`{ err : ${error}`);
-	// });
-
-};
-function RouteXL_API_Connector() {
-
-	this.tour = function(locations, success_callback, error_callback) {
-
-		var request = jQuery.ajax({
-
-			beforeSend: function (xhr) {
-			    xhr.setRequestHeader ("Authorization", "Basic " + btoa("username:password"));
-			},
-
-			url: "https://api.routexl.nl/tour",
-			method: "POST",
-			dataType: "json",
-
-			data: { locations: locations },
-
-		});
-
-		request.done(function( msg ) {
-			success_callback(msg);
-		});
-
-		request.fail(function( jqXHR, textStatus ) {
-			error_callback(textStatus);
-		});
-
-	};
-
-}
-
-exports.createRouteFromPoints = (req, res, next) => {
-	var lngEast = Number(req.params.lngEast);
-	var latNorth = Number(req.params.latNorth);
-	var latSouth = Number(req.params.latSouth);
-	var lngWest = Number(req.params.lngWest);
-
-	var query = {
-		"location.lat":{$lt: latNorth, $gt:latSouth},
-		"location.lng":{$gt: lngEast, $lt:lngWest}
+		"location.lng":{$lt: lngEast, $gt:lngWest}
 		};
 	console.log(query);
 	var q = Tour.find(query,
@@ -192,10 +100,9 @@ exports.createRouteFromPoints = (req, res, next) => {
 			res.status(200).json(`{ err : ${err}`);
 		}
 		console.log(tours);
-		next(tours);
+		res.status(200).json(tours);
 	});
 };
-
 exports.getTitles = (req, res) => {
     console.log('getTitles');
 	var q = Tour.distinct( "title" );
