@@ -131,60 +131,30 @@ function createRouteFromPoints(req, res, points) {
 	}
 	
 	// res.status(200).json(locations);
-	// Init API connector
-	var r = new RouteXL_API_Connector();
-	
-	// Get the tour
-	r.tour( locations , function(result) {
-		// Success
-		res.status(200).json(result);
-	}, function(error) {
-		// Error
-		res.status(200).json(`{ err : ${error}`);
-	});
-	
+	// Init API connector + Get the tour
+	RouteXL_API_Connector(req, res, locations);	
 };
-function RouteXL_API_Connector() {
-	
-	this.tour = function(locations, success_callback, error_callback) {
-		var headers = {
-            'Content-Type': 'application/json',
-            'Authorization': "rshmueli:Citybreak2019!"
-        }
-		axios.post("https://api.routexl.nl/tour", 
-			{locations: locations },
-			{headers: headers}			
-		).then((res) => {
-			success_callback(res.data);
-		});
-		
-	};
+function RouteXL_API_Connector(req, res, locations) {
+	var headers = {
+		'Content-Type': 'application/json'
+	}
+	var auth = {
+		username: 'rshmueli',
+		password: 'Citybreak2019!'
+	}
+	console.log(auth);
+	axios.post("https://api.routexl.nl/tour", {locations: locations },
+		{headers: headers, auth:auth }	)
+	  .then(function (response) {
+		console.log(response);
+		res.status(200).json(response);
+	  })
+	  .catch(function (error) {
+		console.log(error);
+		res.status(200).json(`{ err : ${error}`);
+	  });
 	
 }
-
-exports.createRouteFromPoints = (req, res, next) => {
-	var lngEast = Number(req.params.lngEast);
-	var latNorth = Number(req.params.latNorth);
-	var latSouth = Number(req.params.latSouth);
-	var lngWest = Number(req.params.lngWest);
-	
-	var query = {
-		"location.lat":{$lt: latNorth, $gt:latSouth},
-		"location.lng":{$gt: lngEast, $lt:lngWest}
-		};
-	console.log(query);
-	var q = Tour.find(query,
-		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
-		).sort({"location.lat": 1 }).limit(20);
-	q.exec(function(err, tours)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
-		}
-		console.log(tours);
-		next(tours);
-	});
-};
 
 exports.getTitles = (req, res) => {
     console.log('getTitles');
