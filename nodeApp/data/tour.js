@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     User = require('./schemas/user'),
+	axios = require('axios'),
     Tour = require('./schemas/tour');
 
 exports.getAllTours = (req, res) => {
@@ -111,61 +112,50 @@ function returnPoints(req, res, points) {
 // http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
 function createRouteFromPoints(req, res, points) {
 	var locations = [];
-	var length = 0;
-	// var result = JSON.parse(points);
+	// var length = 0;
 	// console.log(typeof(points));
-	for(let point in points) {
+	for (let index = 0; index < points.length; index++) {
+		var item = JSON.stringify(points[index]);
+		item = JSON.parse(item);
+		// let item = points[index];
 		
-		let pt = JSON.parse(point);
-		let item = points[pt];
+		console.log(typeof(item));
+		// console.log(JSON.stringify(item))
 		// console.log(item);
-		console.log(typeof(item["id"]));
 		let lc = item.location;
-		locations[length++] = {
-			'title': item.title
-			// 'lat': 	 lc.lat,
-			// 'lng':	 lc.lng
+		locations[index] = {
+			title:	item.title,
+			lat: 	lc.lat,
+			lng:	lc.lng
 		}
 	}
 	
-	res.status(200).json(locations);
+	// res.status(200).json(locations);
 	// Init API connector
-	// var r = new RouteXL_API_Connector();
+	var r = new RouteXL_API_Connector();
 	
 	// Get the tour
-	// r.tour( locations , function(result) {
+	r.tour( locations , function(result) {
 		// Success
-		// res.status(200).json(result);
-	// }, function(error) {
+		res.status(200).json(result);
+	}, function(error) {
 		// Error
-		// res.status(200).json(`{ err : ${error}`);
-	// });
+		res.status(200).json(`{ err : ${error}`);
+	});
 	
 };
 function RouteXL_API_Connector() {
 	
 	this.tour = function(locations, success_callback, error_callback) {
-		
-		var request = jQuery.ajax({
-
-			beforeSend: function (xhr) {
-			    xhr.setRequestHeader ("Authorization", "Basic " + btoa("username:password"));
-			},
-
-			url: "https://api.routexl.nl/tour",
-			method: "POST",
-			dataType: "json",
-
-			data: { locations: locations },
-						
-		});
-		
-		request.done(function( msg ) {
-			success_callback(msg);
-		});
-			 
-		request.fail(function( jqXHR, textStatus ) {
-			error_callback(textStatus);
+		var headers = {
+            'Content-Type': 'application/json',
+            'Authorization': "rshmueli:Citybreak2019!"
+        }
+		axios.post("https://api.routexl.nl/tour", 
+			{locations: locations },
+			{headers: headers}			
+		).then((res) => {
+			success_callback(res.data);
 		});
 		
 	};
