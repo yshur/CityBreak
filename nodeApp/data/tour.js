@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     User = require('./schemas/user'),
+	axios = require('axios'),
     Tour = require('./schemas/tour');
 
 exports.getAllTours = (req, res) => {
@@ -13,7 +14,7 @@ exports.getAllTours = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -27,7 +28,7 @@ exports.getPoints = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -46,7 +47,7 @@ exports.searchWordInDesc = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -74,42 +75,94 @@ exports.getAreaTours = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
 	});
 };
+
+// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
 exports.getAreaPoints = (req, res) => {
-	var latNorth = Number(req.params.latNorth);
 	var lngEast = Number(req.params.lngEast);
+	var latNorth = Number(req.params.latNorth);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
 
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
-		"location.lng":{$lt: lngEast, $gt:lngWest}
+		"location.lng":{$gt: lngEast, $lt:lngWest}
 		};
-	console.log(query);
+	// console.log(query);
 	var q = Tour.find(query,
 		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
-		).sort({"location.lat": 1 }).limit(20);
+		).sort({"location.lat": 1 }).limit(5);
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
-		console.log(tours);
-		res.status(200).json(tours);
+		// console.log(tours);
+		createRouteFromPoints(req, res, tours);
 	});
 };
+function returnPoints(req, res, points) {
+	res.status(200).json(points);
+};
+// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
+function createRouteFromPoints(req, res, points) {
+	var locations = [];
+	// var length = 0;
+	// console.log(typeof(points));
+	for (let index = 0; index < points.length; index++) {
+		var item = JSON.stringify(points[index]);
+		item = JSON.parse(item);
+		// let item = points[index];
+
+		// console.log(typeof(item));
+		// console.log(JSON.stringify(item))
+		// console.log(item);
+		let lc = item.location;
+		locations[index] = {
+			address: item.title,
+			lat: 	lc.lat,
+			lng:	lc.lng
+		}
+	}
+
+	// res.status(200).json(locations);
+	// Init API connector + Get the tour
+	RouteXL_API_Connector(req, res, locations);
+};
+function RouteXL_API_Connector(req, res, locations) {
+	var data = 'locations='+JSON.stringify(locations);
+	var auth = {
+		username: 'rshmueli',
+		password: 'Citybreak2019!'
+	}
+	axios({
+		  method: 'post',
+		  url: 'https://api.routexl.nl/tour',
+		  data: data,
+		  auth:auth
+		}).then(function (response) {
+		console.log(locations);
+		res.status(200).json(response.data);
+	  })
+	  .catch(function (error) {
+		console.log(error);
+		res.status(200).json(`{ err : ${error} }`);
+	  });
+
+}
+
 exports.getTitles = (req, res) => {
     console.log('getTitles');
 	var q = Tour.distinct( "title" );
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
@@ -121,7 +174,7 @@ exports.getDescriptions = (req, res) => {
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
+			res.status(200).json(`{ err : ${err} }`);
 		}
 		console.log(tours);
 		res.status(200).json(tours);
