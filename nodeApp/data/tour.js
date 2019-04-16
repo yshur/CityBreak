@@ -89,7 +89,13 @@ exports.getAreaPoints = (req, res) => {
 	var latNorth = Number(req.params.latNorth);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
-	
+	var name = req.params.name;
+	var coords = {
+		"lngEast": lngEast,
+		"latNorth": latNorth,
+		"latSouth": latSouth,
+		"lngWest": lngWest
+	}
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
 		"location.lng":{$gt: lngEast, $lt:lngWest}
@@ -98,21 +104,21 @@ exports.getAreaPoints = (req, res) => {
 	var q = Tour.find(query,
 		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
 		).sort({"location.lat": 1 }).limit(10);
-	q.exec(function(err, tours)  {
+	q.exec(function(err, points)  {
 		if (err) {
 			console.log(`err: ${err}`);
 			res.status(200).json(`{ err : ${err} }`);
 		}
-		// console.log(tours);
-		createRouteFromPoints(req, res, tours);
-		// returnPoints(req, res, tours);
+		// console.log(points);
+		createRouteFromPoints(res, points, coords, name);
+		// returnPoints(req, res, points);
 	});
 };
-function returnPoints(req, res, points) {
+function returnPoints(res, points) {
 	res.status(200).json(points);
 };
-// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
-function createRouteFromPoints(req, res, points) {
+// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498/jaffa
+function createRouteFromPoints(res, points, coords, name) {
 	var locations = [];
 	var items = [];
 	// var length = 0;
@@ -120,11 +126,6 @@ function createRouteFromPoints(req, res, points) {
 	for (let index = 0; index < points.length; index++) {
 		var item = JSON.stringify(points[index]);
 		item = JSON.parse(item);
-		// let item = points[index];
-		
-		// console.log(typeof(item));
-		// console.log(JSON.stringify(item))
-		// console.log(item);
 		let lc = item.location;
 		locations[index] = {
 			address: item.id,
@@ -136,9 +137,9 @@ function createRouteFromPoints(req, res, points) {
 	
 	// res.status(200).json(locations);
 	// Init API connector + Get the tour
-	RouteXL_API_Connector(req, res, locations, items);	
+	RouteXL_API_Connector(res, locations, items, coords, name);	
 };
-function RouteXL_API_Connector(req, res, locations, items) {
+function RouteXL_API_Connector(res, locations, items, coords, name) {
 	var data = 'locations='+JSON.stringify(locations);
 	var auth = {
 		username: 'rshmueli',
@@ -152,7 +153,7 @@ function RouteXL_API_Connector(req, res, locations, items) {
 		}).then(function (response) {
 		console.log(response.data);
 		// res.status(200).json(response.data);
-		createRoute(req, res, response.data, "יפו", items );
+		createRoute(res, response.data, items, coords, name );
 	  })
 	  .catch(function (error) {
 		console.log(error);
@@ -160,14 +161,12 @@ function RouteXL_API_Connector(req, res, locations, items) {
 	  });
 	
 }
-function createRoute(req, res, route, routeName, items) {
+function createRoute(res, route, items, coords, routeName ) {
 	var routeItems = route.route;
-	console.log(routeItems);
 	for ( let index=0; index<route.count; index++) {	
 		let i = index.toString();
 		console.log(routeItems[i]);
 		let name = routeItems[i].name;
-		console.log(name);
 		item = items[name];
 		routeItems[i].data = item;
 		routeItems[i].name = item.title;
@@ -176,6 +175,7 @@ function createRoute(req, res, route, routeName, items) {
     var newRoute = new Route({
 		id: route.id,
 		name: routeName,
+		coords: coords,
         count: route.count,
 		feasible: route.feasible,
 		route: routeItems
@@ -188,7 +188,7 @@ function createRoute(req, res, route, routeName, items) {
             }
             else {
                 console.log(`Saved document: ${newRoute}`);
-                res.status(200).json(routeItems);
+                res.status(200).json(newRoute);
             }
         });
 };
