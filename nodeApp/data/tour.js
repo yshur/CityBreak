@@ -89,7 +89,6 @@ exports.getAreaPoints = (req, res) => {
 	var latNorth = Number(req.params.latNorth);
 	var latSouth = Number(req.params.latSouth);
 	var lngWest = Number(req.params.lngWest);
-<<<<<<< HEAD
 	var name = req.params.name;
 	var coords = {
 		"lngEast": lngEast,
@@ -97,9 +96,6 @@ exports.getAreaPoints = (req, res) => {
 		"latSouth": latSouth,
 		"lngWest": lngWest
 	}
-=======
-
->>>>>>> c7affe6e8bafa7664fb05c20b4c4fbfe83e84c0c
 	var query = {
 		"location.lat":{$lt: latNorth, $gt:latSouth},
 		"location.lng":{$gt: lngEast, $lt:lngWest}
@@ -130,14 +126,6 @@ function createRouteFromPoints(res, points, coords, name) {
 	for (let index = 0; index < points.length; index++) {
 		var item = JSON.stringify(points[index]);
 		item = JSON.parse(item);
-<<<<<<< HEAD
-=======
-		// let item = points[index];
-
-		// console.log(typeof(item));
-		// console.log(JSON.stringify(item))
-		// console.log(item);
->>>>>>> c7affe6e8bafa7664fb05c20b4c4fbfe83e84c0c
 		let lc = item.location;
 		locations[index] = {
 			address: item.id,
@@ -149,11 +137,7 @@ function createRouteFromPoints(res, points, coords, name) {
 
 	// res.status(200).json(locations);
 	// Init API connector + Get the tour
-<<<<<<< HEAD
 	RouteXL_API_Connector(res, locations, items, coords, name);	
-=======
-	RouteXL_API_Connector(req, res, locations, items);
->>>>>>> c7affe6e8bafa7664fb05c20b4c4fbfe83e84c0c
 };
 function RouteXL_API_Connector(res, locations, items, coords, name) {
 	var data = 'locations='+JSON.stringify(locations);
@@ -179,15 +163,7 @@ function RouteXL_API_Connector(res, locations, items, coords, name) {
 }
 function createRoute(res, route, items, coords, routeName ) {
 	var routeItems = route.route;
-<<<<<<< HEAD
-=======
-	console.log(routeItems);
-<<<<<<< HEAD
 	for ( let index=0; index<route.count; index++) {
-=======
->>>>>>> c7affe6e8bafa7664fb05c20b4c4fbfe83e84c0c
-	for ( let index=0; index<route.count; index++) {	
->>>>>>> 463ba5b3469c68f6e277e72f455ae6b7efee799f
 		let i = index.toString();
 		console.log(routeItems[i]);
 		let name = routeItems[i].name;
