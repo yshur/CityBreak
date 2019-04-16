@@ -163,7 +163,11 @@ function RouteXL_API_Connector(req, res, locations, items) {
 function createRoute(req, res, route, routeName, items) {
 	var routeItems = route.route;
 	console.log(routeItems);
+<<<<<<< HEAD
 	for ( let index=0; index<route.count; index++) {
+=======
+	for ( let index=0; index<route.count; index++) {	
+>>>>>>> 463ba5b3469c68f6e277e72f455ae6b7efee799f
 		let i = index.toString();
 		console.log(routeItems[i]);
 		let name = routeItems[i].name;
