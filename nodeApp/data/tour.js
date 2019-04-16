@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     User = require('./schemas/user'),
+	Route = require('./schemas/route'),
 	axios = require('axios'),
     Tour = require('./schemas/tour');
 
@@ -96,7 +97,7 @@ exports.getAreaPoints = (req, res) => {
 	// console.log(query);
 	var q = Tour.find(query,
 		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
-		).sort({"location.lat": 1 }).limit(5);
+		).sort({"location.lat": 1 }).limit(10);
 	q.exec(function(err, tours)  {
 		if (err) {
 			console.log(`err: ${err}`);
@@ -104,6 +105,7 @@ exports.getAreaPoints = (req, res) => {
 		}
 		// console.log(tours);
 		createRouteFromPoints(req, res, tours);
+		// returnPoints(req, res, tours);
 	});
 };
 function returnPoints(req, res, points) {
@@ -112,6 +114,7 @@ function returnPoints(req, res, points) {
 // http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
 function createRouteFromPoints(req, res, points) {
 	var locations = [];
+	var items = [];
 	// var length = 0;
 	// console.log(typeof(points));
 	for (let index = 0; index < points.length; index++) {
@@ -124,17 +127,22 @@ function createRouteFromPoints(req, res, points) {
 		// console.log(item);
 		let lc = item.location;
 		locations[index] = {
-			address: item.title,
+			address: item.id,
 			lat: 	lc.lat,
 			lng:	lc.lng
 		}
+		items[item.id] = item;
 	}
 
 	// res.status(200).json(locations);
 	// Init API connector + Get the tour
+<<<<<<< HEAD
 	RouteXL_API_Connector(req, res, locations);
+=======
+	RouteXL_API_Connector(req, res, locations, items);	
+>>>>>>> 0af1368cb9e8c533a49a83d06f564720869a1d1c
 };
-function RouteXL_API_Connector(req, res, locations) {
+function RouteXL_API_Connector(req, res, locations, items) {
 	var data = 'locations='+JSON.stringify(locations);
 	var auth = {
 		username: 'rshmueli',
@@ -144,10 +152,15 @@ function RouteXL_API_Connector(req, res, locations) {
 		  method: 'post',
 		  url: 'https://api.routexl.nl/tour',
 		  data: data,
+<<<<<<< HEAD
 		  auth:auth
+=======
+		  auth: auth 
+>>>>>>> 0af1368cb9e8c533a49a83d06f564720869a1d1c
 		}).then(function (response) {
-		console.log(locations);
-		res.status(200).json(response.data);
+		console.log(response.data);
+		// res.status(200).json(response.data);
+		createRoute(req, res, response.data, "יפו", items );
 	  })
 	  .catch(function (error) {
 		console.log(error);
@@ -155,7 +168,39 @@ function RouteXL_API_Connector(req, res, locations) {
 	  });
 
 }
-
+function createRoute(req, res, route, routeName, items) {
+	var routeItems = JSON.stringify(route.route);
+	console.log(routeItems);
+	routeItems = JSON.parse(routeItems);
+	console.log(routeItems);
+	for ( let index=0; index<=route.count; index++) {
+		
+		let i = index.toString();
+		console.log(routeItems[i]);
+		let name = routeItems[i].name;
+		console.log(name);
+		routeItems[i] = items[name];
+		console.log(routeItems[i]);
+	}
+    var newRoute = new Route({
+		id: route.id,
+		name: routeName,
+        count: route.count,
+		feasible: route.feasible,
+		route: route.route
+	});
+    newRoute.save(
+        (err) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
+            else {
+                console.log(`Saved document: ${newRoute}`);
+                res.status(200).json(routeItems);
+            }
+        });
+};
 exports.getTitles = (req, res) => {
     console.log('getTitles');
 	var q = Tour.distinct( "title" );
