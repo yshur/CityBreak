@@ -136,11 +136,7 @@ function createRouteFromPoints(req, res, points) {
 
 	// res.status(200).json(locations);
 	// Init API connector + Get the tour
-<<<<<<< HEAD
-	RouteXL_API_Connector(req, res, locations);
-=======
-	RouteXL_API_Connector(req, res, locations, items);	
->>>>>>> 0af1368cb9e8c533a49a83d06f564720869a1d1c
+	RouteXL_API_Connector(req, res, locations, items);
 };
 function RouteXL_API_Connector(req, res, locations, items) {
 	var data = 'locations='+JSON.stringify(locations);
@@ -152,11 +148,7 @@ function RouteXL_API_Connector(req, res, locations, items) {
 		  method: 'post',
 		  url: 'https://api.routexl.nl/tour',
 		  data: data,
-<<<<<<< HEAD
-		  auth:auth
-=======
-		  auth: auth 
->>>>>>> 0af1368cb9e8c533a49a83d06f564720869a1d1c
+		  auth: auth
 		}).then(function (response) {
 		console.log(response.data);
 		// res.status(200).json(response.data);
@@ -169,17 +161,16 @@ function RouteXL_API_Connector(req, res, locations, items) {
 
 }
 function createRoute(req, res, route, routeName, items) {
-	var routeItems = JSON.stringify(route.route);
+	var routeItems = route.route;
 	console.log(routeItems);
-	routeItems = JSON.parse(routeItems);
-	console.log(routeItems);
-	for ( let index=0; index<=route.count; index++) {
-		
+	for ( let index=0; index<route.count; index++) {
 		let i = index.toString();
 		console.log(routeItems[i]);
 		let name = routeItems[i].name;
 		console.log(name);
-		routeItems[i] = items[name];
+		item = items[name];
+		routeItems[i].data = item;
+		routeItems[i].name = item.title;
 		console.log(routeItems[i]);
 	}
     var newRoute = new Route({
@@ -187,7 +178,7 @@ function createRoute(req, res, route, routeName, items) {
 		name: routeName,
         count: route.count,
 		feasible: route.feasible,
-		route: route.route
+		route: routeItems
 	});
     newRoute.save(
         (err) => {
