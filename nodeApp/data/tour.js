@@ -161,17 +161,16 @@ function RouteXL_API_Connector(req, res, locations, items) {
 	
 }
 function createRoute(req, res, route, routeName, items) {
-	var routeItems = JSON.stringify(route.route);
+	var routeItems = route.route;
 	console.log(routeItems);
-	routeItems = JSON.parse(routeItems);
-	console.log(routeItems);
-	for ( let index=0; index<=route.count; index++) {
-		
+	for ( let index=0; index<route.count; index++) {	
 		let i = index.toString();
 		console.log(routeItems[i]);
 		let name = routeItems[i].name;
 		console.log(name);
-		routeItems[i] = items[name];
+		item = items[name];
+		routeItems[i].data = item;
+		routeItems[i].name = item.title;
 		console.log(routeItems[i]);
 	}
     var newRoute = new Route({
@@ -179,7 +178,7 @@ function createRoute(req, res, route, routeName, items) {
 		name: routeName,
         count: route.count,
 		feasible: route.feasible,
-		route: route.route
+		route: routeItems
 	});
     newRoute.save(
         (err) => {
