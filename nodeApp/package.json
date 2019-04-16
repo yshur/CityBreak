@@ -21,6 +21,9 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^5.4.19",
-    "npm": "^6.9.0"
+    "mongoose-random": "^0.1.1",
+    "mongoose-simple-random": "^0.4.1",
+    "npm": "^6.9.0",
+    "random": "^2.1.1"
   }
 }
