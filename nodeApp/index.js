@@ -3,6 +3,7 @@ const express = require ('express'),
 	app = express(),
 	port = process.env.PORT || 3000,
 	tour = require('./data/tour'),
+	route = require('./data/route'),
 	user = require('./data/user'),
 	admin = require('./data/admin');
     require('./database');
@@ -54,9 +55,12 @@ app.get('/getAreaTours/:value', tour.getAreaTours);
 app.get('/getPoints', tour.getPoints);
 app.get('/searchWordInDesc/:value', tour.searchWordInDesc);
 app.get('/getAreaPoints/:lngEast/:latNorth/:latSouth/:lngWest/:name', tour.getAreaPoints);
-app.get('/createAreaPoints/:latCenter/:lngCenter/:name', tour.createAreaPoints);
+// app.get('/createAreaPoints/:latCenter/:lngCenter/:name', tour.createAreaPoints);
 app.get('/titles', tour.getTitles);
 app.get('/desc', tour.getDescriptions);
+
+/*---------------- Only Routes ----------------*/
+app.get('/getAllRoutes', route.getAllRoutes);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
