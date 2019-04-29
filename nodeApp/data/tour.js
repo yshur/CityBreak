@@ -109,7 +109,7 @@ exports.createAreaPoints = (req, res) => {
 		// returnPoints(req, res, points);
 	});
 };
-// http://localhost:3000/getAreaPoints/34.7480/32.0973
+// http://localhost:3000/getAreaPoints/31.780/35.220
 exports.getAreaPoints = (req, res) => {
   var lngCenter = Number(req.params.lngCenter);
 	var latCenter = Number(req.params.latCenter);
@@ -124,7 +124,7 @@ exports.getAreaPoints = (req, res) => {
 		};
 	// console.log(query);
 	var q = Tour.find(query,
-		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1, "distance":Math.sqrt(Math.pow(latCenter-location.lat, 2) + Math.pow(lngCenter-location.lng, 2) ) }
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
 		).sort({"location.lat": 1 }).limit(10);
 	q.exec(function(err, points)  {
 		if (err) {
@@ -133,7 +133,7 @@ exports.getAreaPoints = (req, res) => {
 		}
 		// console.log(points);
 		// createRouteFromPoints(res, points, coords, name);
-		returnPoints(req, res, points);
+		returnPoints(res, points);
 	});
 };
 function returnPoints(res, points) {
