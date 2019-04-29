@@ -124,7 +124,7 @@ exports.getAreaPoints = (req, res) => {
 		};
 	// console.log(query);
 	var q = Tour.find(query,
-		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1, "distance":Math.sqrt(Math.pow(latCenter-location.lat, 2) + Math.pow(lngCenter-location.lng, 2) ) }
 		).sort({"location.lat": 1 }).limit(10);
 	q.exec(function(err, points)  {
 		if (err) {
