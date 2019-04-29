@@ -109,22 +109,18 @@ exports.createAreaPoints = (req, res) => {
 		// returnPoints(req, res, points);
 	});
 };
-// http://localhost:3000/getAreaPoints/34.7480/32.0973/32.0488/34.8498
+// http://localhost:3000/getAreaPoints/34.7480/32.0973
 exports.getAreaPoints = (req, res) => {
-	var lngEast = Number(req.params.lngEast);
-	var latNorth = Number(req.params.latNorth);
-	var latSouth = Number(req.params.latSouth);
-	var lngWest = Number(req.params.lngWest);
+  var lngCenter = Number(req.params.lngCenter);
+	var latCenter = Number(req.params.latCenter);
 	var name = req.params.name;
 	var coords = {
-		"lngEast": lngEast,
-		"latNorth": latNorth,
-		"latSouth": latSouth,
-		"lngWest": lngWest
+		"lngCenter": lngCenter,
+		"latCenter": latCenter
 	}
 	var query = {
-		"location.lat":{$lt: latNorth, $gt:latSouth},
-		"location.lng":{$gt: lngEast, $lt:lngWest}
+		"location.lat":{$lt: latCenter+0.1, $gt:latCenter-0.1},
+		"location.lng":{$gt: lngCenter-0.1, $lt:lngCenter+0.1}
 		};
 	// console.log(query);
 	var q = Tour.find(query,
@@ -136,8 +132,8 @@ exports.getAreaPoints = (req, res) => {
 			res.status(200).json(`{ err : ${err} }`);
 		}
 		// console.log(points);
-		createRouteFromPoints(res, points, coords, name);
-		// returnPoints(req, res, points);
+		// createRouteFromPoints(res, points, coords, name);
+		returnPoints(req, res, points);
 	});
 };
 function returnPoints(res, points) {

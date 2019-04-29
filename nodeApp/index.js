@@ -55,7 +55,7 @@ app.get('/getAreaTours/:value', tour.getAreaTours);
 app.get('/getPoints', tour.getPoints);
 app.get('/searchWordInDesc/:value', tour.searchWordInDesc);
 app.get('/createAreaPoints/:latCenter/:lngCenter/:name', tour.createAreaPoints);
-// app.get('/createAreaPoints/:latCenter/:lngCenter/:name', tour.createAreaPoints);
+app.get('/getAreaPoints/:latCenter/:lngCenter', tour.getAreaPoints);
 app.get('/titles', tour.getTitles);
 app.get('/desc', tour.getDescriptions);
 
