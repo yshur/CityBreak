@@ -23,8 +23,8 @@ exports.getAllTours = (req, res) => {
 };
 exports.getPoints = (req, res) => {
     console.log('getPoints');
-	var q = Tour.find({"isRoute": false},
-		{"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
+	var q = Tour.find({"isRoute": false}
+		// {"id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1 }
 		).limit(20);
 	q.exec(function(err, tours)  {
 		if (err) {
