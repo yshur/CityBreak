@@ -44,4 +44,4 @@ var mongoose = require('mongoose'),
         }]
     });
 
-module.exports = mongoose.model('Full_item', tourSchema);
+module.exports = mongoose.model('Tour', tourSchema);
