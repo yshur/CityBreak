@@ -24,8 +24,8 @@ var mongoose = require('mongoose'),
             required: true
         },
         image : {
-            type: mongoose.Schema.ObjectId,
-            ref: 'image'
+          image_url: String,
+          setup_time: { type: Date, default: Date.now }
         },
         inbox: ObjectId,
         created_tours: [ObjectId],
