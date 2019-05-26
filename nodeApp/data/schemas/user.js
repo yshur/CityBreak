@@ -27,15 +27,13 @@ var mongoose = require('mongoose'),
           image_url: String,
           setup_time: { type: Date, default: Date.now }
         },
-        inbox: ObjectId,
+        inbox: [ObjectId],
         created_tours: [ObjectId],
-        visited_tours: [ObjectId],
-        wanted_tours: [ObjectId],
         feedback_num: {
           type: Number,
           default: 0
         },
-        marital_status: String,
+        family_status: String,
         birthdate: Date,
         living_area: String,
         living_city: String,

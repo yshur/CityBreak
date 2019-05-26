@@ -15,9 +15,6 @@ var mongoose = require('mongoose'),
         tags: [String],
         duration: Number,
         distance: Number,
-        visited_num: { type: Number, default: 0 },
-        scored_num: { type: Number, default: 0 },
-        score: { type: Number, default: 0 },
         start_point: {
             type: mongoose.Schema.ObjectId,
             ref: 'point',
@@ -31,7 +28,32 @@ var mongoose = require('mongoose'),
         sub_area: String,
         accessibility: [String],
         recommended_season: [String],
-        feedbacks: [ObjectId],
+        visitors: [{
+          user: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user',
+              required: true
+          },
+          setup_time: { type: Date, default: Date.now }
+        }],
+        scores: [{
+          content: Number,
+          user: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user',
+              required: true
+          },
+          setup_time: { type: Date, default: Date.now }
+        }],
+        feedbacks: [{
+          content: String,
+          user: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user',
+              required: true
+          },
+          setup_time: { type: Date, default: Date.now }
+        }],
         points_list: [{
             type: mongoose.Schema.ObjectId,
             ref: 'point'

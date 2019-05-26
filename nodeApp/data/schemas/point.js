@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    user = require('./user'),
     pointSchema = new mongoose.Schema({
         name: { type: String, required: true, index: 1, uniqe: true },
         about: String,
@@ -10,9 +11,6 @@ var mongoose = require('mongoose'),
         setup_time: { type: Date, default: Date.now },
         tags: [String],
         duration: Number,
-        visited_num: { type: Number, default: 0 },
-        scored_num: { type: Number, default: 0 },
-        score: { type: Number, default: 0 },
         address: String,
         longitude: Number,
         latitude: Number,
@@ -24,7 +22,32 @@ var mongoose = require('mongoose'),
         sub_area: String,
         accessibility: [String],
         recommended_season: [String],
-        feedbacks: [ObjectId],
+        visitors: [{
+          user: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user',
+              required: true
+          },
+          setup_time: { type: Date, default: Date.now }
+        }],
+        scores: [{
+          content: Number,
+          user: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user',
+              required: true
+          },
+          setup_time: { type: Date, default: Date.now }
+        }],
+        feedbacks: [{
+          content: String,
+          user: {
+              type: mongoose.Schema.ObjectId,
+              ref: 'user',
+              required: true
+          },
+          setup_time: { type: Date, default: Date.now }
+        }],
         tours_used: [ObjectId]
     });
 
