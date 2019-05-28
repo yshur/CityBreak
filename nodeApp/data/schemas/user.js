@@ -29,6 +29,7 @@ var mongoose = require('mongoose'),
         },
         inbox: [ObjectId],
         created_tours: [ObjectId],
+        saved_tours: [ObjectId],
         feedback_num: {
           type: Number,
           default: 0
