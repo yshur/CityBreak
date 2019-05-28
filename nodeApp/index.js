@@ -3,7 +3,6 @@ const express = require ('express'),
 	app = express(),
 	port = process.env.PORT || 3000,
 	tour = require('./data/tour'),
-	route = require('./data/route'),
 	user = require('./data/user'),
 	admin = require('./data/admin');
     require('./database');
@@ -18,7 +17,6 @@ app.use( (req, res, next) => {
 	res.header("Access-Control-Allow-Headers",
 	"Origin, X-Requested-With, Content-Type, Accept");
 	res.set("Content-Type", "application/json");
-
 	next();
 });
 
@@ -38,8 +36,6 @@ app.delete('/deleteUser/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
-app.post('/SignInUser/', user.SignInUser);
-
 
 /*---------------- Admin Routes ----------------*/
 app.get('/getAllAdmins', admin.getAllAdmins);
@@ -47,20 +43,14 @@ app.delete('/deleteAdmin/', admin.deleteAdmin);
 app.post('/createAdmin/', admin.createAdmin);
 app.get('/getAdmin/:userid', admin.getAdmin);
 app.post('/updateAdmin/', admin.updateAdmin);
-app.post('/SignInAdmin/', admin.SignInAdmin);
 
 /*---------------- Tour Routes ----------------*/
-app.get('/getAllTours', tour.getAllTours);
-app.get('/getAreaTours/:value', tour.getAreaTours);
-app.get('/getPoints', tour.getPoints);
-app.get('/searchWordInDesc/:value', tour.searchWordInDesc);
-app.get('/createAreaPoints/:latCenter/:lngCenter/:name', tour.createAreaPoints);
-app.get('/getAreaPoints/:latCenter/:lngCenter', tour.getAreaPoints);
-app.get('/titles', tour.getTitles);
-app.get('/desc', tour.getDescriptions);
-
-/*---------------- Only Routes ----------------*/
-app.get('/getAllRoutes', route.getAllRoutes);
+app.get('/getRandomTours', 	tour.getRandomTours);
+app.get('/getLongTours', 	tour.getLongTours);
+app.get('/getAllTours', 	tour.getAllTours);
+app.get('/getNorthTours', 	tour.getNorthTours);
+app.get('/getSouthTours', 	tour.getSouthTours);
+app.get('/getCenterTours', 	tour.getCenterTours);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {

@@ -1,28 +1,55 @@
 var mongoose = require('mongoose'),
+    image = require('./image'),
     userSchema = new mongoose.Schema({
-        name: {
-            type:String,
-            index:1
+        first_name: {
+            type: String,
+            required: true
         },
-        phone: {
-            type:String
-						 
+        last_name: {
+            type: String,
+            required: true
         },
+        phone: Number,
         email: {
-            type:String
-
+            type: String,
+            uniqe: true
         },
-        password : String,
-        image : String
+        username: {
+            type: String,
+            uniqe: true,
+            required: true
+        },
+        password : {
+            type: String,
+            required: true
+        },
+        image : {
+          image_url: String,
+          setup_time: { type: Date, default: Date.now }
+        },
+        inbox: [ObjectId],
+        created_tours: [ObjectId],
+        saved_tours: [ObjectId],
+        feedback_num: {
+          type: Number,
+          default: 0
+        },
+        family_status: String,
+        birthdate: Date,
+        living_area: String,
+        living_city: String,
+        health_condition: Number,
+        accessibility: [String],
+        profession: String,
+        about: String,
+        tags: [String],
+        popularity: {
+          type: Number,
+          default: 0
+        },
+        calendar: ObjectId,
+        friends: [ObjectId],
+        is_admin: Boolean
     });
-
-    // userSchema.path('phone').validate(
-    //     (val) => {
-    //         return /\d{3}-\d{3}-\d{4}/.test(val);
-    //     }, `Error validation phone number! \n The template should be xxx-xxx-xxxx`);
-    // userSchema.path('email').validate(
-    //     (val) => {
-    //         return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(val);
-    //     }, `The e-mail field cannot be empty.`);
 
 module.exports = mongoose.model('User', userSchema);

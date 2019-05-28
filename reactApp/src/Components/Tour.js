@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import {Card} from 'react-bootstrap';
-
 
 class Tour extends Component {
 
-	constructor(props) {
+	constructor(props) { 
 		super(props)
 		this.state = {
 			editing: false
@@ -13,10 +11,10 @@ class Tour extends Component {
 	render(){
 		return(
 				<div className='tour'>
-					<Card>
-						<div>{this.props.children}</div>
-					</Card>
-				</div>
+				<div className="card-body">
+					<div>{this.props.children}</div>			
+					</div>
+				</div>	
 		)
 	}
 }
