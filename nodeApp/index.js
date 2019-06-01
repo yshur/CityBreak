@@ -5,7 +5,7 @@ const express = require ('express'),
 	tour = require('./data/tour'),
 	user = require('./data/user'),
 	admin = require('./data/admin');
-    require('./database');
+require('./database');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -15,7 +15,7 @@ app.use('/', express.static('./'));
 app.use( (req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers",
-	"Origin, X-Requested-With, Content-Type, Accept");
+		"Origin, X-Requested-With, Content-Type, Accept");
 	res.set("Content-Type", "application/json");
 	next();
 });
@@ -36,6 +36,7 @@ app.delete('/deleteUser/', user.deleteUser);
 app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
 app.post('/updateUser/', user.updateUser);
+app.post('/login/', user.login);
 
 /*---------------- Admin Routes ----------------*/
 app.get('/getAllAdmins', admin.getAllAdmins);

@@ -1,5 +1,4 @@
 var mongoose = require('mongoose'),
-    image = require('./image'),
     userSchema = new mongoose.Schema({
         first_name: {
             type: String,
@@ -27,9 +26,9 @@ var mongoose = require('mongoose'),
           image_url: String,
           setup_time: { type: Date, default: Date.now }
         },
-        inbox: [ObjectId],
-        created_tours: [ObjectId],
-        saved_tours: [ObjectId],
+        inbox: [mongoose.Schema.ObjectId],
+        created_tours: [mongoose.Schema.ObjectId],
+        saved_tours: [mongoose.Schema.ObjectId],
         feedback_num: {
           type: Number,
           default: 0
@@ -47,8 +46,8 @@ var mongoose = require('mongoose'),
           type: Number,
           default: 0
         },
-        calendar: ObjectId,
-        friends: [ObjectId],
+        calendar: mongoose.Schema.ObjectId,
+        friends: [mongoose.Schema.ObjectId],
         is_admin: Boolean
     });
 
