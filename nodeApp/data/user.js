@@ -14,7 +14,7 @@ exports.getAllUsers = (req, res) => {
         (err, user) => {
             if (err) {
                 console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err}`);
+                res.status(200).json(`{ err : ${err} }`);
             }
             console.log(user);
             res.status(200).json(user);
@@ -112,4 +112,28 @@ exports.deleteUser = (req, res) => {
                     });
             };
         });
+};
+
+exports.login = (req, res) => {
+  var username = req.body.username,
+      password = req.body.password;
+
+  console.log(`login: username = ${req.body.username}, password = {req.body.password}`);
+  var q = User.findOne({
+      $and: [
+          {"password":password},
+          { $or: [{"username": username}, {"email": username}] }
+        ]
+      },
+      {"_id":1, "first_name":1, "last_name":1}
+    );
+    q.exec(function(err, user) {
+        if (err) {
+            console.log(`err: ${err}`);
+            res.status(200).json(`{ err : ${err}`);
+        }
+        console.log(user);
+        res.status(200).json(user);
+      }
+  );
 };

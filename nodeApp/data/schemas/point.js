@@ -48,7 +48,7 @@ var mongoose = require('mongoose'),
           },
           setup_time: { type: Date, default: Date.now }
         }],
-        tours_used: [ObjectId]
+        tours_used: [mongoose.Schema.ObjectId]
     });
 
 module.exports = mongoose.model('Point', pointSchema);
