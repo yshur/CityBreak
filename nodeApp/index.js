@@ -31,11 +31,14 @@ app.get('/', (req,res) => {
 });
 
 /*---------------- User Routes ----------------*/
-app.get('/getAllUsers', user.getAllUsers);
-app.delete('/deleteUser/', user.deleteUser);
-app.post('/createUser/', user.createUser);
 app.get('/getUser/:userid', user.getUser);
+app.get('/getAllUsers', user.getAllUsers);
+app.delete('/deleteUser/:userid', user.deleteUser);
+app.delete('/deleteAllUsers', user.deleteAllUsers);
+
+app.post('/createUser/', user.createUser);
 app.post('/updateUser/', user.updateUser);
+
 app.post('/login/', user.login);
 
 /*---------------- Admin Routes ----------------*/

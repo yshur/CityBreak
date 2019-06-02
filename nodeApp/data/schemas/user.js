@@ -22,10 +22,7 @@ var mongoose = require('mongoose'),
             type: String,
             required: true
         },
-        image : {
-          image_url: String,
-          setup_time: { type: Date, default: Date.now }
-        },
+        image_url: String,
         inbox: [mongoose.Schema.ObjectId],
         created_tours: [mongoose.Schema.ObjectId],
         saved_tours: [mongoose.Schema.ObjectId],
@@ -48,7 +45,11 @@ var mongoose = require('mongoose'),
         },
         calendar: mongoose.Schema.ObjectId,
         friends: [mongoose.Schema.ObjectId],
-        is_admin: Boolean
+        is_admin: {
+          type: Boolean,
+          default: false
+        },
+        setup_time: { type: Date, default: Date.now }
     });
 
 module.exports = mongoose.model('User', userSchema);
