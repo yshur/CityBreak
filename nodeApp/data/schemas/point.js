@@ -14,7 +14,7 @@ var mongoose = require('mongoose'),
         price: Number,
         area: String,
         sub_area: String,
-        accessibility: [String],
+        accessibility: Boolean,
         recommended_season: [String],
         visitors: [{
           user: {
