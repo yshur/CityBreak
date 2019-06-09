@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router'
+import Home from "./Home";
+
 
 class SignUp extends Component {
 
@@ -113,7 +115,7 @@ class SignUp extends Component {
                   <button type="submit" className="btn btn-primary btn-lg" onClick={this.setUser}>Sign Up</button>
               </div>
         </form>
-        <div className="text-center">Already have an account? <a href="http://localhost:3001/SignInUser">Login here</a></div>
+        <div className="text-center">Already have an account? <a href="#">Login here</a></div>
         </div>
     )
   }

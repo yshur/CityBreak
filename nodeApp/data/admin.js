@@ -1,7 +1,7 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
-    Admin = require('./schemas/admin'),
+    Admin = require('./schemas/user'),
     options = {
         server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
@@ -112,19 +112,4 @@ exports.deleteAdmin = (req, res) => {
                     });
             };
         });
-};
-exports.SignInAdmin = (req, res) => {
-    var pass = req.body.pass,
-        email = req.body.email;
-    // return data;
-    Admin.findOne( {"password":pass,"email":email}, {"_id" : 1,"name":1,"phone":1,"email":1},
-        (err, user) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err}`);
-            }
-            console.log(user);
-            res.status(200).json(user);
-        }
-    )
 };

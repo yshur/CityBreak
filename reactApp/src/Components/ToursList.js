@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import Tour from './Tour'
-import {Card, CardGroup} from 'react-bootstrap';
 
 class ToursList extends Component {
 
-	constructor(props) {
+	constructor(props) { 
 		super(props)
 		this.state = {
 			tours: []
@@ -22,45 +21,31 @@ class ToursList extends Component {
 		 		var self=this;
 		 		data.map((data) => {
 		 			console.log('tour')
-		 			self.add(data._id,data.id, data.source, data.lengthInKm, data.description, data.imagesUrls[0], data.title, data.category, data.location);
+		 			self.add(data.id, data.source, data.lengthInKm, data.description, data.imagesUrls[0], data.title, data.category, data.location);
+					// "id":1,"source":1,"lengthInKm":1,"description":1,"imagesUrls":1,"title":1,"category":1,"location":1
 		 		})
 			 })
 	 }
 	eachTour(tour, i) {
-		console.log(tour.imagesUrls)
-		const url = tour.imagesUrls;
-		const bgStyle = {
-			width:"300px",
-			height:"200px",
-			backgroundSize:"119% auto",
-			margin:'13px', backgroundImage: `url(${url})`
-
-		}
+		console.log(tour.id)
 		return (
-			<div key={tour._id} index={tour._id} >
-				<CardGroup style={{display:'block', marginLeft:'70px'}}>
-				  <Card style={{maxWidth:"330px",maxHeight:"380px",float:"left", margin:'20px'}}>
-						<Tour >
-				    <Card.Body style={bgStyle}>
-							<Card.Title style={{color:'black', width:"400px"}}>{tour.title}</Card.Title>
-			      	<Card.Text style={{color:'black'}}>Km Distance: {tour.lengthInKm}</Card.Text>
-						</Card.Body>
-				    <Card.Footer>
-				      <small className="text-muted">Last updated 3 mins ago</small>
-				    </Card.Footer>
-						</Tour>
-				  </Card>
-				</CardGroup>
+			<div key={'container '+i} >
+			<div className="card-body" style={{color:"black", border:"1px black solid"}}>
+				<Tour key={tour.id} index={tour.id} >
+					<h3 className="card-title">{tour.title}</h3>
+					<p className="card-text">{tour.description}</p>
+					<p className="card-text"><img style={{width:"60px",height:"60px"}} src={tour.imagesUrls} alt={tour.title} /></p>
+				</Tour>
+			</div>
 			</div>
 		)
 	}
-	add(_id,id,source,lengthInKm,description,imagesUrls,title,category,location) {
+	add(id,source,lengthInKm,description,imagesUrls,title,category,location) {
 
 		this.setState(prevState => ({
 			tours: [
 				...prevState.tours,
 				{
-					_id:_id,
 					id:id,
 					source:source,
 					lengthInKm:lengthInKm,
@@ -71,15 +56,19 @@ class ToursList extends Component {
 					location:location
 				}]
 		}))
-	}
+		
+	}	
 
 	render() {
 		return (
-		 		<div>
-		 			{this.state.tours.map(this.eachTour)}
-				</div>
+		 <div className="card toursList" style={{width: 18+'rem', marginBottom: 7+'px'}}>
+		 	{this.state.tours.map(this.eachTour)}
+			<br/>
+		</div>
 		)
+				
 	}
+
 }
 
 export default ToursList

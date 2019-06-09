@@ -23,7 +23,7 @@ def is_json(myjson):
 s = requests.Session()
 s.proxies = {"http": "http://61.233.25.166:80"}
 	
-itemsFile = open("data3.json", mode='r', encoding='utf-8')
+itemsFile = open("data1.json", mode='r', encoding='utf-8')
 itemsList = json.load(itemsFile)
 fullItemsList = []
 # i = 0
