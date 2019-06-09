@@ -1,0 +1,264 @@
+{
+  "front-version": "2.19.2",
+  "version": 3,
+  "nodes": [
+    {
+      "type": "Project",
+      "id": "5487b829-af23-463c-b476-1ab76de96c5c",
+      "lastModified": "2019-06-02T20:04:45.080+03:00",
+      "name": "CityBreak"
+    },
+    {
+      "uriEditor": true,
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n    \"first_name\": \"Yair\",\n     \"last_name\": \"Shur\",\n        \"phone\": \"972545456527\",\n        \"email\": \"yair.shur@gmail.com\",\n        \"username\": \"yshur\",\n        \"password\": \"123456\",\n        \"image_url\": \"https://photos.app.goo.gl/EVGavEwPkiwY27MT8\",\n        \"family_status\": \"single\",\n        \"birthdate\": \"1986-12-21\",\n        \"living_area\": \"Gush Dan\",\n        \"living_city\": \"Tel Aviv\",\n        \"profession\": \"Student\",\n        \"about\": \"אני אוהב תיאטרון וטיולים\",\n        \"tags\": [\n          \"היסטוריה\", \"פרחים\"\n          ]\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "secure": true,
+          "name": "https",
+          "version": "V11"
+        },
+        "host": "photos.app.goo.gl",
+        "path": "/EVGavEwPkiwY27MT8"
+      },
+      "id": "8452defd-195a-4631-ba13-17c43426f592",
+      "lastModified": "2019-06-02T20:00:19.017+03:00",
+      "name": "createUser",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "google-oauth2|117946949695266725694"
+      },
+      "parentId": "5487b829-af23-463c-b476-1ab76de96c5c"
+    },
+    {
+      "uriEditor": true,
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"pass\": \n  \"email\":\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/deleteAllUsers"
+      },
+      "id": "2d5e2eb8-6423-4a84-ac25-f4eaab36f1ba",
+      "lastModified": "2019-06-02T19:41:26.312+03:00",
+      "name": "deleteAllUsers",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|117946949695266725694"
+      },
+      "parentId": "5487b829-af23-463c-b476-1ab76de96c5c"
+    },
+    {
+      "uriEditor": true,
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": ""
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/deleteUser/1234"
+      },
+      "id": "8011ce71-01bd-4a04-b455-3e5b9b17733a",
+      "lastModified": "2019-06-02T19:41:44.150+03:00",
+      "name": "deleteUser",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|117946949695266725694"
+      },
+      "parentId": "5487b829-af23-463c-b476-1ab76de96c5c"
+    },
+    {
+      "uriEditor": true,
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"pass\": \n  \"email\":\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/getAllUsers"
+      },
+      "id": "aeb3be3b-e1cd-4d2a-b644-af2c8e88fbcd",
+      "lastModified": "2019-04-02T18:25:45.053+03:00",
+      "name": "getAllUsers",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "google-oauth2|117946949695266725694"
+      },
+      "parentId": "5487b829-af23-463c-b476-1ab76de96c5c"
+    },
+    {
+      "uriEditor": true,
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"password\": \"123456\",\n  \"username\":\"yshur\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/login"
+      },
+      "id": "58112f87-77e0-471e-b38e-7ecfe0ac459d",
+      "lastModified": "2019-06-02T20:04:10.773+03:00",
+      "name": "login",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "google-oauth2|117946949695266725694"
+      },
+      "parentId": "5487b829-af23-463c-b476-1ab76de96c5c"
+    },
+    {
+      "uriEditor": true,
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"password\": \"123456\",\n  \"username\":\"yair.shur@gmail.com\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/login"
+      },
+      "id": "16d83854-5c76-4a12-a2e0-0b6310280681",
+      "lastModified": "2019-06-02T20:04:45.081+03:00",
+      "name": "login by mail",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "google-oauth2|117946949695266725694"
+      },
+      "parentId": "5487b829-af23-463c-b476-1ab76de96c5c"
+    }
+  ]
+}

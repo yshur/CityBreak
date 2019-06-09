@@ -3,8 +3,8 @@ const express = require ('express'),
 	app = express(),
 	port = process.env.PORT || 3000,
 	tour = require('./data/tour'),
-	user = require('./data/user'),
-	admin = require('./data/admin');
+	point = require('./data/point'),
+	user = require('./data/user');
 require('./database');
 
 app.use(bodyParser.json());
@@ -35,18 +35,17 @@ app.get('/getUser/:userid', user.getUser);
 app.get('/getAllUsers', user.getAllUsers);
 app.delete('/deleteUser/:userid', user.deleteUser);
 app.delete('/deleteAllUsers', user.deleteAllUsers);
-
 app.post('/createUser/', user.createUser);
+
 app.post('/updateUser/', user.updateUser);
 
 app.post('/login/', user.login);
 
-/*---------------- Admin Routes ----------------*/
-app.get('/getAllAdmins', admin.getAllAdmins);
-app.delete('/deleteAdmin/', admin.deleteAdmin);
-app.post('/createAdmin/', admin.createAdmin);
-app.get('/getAdmin/:userid', admin.getAdmin);
-app.post('/updateAdmin/', admin.updateAdmin);
+/*---------------- Point Routes ----------------*/
+app.get('/getPoints', 	point.getPoints);
+app.get('/getPoint/:pointid', 	point.getPoint);
+app.delete('/deletePoint/:userid', point.deletePoint);
+app.post('/createPoint/', point.createPoint);
 
 /*---------------- Tour Routes ----------------*/
 app.get('/getRandomTours', 	tour.getRandomTours);
