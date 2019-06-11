@@ -42,7 +42,12 @@ var mongoose = require('mongoose'),
           },
           setup_time: { type: Date, default: Date.now }
         }],
-        tours_used: [mongoose.Schema.ObjectId]
+        tours_used: [mongoose.Schema.ObjectId],
+		loc: {
+			type: { type: String }, 
+			coordinates: []
+		}
     });
-
+	
+pointSchema.index({ loc: "2dsphere" });
 module.exports = mongoose.model('Point', pointSchema);

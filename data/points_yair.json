@@ -12,7 +12,16 @@
 		"area": "דרום",
 		"sub_area": "הרי אילת ודרום הערבה",
 		"accessibility": true,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+		"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				34.97477,
+				29.57427
+			]
+		}
 
 	}, {
 		"name": "אירוסים בעין הים",
@@ -33,7 +42,16 @@
 		"area": "מרכז",
 		"sub_area": "שרון",
 		"accessibility": false,
-		"recommended_season": ["winter", "spring"]
+		"recommended_season": ["winter", "spring"],
+		"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				34.8795507,
+				32.4288694
+			]
+		}
 	}, {
 		"name": "האגם הנסתר בתלמי אלעזר",
 		"about": "האגם הנסתר בתלמי אלעזר - בריכה עונתית לצד חורשת אקליפטוסים סבוכה.",
@@ -43,12 +61,22 @@
 		"tags": ["מים", "אקליפטוס"],
 		"duration": 30,
 		"address": "השקמה, תלמי אלעזר",
-		"latitude": 32.44589,
 		"longitude": 34.97098,
+		"latitude": 32.44589,
+		
 		"area": "מרכז",
 		"sub_area": "שרון",
 		"accessibility": false,
-		"recommended_season": ["winter", "spring"]
+		"recommended_season": ["winter", "spring"],
+		"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				34.97098,
+				32.44589
+			]
+		}
 	}, {
 		"name": "הג'ובה הגדולה",
 		"about": "הג'ובה הגדולה - שקע עמוק ביער אודם, שריד לתופעה גיאולוגית ייחודית.",
@@ -62,12 +90,22 @@
 		"tags": ["תצפית", "גיאולוגיה", "שמורת טבע", "פריחה", "יער וחורש"],
 		"duration": 90,
 		"address": "יער אודם",
-		"latitude": 33.20666,
 		"longitude": 35.73533,
+		"latitude": 33.20666,
+		
 		"area": "צפון",
 		"sub_area": "רמת הגולן",
 		"accessibility": true,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+		"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				35.73533,
+				33.20666
+			]
+		}
 
 	}, {
 		"name": "המשוריינים בשער הגיא",
@@ -81,12 +119,23 @@
 		"tags": ["היסטוריה", "ציונות", "צהל"],
 		"duration": 20,
 		"address": "אנדרטת פורצי הדרך לירושלים",
-		"latitude": 31.804589,
 		"longitude": 35.046801,
+		"latitude": 31.804589,
+		
 		"area": "מרכז",
 		"sub_area": "הרי ירושלים",
 		"accessibility": false,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				
+				35.73533,
+				33.20666
+			]
+		}
 
 	}, {
 		"name": "הר יונה",
@@ -102,13 +151,22 @@
 		"tags": ["תצפית", "אירוס", "פריחה"],
 		"duration": 20,
 		"address": "הר יונה, נצרת עילית",
-		"latitude": 32.726268,
 		"longitude": 35.341549,
+		"latitude": 32.726268,
+		
 		"area": "צפון",
 		"sub_area": "גליל תחתון",
 		"accessibility": false,
-		"recommended_season": ["*"]
-
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				35.341549,
+				32.726268
+			]
+		}
 	}, {
 		"name": "אקו פארק חדרה",
 		"about": "פארק בחדרה שנפתח ב2017 שפותח תוך שמירה על עקרונות אקולוגיים ומציע מגוון מתקנים חדשניים.",
@@ -125,12 +183,22 @@
 		"tags": ["פארק", "אקולוגיה", "מתקנים", "אגם"],
 		"duration": 60,
 		"address": "משמר הגבול 27, חדרה",
-		"latitude": 32.4294443,
 		"longitude": 34.9349587,
+		"latitude": 32.4294443,
+		
 		"area": "מרכז",
 		"sub_area": "שרון",
 		"accessibility": true,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				34.9349587,
+				32.4294443
+			]
+		}
 	}, {
 		"name": "מוזיאון הכט ומגדל אשכול",
 		"about": "אתרי ביקור מעניינים באוניברסיטת חיפה - מוזיאון עתיקות, תצפית מרהיבה וציורי קיר מרשימים.",
@@ -145,12 +213,22 @@
 		"tags": ["תצפית", "מוזיאון", "ציור", "אטרקציות"],
 		"duration": 90,
 		"address": "אוניברסיטת חיפה",
-		"latitude": 32.76104,
 		"longitude": 35.01881,
+		"latitude": 32.76104,
+		
 		"area": "צפון",
 		"sub_area": "חיפה",
 		"accessibility": true,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				35.01881,
+				32.76104
+			]
+		}
 	}, {
 		"name": "אתר לאומי בית הביטחון בצאלים",
 		"about": "שרידי צאלים הישנה הוכרזו כאתר לאומי סביב בית הביטחון ההיסטורי. האתר פתוח למבקרים ללא תשלום.",
@@ -163,12 +241,22 @@
 		"tags": ["היסטוריה", "ציונות", "צהל", "מוזיאון"],
 		"duration": 30,
 		"address": "צאלים",
-		"latitude": 31.20593,
 		"longitude": 34.53196,
+		"latitude": 31.20593,
+		
 		"area": "דרום",
 		"sub_area": "נגב מערבי",
 		"accessibility": false,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				34.53196,
+				31.20593
+			]
+		}
 
 	}, {
 		"name": "אתר לאומי בית הגדודים",
@@ -182,12 +270,22 @@
 		"tags": ["היסטוריה", "ציונות", "צהל", "מוזיאון"],
 		"duration": 60,
 		"address": "אביחיל",
-		"latitude": 32.35192,
 		"longitude": 34.87595,
+		"latitude": 32.35192,
+		
 		"area": "מרכז",
 		"sub_area": "שרון",
 		"accessibility": true,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				34.87595,
+				32.35192
+			]
+		}
 
 	}, {
 		"name": "עין שבע - טבחה",
@@ -204,12 +302,22 @@
 		"tags": ["כנסיה", "נצרות", "היסטוריה", "כנרת", "מעין"],
 		"duration": 60,
 		"address": "כפר נחום",
-		"latitude": 32.872442,
 		"longitude": 35.548681,
+		"latitude": 32.872442,
+		
 		"area": "צפון",
 		"sub_area": "סביב הכנרת",
 		"accessibility": true,
-		"recommended_season": ["*"]
+		"recommended_season": ["*"],
+			"loc": {
+			"type": {
+				"type": "Point"
+			},
+			"coordinates": [
+				35.548681,
+				32.872442
+			]
+		}
 
 	}
 ]
