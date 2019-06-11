@@ -1,13 +1,38 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
+	url = require('url'),
     User = require('./schemas/user'),
     Point = require('./schemas/point'),
     Tour = require('./schemas/tour');
 
 exports.getPoints = (req, res) => {
     console.log('getPoints');
-	var q = Point.find({},{"_id":1, "name":1,"about":1,"image_url":1,"tags":1,"address":1,"area":1,"sub_area":1,"accessibility":1,"recommended_season":1 });
+	var queryData = url.parse(req.url, true).query;
+	var params = {};
+	var show = {
+		"_id":1, "name":1,"about":1,"image_url":1,"tags":1,
+		"address":1,"area":1,"sub_area":1,"accessibility":1,
+		"recommended_season":1 
+		};
+	if (queryData.area) {
+		params.area = queryData.area;
+	}
+	if (queryData.sub_area) {
+		params.sub_area = queryData.sub_area;
+	}
+	if (queryData.accessibility) {
+		params.accessibility = queryData.accessibility;
+	}
+	if (queryData.tags) {
+		params.tags = { $in: queryData.tags.split(",") };
+	}
+	if (queryData.near) {
+		// params.loc = { $near: { $geometry: {type: 'Point', coordinates:queryData.near.split(",") }, $maxDistance: 10 } };
+		params.loc = { $near: {type: 'Point', coordinates: queryData.near.split(",") } };
+	}
+	
+	var q = Point.find(params, show);
 	q.exec(function(err, points)  {
 		if (err) {
 			console.log(`err: ${err}`);
