@@ -31,21 +31,20 @@ app.get('/', (req,res) => {
 });
 
 /*---------------- User Routes ----------------*/
-app.get('/getUser/:userid', user.getUser);
-app.get('/getAllUsers', user.getAllUsers);
-app.delete('/deleteUser/:userid', user.deleteUser);
-app.delete('/deleteAllUsers', user.deleteAllUsers);
 app.post('/createUser/', user.createUser);
-
-app.post('/updateUser/', user.updateUser);
+app.get('/getUsers', user.getUsers);
+app.get('/getUser/:userid', user.getUser);
+app.put('/updateUser/:userid', user.updateUser);
+app.delete('/deleteUser/:userid', user.deleteUser);
 
 app.post('/login/', user.login);
 
 /*---------------- Point Routes ----------------*/
+app.post('/createPoint/', point.createPoint);
 app.get('/getPoints', 	point.getPoints);
 app.get('/getPoint/:pointid', 	point.getPoint);
+app.put('/updatePoint/:pointid', point.updatePoint);
 app.delete('/deletePoint/:pointid', point.deletePoint);
-app.post('/createPoint/', point.createPoint);
 
 /*---------------- Tour Routes ----------------*/
 app.get('/getRandomTours', 	tour.getRandomTours);

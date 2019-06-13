@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
     };
 
-
 exports.createUser = (req, res) => {
     var newUser = new User({
         first_name: req.body.first_name,
@@ -41,30 +40,22 @@ exports.createUser = (req, res) => {
             }
         });
 };
-
-exports.updateUser = (req, res) => {
-    var userid = req.body.userid;
-    var phone = req.body.phone,
-        email = req.body.email;
-
-    var conditions = {phone: phone, email:email}
-    opts = {
-        runValidators: true,
-        multi: true,
-        new: true
-    };
-    User.findByIdAndUpdate(userid, conditions, opts,
-        (err, user) => {
-            if(err) {
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-                console.log(`Updated user: ${user}`)
-                res.status(200).json(user);
-            }
-        });
+exports.getUsers = (req, res) => {
+    console.log('getUsers');
+	var show = {
+		"_id":1, "first_name":1,"last_name":1,"email":1,"image_url":1,
+		"living_city":1,"about":1,"tags":1
+		};
+	var q = User.find({}, show);
+	q.exec(function(err, users)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			res.status(200).json(`{ err : ${err}`);
+		}
+		console.log(users);
+		res.status(200).json(users);
+	});
 };
-
 exports.getUser = (req, res) => {
     var userid = req.params.userid;
     console.log(`getUser: userid = ${req.params.userid}`);
@@ -79,19 +70,66 @@ exports.getUser = (req, res) => {
         }
     )
 };
-exports.getAllUsers = (req, res) => {
-    console.log('getAllUsers');
-    // return data;
-    User.find( {},
+exports.updateUser = (req, res) => {
+	var userid = req.params.userid;
+    console.log(`updateUser: userid = ${req.params.userid}`);
+    var params = {};
+	if (req.body.first_name) {
+		params.first_name = req.body.first_name;
+	}
+	if (req.body.last_name) {
+		params.last_name = req.body.last_name;
+	}
+	if (req.body.phone) {
+		params.phone = req.body.phone;
+	}
+	if (req.body.email) {
+		params.email = req.body.email;
+	}
+	if (req.body.username) {
+		params.username = req.body.username;
+	}
+	if (req.body.password) {
+		params.password = req.body.password;
+	}
+	if (req.body.image_url) {
+		params.image_url = req.body.image_url;
+	}
+	if (req.body.family_status) {
+		params.family_status = req.body.family_status;
+	}
+	if (req.body.living_area) {
+		params.living_area = req.body.living_area;
+	}
+	if (req.body.living_city) {
+		params.living_city = req.body.living_city;
+	}
+	if (req.body.health_condition) {
+		params.health_condition = req.body.health_condition;
+	}
+	if (req.body.accessibility) {
+		params.accessibility = req.body.accessibility;
+	}
+	if (req.body.profession) {
+		params.profession = req.body.profession;
+	}
+	if (req.body.tags) {
+		params.tags = req.body.tags;
+	}
+	
+    var opts = {
+        new: true
+    };
+    User.findByIdAndUpdate(userid, params, opts,
         (err, user) => {
-            if (err) {
+            if(err) {
                 console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err} }`);
+                res.status(300).json(err);
+            } else {
+                console.log(`Updated user: ${user}`)
+                res.status(200).json(user);
             }
-            console.log(user);
-            res.status(200).json(user);
-        }
-    )
+        });
 };
 exports.deleteUser = (req, res) => {
     var userid = req.params.userid;
@@ -106,16 +144,6 @@ exports.deleteUser = (req, res) => {
           } else {
             return res.status(200).json({"message": `User ${userid} successfully deleted`});
           }
-      });
-};
-exports.deleteAllUsers = (req, res) => {
-    console.log('deleteAllUsers');
-    User.remove({}, (err, user) => {
-          // As always, handle any potential errors:
-          if (err) return res.status(300).json(err);
-          // We'll create a simple object to send back with a message and the id of the document that was removed
-          // You can really do this however you want, though.
-          return res.status(200).json({"message": `All users successfully deleted`});
       });
 };
 exports.login = (req, res) => {
