@@ -22,9 +22,55 @@ exports.createTour = (req, res) => {
             } else {
                 console.log(`Saved document:`);
                 res.status(200).json(newTour);
+                console.log(newTour);
             }
         });
 };
+exports.deleteTour = (req, res) => {
+	console.log(`deleteTour: tourid = ${req.params.tourid}`);
+    var tourid = req.params.tourid;
+
+    Tour.findByIdAndRemove(tourid, (err, tour) => {
+          // As always, handle any potential errors:
+          if (err) return res.status(300).json(err);
+          // We'll create a simple object to send back with a message and the id of the document that was removed
+          // You can really do this however you want, though.
+          if (tour == null){
+            return res.status(200).json({"message": `Tour ${tourid} not found`});
+          } else {
+            return res.status(200).json({"message": `Tour ${tourid} successfully deleted`});
+          }
+      });
+};
+exports.getTours = (req, res) => {
+    console.log('getTours');
+    // return data;
+    Tour.find( {},
+        (err, tour) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err} }`);
+            }
+            console.log(tour);
+            res.status(200).json(tour);
+        }
+    )
+};
+exports.getTour = (req, res) => {
+    var tourid = req.params.tourid;
+    console.log(`getTour: tourid = ${req.params.tourid}`);
+    Tour.findById(tourid,
+        (err, tour) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json(`{ err : ${err} }`);
+            }
+            console.log(tour);
+            res.status(200).json(tour);
+        }
+    )
+};
+
 
 exports.getRandomTours = (req, res) => {
     console.log('getRandomTours');
@@ -296,25 +342,25 @@ exports.setUserEquip = (req, res) => {
             }
         });
 };
-exports.deleteTour = (req, res) => {
-    var tourid = req.body.tourid;
-    var conditions = {_id: tourid};
-
-    Tour.remove(conditions,
-        (err) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-                console.log(`Removed document`);
-                User.findOne({_id: tourid},
-                    (err) => {
-                        console.log(`Removed tour id=${tourid} `);
-                        res.status(200).json({result:`Removed ${tourid}`});
-                    });
-            };
-        });
-};
+// exports.deleteTour = (req, res) => {
+//     var tourid = req.body.tourid;
+//     var conditions = {_id: tourid};
+//
+//     Tour.remove(conditions,
+//         (err) => {
+//             if(err){
+//                 console.log(`err: ${err}`);
+//                 res.status(300).json(err);
+//             } else {
+//                 console.log(`Removed document`);
+//                 User.findOne({_id: tourid},
+//                     (err) => {
+//                         console.log(`Removed tour id=${tourid} `);
+//                         res.status(200).json({result:`Removed ${tourid}`});
+//                     });
+//             };
+//         });
+// };
 exports.getUserTour = (req, res) => {
     var userid = req.body.userid;
     console.log('getUserTour');
