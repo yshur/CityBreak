@@ -1,19 +1,4 @@
-[ {
-		"category": "iNature",
-		"description": "מבנה המשק המרכזי במזכרת בתיה בתקופת העלייה הראשונה",
-		"imageUrl": "https://inature.info/w/images/d/dc/Meshek_baron_mb.jpg",
-		"referenceUrl": "https://inature.info/wiki/%D7%90%D7%AA%D7%A8%20%D7%9C%D7%90%D7%95%D7%9E%D7%99%20%D7%91%D7%99%D7%AA%20%D7%9E%D7%A9%D7%A7%20%D7%94%D7%91%D7%A8%D7%95%D7%9F%20%D7%9E%D7%96%D7%9B%D7%A8%D7%AA%20%D7%91%D7%AA%D7%99%D7%94",
-		"rating": 0,
-		"raters": 0,
-		"name": "אתר לאומי בית משק הברון מזכרת בתיה",
-		"source": "iNature",
-		"id": "2509",
-		"location": {
-			"lat": 31.85328,
-			"lng": 34.83837,
-			"alt": 63.63164999999708
-		}
-	}, {
+[  {
 		"category": "iNature",
 		"description": "עין תאופיק (עין עקוב) - מעיין קטן וחניון מטיילים ביער מבוא חמה, הצופה לעבר הכנרת.",
 		"imageUrl": "https://inature.info/w/images/7/75/Ein_taufik1.jpg",

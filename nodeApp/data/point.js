@@ -61,7 +61,7 @@ exports.deletePoint = (req, res) => {
 	console.log(`deletePoint: pointid = ${req.params.pointid}`);
     var pointid = req.params.pointid;
 	
-    User.findByIdAndRemove(pointid, (err, point) => {
+    Point.findByIdAndRemove(pointid, (err, point) => {
           // As always, handle any potential errors:
           if (err) return res.status(300).json(err);
           // We'll create a simple object to send back with a message and the id of the document that was removed
