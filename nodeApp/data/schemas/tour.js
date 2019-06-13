@@ -2,7 +2,7 @@ var mongoose = require('mongoose'),
     user = require('./user'),
     point = require('./point'),
     tourSchema = new mongoose.Schema({
-        name: { type: String, required: true, index: 1, uniqe: true },
+        name: { type: String, index: 1, uniqe: true },
         about: String,
         description: String,
         setup_time: { type: Date, default: Date.now },

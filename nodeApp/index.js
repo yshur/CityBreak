@@ -56,6 +56,9 @@ app.get('/getSouthTours', 	tour.getSouthTours);
 app.get('/getCenterTours', 	tour.getCenterTours);
 
 app.post('/createTour/', tour.createTour);
+app.delete('/deleteTour/:tourid', tour.deleteTour);
+app.get('/getTours', 	tour.getTours);
+app.get('/getTour/:tourid', 	tour.getTour);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
