@@ -44,7 +44,7 @@ app.post('/login/', user.login);
 /*---------------- Point Routes ----------------*/
 app.get('/getPoints', 	point.getPoints);
 app.get('/getPoint/:pointid', 	point.getPoint);
-app.delete('/deletePoint/:userid', point.deletePoint);
+app.delete('/deletePoint/:pointid', point.deletePoint);
 app.post('/createPoint/', point.createPoint);
 
 /*---------------- Tour Routes ----------------*/
