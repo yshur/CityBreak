@@ -6,6 +6,37 @@ var mongoose = require('mongoose'),
     Point = require('./schemas/point'),
     Tour = require('./schemas/tour');
 
+exports.createPoint = (req, res) => {
+    var newPoint = new Point({
+        name: 			req.body.name,
+        about: 			req.body.about,
+        description: 	req.body.description,
+        image_url: 		req.body.image_url,
+        reference_url: 	req.body.reference_url,
+        tags: 			req.body.tags,
+        duration: 		req.body.duration,
+        address: 		req.body.address,
+        latitude: 		req.body.latitude,
+        longitude: 		req.body.longitude,
+        area: 			req.body.area,
+        sub_area: 		req.body.sub_area,
+        accessibility: 	req.body.accessibility,
+        recommended_season: req.body.recommended_season
+    });
+    console.log('createPoint:');
+    console.log(newPoint);
+
+    newPoint.save(
+        (err) => {
+            if(err) {
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            } else {
+                console.log(`Saved document:`);
+                res.status(200).json(newPoint);
+            }
+        });
+};
 exports.getPoints = (req, res) => {
     console.log('getPoints');
 	var queryData = url.parse(req.url, true).query;
@@ -57,6 +88,67 @@ exports.getPoint = (req, res) => {
         }
     )
 };
+exports.updatePoint = (req, res) => {
+	var userid = req.params.userid;
+	console.log(`updatePoint: pointid = ${req.params.pointid}`);
+    var params = {};
+	if (req.body.name) {
+		params.name = req.body.name;
+	}
+	if (req.body.about) {
+		params.about = req.body.about;
+	}
+	if (req.body.description) {
+		params.description = req.body.description;
+	}
+	if (req.body.image_url) {
+		params.image_url = req.body.image_url;
+	}
+	if (req.body.reference_url) {
+		params.reference_url = req.body.reference_url;
+	}
+	if (req.body.tags) {
+		params.tags = req.body.tags;
+	}
+	if (req.body.duration) {
+		params.duration = req.body.duration;
+	}
+	if (req.body.address) {
+		params.address = req.body.address;
+	}
+	if (req.body.latitude) {
+		params.latitude = req.body.latitude;
+	}
+	if (req.body.longitude) {
+		params.longitude = req.body.longitude;
+	}
+	if (req.body.area) {
+		params.area = req.body.area;
+	}
+	if (req.body.accessibility) {
+		params.accessibility = req.body.accessibility;
+	}
+	if (req.body.sub_area) {
+		params.sub_area = req.body.sub_area;
+	}
+	if (req.body.recommended_season) {
+		params.recommended_season = req.body.recommended_season;
+	}
+	
+    var opts = {
+        new: true
+    };
+    Point.findByIdAndUpdate(pointid, params, opts,
+        (err, point) => {
+            if(err) {
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            } else {
+                console.log(`Updated point: ${point}`)
+                res.status(200).json(point);
+            }
+        });
+};
 exports.deletePoint = (req, res) => {
 	console.log(`deletePoint: pointid = ${req.params.pointid}`);
     var pointid = req.params.pointid;
@@ -72,35 +164,4 @@ exports.deletePoint = (req, res) => {
             return res.status(200).json({"message": `Point ${pointid} successfully deleted`});
           }
       });
-};
-exports.createPoint = (req, res) => {
-    var newPoint = new Point({
-        name: 			req.body.name,
-        about: 			req.body.about,
-        description: 	req.body.description,
-        image_url: 		req.body.image_url,
-        reference_url: 	req.body.reference_url,
-        tags: 			req.body.tags,
-        duration: 		req.body.duration,
-        address: 		req.body.address,
-        latitude: 		req.body.latitude,
-        longitude: 		req.body.longitude,
-        area: 			req.body.area,
-        sub_area: 		req.body.sub_area,
-        accessibility: 	req.body.accessibility,
-        recommended_season: req.body.recommended_season
-    });
-    console.log('createPoint:');
-    console.log(newPoint);
-
-    newPoint.save(
-        (err) => {
-            if(err) {
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-                console.log(`Saved document:`);
-                res.status(200).json(newPoint);
-            }
-        });
 };

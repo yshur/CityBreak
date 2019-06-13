@@ -11,11 +11,12 @@ var mongoose = require('mongoose'),
         phone: Number,
         email: {
             type: String,
-            uniqe: true
+            required: true,
+            unique: true
         },
         username: {
             type: String,
-            uniqe: true,
+            unique: true,
             required: true
         },
         password : {
