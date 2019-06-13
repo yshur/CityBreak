@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
         creator: {
             type: mongoose.Schema.ObjectId,
             ref: 'user',
-            required: true
+            // required: true
         },
         tags: [String],
         duration: Number,
@@ -18,7 +18,7 @@ var mongoose = require('mongoose'),
         start_point: {
             type: mongoose.Schema.ObjectId,
             ref: 'point',
-            required: true
+            // required: true
         },
         price: Number,
         open_always: Boolean,
@@ -28,32 +28,32 @@ var mongoose = require('mongoose'),
         sub_area: String,
         accessibility: [String],
         recommended_season: [String],
-        visitors: [{
-          user: {
-              type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
-          },
-          setup_time: { type: Date, default: Date.now }
-        }],
-        scores: [{
-          content: Number,
-          user: {
-              type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
-          },
-          setup_time: { type: Date, default: Date.now }
-        }],
-        feedbacks: [{
-          content: String,
-          user: {
-              type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
-          },
-          setup_time: { type: Date, default: Date.now }
-        }],
+        // visitors: [{
+        //   user: {
+        //       type: mongoose.Schema.ObjectId,
+        //       ref: 'user',
+        //       required: true
+        //   },
+        //   setup_time: { type: Date, default: Date.now }
+        // }],
+        // scores: [{
+        //   content: Number,
+        //   user: {
+        //       type: mongoose.Schema.ObjectId,
+        //       ref: 'user',
+        //       required: true
+        //   },
+        //   setup_time: { type: Date, default: Date.now }
+        // }],
+        // feedbacks: [{
+        //   content: String,
+        //   user: {
+        //       type: mongoose.Schema.ObjectId,
+        //       ref: 'user',
+        //       required: true
+        //   },
+        //   setup_time: { type: Date, default: Date.now }
+        // }],
         points_list: [{
             type: mongoose.Schema.ObjectId,
             ref: 'point'

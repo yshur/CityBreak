@@ -2,7 +2,29 @@
 
 var mongoose = require('mongoose'),
     User = require('./schemas/user'),
-    Tour = require('./schemas/tour');
+    Tour = require('./schemas/tour'),
+    Point = require('./schemas/point');
+
+
+exports.createTour = (req, res) => {
+    var newTour = new Tour({
+        name:       req.body.name,
+        creator:    req.body.creator,
+        area: 			req.body.area,
+        start_point: req.body.start_point
+    });
+    console.log('Create Tour');
+    newTour.save(
+        (err) => {
+            if(err) {
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            } else {
+                console.log(`Saved document:`);
+                res.status(200).json(newTour);
+            }
+        });
+};
 
 exports.getRandomTours = (req, res) => {
     console.log('getRandomTours');
@@ -84,46 +106,6 @@ exports.getCenterTours = (req, res) => {
 		res.status(200).json(tours);
 	});
 };
-exports.createTour = (req, res) => {
-    var name = req.body.name,
-        description = req.body.description,
-        time = req.body.time,
-        creator = req.body.creator,
-        place = req.body.place,
-        category = req.body.category,
-        image = req.body.image;
-    console.log('createTour');
-    console.log(`post: name = ${req.body.name},
-        description = ${req.body.description},
-        time = ${req.body.time},
-        creator = ${req.body.creator},
-        place = ${req.body.place},
-        category = ${req.body.category},
-        image = ${req.body.image}`
-      );
-
-    var newTour = new Tour({
-        name: name,
-        description: description,
-        time: time,
-        creator: creator,
-        place: place,
-        category: category,
-        image: image
-    });
-    newTour.save(
-        (err) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Saved document: ${newTour}`);
-                res.status(200).json(newTour);
-            }
-        });
-};
-
 exports.setTimeTour = (req, res) => {
     var tourid = req.body.tourid,
         time = req.body.time;

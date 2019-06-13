@@ -55,6 +55,8 @@ app.get('/getNorthTours', 	tour.getNorthTours);
 app.get('/getSouthTours', 	tour.getSouthTours);
 app.get('/getCenterTours', 	tour.getCenterTours);
 
+app.post('/createTour/', tour.createTour);
+
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
   var error = {
