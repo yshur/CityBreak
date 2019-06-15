@@ -48,6 +48,6 @@ var mongoose = require('mongoose'),
 			coordinates: []
 		}
     });
-	
+
 pointSchema.index({ loc: "2dsphere" });
 module.exports = mongoose.model('Point', pointSchema);
