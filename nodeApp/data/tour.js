@@ -70,6 +70,27 @@ exports.getTour = (req, res) => {
         }
     )
 };
+exports.addPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var isInArray = { point_list : {$ne: pointid} } //check if value not in array
+  var conditions =  { $push: {points_list: [pointid] }  }
+
+  console.log("tourid = " + req.params.tourid);
+  console.log("pointid = " + req.params.pointid);
+  console.log(conditions);
+  Tour.findByIdAndUpdate(tourid, conditions,isInArray,
+        (err, tour) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
+            else {
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
+            }
+          });
+}
 
 
 exports.getRandomTours = (req, res) => {
