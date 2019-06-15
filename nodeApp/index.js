@@ -58,6 +58,8 @@ app.post('/createTour/', tour.createTour);
 app.delete('/deleteTour/:tourid', tour.deleteTour);
 app.get('/getTours', 	tour.getTours);
 app.get('/getTour/:tourid', 	tour.getTour);
+app.put('/addPoint/:tourid/:pointid', tour.addPoint);
+// app.delete('/deletePointFromTour/:tourid/:pointid', tour.deletePoint);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
