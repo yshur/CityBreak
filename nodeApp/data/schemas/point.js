@@ -19,8 +19,7 @@ var mongoose = require('mongoose'),
         visitors: [{
           user: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
+              ref: 'user'
           },
           setup_time: { type: Date, default: Date.now }
         }],
@@ -28,8 +27,7 @@ var mongoose = require('mongoose'),
           content: Number,
           user: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
+              ref: 'user'
           },
           setup_time: { type: Date, default: Date.now }
         }],
@@ -37,17 +35,16 @@ var mongoose = require('mongoose'),
           content: String,
           user: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
+              ref: 'user'
           },
           setup_time: { type: Date, default: Date.now }
         }],
         tours_used: [mongoose.Schema.ObjectId],
 		loc: {
-			type: { type: String }, 
+			type: { type: String },
 			coordinates: []
 		}
     });
-	
+
 pointSchema.index({ loc: "2dsphere" });
 module.exports = mongoose.model('Point', pointSchema);

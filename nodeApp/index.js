@@ -47,19 +47,15 @@ app.put('/updatePoint/:pointid', point.updatePoint);
 app.delete('/deletePoint/:pointid', point.deletePoint);
 
 /*---------------- Tour Routes ----------------*/
-app.get('/getRandomTours', 	tour.getRandomTours);
-app.get('/getLongTours', 	tour.getLongTours);
-app.get('/getAllTours', 	tour.getAllTours);
-app.get('/getNorthTours', 	tour.getNorthTours);
-app.get('/getSouthTours', 	tour.getSouthTours);
-app.get('/getCenterTours', 	tour.getCenterTours);
-
 app.post('/createTour/', tour.createTour);
-app.delete('/deleteTour/:tourid', tour.deleteTour);
 app.get('/getTours', 	tour.getTours);
 app.get('/getTour/:tourid', 	tour.getTour);
+app.put('/updateTour/:tourid', tour.updateTour);
+app.delete('/deleteTour/:tourid', tour.deleteTour);
+
 app.put('/addPoint/:tourid/:pointid', tour.addPoint);
 // app.delete('/deletePointFromTour/:tourid/:pointid', tour.deletePoint);
+
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {
