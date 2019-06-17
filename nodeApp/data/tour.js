@@ -53,6 +53,12 @@ exports.getTours = (req, res) => {
     if (queryData.tags) {
       params.tags = { $in: queryData.tags.split(",") };
     }
+    if (queryData.duration) {
+      params.duration = { $lt: queryData.duration };
+    }
+    if (queryData.distance) {
+      params.distance = { $lt: queryData.distance };
+    }
     // if (queryData.near) {
     //   var near = queryData.near.split(",").map(function(v) {
     //     return Number(v);
