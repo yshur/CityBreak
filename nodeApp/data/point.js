@@ -44,7 +44,7 @@ exports.getPoints = (req, res) => {
 	var show = {
 		"_id":1, "name":1,"about":1,"image_url":1,"tags":1,
 		"address":1,"area":1,"sub_area":1,"accessibility":1,
-		"recommended_season":1 
+		"recommended_season":1
 		};
 	if (queryData.area) {
 		params.area = queryData.area;
@@ -62,7 +62,7 @@ exports.getPoints = (req, res) => {
 		// params.loc = { $near: { $geometry: {type: 'Point', coordinates:queryData.near.split(",") }, $maxDistance: 10 } };
 		params.loc = { $near: {type: 'Point', coordinates: queryData.near.split(",") } };
 	}
-	
+
 	var q = Point.find(params, show);
 	q.exec(function(err, points)  {
 		if (err) {
@@ -76,7 +76,7 @@ exports.getPoints = (req, res) => {
 exports.getPoint = (req, res) => {
 	console.log(`getPoint: pointid = ${req.params.pointid}`);
     var pointid = req.params.pointid;
-    
+
     Point.findById(pointid,
         (err, point) => {
             if (err) {
@@ -134,7 +134,7 @@ exports.updatePoint = (req, res) => {
 	if (req.body.recommended_season) {
 		params.recommended_season = req.body.recommended_season;
 	}
-	
+
     var opts = {
         new: true
     };
@@ -152,7 +152,7 @@ exports.updatePoint = (req, res) => {
 exports.deletePoint = (req, res) => {
 	console.log(`deletePoint: pointid = ${req.params.pointid}`);
     var pointid = req.params.pointid;
-	
+
     Point.findByIdAndRemove(pointid, (err, point) => {
           // As always, handle any potential errors:
           if (err) return res.status(300).json(err);

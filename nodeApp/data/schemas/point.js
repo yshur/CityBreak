@@ -44,10 +44,10 @@ var mongoose = require('mongoose'),
         }],
         tours_used: [mongoose.Schema.ObjectId],
 		loc: {
-			type: { type: String }, 
+			type: { type: String },
 			coordinates: []
 		}
     });
-	
+
 pointSchema.index({ loc: "2dsphere" });
 module.exports = mongoose.model('Point', pointSchema);

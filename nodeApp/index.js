@@ -4,7 +4,7 @@ const express = require ('express'),
 	port = process.env.PORT || 3000,
 	tour = require('./data/tour'),
 	point = require('./data/point'),
-	user = require('./data/user');
+	user = require('./data/user'),
 require('./database');
 
 app.use(bodyParser.json());
