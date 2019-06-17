@@ -11,8 +11,8 @@ var mongoose = require('mongoose'),
         phone: Number,
         email: {
             type: String,
-            required: true,
-            unique: true
+            required: true
+            // ,       unique: true
         },
         username: {
             type: String,

@@ -1,7 +1,9 @@
 var mongoose = require('mongoose'),
     user = require('./user'),
     pointSchema = new mongoose.Schema({
-        name: { type: String, required: true, index: 1, uniqe: true },
+        name: { type: String, required: true, index: 1,
+           // unique: true
+         },
         about: String,
         description: String,
         image_url: String,
@@ -19,8 +21,7 @@ var mongoose = require('mongoose'),
         visitors: [{
           user: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
+              ref: 'user'
           },
           setup_time: { type: Date, default: Date.now }
         }],
@@ -28,8 +29,7 @@ var mongoose = require('mongoose'),
           content: Number,
           user: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
+              ref: 'user'
           },
           setup_time: { type: Date, default: Date.now }
         }],
@@ -37,8 +37,7 @@ var mongoose = require('mongoose'),
           content: String,
           user: {
               type: mongoose.Schema.ObjectId,
-              ref: 'user',
-              required: true
+              ref: 'user'
           },
           setup_time: { type: Date, default: Date.now }
         }],

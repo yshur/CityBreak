@@ -1,7 +1,7 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
-	url = require('url'),
+		url = require('url'),
     User = require('./schemas/user'),
     Point = require('./schemas/point'),
     Tour = require('./schemas/tour');
@@ -21,7 +21,8 @@ exports.createPoint = (req, res) => {
         area: 			req.body.area,
         sub_area: 		req.body.sub_area,
         accessibility: 	req.body.accessibility,
-        recommended_season: req.body.recommended_season
+        recommended_season: req.body.recommended_season,
+				loc: req.body.loc
     });
     console.log('createPoint:');
     console.log(newPoint);
@@ -38,7 +39,7 @@ exports.createPoint = (req, res) => {
         });
 };
 exports.getPoints = (req, res) => {
-    console.log('getPoints');
+  console.log('getPoints');
 	var queryData = url.parse(req.url, true).query;
 	var params = {};
 	var show = {
@@ -59,10 +60,24 @@ exports.getPoints = (req, res) => {
 		params.tags = { $in: queryData.tags.split(",") };
 	}
 	if (queryData.near) {
+		var near = queryData.near.split(",").map(function(v) {
+		  return Number(v);
+		});
+		params.loc = {
+		   $near: {
+			$maxDistance: 1000,
+			$geometry: {
+			 type: "Point",
+			 coordinates: near
+			}
+		   }
+		 };
 		// params.loc = { $near: { $geometry: {type: 'Point', coordinates:queryData.near.split(",") }, $maxDistance: 10 } };
-		params.loc = { $near: {type: 'Point', coordinates: queryData.near.split(",") } };
+		// params.loc = { $near: {type: 'Point', coordinates: queryData.near.split(",") } };
+		console.log(params.loc.$near.$geometry);
 	}
 
+	console.log(params);
 	var q = Point.find(params, show);
 	q.exec(function(err, points)  {
 		if (err) {
@@ -89,7 +104,7 @@ exports.getPoint = (req, res) => {
     )
 };
 exports.updatePoint = (req, res) => {
-	var userid = req.params.userid;
+	var pointid = req.params.pointid;
 	console.log(`updatePoint: pointid = ${req.params.pointid}`);
     var params = {};
 	if (req.body.name) {
@@ -125,7 +140,7 @@ exports.updatePoint = (req, res) => {
 	if (req.body.area) {
 		params.area = req.body.area;
 	}
-	if (req.body.accessibility) {
+	if (req.body.accessibility != null) {
 		params.accessibility = req.body.accessibility;
 	}
 	if (req.body.sub_area) {
@@ -134,7 +149,10 @@ exports.updatePoint = (req, res) => {
 	if (req.body.recommended_season) {
 		params.recommended_season = req.body.recommended_season;
 	}
-
+	if (req.body.loc) {
+		params.loc = req.body.loc;
+	}
+	console.log(params);
     var opts = {
         new: true
     };
