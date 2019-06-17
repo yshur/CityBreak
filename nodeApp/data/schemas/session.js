@@ -2,7 +2,9 @@ var mongoose = require('mongoose'),
     user = require('./user'),
     state = require('./state'),
     sessionSchema = new mongoose.Schema({
-        id: Number,
+        id: { type: String, index: 1,
+          // unique: 1,
+           required: true },
         user_id: {
           type: mongoose.Schema.ObjectId,
           ref: 'user',

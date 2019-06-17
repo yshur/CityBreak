@@ -1,7 +1,9 @@
 var mongoose = require('mongoose'),
     user = require('./user'),
     pointSchema = new mongoose.Schema({
-        name: { type: String, required: true, index: 1, uniqe: true },
+        name: { type: String, required: true, index: 1,
+           // unique: true
+         },
         about: String,
         description: String,
         image_url: String,
