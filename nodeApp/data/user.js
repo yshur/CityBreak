@@ -1,6 +1,7 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
+    session = require('express-session'),
     User = require('./schemas/user'),
     options = {
         server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -42,6 +43,9 @@ exports.createUser = (req, res) => {
 };
 exports.getUsers = (req, res) => {
     console.log('getUsers');
+    if (!req.session.user) {
+      return res.status(401).send();
+    }
 	var show = {
 		"_id":1, "first_name":1,"last_name":1,"email":1,"image_url":1,
 		"living_city":1,"about":1,"tags":1
@@ -116,7 +120,7 @@ exports.updateUser = (req, res) => {
 	if (req.body.tags) {
 		params.tags = req.body.tags;
 	}
-	
+
     var opts = {
         new: true
     };
@@ -150,6 +154,7 @@ exports.login = (req, res) => {
   var username = req.body.username,
       password = req.body.password;
   console.log(`login: username = ${req.body.username}, password = {req.body.password}`);
+
   var q = User.findOne({
       $and: [
           {"password":password},
@@ -163,8 +168,12 @@ exports.login = (req, res) => {
             console.log(`err: ${err}`);
             res.status(200).json({ "err" : err });
         }
+        var unix = Math.floor(new Date() / 1000);
         console.log(user);
-        res.status(200).json(user);
+        req.session.user = user;
+        req.session.session_id = user._id+'_'+String(unix);
+        session.createSession(session_id, user._id)
+        res.status(200).json(req.session);
       }
   );
 };

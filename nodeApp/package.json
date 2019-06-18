@@ -18,6 +18,7 @@
   "homepage": "https://github.com/yshur/eventbreak#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
     "express": "^4.16.3",
     "express-session": "^1.16.2",
     "mongoose": "^5.4.19"
