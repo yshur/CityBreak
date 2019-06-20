@@ -8,6 +8,40 @@ var mongoose = require('mongoose'),
         replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
     };
 
+exports.login = (req, res) => {
+  var username = req.body.username,
+      password = req.body.password;
+  console.log(`login: username = ${req.body.username}, password = {req.body.password}`);
+
+  var q = User.findOne({
+      $and: [
+          {"password":password},
+          { $or: [{"username": username}, {"email": username}] }
+        ]
+      },
+      {"_id":1, "first_name":1, "last_name":1}
+    );
+    q.exec(function(err, user) {
+        if (err) {
+            console.log(`err: ${err}`);
+            res.status(200).json({ "err" : err });
+        }
+        var unix = Math.floor(new Date() / 1000);
+        console.log(user);
+        req.session.user = user;
+        req.session.state = 1;
+        req.session.session_id = user._id+'_'+String(unix);
+        session.createSession(session_id, user._id)
+        res.status(200).json(req.session);
+      }
+  );
+};
+exports.logout = (req, res) => {
+  req.session.destroy();
+  res.status(200).json({"result":"logged out seccesfully"});
+};
+
+
 exports.createUser = (req, res) => {
     var newUser = new User({
         first_name: req.body.first_name,
@@ -149,31 +183,4 @@ exports.deleteUser = (req, res) => {
             return res.status(200).json({"message": `User ${userid} successfully deleted`});
           }
       });
-};
-exports.login = (req, res) => {
-  var username = req.body.username,
-      password = req.body.password;
-  console.log(`login: username = ${req.body.username}, password = {req.body.password}`);
-
-  var q = User.findOne({
-      $and: [
-          {"password":password},
-          { $or: [{"username": username}, {"email": username}] }
-        ]
-      },
-      {"_id":1, "first_name":1, "last_name":1}
-    );
-    q.exec(function(err, user) {
-        if (err) {
-            console.log(`err: ${err}`);
-            res.status(200).json({ "err" : err });
-        }
-        var unix = Math.floor(new Date() / 1000);
-        console.log(user);
-        req.session.user = user;
-        req.session.session_id = user._id+'_'+String(unix);
-        session.createSession(session_id, user._id)
-        res.status(200).json(req.session);
-      }
-  );
 };
