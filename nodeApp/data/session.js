@@ -98,16 +98,20 @@ exports.deleteSession = (req, res) => {
     });
 };
 
+exports.destroyCookie = (req, res) => {
+  cookies.set('testtoken', {expires: Date.now()});
+
+};
 exports.destroySession = (session_id) => {
 
-  var session_id = { "session_id": Number(session_id) };
+  var conditions = { "session_id": Number(session_id) };
 	console.log(`destroySession: session_id = ${session_id}`);
-  var params = { status: 1 };
+  var update = { status: 1, end_time: Date.now };
 	console.log(params);
   var opts = {
       new: true
   };
-  Session.findOneAndUpdate(session_id, params, opts,
+  Session.findOneAndUpdate(conditions, update, opts,
       (err, session) => {
           if(err) {
               console.log(`err: ${err}`);
@@ -122,7 +126,7 @@ exports.destroyAllSessions = (user_id) => {
 
   var conditions = { "user_id": Number(user_id), "status": 0 };
 	console.log(`destroyAllSessions: user_id = ${user_id}`);
-  var update = { status: 1 };
+  var update = { status: 1, end_time: Date.now };
 	console.log(params);
   var opts = {
       new: true,
@@ -138,4 +142,27 @@ exports.destroyAllSessions = (user_id) => {
               return null;
           }
       });
+};
+exports.checkActiveSession = (session_id) => {
+
+  var conditions = { "session_id": Number(session_id), "status":0 };
+	console.log(`checkActiveSession: session_id = ${session_id}`);
+
+  Session.findOne(conditions,
+      (err, session) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              return err;
+          } else {
+            if (session == null){
+              return 0;
+            } else {
+              return session;
+            }
+          }
+      });
+};
+exports.checkTimeSession = (session) => {
+
+
 };
