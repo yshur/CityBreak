@@ -13,7 +13,7 @@ class ToursList extends Component {
 		this.add = this.add.bind(this)
 	}
 	componentDidMount() {
-		 const url = "http://localhost:3000/getTours";
+		 const url = "http://localhost:3000/getTours?limit=3";
 		 fetch(url)
 		 	.then((res) => {
 		 		return res.json();
@@ -22,7 +22,7 @@ class ToursList extends Component {
 		 		var self=this;
 		 		data.map((data) => {
 		 			console.log('tour')
-		 			self.add(data._id,data.id, data.area, data.name, data.recommended_season[0], data.tags[0]);
+		 			self.add(data._id,data.id, data.area, data.name, data.recommended_season[0], data.tags[0],data.about);
 		 		})
 			 })
 	 }
@@ -32,11 +32,12 @@ class ToursList extends Component {
 			<div key={tour._id} index={tour._id} >
 				<CardGroup style={{display:'block', marginLeft:'70px'}}>
 				  <Card style={{maxWidth:"330px",maxHeight:"380px",float:"left", margin:'20px'}}>
-						<Tour >
-				    <Card.Img variant="top" img="true" style={{width:"300px",height:"200px",margin:'13px'}} src={'https://www.google.com/search?q=paris&rlz=1C1CHZL_iwIL720IL720&source=lnms&tbm=isch&sa=X&ved=0ahUKEwjqjJWxmP3iAhWPOcAKHfcVDNIQ_AUIECgB&biw=1422&bih=642#imgrc=cZdGEdBkRC2izM'} />
+						<Tour>
 				    <Card.Body>
-							<Card.Title style={{color:'black', width:"400px"}}>Name: {tour.name} </Card.Title>
+							<Card.Title style={{color:'black', width:"270px",height:"210px",margin:'5px', backgroundImage:`url('https://media.tacdn.com/media/attractions-splice-spp-360x240/07/32/b7/2f.jpg')`}}>{tour.name}</Card.Title>
+
 			      	<Card.Text style={{color:'black'}}>Area: {tour.area}</Card.Text>
+							<Card.Text style={{color:'black'}}>{tour.about}</Card.Text>
 						</Card.Body>
 				    <Card.Footer>
 				      <small className="text-muted">Duration:</small>
@@ -47,7 +48,7 @@ class ToursList extends Component {
 			</div>
 		)
 	}
-	add(_id,id, area, name, recommended_season, tags) {
+	add(_id,id, area, name, recommended_season, tags, about) {
 
 		this.setState(prevState => ({
 			tours: [
@@ -59,6 +60,7 @@ class ToursList extends Component {
 					name:name,
 					recommended_season:recommended_season,
 					tags:tags,
+					about:about
 				}]
 		}))
 	}
