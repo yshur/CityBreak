@@ -12,13 +12,7 @@ exports.createTour = (req, res) => {
     var newTour = new Tour({
         name:       req.body.name,
         about:      req.body.about,
-        description: req.body.description,
-        creator:    req.body.creator,
-        area: 			req.body.area,
-        sub_area:   req.body.sub_area,
-        start_point: req.body.start_point,
-        accessibility: req.body.accessibility,
-        recommended_season: req.body.recommended_season
+        description: req.body.description
     });
     console.log('Create Tour');
     newTour.save(
@@ -108,10 +102,41 @@ exports.getTour = (req, res) => {
         }
     )
 };
+exports.getTourById = (tourid) => {
+    console.log(`getTourById: tourid = ${tourid}`);
+    Tour.findById(tourid,
+        (err, tour) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                return err;
+            }
+            // console.log(tour);
+            return tour;
+        }
+    )
+};
+exports.updateWholeTourById = (tourid, tour) => {
+    console.log(`updateWholeTourById: tourid = ${tourid}`);
+    var conditions = {"_id": tourid}
+    var update = tour;
+    var opts = {
+        new: true
+    };
+    Tour.update(conditions, update, opts,
+        (err, tour) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                return err;
+            }
+            // console.log(tour);
+            return tour;
+        }
+    )
+};
 exports.updateTour = (req, res) => {
 	var tourid = req.params.tourid;
 	console.log(`updateTour: tourid = ${req.params.tourid}`);
-    var params = {};
+  var params = {};
 	if (req.body.name) {
 		params.name = req.body.name;
 	}
@@ -238,45 +263,5 @@ function calculate_distance(p1, p2) {
     })
     .catch(error => {
       console.log(error);
-    });
-}
-
-exports.getAreas = (req, res) => {
-    console.log('getAreas');
-    var q = Tour.distinct( "area" );
-
-    q.exec(function(err, areas)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err} }`);
-        }
-        console.log(areas);
-        res.status(200).json(areas);
-    });
-}
-exports.getSubAreas = (req, res) => {
-    console.log('getSubAreas');
-    var q = Tour.distinct( "sub_area" );
-
-    q.exec(function(err, sub_areas)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err} }`);
-        }
-        console.log(sub_areas);
-        res.status(200).json(sub_areas);
-    });
-}
-exports.getTourTags = (req, res) => {
-    console.log('getTourTags');
-    var q = Tour.distinct( "tags" );
-
-    q.exec(function(err, tags)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err} }`);
-        }
-        console.log(tags);
-        res.status(200).json(tags);
     });
 }
