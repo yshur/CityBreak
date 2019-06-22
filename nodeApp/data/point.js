@@ -181,3 +181,43 @@ exports.deletePoint = (req, res) => {
           }
       });
 };
+
+exports.getAreas = (req, res) => {
+    console.log('getAreas');
+    var q = Point.distinct( "area" );
+
+    q.exec(function(err, areas)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err} }`);
+        }
+        console.log(areas);
+        res.status(200).json(areas);
+    });
+}
+exports.getSubAreas = (req, res) => {
+    console.log('getSubAreas');
+    var q = Point.distinct( "sub_area" );
+
+    q.exec(function(err, sub_areas)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err} }`);
+        }
+        console.log(sub_areas);
+        res.status(200).json(sub_areas);
+    });
+}
+exports.getTags = (req, res) => {
+    console.log('getTourTags');
+    var q = Point.distinct( "tags" );
+
+    q.exec(function(err, tags)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err} }`);
+        }
+        console.log(tags);
+        res.status(200).json(tags);
+    });
+}

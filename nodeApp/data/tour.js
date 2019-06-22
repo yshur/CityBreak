@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose'),
     url = require('url'),
+    axios = require('axios'),
+    consts = require('./consts')
     User = require('./schemas/user'),
     Tour = require('./schemas/tour'),
     Point = require('./schemas/point');
@@ -167,16 +169,14 @@ exports.deleteTour = (req, res) => {
       });
 };
 
-exports.addPoint = (req, res) => {
+exports.setStartPoint = (req, res) => {
   var tourid = req.params.tourid,
       pointid = req.params.pointid;
-  var isInArray = { point_list : {$ne: pointid} } //check if value not in array
-  var conditions =  { $push: {points_list: [pointid] }  }
-
-  console.log("tourid = " + req.params.tourid);
-  console.log("pointid = " + req.params.pointid);
-  console.log(conditions);
-  Tour.findByIdAndUpdate(tourid, isInArray,conditions,
+  var conditions =  { start_point: pointid }
+  var opts = {
+      new: true
+  };
+  Tour.findByIdAndUpdate(tourid, conditions, opts,
         (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
@@ -187,4 +187,96 @@ exports.addPoint = (req, res) => {
                 res.status(200).json(tour);
             }
           });
+}
+exports.addPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var update =  { $addToSet: { points_list: pointid }  };
+  var opts = {
+      new: true
+  };
+  Tour.findByIdAndUpdate(tourid, update, opts,
+      (err, tour) => {
+          if(err){
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          }
+          else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+        });
+}
+exports.rmPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var update =  { $pull: {points_list: { $in: [pointid] } } };
+  var opts = {
+      new: true
+  };
+  Tour.findByIdAndUpdate(tourid, update, opts,
+        (err, tour) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
+            else {
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
+            }
+          });
+}
+
+function calculate_distance(p1, p2) {
+  var result = {duration: 0, distance: 0 };
+  axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=Boston,MA&destinations=Lexington,MA&departure_time=now&key='+consts.GOOGLE_API_KEY)
+    .then(response => {
+      console.log(response.rows);
+      var api_result = response.rows[0].elements[0];
+      result.duration = (api_result.duration.value/60).toFixed(2);
+      result.distance = (api_result.distance.value/1000).toFixed(2);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+
+exports.getAreas = (req, res) => {
+    console.log('getAreas');
+    var q = Tour.distinct( "area" );
+
+    q.exec(function(err, areas)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err} }`);
+        }
+        console.log(areas);
+        res.status(200).json(areas);
+    });
+}
+exports.getSubAreas = (req, res) => {
+    console.log('getSubAreas');
+    var q = Tour.distinct( "sub_area" );
+
+    q.exec(function(err, sub_areas)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err} }`);
+        }
+        console.log(sub_areas);
+        res.status(200).json(sub_areas);
+    });
+}
+exports.getTourTags = (req, res) => {
+    console.log('getTourTags');
+    var q = Tour.distinct( "tags" );
+
+    q.exec(function(err, tags)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err} }`);
+        }
+        console.log(tags);
+        res.status(200).json(tags);
+    });
 }
