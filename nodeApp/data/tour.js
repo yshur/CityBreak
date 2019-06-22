@@ -11,14 +11,7 @@ var mongoose = require('mongoose'),
 exports.createTour = (req, res) => {
     var newTour = new Tour({
         name:       req.body.name,
-        about:      req.body.about,
-        description: req.body.description,
-        creator:    req.body.creator,
-        area: 			req.body.area,
-        sub_area:   req.body.sub_area,
-        start_point: req.body.start_point,
-        accessibility: req.body.accessibility,
-        recommended_season: req.body.recommended_season
+        about:      req.body.about
     });
     console.log('Create Tour');
     newTour.save(
@@ -40,8 +33,7 @@ exports.getTours = (req, res) => {
     var params = {};
     var show = {
       "_id":1, "name":1,"about":1,"tags":1,"duration":1,
-      "distance":1,"area":1,"sub_area":1,"accessibility":1,
-      "recommended_season":1
+      "distance":1,"area":1,"sub_area":1,"accessibility":1
       };
 
     if (queryData.area) {
@@ -65,23 +57,21 @@ exports.getTours = (req, res) => {
     if (queryData.limit) {
       limit = Number(queryData.limit);
     }
-    // if (queryData.near) {
-    //   var near = queryData.near.split(",").map(function(v) {
-    //     return Number(v);
-    //   });
-    //   params.loc = {
-    //      $near: {
-    //     $maxDistance: 1000,
-    //     $geometry: {
-    //      type: "Point",
-    //      coordinates: near
-    //     }
-    //      }
-    //    };
-    //   // params.loc = { $near: { $geometry: {type: 'Point', coordinates:queryData.near.split(",") }, $maxDistance: 10 } };
-    //   // params.loc = { $near: {type: 'Point', coordinates: queryData.near.split(",") } };
-    //   console.log(params.loc.$near.$geometry);
-    // }
+    if (queryData.near) {
+  		var near = queryData.near.split(",").map(function(v) {
+  		  return Number(v);
+  		});
+  		params.loc = {
+  		   $near: {
+  					$maxDistance: 150000,
+  					$geometry: {
+  					 type: "Point",
+  					 coordinates: near
+  					}
+  		   }
+  		 };
+  		console.log(params.loc.$near.$geometry);
+  	}
 
     console.log(params);
     var q = Tour.find(params, show).limit(limit);
@@ -108,35 +98,41 @@ exports.getTour = (req, res) => {
         }
     )
 };
+exports.getTourById = (tourid) => {
+    console.log(`getTourById: tourid = ${tourid}`);
+    Tour.findById(tourid,
+        (err, tour) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                return err;
+            }
+            // console.log(tour);
+            return tour;
+        }
+    )
+};
+exports.updateWholeTourById = (tourid, tour) => {
+    console.log(`updateWholeTourById: tourid = ${tourid}`);
+    var conditions = {"_id": tourid}
+    var update = tour;
+    var opts = {
+        new: true
+    };
+    Tour.update(conditions, update, opts,
+        (err, tour) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                return err;
+            }
+            // console.log(tour);
+            return tour;
+        }
+    )
+};
 exports.updateTour = (req, res) => {
 	var tourid = req.params.tourid;
 	console.log(`updateTour: tourid = ${req.params.tourid}`);
-    var params = {};
-	if (req.body.name) {
-		params.name = req.body.name;
-	}
-	if (req.body.about) {
-		params.about = req.body.about;
-	}
-	if (req.body.description) {
-		params.description = req.body.description;
-	}
-	if (req.body.area) {
-		params.area = req.body.area;
-	}
-	if (req.body.accessibility != null) {
-		params.accessibility = req.body.accessibility;
-	}
-	if (req.body.sub_area) {
-		params.sub_area = req.body.sub_area;
-	}
-	if (req.body.recommended_season) {
-		params.recommended_season = req.body.recommended_season;
-	}
-	if (req.body.start_point) {
-		params.start_point = req.body.start_point;
-	}
-
+  var params = req.body;
     var opts = {
         new: true
     };
@@ -168,29 +164,22 @@ exports.deleteTour = (req, res) => {
           }
       });
 };
-
-exports.setStartPoint = (req, res) => {
-  var tourid = req.params.tourid,
-      pointid = req.params.pointid;
-  var conditions =  { start_point: pointid }
-  var opts = {
-      new: true
-  };
-  Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-          });
-}
 exports.addPoint = (req, res) => {
   var tourid = req.params.tourid,
       pointid = req.params.pointid;
+  var tour = getTourById(tourid);
+  if(tour instanceof Error) {
+    res.status(300).json(tour);
+  }
+  var point = Point.getPointById(pointid);
+  if(point instanceof Error) {
+    res.status(300).json(point);
+  }
+  var order = tour.points_list.length + 1;
+  var dur_point = point.duration;
+
+  // if point is first => set image_url, loc, area, sub_area
+  // set duration, distance, tags, update_time,
   var update =  { $addToSet: { points_list: pointid }  };
   var opts = {
       new: true
@@ -238,45 +227,5 @@ function calculate_distance(p1, p2) {
     })
     .catch(error => {
       console.log(error);
-    });
-}
-
-exports.getAreas = (req, res) => {
-    console.log('getAreas');
-    var q = Tour.distinct( "area" );
-
-    q.exec(function(err, areas)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err} }`);
-        }
-        console.log(areas);
-        res.status(200).json(areas);
-    });
-}
-exports.getSubAreas = (req, res) => {
-    console.log('getSubAreas');
-    var q = Tour.distinct( "sub_area" );
-
-    q.exec(function(err, sub_areas)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err} }`);
-        }
-        console.log(sub_areas);
-        res.status(200).json(sub_areas);
-    });
-}
-exports.getTourTags = (req, res) => {
-    console.log('getTourTags');
-    var q = Tour.distinct( "tags" );
-
-    q.exec(function(err, tags)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err} }`);
-        }
-        console.log(tags);
-        res.status(200).json(tags);
     });
 }

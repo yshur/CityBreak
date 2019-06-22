@@ -1,12 +1,10 @@
 var mongoose = require('mongoose'),
     user = require('./user'),
     pointSchema = new mongoose.Schema({
-        name: { type: String, required: true, index: 1,
-           // unique: true
-         },
+        name: { type: String, required: true, index: 1 },
         about: String,
         description: String,
-        image_url: String,
+        image_url: [String],
 		    reference_url: String,
         setup_time: { type: Date, default: Date.now },
         tags: [String],
@@ -42,10 +40,10 @@ var mongoose = require('mongoose'),
           setup_time: { type: Date, default: Date.now }
         }],
         tours_used: [mongoose.Schema.ObjectId],
-		loc: {
-			type: { type: String },
-			coordinates: []
-		}
+    		loc: {
+    			type: { type: String },
+    			coordinates: []
+    		}
     });
 
 pointSchema.index({ loc: "2dsphere" });
