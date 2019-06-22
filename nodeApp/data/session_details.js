@@ -1,17 +1,21 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
-    Session = require('./schemas/session');
+    Session = require('./schemas/session'),
+    SessionDetails = require('./schemas/session_details');
 
-exports.saveSession = (session_id, user_id) => {
-    var newSession = new Session({
+exports.saveSessionDetails = (session_id, req) => {
+    var newSessionDetails = new SessionDetails({
         session_id: session_id,
-        user_id: 	user_id
+        host: req.headers.host,
+        remote_addr: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+        user_agent: req.get('User-Agent'),
+        path: req.originalUrl
     });
-    console.log('saveSession:');
-    console.log(newSession);
+    console.log('saveSessionDetails:');
+    console.log(newSessionDetails);
 
-    newSession.save(
+    newSessionDetails.save(
         (err) => {
             if(err) {
                 console.log(`err: ${err}`);
@@ -23,21 +27,23 @@ exports.saveSession = (session_id, user_id) => {
         });
 };
 exports.getSessions = (req, res) => {
-  console.log('getSessions');
-  var show = {
-    "session_id":1, "user_id":1,"setup_time":1,
-    "setup_time":1, "end_time":1,"status":1,
-    "state_list":1
-    };
-	var q = Session.find({}, show);
-	q.exec(function(err, sessions)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
-		}
-		console.log(sessions);
-		res.status(200).json(sessions);
-	});
+  console.log(req);
+  // res.status(200).(req);
+  // console.log('getSessions');
+  // var show = {
+  //   "session_id":1, "user_id":1,"setup_time":1,
+  //   "setup_time":1, "end_time":1,"status":1,
+  //   "state_list":1
+  //   };
+	// var q = Session.find({}, show);
+	// q.exec(function(err, sessions)  {
+	// 	if (err) {
+	// 		console.log(`err: ${err}`);
+	// 		res.status(200).json(`{ err : ${err}`);
+	// 	}
+	// 	console.log(sessions);
+	// 	res.status(200).json(sessions);
+	// });
 };
 exports.getSession = (req, res) => {
 	console.log(`getSession: session_id = ${req.params.session_id}`);

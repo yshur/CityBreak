@@ -11,12 +11,11 @@ const express = require('express'),
 	user = require('./data/user');
 require('./database');
 
-
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
-	secret: "hahahahah",
+	secret: "qwertyuiopasdf12345gh",
 	resave: false,
 	saveUninitialized: true
 }));
@@ -42,13 +41,14 @@ app.get('/', (req,res) => {
 });
 
 /*---------------- User Routes ----------------*/
+app.post('/login/', user.login);
+app.post('/logout/', user.logout);
+
 app.post('/createUser/', user.createUser);
 app.get('/getUsers', user.getUsers);
 app.get('/getUser/:userid', user.getUser);
 app.put('/updateUser/:userid', user.updateUser);
 app.delete('/deleteUser/:userid', user.deleteUser);
-
-app.post('/login/', user.login);
 
 /*---------------- Point Routes ----------------*/
 app.post('/createPoint/', point.createPoint);
@@ -75,7 +75,7 @@ app.put('/updateState/:stateid', state.updateState);
 app.delete('/deleteState/:stateid', state.deleteState);
 
 /*---------------- Session Routes ----------------*/
-app.post('/createSession/', sessionManager.createSession);
+// app.post('/createSession/', sessionManager.createSession);
 app.get('/getSessions', 	sessionManager.getSessions);
 app.get('/getSession/:sessionid', 	sessionManager.getSession);
 app.put('/updateSession/:sessionid', sessionManager.updateSession);
