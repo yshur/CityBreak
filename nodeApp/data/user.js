@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose'),
     session = require('express-session'),
+    Session = require('./session'),
+    SessionDetails = require('./session_details'),
     User = require('./schemas/user'),
     options = {
         server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
@@ -31,13 +33,14 @@ exports.login = (req, res) => {
         req.session.user = user;
         req.session.state = 1;
         req.session.session_id = user._id+'_'+String(unix);
-        session.saveSession(session_id, user._id)
+        Session.saveSession(session_id, user._id);
         res.status(200).json(user);
       }
   );
 };
 exports.logout = (req, res) => {
   req.session.destroy();
+  Session.destroySession(req.session.session_id);
   res.status(200).json({"result":"logged out seccesfully"});
 };
 
@@ -70,6 +73,7 @@ exports.createUser = (req, res) => {
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             } else {
+
                 console.log(`Saved document:`);
                 res.status(200).json(newUser);
             }
