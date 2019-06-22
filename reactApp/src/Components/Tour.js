@@ -13,7 +13,7 @@ class Tour extends Component {
 	render(){
 		return(
 				<div className='tour'>
-					<Card>
+					<Card style={{border:'none'}}>
 						<div>{this.props.children}</div>
 					</Card>
 				</div>

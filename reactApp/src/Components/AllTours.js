@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from "./Header";
 import ToursList from "./ToursList";
+import AreasList from "./AreasList";
 import {Card} from 'react-bootstrap';
 import {Form, FormControl, Button,ButtonToolbar,Col } from 'react-bootstrap';
 
@@ -27,18 +28,9 @@ class Home extends Component {
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState" style={{width:'30%', display:'-webkit-inline-box'}}>
               <Form.Label>State</Form.Label>
-              <Form.Control as="select" style={{margin:'10px'}}>
-                <option>Choose area</option>
-                <option>Center</option>
-                <option>North</option>
-                <option>South</option>
-              </Form.Control>
-              <Form.Control as="select" style={{margin:'10px'}}>
-                <option>Choose sub area</option>
-                <option>Center</option>
-                <option>North</option>
-                <option>South</option>
-              </Form.Control>
+              <AreasList index="area" />
+              <AreasList index="subArea" />
+              <AreasList index="tag" />
             </Form.Group>
           <Button variant="primary" type="submit" style={{marginLeft:'40%'}}>
             Submit

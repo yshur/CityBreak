@@ -30,7 +30,7 @@ class Home extends Component {
         <h1 style={{marginTop: '50px', textAlign: 'center'}}>Popular Activities & Things To Do</h1>
         <ToursList/>
         <ButtonToolbar style={{width:'60%'}}>
-          <Button active style={{background:'white', color:'black', background: '#89C4F4',border:'none' , marginLeft:'12%', fontWeight:'bold'}}>
+          <Button active style={{background:'white', color:'black', background: '#89C4F4',border:'none' , marginLeft:'8.7%',marginTop:'40px', fontWeight:'bold'}}>
             Show all tours
           </Button>
         </ButtonToolbar>
