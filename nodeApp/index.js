@@ -31,9 +31,9 @@ app.use( (req, res, next) => {
 });
 
 app.get('/', (req,res) => {
-	res.status(200).json(req.session);
-	// console.log(`__dirname: ${__dirname}`);
-	// res.status(200).sendFile(`${__dirname}/index.html`);
+	// res.status(200).json(req.session);
+	console.log(`__dirname: ${__dirname}`);
+	res.status(200).sendFile(`${__dirname}/index.html`);
 });
 
 /*---------------- User Routes ----------------*/
@@ -42,13 +42,13 @@ app.get('/logout', user.logout);
 
 app.all('*', (req, res, next) => {
   console.log("runs for all HTTP verbs first");
-	res.status(200).json(req.session);
+	// res.status(200).json(req.session);
 	// if(sessionManager.checkActiveSession(req, res) == 1) {
-  // 	next();
+  	next();
 	// }
 });
 
-app.post('/createUser/', user.createUser);
+app.post('/sign-up/', user.createUser);
 app.get('/getUsers', user.getUsers);
 app.get('/getUser/:userid', user.getUser);
 app.put('/updateUser/:userid', user.updateUser);
