@@ -28,7 +28,6 @@ var mongoose = require('mongoose'),
         area: String,
         sub_area: String,
         accessibility: Boolean,
-        recommended_season: [String],
         is_public: Boolean,
         is_done: Boolean,
         visitors: [{
@@ -53,7 +52,11 @@ var mongoose = require('mongoose'),
               type: mongoose.Schema.ObjectId,
               ref: 'user'          },
           setup_time: { type: Date, default: Date.now }
-        }]
+        }],
+        loc: {
+          type: { type: String },
+          coordinates: []
+        }
     });
 
 module.exports = mongoose.model('Tour', tourSchema);
