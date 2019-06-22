@@ -30,21 +30,25 @@ app.use( (req, res, next) => {
 	next();
 });
 
-app.all('*', (req, res, next) => {
-  console.log("runs for all HTTP verbs first");
-  next();
-});
-
 app.get('/', (req,res) => {
+	// res.status(200).json(req.session);
 	console.log(`__dirname: ${__dirname}`);
 	res.status(200).sendFile(`${__dirname}/index.html`);
 });
 
 /*---------------- User Routes ----------------*/
 app.post('/login/', user.login);
-app.post('/logout/', user.logout);
+app.get('/logout', user.logout);
 
-app.post('/createUser/', user.createUser);
+app.all('*', (req, res, next) => {
+  console.log("runs for all HTTP verbs first");
+	// res.status(200).json(req.session);
+	// if(sessionManager.checkActiveSession(req, res) == 1) {
+  	next();
+	// }
+});
+
+app.post('/sign-up/', user.createUser);
 app.get('/getUsers', user.getUsers);
 app.get('/getUser/:userid', user.getUser);
 app.put('/updateUser/:userid', user.updateUser);

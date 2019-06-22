@@ -33,6 +33,7 @@ exports.createTour = (req, res) => {
 };
 exports.getTours = (req, res) => {
     console.log('getTours');
+    var limit = 20;
     var queryData = url.parse(req.url, true).query;
     var params = {};
     var show = {
@@ -59,6 +60,9 @@ exports.getTours = (req, res) => {
     if (queryData.distance) {
       params.distance = { $lt: queryData.distance };
     }
+    if (queryData.limit) {
+      limit = Number(queryData.limit);
+    }
     // if (queryData.near) {
     //   var near = queryData.near.split(",").map(function(v) {
     //     return Number(v);
@@ -78,7 +82,7 @@ exports.getTours = (req, res) => {
     // }
 
     console.log(params);
-    var q = Tour.find(params, show);
+    var q = Tour.find(params, show).limit(limit);
     q.exec(function(err, tours)  {
       if (err) {
         console.log(`err: ${err}`);

@@ -18,7 +18,7 @@ exports.saveSession = (session_id, user_id) => {
                 return err;
             } else {
                 console.log(`Saved document:`);
-                return null;
+                return 1;
             }
         });
 };
@@ -26,8 +26,7 @@ exports.getSessions = (req, res) => {
   console.log('getSessions');
   var show = {
     "session_id":1, "user_id":1,"setup_time":1,
-    "setup_time":1, "end_time":1,"status":1,
-    "state_list":1
+    "end_time":1,"status":1,
     };
 	var q = Session.find({}, show);
 	q.exec(function(err, sessions)  {
@@ -104,7 +103,7 @@ exports.destroyCookie = (req, res) => {
 };
 exports.destroySession = (session_id) => {
 
-  var conditions = { "session_id": Number(session_id) };
+  var conditions = { "session_id": Number(session_id), "status": 0 };
 	console.log(`destroySession: session_id = ${session_id}`);
   var update = { status: 1, end_time: Date.now };
 	console.log(params);
@@ -118,7 +117,7 @@ exports.destroySession = (session_id) => {
               return err;
           } else {
               console.log(`destroy session: ${session}`)
-              return null;
+              return 1;
           }
       });
 };
@@ -139,30 +138,43 @@ exports.destroyAllSessions = (user_id) => {
               return err;
           } else {
               console.log(`destroy sessions: ${session}`)
-              return null;
+              return 1;
           }
       });
 };
-exports.checkActiveSession = (session_id) => {
-
-  var conditions = { "session_id": Number(session_id), "status":0 };
+exports.checkActiveSession = (req, res) => {
+  if ((!req.session.session_id) || (!req.session.user)) {
+    return res.status(401).json({"err":"unauthorized"});
+  }
+  var session_id = req.session.session_id;
+  var conditions = { "session_id": session_id, "status":0 };
 	console.log(`checkActiveSession: session_id = ${session_id}`);
 
   Session.findOne(conditions,
       (err, session) => {
           if(err) {
               console.log(`err: ${err}`);
-              return err;
+              return res.status(300).json(err);
           } else {
             if (session == null){
-              return 0;
+              return res.status(300).json({"err":"session not found"});
             } else {
-              return session;
+              if(checkTimeSession(session) != 1) {
+                return res.status(300).json({"err":"session expired"});
+              } else {
+                return 1;
+              }
             }
           }
       });
 };
 exports.checkTimeSession = (session) => {
-
-
+  var setup_time = session.setup_time;
+  var diffMs = Date.now - setup_time; // milliseconds between now & setup_time
+  var diffMins = Math.round(diffMs / 60000); // minutes
+  if(diffMins > 60) {
+    destroySession(session_id);
+  } else {
+    return 1;
+  }
 };

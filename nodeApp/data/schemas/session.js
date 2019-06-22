@@ -9,13 +9,8 @@ var mongoose = require('mongoose'),
           required: true
         },
         setup_time: { type: Date, default: Date.now },
-        end_time: { type: Date },
-        status: Number,
-        state_list: [{
-          state_id: Number,
-          parent_id: Number,
-          setup_time: { type: Date, default: Date.now }
-        }]
+        end_time: { type: Date, default: null},
+        status: { type: Number, default: 0 }
     });
 
 module.exports = mongoose.model('Session', sessionSchema);
