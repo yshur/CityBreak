@@ -61,7 +61,7 @@ exports.getTours = (req, res) => {
       params.distance = { $lt: queryData.distance };
     }
     if (queryData.limit) {
-      limit = queryData.limit;
+      limit = Number(queryData.limit);
     }
     // if (queryData.near) {
     //   var near = queryData.near.split(",").map(function(v) {
