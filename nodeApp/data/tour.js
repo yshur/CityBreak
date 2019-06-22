@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose'),
     url = require('url'),
+    axios = require('axios'),
+    consts = require('./consts')
     User = require('./schemas/user'),
     Tour = require('./schemas/tour'),
     Point = require('./schemas/point');
@@ -167,6 +169,23 @@ exports.deleteTour = (req, res) => {
       });
 };
 
+exports.setStartPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var conditions =  { start_point: pointid }
+
+  Tour.findByIdAndUpdate(tourid, conditions,
+        (err, tour) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
+            else {
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
+            }
+          });
+}
 exports.addPoint = (req, res) => {
   var tourid = req.params.tourid,
       pointid = req.params.pointid;
@@ -187,4 +206,39 @@ exports.addPoint = (req, res) => {
                 res.status(200).json(tour);
             }
           });
+}
+exports.rmPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var isInArray = { point_list : {$ne: pointid} } //check if value not in array
+  var conditions =  { $pull: {points_list: [pointid] }  }
+
+  console.log("tourid = " + req.params.tourid);
+  console.log("pointid = " + req.params.pointid);
+  console.log(conditions);
+  Tour.findByIdAndUpdate(tourid, isInArray,conditions,
+        (err, tour) => {
+            if(err){
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            }
+            else {
+                console.log(`Updated tour: ${tour}`)
+                res.status(200).json(tour);
+            }
+          });
+}
+
+function calculate_distance(p1, p2) {
+  var result = {duration: 0, distance: 0 };
+  axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=Boston,MA&destinations=Lexington,MA&departure_time=now&key='+consts.GOOGLE_API_KEY)
+    .then(response => {
+      console.log(response.rows);
+      var api_result = response.rows[0].elements[0];
+      result.duration = api_result.duration.value/60;
+      result.distance = api_result.distance.value/1000;
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
