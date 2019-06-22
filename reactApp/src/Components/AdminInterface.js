@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Tour from './Tour'
+import AdminTour from './AdminTour'
 import {Card, CardGroup} from 'react-bootstrap';
 
-class ToursList extends Component {
+class AdminInterface extends Component {
 
 	constructor(props) {
 		super(props)
@@ -11,6 +11,7 @@ class ToursList extends Component {
 		}
 		this.eachTour = this.eachTour.bind(this)
 		this.add = this.add.bind(this)
+		this.delete = this.delete.bind(this)
 	}
 	componentDidMount() {
 		 const url = "http://localhost:3000/getAllTours";
@@ -26,13 +27,20 @@ class ToursList extends Component {
 		 		})
 			 })
 	 }
+	delete(_id) {
+	console.log('deleted: '+_id)
+	this.setState(prevState => ({
+		tours: prevState.tours.filter(tour => tour._id !== _id)
+	}))
+}
 	eachTour(tour, i) {
 		console.log(tour.id)
 		return (
 			<div key={tour._id} index={tour._id} >
 				<CardGroup style={{display:'block', marginLeft:'70px'}}>
 				  <Card style={{maxWidth:"330px",maxHeight:"380px",float:"left", margin:'20px'}}>
-						<Tour >
+						<AdminTour>
+						<AdminTour key={tour._id} index={tour._id} onDelete={this.delete} />
 				    <Card.Img variant="top" img="true" style={{width:"300px",height:"200px",margin:'13px'}} src={tour.imagesUrls} />
 				    <Card.Body>
 							<Card.Title style={{color:'black', width:"400px"}}>{tour.title}</Card.Title>
@@ -41,7 +49,7 @@ class ToursList extends Component {
 				    <Card.Footer>
 				      <small className="text-muted">Last updated 3 mins ago</small>
 				    </Card.Footer>
-						</Tour>
+						</AdminTour>
 				  </Card>
 				</CardGroup>
 			</div>
@@ -75,4 +83,4 @@ class ToursList extends Component {
 	}
 }
 
-export default ToursList
+export default AdminInterface
