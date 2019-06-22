@@ -30,16 +30,18 @@ class ToursList extends Component {
 		console.log(tour.id)
 		return (
 			<div key={tour._id} index={tour._id} >
-				<CardGroup style={{display:'block', marginLeft:'70px'}}>
-				  <Card style={{maxWidth:"330px",maxHeight:"380px",float:"left", margin:'20px'}}>
+				<CardGroup style={{display:'block', marginLeft:'4%'}}>
+				  <Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", margin:'15px', border:'none'}}>
 						<Tour>
-				    <Card.Body>
-							<Card.Title style={{color:'black', width:"270px",height:"210px",margin:'5px', backgroundImage:`url('https://media.tacdn.com/media/attractions-splice-spp-360x240/07/32/b7/2f.jpg')`}}>{tour.name}</Card.Title>
-
+				    <Card.Body style={{background:'#F2F1EF'}}>
+							<div>
+							<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url('https://media.tacdn.com/media/attractions-splice-spp-360x240/07/32/b7/2f.jpg')`}}></Card.Title>
+							<p style={{fontSize:'24px', marginTop:'-50px', color:'black', fontWeight:'bold'}}>{tour.name}</p>
+							</div>
 			      	<Card.Text style={{color:'black'}}>Area: {tour.area}</Card.Text>
-							<Card.Text style={{color:'black'}}>{tour.about}</Card.Text>
+							<Card.Text style={{color:'black'}}>About: {tour.about}</Card.Text>
 						</Card.Body>
-				    <Card.Footer>
+				    <Card.Footer style={{width:'365px'}}>
 				      <small className="text-muted">Duration:</small>
 				    </Card.Footer>
 						</Tour>
