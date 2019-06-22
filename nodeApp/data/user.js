@@ -77,9 +77,9 @@ exports.createUser = (req, res) => {
 };
 exports.getUsers = (req, res) => {
     console.log('getUsers');
-    if (!req.session.user) {
-      return res.status(401).send();
-    }
+    // if (!req.session.user) {
+    //   return res.status(401).send();
+    // }
 	var show = {
 		"_id":1, "first_name":1,"last_name":1,"email":1,"image_url":1,
 		"living_city":1,"about":1,"tags":1

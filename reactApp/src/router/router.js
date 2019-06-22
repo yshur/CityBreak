@@ -8,11 +8,7 @@ import Header from "../Components/Header";
 import SignInUser from "../Components/SignInUser";
 import SignInAdmin from "../Components/SignInAdmin";
 import AdminHome from "../Components/AdminHome";
-
-
-
-
-
+import Main from "../Components/Main";
 
 const ReactRouter =()=>{
     return (
@@ -26,6 +22,7 @@ const ReactRouter =()=>{
             <Route exact path="/signinuser" component={SignInUser}/>
             <Route exact path="/signinadmin" component={SignInAdmin}/>
             <Route exact path="/adminhome" component={AdminHome}/>
+            <Route exact path="/main" component={Main}/>
         </React.Fragment>
         );
 }

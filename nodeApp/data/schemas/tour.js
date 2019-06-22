@@ -51,7 +51,8 @@ var mongoose = require('mongoose'),
         }],
         difficulty: Number,
         is_public: Boolean,
-        is_done: Boolean
+        is_done: Boolean,
+        
     });
 
 module.exports = mongoose.model('Tour', tourSchema);
