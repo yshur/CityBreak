@@ -33,6 +33,7 @@ exports.createTour = (req, res) => {
 };
 exports.getTours = (req, res) => {
     console.log('getTours');
+    var limit = 20;
     var queryData = url.parse(req.url, true).query;
     var params = {};
     var show = {
@@ -59,6 +60,9 @@ exports.getTours = (req, res) => {
     if (queryData.distance) {
       params.distance = { $lt: queryData.distance };
     }
+    if (queryData.limit) {
+      limit = Number(queryData.limit);
+    }
     // if (queryData.near) {
     //   var near = queryData.near.split(",").map(function(v) {
     //     return Number(v);
@@ -78,7 +82,7 @@ exports.getTours = (req, res) => {
     // }
 
     console.log(params);
-    var q = Tour.find(params, show);
+    var q = Tour.find(params, show).limit(limit);
     q.exec(function(err, tours)  {
       if (err) {
         console.log(`err: ${err}`);
@@ -172,7 +176,7 @@ exports.addPoint = (req, res) => {
   console.log("tourid = " + req.params.tourid);
   console.log("pointid = " + req.params.pointid);
   console.log(conditions);
-  Tour.findByIdAndUpdate(tourid, conditions,isInArray,
+  Tour.findByIdAndUpdate(tourid, isInArray,conditions,
         (err, tour) => {
             if(err){
                 console.log(`err: ${err}`);
@@ -184,207 +188,3 @@ exports.addPoint = (req, res) => {
             }
           });
 }
-
-exports.setTimeTour = (req, res) => {
-    var tourid = req.body.tourid,
-        time = req.body.time;
-
-    var conditions = {time: time}
-        opts = {
-            runValidators: true,
-            multi: true,
-            new: true
-        };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
-};
-exports.setPlaceTour = (req, res) => {
-    var tourid = req.body.tourid,
-        place = req.body.place;
-
-    var conditions = {place: place}
-      opts = {
-          runValidators: true,
-          multi: true,
-          new: true
-      };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
-};
-exports.addCategoryTour = (req, res) => {
-    var tourid = req.body.tourid,
-        category = req.body.category;
-
-    var conditions = {$push:{category: category} }
-      opts = {
-          runValidators: true,
-          multi: true,
-          new: true
-      };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
-};
-exports.addEqTour = (req, res) => {
-    var tourid = req.body.tourid,
-        equipment = req.body.equipment;
-
-    var conditions = { $push: { equipment: {
-        name: equipment } } }
-        opts = {
-            runValidators: true,
-            multi: true,
-            new: true
-        };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
-};
-
-exports.getChat = (req, res) => {
-    var tourid = req.params.tourid;
-    console.log('getChat');
-    console.log(`get: tourid = ${req.params.tourid}`);
-
-    Tour.findOne( { _id: { $eq: tourid } },
-        (err, tour) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err}`);
-            }
-            console.log(tour.chat);
-            res.status(200).json(tour.chat);
-        }
-    );
-
-};
-exports.sendMessage = (req, res) => {
-    var tourid = req.body.tourid,
-        userid = req.body.userid,
-        message = req.body.message;
-    console.log('sendMessage');
-    console.log(`post: tourid = ${req.body.tourid},
-        userid = ${req.body.userid},
-        message = ${req.body.message}`);
-    var conditions = { $push: { chat: {
-            user: userid,
-            text: message } } }
-        opts = {
-            runValidators: true,
-            multi: true,
-            new: true
-        };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated chat: ${tour.chat}`)
-                res.status(200).json(tour.chat);
-            }
-        });
-};
-exports.inviteUser = (req, res) => {
-    var tourid = req.body.tourid,
-        userid = req.body.userid;
-    console.log('inviteUser');
-    console.log(`post: tourid = ${req.body.tourid},
-        userid = ${req.body.userid}`);
-
-    var conditions = { $push: { participant: userid } }
-        opts = {
-            runValidators: true,
-            multi: true,
-            new: true
-        };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
-};
-exports.setUserEquip = (req, res) => {
-    var tourid = req.body.tourid,
-        userid = req.body.userid,
-        equipment = req.body.equipment;
-    console.log('setUserEquip');
-    console.log(`post: tourid = ${req.body.tourid},
-        userid = ${req.body.userid},
-        equipment = ${req.body.equipment}`);
-    var conditions = { $push: {equipment: {
-                name: equipment,
-                userid: userid,
-                current: true
-              } } }
-        opts = {
-            runValidators: true,
-            multi: true,
-            new: true
-        };
-    Tour.findByIdAndUpdate(tourid, conditions, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
-};
-exports.getUserTour = (req, res) => {
-    var userid = req.body.userid;
-    console.log('getUserTour');
-    Tour.find( {participant: {$in:userid}},
-        (err, tour) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                res.status(200).json(`{ err : ${err}`);
-            }
-            console.log(tour);
-            res.status(200).json(tour);
-        }
-    );
-};

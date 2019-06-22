@@ -65,15 +65,13 @@ exports.getPoints = (req, res) => {
 		});
 		params.loc = {
 		   $near: {
-			$maxDistance: 1000,
-			$geometry: {
-			 type: "Point",
-			 coordinates: near
-			}
+					$maxDistance: 150000,
+					$geometry: {
+					 type: "Point",
+					 coordinates: near
+					}
 		   }
 		 };
-		// params.loc = { $near: { $geometry: {type: 'Point', coordinates:queryData.near.split(",") }, $maxDistance: 10 } };
-		// params.loc = { $near: {type: 'Point', coordinates: queryData.near.split(",") } };
 		console.log(params.loc.$near.$geometry);
 	}
 
