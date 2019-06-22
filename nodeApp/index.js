@@ -71,6 +71,10 @@ app.delete('/deleteTour/:tourid', tour.deleteTour);
 app.put('/addPoint/:tourid/:pointid', tour.addPoint);
 app.put('/rmPoint/:tourid/:pointid', tour.rmPoint);
 
+app.get('/getTags',	point.getTags);
+app.get('/getSubAreas',	point.getSubAreas);
+app.get('/getAreas',	point.getAreas);
+
 /*---------------- State Routes ----------------*/
 app.post('/createState/', state.createState);
 app.get('/getStates', 	state.getStates);
