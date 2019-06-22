@@ -44,7 +44,9 @@ exports.login = (req, res) => {
 };
 exports.logout = (req, res) => {
   req.session.destroy();
-  Session.destroySession(req.session.session_id);
+  if (req.session.session_id) {
+    Session.destroySession(req.session.session_id);
+  }
   res.status(200).json({"result":"logged out seccesfully"});
 };
 

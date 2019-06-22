@@ -143,8 +143,11 @@ exports.destroyAllSessions = (user_id) => {
           }
       });
 };
-exports.checkActiveSession = (session_id) => {
-
+exports.checkActiveSession = (req, res, next) => {
+  if ((!req.session.session_id) || (!req.session.user)) {
+    return res.status(401).json({"err":"unauthorized"});
+  }
+  var session_id = req.session.session_id;
   var conditions = { "session_id": Number(session_id), "status":0 };
 	console.log(`checkActiveSession: session_id = ${session_id}`);
 
@@ -152,17 +155,27 @@ exports.checkActiveSession = (session_id) => {
       (err, session) => {
           if(err) {
               console.log(`err: ${err}`);
-              return err;
+              return res.status(300).json(err);
           } else {
             if (session == null){
-              return 0;
+              return res.status(300).json({"err":"session not found"});
             } else {
-              return session;
+              if(checkTimeSession(session) != 1) {
+                return res.status(300).json({"err":"session expired"});
+              } else {
+                return 1;
+              }
             }
           }
       });
 };
 exports.checkTimeSession = (session) => {
-
-
+  var setup_time = session.setup_time;
+  var diffMs = Date.now - setup_time; // milliseconds between now & setup_time
+  var diffMins = Math.round(diffMs / 60000); // minutes
+  if(diffMins > 60) {
+    destroySession(session_id);
+  } else {
+    return 1;
+  }
 };

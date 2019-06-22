@@ -30,11 +30,6 @@ app.use( (req, res, next) => {
 	next();
 });
 
-app.all('*', (req, res, next) => {
-  console.log("runs for all HTTP verbs first");
-  next();
-});
-
 app.get('/', (req,res) => {
 	console.log(`__dirname: ${__dirname}`);
 	res.status(200).sendFile(`${__dirname}/index.html`);
@@ -43,6 +38,11 @@ app.get('/', (req,res) => {
 /*---------------- User Routes ----------------*/
 app.post('/login/', user.login);
 app.post('/logout/', user.logout);
+
+app.all('*', (req, res, next) => {
+  console.log("runs for all HTTP verbs first");
+  next();
+});
 
 app.post('/createUser/', user.createUser);
 app.get('/getUsers', user.getUsers);
