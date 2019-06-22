@@ -31,8 +31,8 @@ exports.login = (req, res) => {
         req.session.user = user;
         req.session.state = 1;
         req.session.session_id = user._id+'_'+String(unix);
-        session.createSession(session_id, user._id)
-        res.status(200).json(req.session);
+        session.saveSession(session_id, user._id)
+        res.status(200).json(user);
       }
   );
 };

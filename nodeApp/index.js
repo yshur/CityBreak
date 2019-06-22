@@ -75,7 +75,7 @@ app.put('/updateState/:stateid', state.updateState);
 app.delete('/deleteState/:stateid', state.deleteState);
 
 /*---------------- Session Routes ----------------*/
-app.post('/createSession/', sessionManager.createSession);
+// app.post('/createSession/', sessionManager.createSession);
 app.get('/getSessions', 	sessionManager.getSessions);
 app.get('/getSession/:sessionid', 	sessionManager.getSession);
 app.put('/updateSession/:sessionid', sessionManager.updateSession);
