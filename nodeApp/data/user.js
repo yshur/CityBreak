@@ -29,22 +29,19 @@ exports.login = (req, res) => {
             res.status(200).json({ "err" : err });
         }
         var unix = Math.floor(new Date() / 1000);
+        var session_id = user._id+'_'+String(unix);
         console.log(user);
         req.session.user = user;
         req.session.state = 1;
-        req.session.session_id = user._id+'_'+String(unix);
-        if (Session.saveSession(session_id, user._id) == null) {
-          res.status(200).json(user);
-        } else {
-          res.status(300).json(user);
-        }
-
+        req.session.session_id = session_id;
+        Session.saveSession(session_id, user._id);
+        res.status(200).json(user);
       }
   );
 };
 exports.logout = (req, res) => {
   req.session.destroy();
-  if (req.session.session_id) {
+  if (req.session && req.session.session_id) {
     Session.destroySession(req.session.session_id);
   }
   res.status(200).json({"result":"logged out seccesfully"});
