@@ -107,7 +107,7 @@ exports.getPointById = (pointid) => {
         (err, point) => {
             if (err) {
                 console.log(`err: ${err}`);
-                return err;
+                // return err;
             }
             // console.log(point);
             return point;
