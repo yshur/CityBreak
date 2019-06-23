@@ -17,7 +17,8 @@ var mongoose = require('mongoose'),
         points_list: [{
             order: Number,
             distance: Number,
-            duration: Number,
+            duration_way: Number,
+            duration_stay: Number,
             point: {
                 type: mongoose.Schema.ObjectId,
                 ref: 'point'

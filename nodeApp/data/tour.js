@@ -164,7 +164,42 @@ exports.deleteTour = (req, res) => {
           }
       });
 };
-exports.addPoint = (req, res) => {
+exports.addFirstPoint = (tour, point) => {
+  var pointItem = {
+    order: 0,
+    distance: 0,
+    duration_way: 0,
+    duration_stay: point.duration,
+    point: point._id
+  };
+  tour.points_list.push(pointItem);
+  tour.duration = point.duration;
+  tour.tags = point.tags;
+  tour.loc = point.loc;
+  tour.accessibility = point.accessibility;
+  tour.area = point.area;
+  tour.sub_area = point.sub_area;
+  tour.image_url = point.image_url;
+  tour.update_time = Date.now;
+  tour.map_url = null;
+
+  var update =  tour;
+  var opts = {
+      new: true
+  };
+  Tour.findByIdAndUpdate(tourid, update, opts,
+      (err, tour) => {
+          if(err){
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          }
+          else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+        });
+}
+exports.addLastPoint = (req, res) => {
   var tourid = req.params.tourid,
       pointid = req.params.pointid;
   var tour = getTourById(tourid);
