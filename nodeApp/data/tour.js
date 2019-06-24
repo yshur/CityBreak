@@ -98,20 +98,19 @@ exports.getTour = (req, res) => {
         }
     )
 };
-exports.getTourById = (tourid) => {
+function getTourById(tourid) {
     console.log(`getTourById: tourid = ${tourid}`);
     Tour.findById(tourid,
         (err, tour) => {
             if (err) {
                 console.log(`err: ${err}`);
-                return err;
+                return null;
             }
-            // console.log(tour);
             return tour;
         }
     )
 };
-exports.updateWholeTourById = (tourid, tour) => {
+function updateWholeTourById(tourid, tour, req, res) {
     console.log(`updateWholeTourById: tourid = ${tourid}`);
     var conditions = {"_id": tourid}
     var update = tour;
@@ -119,15 +118,15 @@ exports.updateWholeTourById = (tourid, tour) => {
         new: true
     };
     Tour.update(conditions, update, opts,
-        (err, tour) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                return err;
-            }
-            // console.log(tour);
-            return tour;
-        }
-    )
+      (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+      });
 };
 exports.updateTour = (req, res) => {
 	var tourid = req.params.tourid;
@@ -164,7 +163,74 @@ exports.deleteTour = (req, res) => {
           }
       });
 };
-exports.addFirstPoint = (tour, point) => {
+exports.addPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var tour = getTourById(tourid);
+  if(!tour) {
+    res.status(300).json({err: "error finding this tour"});
+  }
+  var new_point = Point.getPointById(pointid);
+  if(!new_point) {
+    res.status(300).json({err: "error finding this point"});
+  }
+  if(tour.points_list.length == 0) {
+    tour = addFirstPoint(tour, point);
+  } else {
+    let index = tour.points_list.length-1;
+    var last_point_id = tour.points_list[index].point;
+    var last_point = Point.getPointById(last_point_id);
+    if(!last_point) {
+      res.status(300).json({err: "error finding last point"});
+    }
+    tour = addPointToEnd(tour, last_point, new_point);
+  }
+  updateWholeTourById(tourid, tour, req, res);
+}
+exports.rmPoint = (req, res) => {
+  var tourid = req.params.tourid,
+      pointid = req.params.pointid;
+  var tour = getTourById(tourid);
+  if(!tour) {
+    res.status(300).json({err: "error finding this tour"});
+  }
+  tour.points_list.map(function(pointItem){
+    if(pointItem.point == pointid) { // last one
+      if(pointItem.order == (tour.points_list.length-1)) {
+        tour.duration -= (pointItem.duration_way+pointItem.duration_stay);
+        tour.distance -= pointItem.distance;
+        tour.points_list.pop();
+      } else if(pointItem.order == 0) { // first one
+        tour.duration -= (pointItem.duration_stay+tour.points_list[1].duration_way);
+        tour.points_list[1].duration_way = 0;
+        tour.distance -= tour.points_list[1].distance;
+        tour.points_list[1].distance = 0;
+        tour.points_list.shift();
+      } else { // point in the middle
+        let index = pointItem.order;
+        let before_point = Point.getPointById(tour.points_list[index-1].point);
+        let after_point = Point.getPointById(tour.points_list[index+1].point);
+        let result = calculate_distance(before_point, after_point);
+        if(!result) {
+          res.status(300).json({err: "error update after rm point"});
+        }
+        tour.duration = tour.duration-tour.points_list[index+1].duration_way+result.duration;
+        tour.distance = tour.distance-tour.points_list[index+1].distance+result.distance;
+        tour.points_list[index+1].duration_way = result.duration;
+        tour.points_list[index+1].distance = result.distance;
+        for(let i=index; i<tour.points_list.length-1; i++) {
+          tour.points_list[i] = tour.points_list[i+1];
+          tour.points_list[i].order = i;
+        }
+        tour.points_list.pop();
+      }
+      break;
+    }
+  });
+  updateWholeTourById(tourid, tour, req, res);
+}
+
+function addFirstPoint(tour, point) {
   var pointItem = {
     order: 0,
     distance: 0,
@@ -182,78 +248,38 @@ exports.addFirstPoint = (tour, point) => {
   tour.image_url = point.image_url;
   tour.update_time = Date.now;
   tour.map_url = null;
-
+  return tour;
   var update =  tour;
-  var opts = {
-      new: true
-  };
-  Tour.findByIdAndUpdate(tourid, update, opts,
-      (err, tour) => {
-          if(err){
-              console.log(`err: ${err}`);
-              res.status(300).json(err);
-          }
-          else {
-              console.log(`Updated tour: ${tour}`)
-              res.status(200).json(tour);
-          }
-        });
 }
-exports.addLastPoint = (req, res) => {
-  var tourid = req.params.tourid,
-      pointid = req.params.pointid;
-  var tour = getTourById(tourid);
-  if(tour instanceof Error) {
-    res.status(300).json(tour);
+function addPointToEnd(tour, last_point, new_point) {
+  var order = tour.points_list.length;
+  var result = calculate_distance(last_point, new_point);
+  if(!result) {
+    return null;
   }
-  var point = Point.getPointById(pointid);
-  if(point instanceof Error) {
-    res.status(300).json(point);
+  var pointItem = {
+    order: order,
+    distance: result.distance,
+    duration_way: result.duration,
+    duration_stay: new_point.duration,
+    point: new_point._id
+  };
+  tour.points_list.push(pointItem);
+  tour.duration += (pointItem.duration_way+pointItem.duration_stay);
+  new_point.tags.map(function(tag){
+    if(tour.tags.indexOf(tag) < 0) {
+      tour.tags.push(tag);
+    }
+  });
+  if(new_point.accessibility == false) {
+    tour.accessibility = false;
   }
-  var order = tour.points_list.length + 1;
-  var dur_point = point.duration;
-
-  // if point is first => set image_url, loc, area, sub_area
-  // set duration, distance, tags, update_time,
-  var update =  { $addToSet: { points_list: pointid }  };
-  var opts = {
-      new: true
-  };
-  Tour.findByIdAndUpdate(tourid, update, opts,
-      (err, tour) => {
-          if(err){
-              console.log(`err: ${err}`);
-              res.status(300).json(err);
-          }
-          else {
-              console.log(`Updated tour: ${tour}`)
-              res.status(200).json(tour);
-          }
-        });
+  tour.update_time = Date.now;
+  return tour;
 }
-exports.rmPoint = (req, res) => {
-  var tourid = req.params.tourid,
-      pointid = req.params.pointid;
-  var update =  { $pull: {points_list: { $in: [pointid] } } };
-  var opts = {
-      new: true
-  };
-  Tour.findByIdAndUpdate(tourid, update, opts,
-        (err, tour) => {
-            if(err){
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            }
-            else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-          });
-}
-
 function calculate_distance(p1, p2) {
   var result = {duration: 0, distance: 0 };
-  axios.get('https://maps.googleapis.com/maps/api/distancematrix/json?origins=Boston,MA&destinations=Lexington,MA&departure_time=now&key='+consts.GOOGLE_API_KEY)
+  axios.get(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${p1.longitude},${p1.latitude}&destinations=${p2.longitude},${p2.latitude}&departure_time=now&key=${consts.GOOGLE_API_KEY}`)
     .then(response => {
       console.log(response.rows);
       var api_result = response.rows[0].elements[0];
@@ -263,4 +289,9 @@ function calculate_distance(p1, p2) {
     .catch(error => {
       console.log(error);
     });
+}
+function get_map_url(tour){
+  tour.points_list.map(function(pointItem){
+    point = Point.getPointById(pointItem.point);
+  });
 }
