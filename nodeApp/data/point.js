@@ -101,18 +101,13 @@ exports.getPoint = (req, res) => {
         }
     )
 };
-exports.getPointById = (pointid) => {
+exports.getPointById = (pointid, callback) => {
 	console.log(`getPointById: pointid = ${pointid}`);
-    Point.findById(pointid,
-        (err, point) => {
-            if (err) {
-                console.log(`err: ${err}`);
-                // return err;
-            }
-            // console.log(point);
-            return point;
-        }
-    )
+	Point.findById(pointid,
+			(err, point) => {
+					callback(err, point);
+			}
+	);
 };
 exports.updatePoint = (req, res) => {
 	var pointid = req.params.pointid;
