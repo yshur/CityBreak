@@ -169,29 +169,18 @@ exports.addPoint = (req, res) => {
           console.log(`err: ${err}`);
           res.status(300).json(err);
       }
-      point_manager.getPointById(pointid, (err, new_point) => {
-            if(err) {
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-              if(tour.points_list.length == 0) {
-                addFirstPoint(tour, new_point, (err, tour) => {
-                  if(err) {
-                      console.log(`err: ${err}`);
-                      res.status(300).json(err);
-                  } else {
-                      updateWholeTourById(tourid, tour, req, res);
-                  }
-                })
-              } else {
-                var index = tour.points_list.length-1;
-                var last_point_id = tour.points_list[index].point;
-                point_manager.getPointById(pointid, (err, last_point) => {
-                  if(err) {
-                      console.log(`err: ${err}`);
-                      res.status(300).json(err);
-                  } else {
-                    addPointToEnd(tour, last_point, new_point, (err, tour) => {
+      go_over_point_list_on_add(tour, pointid, (err, tour) => {
+        if(err) {
+            console.log(`err: ${err}`);
+            res.status(300).json(err);
+        } else {
+          point_manager.getPointById(pointid, (err, new_point) => {
+                if(err) {
+                    console.log(`err: ${err}`);
+                    res.status(300).json(err);
+                } else {
+                  if(tour.points_list.length == 0) {
+                    addFirstPoint(tour, new_point, (err, tour) => {
                       if(err) {
                           console.log(`err: ${err}`);
                           res.status(300).json(err);
@@ -199,11 +188,29 @@ exports.addPoint = (req, res) => {
                           updateWholeTourById(tourid, tour, req, res);
                       }
                     })
+                  } else {
+                    var index = tour.points_list.length-1;
+                    var last_point_id = tour.points_list[index].point;
+                    point_manager.getPointById(pointid, (err, last_point) => {
+                      if(err) {
+                          console.log(`err: ${err}`);
+                          res.status(300).json(err);
+                      } else {
+                        addPointToEnd(tour, last_point, new_point, (err, tour) => {
+                          if(err) {
+                              console.log(`err: ${err}`);
+                              res.status(300).json(err);
+                          } else {
+                              updateWholeTourById(tourid, tour, req, res);
+                          }
+                        })
+                      }
+                    });
                   }
-                });
-              }
-            }
-        });
+                }
+            });
+        }
+      });
   });
 }
 exports.rmPoint = (req, res) => {
@@ -215,7 +222,7 @@ exports.rmPoint = (req, res) => {
           console.log(`err: ${err}`);
           res.status(300).json(err);
       }
-      go_over_point_list(tour, pointid, (err, tour) => {
+      go_over_point_list_on_rm(tour, pointid, (err, tour) => {
         if(err) {
             console.log(`err: ${err}`);
             res.status(300).json(err);
@@ -226,8 +233,8 @@ exports.rmPoint = (req, res) => {
       });
     });
 }
-function go_over_point_list(tour, pointid, callback) {
-  console.log(`go_over_point_list: pointid = ${pointid}`);
+function go_over_point_list_on_rm(tour, pointid, callback) {
+  console.log(`go_over_point_list_on_rm: pointid = ${pointid}`);
   var new_points_list = [];
   tour.points_list.map(function(pointItem){
     console.log(pointItem);
@@ -283,6 +290,17 @@ function go_over_point_list(tour, pointid, callback) {
     }
   });
   tour.points_list = new_points_list;
+  callback(null, tour);
+}
+function go_over_point_list_on_add(tour, pointid, callback) {
+  console.log(`go_over_point_list_on_add: pointid = ${pointid}`);
+  var found = false;
+  tour.points_list.map(function(pointItem){
+    console.log(pointItem);
+    if(pointItem.point == pointid) {
+      callback(`point ${pointid} already exist`);
+    }
+  });
   callback(null, tour);
 }
 function addFirstPoint(tour, point, callback) {
