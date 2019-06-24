@@ -276,7 +276,6 @@ function addPointToEnd(tour, last_point, new_point) {
   }
   tour.update_time = Date.now;
   return tour;
-
 }
 function calculate_distance(p1, p2) {
   var result = {duration: 0, distance: 0 };
@@ -290,4 +289,9 @@ function calculate_distance(p1, p2) {
     .catch(error => {
       console.log(error);
     });
+}
+function get_map_url(tour){
+  tour.points_list.map(function(pointItem){
+    point = Point.getPointById(pointItem.point);
+  });
 }
