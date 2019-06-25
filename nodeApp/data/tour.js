@@ -74,16 +74,23 @@ exports.getTours = (req, res) => {
   		 };
   		console.log(params.loc.$near.$geometry);
   	}
+    // Get the count of all users
+    Tour.count().exec(function (err, count) {
 
-    console.log(params);
-    var q = Tour.find(params, show).limit(limit);
-    q.exec(function(err, tours)  {
-      if (err) {
-        console.log(`err: ${err}`);
-        res.status(200).json(`{ err : ${err}`);
-      }
-      console.log(tours);
-      res.status(200).json(tours);
+      // Get a random entry
+      var random = Math.floor(Math.random() * (count-limit));
+      console.log(params);
+      var q = Tour.find(params, show).skip(random).limit(limit);
+      q.exec(function(err, tours)  {
+        if (err) {
+          console.log(`err: ${err}`);
+          res.status(200).json(`{ err : ${err}`);
+        }
+        console.log(tours);
+        res.status(200).json(tours);
+      });
+      // Again query all users but only fetch one offset by our random #
+
     });
 };
 exports.getTour = (req, res) => {
