@@ -22,7 +22,7 @@ class ToursList extends Component {
 		 		var self=this;
 		 		data.map((data) => {
 		 			console.log('tour')
-		 			self.add(data._id,data.id, data.area, data.name, data.recommended_season[0], data.tags[0],data.about);
+		 			self.add(data._id,data.id, data.area, data.name,data.about);
 		 		})
 			 })
 	 }
