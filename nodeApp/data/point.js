@@ -40,6 +40,7 @@ exports.createPoint = (req, res) => {
 };
 exports.getPoints = (req, res) => {
   console.log('getPoints');
+	var limit = 2;
 	var queryData = url.parse(req.url, true).query;
 	var params = {};
 	var show = {
@@ -59,6 +60,9 @@ exports.getPoints = (req, res) => {
 	if (queryData.tags) {
 		params.tags = { $in: queryData.tags.split(",") };
 	}
+	if (queryData.limit) {
+		limit = Number(queryData.limit);
+	}
 	if (queryData.near) {
 		var near = queryData.near.split(",").map(function(v) {
 		  return Number(v);
@@ -74,16 +78,23 @@ exports.getPoints = (req, res) => {
 		 };
 		console.log(params.loc.$near.$geometry);
 	}
+	// Get the count of all users
+	Point.count().exec(function (err, count) {
 
-	console.log(params);
-	var q = Point.find(params, show);
-	q.exec(function(err, points)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			res.status(200).json(`{ err : ${err}`);
-		}
-		console.log(points);
-		res.status(200).json(points);
+		// Get a random entry
+		var random = Math.floor(Math.random() * (count-limit));
+		console.log(params);
+		var q = Point.find(params, show).skip(random).limit(limit);
+		q.exec(function(err, points)  {
+			if (err) {
+				console.log(`err: ${err}`);
+				res.status(200).json(`{ err : ${err}`);
+			}
+			console.log(points);
+			res.status(200).json(points);
+		});
+		// Again query all users but only fetch one offset by our random #
+
 	});
 };
 exports.getPoint = (req, res) => {

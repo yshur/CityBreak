@@ -10,6 +10,7 @@ import SignInAdmin from "../Components/SignInAdmin";
 import AdminHome from "../Components/AdminHome";
 import Main from "../Components/Main";
 import AllTours from "../Components/AllTours";
+import Tours from "../Components/Tours";
 
 const ReactRouter =()=>{
     return (
@@ -25,6 +26,7 @@ const ReactRouter =()=>{
             <Route exact path="/adminhome" component={AdminHome}/>
             <Route exact path="/main" component={Main}/>
             <Route exact path="/alltours" component={AllTours}/>
+            <Route exact path="/tours" component={Tours}/>
         </React.Fragment>
         );
 }
