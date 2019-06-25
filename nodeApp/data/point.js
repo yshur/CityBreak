@@ -45,7 +45,7 @@ exports.getPoints = (req, res) => {
 	var show = {
 		"_id":1, "name":1,"about":1,"image_url":1,"tags":1,
 		"address":1,"area":1,"sub_area":1,"accessibility":1,
-		"recommended_season":1
+		"recommended_season":1, "loc":1
 		};
 	if (queryData.area) {
 		params.area = queryData.area;

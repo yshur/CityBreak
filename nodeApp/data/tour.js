@@ -190,22 +190,16 @@ exports.addPoint = (req, res) => {
                     })
                   } else {
                     var index = tour.points_list.length-1;
-                    var last_point_id = tour.points_list[index].point;
-                    point_manager.getPointById(pointid, (err, last_point) => {
+                    var last_coords = tour.points_list[index].coords;
+                    addPointToEnd(tour, last_coords, new_point, (err, tour) => {
                       if(err) {
                           console.log(`err: ${err}`);
                           res.status(300).json(err);
                       } else {
-                        addPointToEnd(tour, last_point, new_point, (err, tour) => {
-                          if(err) {
-                              console.log(`err: ${err}`);
-                              res.status(300).json(err);
-                          } else {
-                              updateWholeTourById(tourid, tour, req, res);
-                          }
-                        })
+                          updateWholeTourById(tourid, tour, req, res);
                       }
                     });
+
                   }
                 }
             });
@@ -245,47 +239,36 @@ function go_over_point_list_on_rm(tour, pointid, callback) {
       console.log("match");
       if(pointItem.order == (tour.points_list.length-1)) { // last one
         console.log("last one");
-        tour.duration -= (pointItem.duration_way+pointItem.duration_stay);
-        tour.distance -= pointItem.distance;
+        let new_duration = tour.duration-pointItem.duration_way-pointItem.duration_stay;
+        tour.duration = new_duration;
+        let new_distance = tour.distance-pointItem.distance;
+        tour.distance = new_distance;
       } else if(pointItem.order == 0) { // first one
         console.log("first one");
-        tour.duration -= (pointItem.duration_stay+tour.points_list[1].duration_way);
+        let new_duration = tour.duration-pointItem.duration_way-pointItem.duration_stay;
+        tour.duration = new_duration;
+        let new_distance = tour.distance-pointItem.distance;
+        tour.distance = new_distance;
         tour.points_list[1].duration_way = 0;
-        tour.distance -= tour.points_list[1].distance;
         tour.points_list[1].distance = 0;
       } else { // point in the middle
         console.log("point in the middle");
         var index = pointItem.order;
-        point_manager.getPointById(tour.points_list[index-1].point,
-          (err, before_point) => {
+        var first_coords = tour.points_list[index-1].coords;
+        var second_coords = tour.points_list[index+1].coords;
+        calculate_distance(first_coords, second_coords,
+          (err, result) => {
           if(err) {
               callback(err);
           } else {
-            point_manager.getPointById(tour.points_list[index+1].point,
-              (err, after_point) => {
-              if(err) {
-                  callback(err);
-              } else {
-                calculate_distance(before_point, after_point,
-                  (err, result) => {
-                  if(err) {
-                      callback(err);
-                  } else {
-                    tour.duration = tour.duration-tour.points_list[index+1].duration_way+result.duration;
-                    tour.distance = tour.distance-tour.points_list[index+1].distance+result.distance;
-                    tour.points_list[index+1].duration_way = result.duration;
-                    tour.points_list[index+1].distance = result.distance;
-                    for(var i=index; i<tour.points_list.length-1; i++) {
-                      tour.points_list[i] = tour.points_list[i+1];
-                      tour.points_list[i].order = i;
-                    }
-                  }
-                });
-              }
-          });
-        }
-
-    });
+            let new_duration = tour.duration-tour.points_list[index+1].duration_way+result.duration;
+            tour.duration = new_duration;
+            let new_distance = tour.distance-tour.points_list[index+1].distance+result.distance;
+            tour.distance = new_distance;
+            tour.points_list[index+1].duration_way = result.duration;
+            tour.points_list[index+1].distance = result.distance;
+          }
+        });
       }
     }
   });
@@ -309,6 +292,8 @@ function addFirstPoint(tour, point, callback) {
     distance: 0,
     duration_way: 0,
     duration_stay: point.duration,
+    coords: `${point.latitude},${point.longitude}`,
+    name: point.name,
     point: point._id
   };
   tour.points_list.push(pointItem);
@@ -323,9 +308,10 @@ function addFirstPoint(tour, point, callback) {
   tour.map_url = null;
   callback(null, tour);
 }
-function addPointToEnd(tour, last_point, new_point, callback) {
+function addPointToEnd(tour, first_coords, new_point, callback) {
   var order = tour.points_list.length;
-  var result = calculate_distance(last_point, new_point, (err, result) => {
+  var new_coords = `${new_point.latitude},${new_point.longitude}`;
+  var result = calculate_distance(first_coords, new_coords, (err, result) => {
     if(err) {
         callback(err);
     } else {
@@ -334,10 +320,20 @@ function addPointToEnd(tour, last_point, new_point, callback) {
         distance: result.distance,
         duration_way: result.duration,
         duration_stay: new_point.duration,
+        coords: new_coords,
+        name: new_point.name,
         point: new_point._id
       };
       tour.points_list.push(pointItem);
-      tour.duration += (pointItem.duration_way+pointItem.duration_stay);
+      console.log(pointItem);
+      console.log(`tour.duration before = ${tour.duration}`);
+      console.log(pointItem.duration_way+pointItem.duration_stay);
+      tour.duration = tour.duration+Number(pointItem.duration_way)+Number(pointItem.duration_stay);
+      console.log(`tour.duration = ${tour.duration}`);
+      console.log(`tour.distance before = ${tour.distance}`);
+      console.log(pointItem.distance);
+      tour.distance = tour.distance+Number(pointItem.distance);
+      console.log(`tour.distance = ${tour.distance}`);
       new_point.tags.map(function(tag){
         if(tour.tags.indexOf(tag) < 0) {
           tour.tags.push(tag);
@@ -351,9 +347,9 @@ function addPointToEnd(tour, last_point, new_point, callback) {
     }
   });
 }
-function calculate_distance(p1, p2, callback) {
+function calculate_distance(first_coords, second_coords, callback) {
   console.log("calculate_distance");
-  var url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${p1.latitude},${p1.longitude}&destinations=${p2.latitude},${p2.longitude}&departure_time=now&key=${consts.GOOGLE_API_KEY}`;
+  var url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${first_coords}&destinations=${second_coords}&departure_time=now&key=${consts.GOOGLE_API_KEY}`;
   console.log(url);
   axios.get(url)
     .then(response => {
@@ -372,9 +368,4 @@ function calculate_distance(p1, p2, callback) {
       console.log(error);
       callback(error);
     });
-}
-function get_map_url(tour){
-  tour.points_list.map(function(pointItem){
-    point = point_manager.getPointById(pointItem.point);
-  });
 }

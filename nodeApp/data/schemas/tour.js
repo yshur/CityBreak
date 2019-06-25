@@ -19,13 +19,14 @@ var mongoose = require('mongoose'),
             distance: Number,
             duration_way: Number,
             duration_stay: Number,
+            coords: String,
+            name: String,
             point: {
                 type: mongoose.Schema.ObjectId,
                 ref: 'point'
             }
         }],
         image_url: String,
-        map_url: String,
         area: String,
         sub_area: String,
         accessibility: Boolean,
