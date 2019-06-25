@@ -11,8 +11,20 @@ class Home extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      params: "",
+      limit: 3
+    }
+    this.update = this.update.bind(this);
   }
-}
+
+  update(newBook, i) {
+    console.log('update: '+i+' '+newBook)
+    this.setState(prevState => ({
+      Books: prevState.Books.map(
+        Book => (Book.id !== i) ? Book : {...Book,bookname:newBook}
+      )
+    }))
+  }
   render(){
     return(
       <div>
@@ -28,14 +40,15 @@ class Home extends Component {
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState" style={{width:'30%', display:'-webkit-inline-box'}}>
               <Form.Label>State</Form.Label>
-              <AreasList index="area" />
-              <AreasList index="subArea" />
-              <AreasList index="tag" />
+              <AreasList index="area"	onChange={this.update} />
+              <AreasList index="sub_area" onChange={this.update} />
+              <AreasList index="tag" onChange={this.update} />
             </Form.Group>
           <Button variant="primary" type="submit" style={{marginLeft:'40%'}}>
             Submit
           </Button>
         </Form>
+        <ToursList limit={this.state.limit} params={this.state.params} />
       </div>
     )
   }

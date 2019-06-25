@@ -7,13 +7,15 @@ class ToursList extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			tours: []
+			tours: [],
+			limit: this.props.limit ? this.props.limit : 3,
+			params: this.props.params ? "&"+this.props.params : ''
 		}
 		this.eachTour = this.eachTour.bind(this)
 		this.add = this.add.bind(this)
 	}
 	componentDidMount() {
-		 const url = "http://localhost:3000/getTours?limit=3";
+		 const url = "http://localhost:3000/getTours?limit="+this.state.limit+this.state.params;
 		 fetch(url)
 		 	.then((res) => {
 		 		return res.json();

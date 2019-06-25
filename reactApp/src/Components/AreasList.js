@@ -10,7 +10,7 @@ class AreasList extends Component {
 			areas: ["Choose "+this.props.index+"s"]
 		}
 		console.log(this.props);
-
+		this.save = this.save.bind(this)
 		this.eachArea = this.eachArea.bind(this)
 		this.add = this.add.bind(this)
 	}
@@ -29,12 +29,23 @@ class AreasList extends Component {
 		 		})
 			 })
 	 }
-	eachArea(Area, i) {
-		console.log(Area)
-		return (
-				<option key={Area} index={i}>{Area}</option>
-		)
-	}
+	 save(e) {
+			e.preventDefault()
+			this.props.onChange(this.props.index)
+			// alert(this.newIdea.value)
+			console.log('saving')
+			this.setState({
+				editing: false
+			})
+
+			console.log(`editing = ${this.state.editing}`)
+		}
+		eachArea(Area, i) {
+			console.log(Area)
+			return (
+					<option onClick={this.save} key={Area} index={i}>{Area}</option>
+			)
+		}
 	add(name) {
 
 		this.setState(prevState => ({
