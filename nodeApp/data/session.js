@@ -162,11 +162,6 @@ exports.getUserSessionId = (user_id, callback) => {
   var show = {"session_id":1  };
 	var q = Session.find({user_id:user_id}, show);
 	q.exec(function(err, sessions)  {
-		if (err) {
-			console.log(`err: ${err}`);
-			callback(err);
-		}
-		// console.log(sessions);
-		callback(sessions);
+			callback(err, sessions);
 	});
 }

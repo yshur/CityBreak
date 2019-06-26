@@ -136,21 +136,27 @@ function updateWholeTourById(tourid, tour, req, res) {
 exports.updateTour = (req, res) => {
 	var tourid = req.params.tourid;
 	console.log(`updateTour: tourid = ${req.params.tourid}`);
-  var params = req.body;
-    var opts = {
-        new: true
-    };
-    console.log(params);
-    Tour.findByIdAndUpdate(tourid, params, opts,
-        (err, tour) => {
-            if(err) {
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-                console.log(`Updated tour: ${tour}`)
-                res.status(200).json(tour);
-            }
-        });
+  var params = {};
+  if (req.body.name) {
+    params.name = req.body.name;
+  }
+  if (req.body.about) {
+    params.about = req.body.about;
+  }
+  var opts = {
+      new: true
+  };
+  console.log(params);
+  Tour.findByIdAndUpdate(tourid, params, opts,
+      (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+      });
 };
 exports.deleteTour = (req, res) => {
 	console.log(`deleteTour: tourid = ${req.params.tourid}`);
@@ -376,3 +382,12 @@ function calculate_distance(first_coords, second_coords, callback) {
       callback(error);
     });
 }
+exports.owner = (tour_id, callback) => {
+  var show = {
+    "creator":1
+    };
+  User.findById(tour_id, show,
+    (err, user) => {
+        callback(err, user);
+    });
+};

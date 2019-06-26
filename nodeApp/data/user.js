@@ -116,8 +116,8 @@ exports.getUser = (req, res) => {
 };
 exports.updateUser = (req, res) => {
 	var userid = req.params.userid;
-    console.log(`updateUser: userid = ${req.params.userid}`);
-    var params = {};
+  console.log(`updateUser: userid = ${req.params.userid}`);
+  var params = {};
 	if (req.body.first_name) {
 		params.first_name = req.body.first_name;
 	}
@@ -161,19 +161,19 @@ exports.updateUser = (req, res) => {
 		params.tags = req.body.tags;
 	}
 
-    var opts = {
-        new: true
-    };
-    User.findByIdAndUpdate(userid, params, opts,
-        (err, user) => {
-            if(err) {
-                console.log(`err: ${err}`);
-                res.status(300).json(err);
-            } else {
-                console.log(`Updated user: ${user}`)
-                res.status(200).json(user);
-            }
-        });
+  var opts = {
+      new: true
+  };
+  User.findByIdAndUpdate(userid, params, opts,
+      (err, user) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated user: ${user}`)
+              res.status(200).json(user);
+          }
+      });
 };
 exports.deleteUser = (req, res) => {
     var userid = req.params.userid;
@@ -189,4 +189,13 @@ exports.deleteUser = (req, res) => {
             return res.status(200).json({"message": `User ${userid} successfully deleted`});
           }
       });
+};
+exports.isAdmin = (user_id, callback) => {
+  var show = {
+    "is_admin":1
+    };
+  User.findById(user_id, show,
+    (err, user) => {
+        callback(err, user);
+    });
 };
