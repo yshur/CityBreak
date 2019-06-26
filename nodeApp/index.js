@@ -7,6 +7,7 @@ const express = require('express'),
 	tour = require('./data/tour'),
 	point = require('./data/point'),
 	sessionManager = require('./data/session'),
+	sessionDetails = require('./data/session_details'),
 	state = require('./data/state'),
 	user = require('./data/user');
 require('./database');
@@ -42,10 +43,7 @@ app.get('/logout', user.logout);
 
 app.all('*', (req, res, next) => {
   console.log("runs for all HTTP verbs first");
-	// res.status(200).json(req.session);
-	// if(sessionManager.checkActiveSession(req, res) == 1) {
-  	next();
-	// }
+	next();
 });
 
 app.post('/sign-up/', user.createUser);
@@ -83,11 +81,11 @@ app.put('/updateState/:stateid', state.updateState);
 app.delete('/deleteState/:stateid', state.deleteState);
 
 /*---------------- Session Routes ----------------*/
-// app.post('/createSession/', sessionManager.createSession);
 app.get('/getSessions', 	sessionManager.getSessions);
-app.get('/getSession/:sessionid', 	sessionManager.getSession);
-app.put('/updateSession/:sessionid', sessionManager.updateSession);
-app.delete('/deleteSession/:sessionid', sessionManager.deleteSession);
+app.get('/getSession/:session_id', 	sessionManager.getSession);
+app.get('/getAllDetails', 	sessionDetails.getAllDetails);
+app.get('/getSessionDetails/:session_id', 	sessionDetails.getSessionDetails);
+app.get('/getUserDetails/:user_id', 	sessionDetails.getUserDetails);
 
 /*--------------- Others Routes -------------*/
 app.all('*', function(req, res) {

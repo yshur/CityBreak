@@ -21,7 +21,7 @@ exports.login = (req, res) => {
           { $or: [{"username": username}, {"email": username}] }
         ]
       },
-      {"_id":1, "first_name":1, "last_name":1}
+      {"_id":1, "first_name":1, "last_name":1, "username":1, "email":1 }
     );
     q.exec(function(err, user) {
         if (err) {
@@ -32,7 +32,6 @@ exports.login = (req, res) => {
         var session_id = user._id+'_'+String(unix);
         console.log(user);
         req.session.user = user;
-        req.session.state = 1;
         req.session.session_id = session_id;
         Session.saveSession(session_id, user._id);
         res.status(200).json(user);

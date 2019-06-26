@@ -1,25 +1,23 @@
 'use strice';//JS engine use strict parsing
 
 var mongoose = require('mongoose'),
-    Session = require('./schemas/session');
+    Session = require('./schemas/session'),
+    SessionDetails = require('./session_details');;
 
-exports.saveSession = (session_id, user_id) => {
+exports.saveSession = (session_id, user_id, callback) => {
     var newSession = new Session({
         session_id: session_id,
         user_id: 	user_id
     });
-    console.log('saveSession:');
-    console.log(newSession);
-
+    console.log(`saveSession: ${session_id}`);
     newSession.save(
-        (err) => {
+        (err, session) => {
             if(err) {
                 console.log(`err: ${err}`);
-                return err;
-            } else {
-                console.log(`Saved document:`);
-                return 1;
+                callback(err);
             }
+            console.log(`Saved session:`);
+            callback(null, session);
         });
 };
 exports.getSessions = (req, res) => {
@@ -53,30 +51,42 @@ exports.getSession = (req, res) => {
         }
     )
 };
-exports.updateSession = (req, res) => {
-	var session_id = req.params.session_id;
-  var id = { $or: [{"_id": String(session_id)}, {"session_id": Number(session_id)}] };
-	console.log(`updateSession: session_id = ${req.params.session_id}`);
-  var params = {};
-	if (req.body.end_time) {
-		params.end_time = req.body.end_time;
-	}
-	if (req.body.status != null) {
-		params.status = req.body.status;
-	}
-
-	console.log(params);
+exports.destroySession = (session_id, callback) => {
+  var id = {"session_id": Number(session_id), "status": 0 };
+	console.log(`endSession: session_id = ${session_id}`);
+  var params = {
+    end_time: Date.now(),
+    status: 1
+  };
   var opts = {
       new: true
   };
-  Session.findOneAndUpdate(session_id, params, opts,
+  Session.findOneAndUpdate(id, params, opts,
+    (err, session) => {
+        if(err) {
+            console.log(`err: ${err}`);
+            callback(err);
+        }
+        console.log(`Saved session:`);
+        callback(null, 1);
+    });
+};
+exports.destroyAllSessions = (user_id, callback) => {
+  var conditions = { "user_id": Number(user_id), "status": 0 };
+	console.log(`destroyAllSessions: user_id = ${user_id}`);
+  var update = { status: 1, end_time: Date.now() };
+  var opts = {
+      new: true,
+      multi: true
+  };
+  Session.update(conditions, update, opts,
       (err, session) => {
           if(err) {
               console.log(`err: ${err}`);
-              res.status(300).json(err);
+              callback(err);
           } else {
-              console.log(`Updated session: ${session}`)
-              res.status(200).json(session);
+              console.log(`destroy sessions: ${session}`)
+              callback(null, session);
           }
       });
 };
@@ -96,85 +106,67 @@ exports.deleteSession = (req, res) => {
         }
     });
 };
-
 exports.destroyCookie = (req, res) => {
   cookies.set('testtoken', {expires: Date.now()});
-
 };
-exports.destroySession = (session_id) => {
 
-  var conditions = { "session_id": Number(session_id), "status": 0 };
-	console.log(`destroySession: session_id = ${session_id}`);
-  var update = { status: 1, end_time: Date.now };
-	console.log(params);
-  var opts = {
-      new: true
-  };
-  Session.findOneAndUpdate(conditions, update, opts,
-      (err, session) => {
-          if(err) {
-              console.log(`err: ${err}`);
-              return err;
-          } else {
-              console.log(`destroy session: ${session}`)
-              return 1;
-          }
-      });
-};
-exports.destroyAllSessions = (user_id) => {
-
-  var conditions = { "user_id": Number(user_id), "status": 0 };
-	console.log(`destroyAllSessions: user_id = ${user_id}`);
-  var update = { status: 1, end_time: Date.now };
-	console.log(params);
-  var opts = {
-      new: true,
-      multi: true
-  };
-  Session.update(conditions, update, opts,
-      (err, session) => {
-          if(err) {
-              console.log(`err: ${err}`);
-              return err;
-          } else {
-              console.log(`destroy sessions: ${session}`)
-              return 1;
-          }
-      });
-};
-exports.checkActiveSession = (req, res) => {
+exports.checkActiveSession = (req, callback) => {
   if ((!req.session.session_id) || (!req.session.user)) {
-    return res.status(401).json({"err":"unauthorized"});
+    callback("unauthorized");
   }
   var session_id = req.session.session_id;
-  var conditions = { "session_id": session_id, "status":0 };
+  var user_id = req.session.user._id;
+  var conditions = { "session_id": session_id, "user_id":user_id, "status":0 };
 	console.log(`checkActiveSession: session_id = ${session_id}`);
 
   Session.findOne(conditions,
       (err, session) => {
           if(err) {
               console.log(`err: ${err}`);
-              return res.status(300).json(err);
-          } else {
-            if (session == null){
-              return res.status(300).json({"err":"session not found"});
-            } else {
-              if(checkTimeSession(session) != 1) {
-                return res.status(300).json({"err":"session expired"});
-              } else {
-                return 1;
-              }
-            }
+              callback(err);
           }
+          if (!session){
+            callback("session not found");
+          }
+          checkTimeSession(session.setup_time, (err, status) => {
+            if(err) {
+                console.log(`err: ${err}`);
+                callback(err);
+            }
+            SessionDetails.saveDetails(req, (err, status) => {
+              if(err) {
+                  console.log(`err: ${err}`);
+                  callback(err);
+              }
+              callback(null, status);
+            });
+          });
       });
 };
-exports.checkTimeSession = (session) => {
-  var setup_time = session.setup_time;
-  var diffMs = Date.now - setup_time; // milliseconds between now & setup_time
+exports.checkTimeSession = (setup_time, callback) => {
+  var diffMs = Date.now() - setup_time; // milliseconds between now & setup_time
   var diffMins = Math.round(diffMs / 60000); // minutes
   if(diffMins > 60) {
-    destroySession(session_id);
-  } else {
-    return 1;
+    destroySession(session_id, (err, status) => {
+      if(err) {
+          console.log(`err: ${err}`);
+          callback(err);
+      }
+      callback(null, status);
+    });
   }
+  callback(null, 0);
 };
+exports.getUserSessionId = (user_id, callback) => {
+  console.log(`getUserSessionId: ${user_id}`);
+  var show = {"session_id":1  };
+	var q = Session.find({user_id:user_id}, show);
+	q.exec(function(err, sessions)  {
+		if (err) {
+			console.log(`err: ${err}`);
+			callback(err);
+		}
+		// console.log(sessions);
+		callback(sessions);
+	});
+}
