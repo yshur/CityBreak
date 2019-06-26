@@ -9,7 +9,7 @@ import SignInUser from "../Components/SignInUser";
 import SignInAdmin from "../Components/SignInAdmin";
 import AdminHome from "../Components/AdminHome";
 import Main from "../Components/Main";
-import AllTours from "../Components/AllTours";
+import FilterableTourTable from "../Components/FilterableTourTable";
 import Tours from "../Components/Tours";
 import CreateTour from "../Components/CreateTour";
 
@@ -26,7 +26,7 @@ const ReactRouter =()=>{
             <Route exact path="/signinadmin" component={SignInAdmin}/>
             <Route exact path="/adminhome" component={AdminHome}/>
             <Route exact path="/main" component={Main}/>
-            <Route exact path="/alltours" component={AllTours}/>
+            <Route exact path="/alltours" component={FilterableTourTable}/>
             <Route exact path="/tours" component={Tours}/>
             <Route exact path="/createtour" component={CreateTour}/>
         </React.Fragment>

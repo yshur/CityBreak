@@ -72,7 +72,7 @@ app.put('/addPoint/:tourid/:pointid', tour.addPoint);
 app.put('/rmPoint/:tourid/:pointid', tour.rmPoint);
 
 app.get('/getTags',	point.getTags);
-app.get('/getSubAreas',	point.getSubAreas);
+app.get('/getSub_areas',	point.getSubAreas);
 app.get('/getAreas',	point.getAreas);
 
 /*---------------- State Routes ----------------*/
