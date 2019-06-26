@@ -33,8 +33,13 @@ exports.login = (req, res) => {
         console.log(user);
         req.session.user = user;
         req.session.session_id = session_id;
-        Session.saveSession(session_id, user._id);
-        res.status(200).json(user);
+        Session.saveSession(session_id, user._id, (err, session) => {
+          if (err) {
+              console.log(`err: ${err}`);
+              res.status(200).json({ "err" : err });
+          }
+          res.status(200).json(user);
+        });
       }
   );
 };
