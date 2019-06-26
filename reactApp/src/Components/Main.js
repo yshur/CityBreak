@@ -12,7 +12,12 @@ class Home extends Component {
     super(props)
     this.state = {
   }
+  this.routeChange = this.routeChange.bind(this);
 }
+  routeChange(event, path) {
+      let current_path = path;
+      this.props.history.push(path);
+    }
   render(){
     return(
       <div>
@@ -27,13 +32,13 @@ class Home extends Component {
           </Form>
           </Card.ImgOverlay>
         </Card>
-        <h1 style={{marginTop: '50px', textAlign: 'center'}}>Popular Activities & Things To Do</h1>
-        <ToursList/>
-        <ButtonToolbar style={{width:'60%'}}>
-          <Button active style={{background:'white', color:'black', background: '#89C4F4',border:'none' , marginLeft:'8.7%',marginTop:'40px', fontWeight:'bold'}}>
-            Show all tours
-          </Button>
+        <ButtonToolbar style={{marginTop:'3%'}}>
+          <Button onClick= {(e) => {this.routeChange(e, 'alltours')}} variant="outline-light" style={{ background:'#19B5FE', marginLeft:'10%',height:'60px',width: '20%', fontSize: '20px'}}>Get all tours</Button>
+          <Button onClick= {(e) => {this.routeChange(e, 'signinuser')}} variant="outline-light" style={{ background:'#19B5FE', marginLeft:'10%',height:'60px',width: '20%', fontSize: '20px'}}>Build tour</Button>
+          <Button onClick= {(e) => {this.routeChange(e, 'signinadmin')}} variant="outline-light" style={{ background:'#19B5FE', marginLeft:'10%',height:'60px',width: '20%', fontSize: '20px'}}>xxx</Button>
         </ButtonToolbar>
+        <h1 style={{marginTop: '50px', textAlign: 'center', color:'black'}}>Popular Activities & Things To Do</h1>
+        <ToursList/>
       </div>
     )
   }

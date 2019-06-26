@@ -11,6 +11,7 @@ import AdminHome from "../Components/AdminHome";
 import Main from "../Components/Main";
 import FilterableTourTable from "../Components/FilterableTourTable";
 import Tours from "../Components/Tours";
+import CreateTour from "../Components/CreateTour";
 
 const ReactRouter =()=>{
     return (
@@ -27,6 +28,7 @@ const ReactRouter =()=>{
             <Route exact path="/main" component={Main}/>
             <Route exact path="/alltours" component={FilterableTourTable}/>
             <Route exact path="/tours" component={Tours}/>
+            <Route exact path="/createtour" component={CreateTour}/>
         </React.Fragment>
         );
 }
