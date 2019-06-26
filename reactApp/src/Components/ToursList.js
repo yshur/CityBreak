@@ -16,6 +16,7 @@ class ToursList extends Component {
 	}
 	componentDidMount() {
 		 const url = "http://localhost:3000/getTours?limit="+this.state.limit+this.state.params;
+		 console.log(url)
 		 fetch(url)
 		 	.then((res) => {
 		 		return res.json();
@@ -23,13 +24,14 @@ class ToursList extends Component {
 		 	.then((data) => {
 		 		var self=this;
 		 		data.map((data) => {
-		 			console.log('tour')
-		 			self.add(data._id,data.id, data.area, data.name,data.about);
+		 			console.log(data)
+		 			self.add(data._id, data.id, data.area, data.name,data.about,data.image_url);
 		 		})
 			 })
 	 }
 	eachTour(tour, i) {
 		console.log(tour.id)
+
 		return (
 			<div key={tour._id} index={tour._id} >
 				<CardGroup style={{display:'block', marginLeft:'4%'}}>
@@ -37,7 +39,7 @@ class ToursList extends Component {
 						<Tour>
 				    <Card.Body style={{background:'#F2F1EF'}}>
 							<div>
-							<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url('https://media.tacdn.com/media/attractions-splice-spp-360x240/07/32/b7/2f.jpg')`}}></Card.Title>
+							<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url(${tour.image_url})`}}></Card.Title>
 							<p style={{fontSize:'24px', marginTop:'-50px', color:'black', fontWeight:'bold'}}>{tour.name}</p>
 							</div>
 			      	<Card.Text style={{color:'black'}}>Area: {tour.area}</Card.Text>
@@ -52,8 +54,8 @@ class ToursList extends Component {
 			</div>
 		)
 	}
-	add(_id,id, area, name, recommended_season, tags, about) {
-
+	add(_id,id, area, name, about, image_url) {
+		console.log(image_url)
 		this.setState(prevState => ({
 			tours: [
 				...prevState.tours,
@@ -62,9 +64,8 @@ class ToursList extends Component {
 					id:id,
 					area:area,
 					name:name,
-					recommended_season:recommended_season,
-					tags:tags,
-					about:about
+					about:about,
+					image_url:image_url
 				}]
 		}))
 	}

@@ -35,7 +35,7 @@ exports.getTours = (req, res) => {
     var params = {};
     var show = {
       "_id":1, "name":1,"about":1,"tags":1,"duration":1,
-      "distance":1,"area":1,"sub_area":1,"accessibility":1
+      "distance":1,"area":1,"sub_area":1,"image_url":1
       };
 
     if (queryData.area) {
@@ -310,7 +310,7 @@ function addFirstPoint(tour, point, callback) {
   tour.accessibility = point.accessibility;
   tour.area = point.area;
   tour.sub_area = point.sub_area;
-  tour.image_url = point.image_url;
+  tour.image_url = point.image_url[0];
   tour.update_time = Date.now();
   tour.map_url = null;
   callback(null, tour);
