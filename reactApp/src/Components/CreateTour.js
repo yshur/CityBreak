@@ -4,7 +4,7 @@ import {Card} from 'react-bootstrap';
 import {Form, FormControl, Button,ButtonToolbar,Col} from 'react-bootstrap';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
-
+import AddPointsList from "./AddPointsList";
 
 class CreateTour extends Component {
 
@@ -13,36 +13,43 @@ class CreateTour extends Component {
     this.state = {
       name: '',
       about: '',
-      editing: false
+      editing: false,
+      tour_id:''
     }
     this.edit = this.edit.bind(this);
     this.renderUI = this.renderUI.bind(this);
     this.renderForm = this.renderForm.bind(this);
     this.routeChange = this.routeChange.bind(this);
+    this.addPoint = this.addPoint.bind(this);
 }
   edit() {
     this.setState({
       editing: true
     })
-  }
-  onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-    console.log(e.target.name);
-    console.log(e.target.value);
-  }
-  onSubmit = (e) => {
-    e.preventDefault();
-    // get our form data out of state
     const { name, about } = this.state;
     axios.post('http://localhost:3000/createtour', { name, about })
       .then((result) => {
         //access the results here....
+        this.setState({tour_id:result.data._id})
         console.log(result);
       });
+  }
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   }
   routeChange() {
     let path = `addPoint`;
     this.props.history.push(path);
+  }
+  addPoint(id){
+    console.log(id);
+    const url = `http://localhost:3000/addPoint/${this.state.tour_id}/${id}`
+    console.log(url);
+    axios.post(url)
+      .then((result) => {
+        //access the results here....
+        console.log(result);
+      });
   }
   renderUI(){
     return (
@@ -55,9 +62,10 @@ class CreateTour extends Component {
             Continue to add points...
           </p>
           <Button onClick={this.routeChange} variant="primary" type="submit" style={{marginTop:'2%'}}>
-            Add point
+            Add points
           </Button>
         </Alert>
+        <AddPointsList onChange = {this.addPoint} />
       </div>
     )
   }

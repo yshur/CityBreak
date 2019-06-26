@@ -79,12 +79,12 @@ exports.getPoints = (req, res) => {
 		console.log(params.loc.$near.$geometry);
 	}
 	// Get the count of all users
-	Point.estimatedDocumentCount().exec(function (err, count) {
-
-		// Get a random entry
-		var random = Math.floor(Math.random() * (count-limit));
-		console.log(params);
-		var q = Point.find(params, show).skip(random).limit(limit);
+	// Point.estimatedDocumentCount().exec(function (err, count) {
+	//
+	// 	// Get a random entry
+	// 	var random = Math.floor(Math.random() * (count-limit));
+	// 	console.log(params);
+		var q = Point.find(params, show);
 		q.exec(function(err, points)  {
 			if (err) {
 				console.log(`err: ${err}`);
@@ -94,8 +94,6 @@ exports.getPoints = (req, res) => {
 			res.status(200).json(points);
 		});
 		// Again query all users but only fetch one offset by our random #
-
-	});
 };
 exports.getPoint = (req, res) => {
 	console.log(`getPoint: pointid = ${req.params.pointid}`);
