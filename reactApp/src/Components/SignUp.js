@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router'
+import {Button } from 'react-bootstrap';
 
 class SignUp extends Component {
 
@@ -107,7 +108,7 @@ class SignUp extends Component {
       			</div>
           </div>
               <div className="form-group">
-            <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <Button>Terms of Use</Button> &amp; <Button>Privacy Policy</Button></label>
           </div>
           <div className="form-group">
                   <button type="submit" className="btn btn-primary btn-lg" onClick={this.setUser}>Sign Up</button>
@@ -132,7 +133,7 @@ class SignUp extends Component {
     )
   }
   render(){
-    if(this.state.logged_in == false){
+    if(this.state.logged_in === false){
       return this.renderSignUp()
     }else {
       return this.renderLoggedIn()

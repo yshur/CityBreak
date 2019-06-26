@@ -20,30 +20,36 @@ class SearchBar extends Component {
     console.log("SearchBar: handleChange - " +index+"="+event.target.value);
     switch(index){
       case 'area':
-        this.setState({area: event.target.value});
+        this.setState({area: "area="+event.target.value+"&"});
+        this.setState({
+          value: this.state.area+this.state.sub_area+this.state.tags+this.state.limit
+        });
         break;
       case 'sub_area':
-        this.setState({sub_area: event.target.value});
+        this.setState({sub_area: "sub_area"+event.target.value+"&"});
+        this.setState({
+          value: this.state.area+this.state.sub_area+this.state.tags+this.state.limit
+        });
         break;
       case 'tag':
         this.setState(prevState => ({
-          tags: event.target.value+','+prevState.tags
-        }))
+          tags: "tags="+event.target.value+','+prevState.tags+"&"
+        }));
+        this.setState({
+          value: this.state.area+this.state.sub_area+this.state.tags+this.state.limit
+        });
         break;
       case 'limit':
-        this.setState({limit: event.target.value});
+        this.setState({limit: "limit="+event.target.value+"&"});
     }
+
     event.preventDefault();
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    var params = "area="+this.state.area+"&sub_area="+this.state.sub_area+"&tags="+this.state.tags+"&limit="+this.state.limit;
-    console.log("SearchBar: handleSubmit - "+ params);
-    alert('Your favorite flavor is: ' + params);
-    this.setState({value: params });
-    this.props.onSubmit(params);
-
+    console.log("SearchBar: handleSubmit - "+ this.state.value);
+    this.props.onSubmit(this.state.value);
   }
   render(){
     return(
