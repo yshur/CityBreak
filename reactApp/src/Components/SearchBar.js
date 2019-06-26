@@ -18,31 +18,7 @@ class SearchBar extends Component {
   }
   handleChange(event, index) {
     console.log("SearchBar: handleChange - " +index+"="+event.target.value);
-    switch(index){
-      case 'area':
-        this.setState({area: "area="+event.target.value+"&"});
-        this.setState({
-          value: this.state.area+this.state.sub_area+this.state.tags+this.state.limit
-        });
-        break;
-      case 'sub_area':
-        this.setState({sub_area: "sub_area"+event.target.value+"&"});
-        this.setState({
-          value: this.state.area+this.state.sub_area+this.state.tags+this.state.limit
-        });
-        break;
-      case 'tag':
-        this.setState(prevState => ({
-          tags: "tags="+event.target.value+','+prevState.tags+"&"
-        }));
-        this.setState({
-          value: this.state.area+this.state.sub_area+this.state.tags+this.state.limit
-        });
-        break;
-      case 'limit':
-        this.setState({limit: "limit="+event.target.value+"&"});
-    }
-
+    this.setState({value: `${index}=${event.target.value}`});
     event.preventDefault();
   }
 

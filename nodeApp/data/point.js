@@ -79,7 +79,7 @@ exports.getPoints = (req, res) => {
 		console.log(params.loc.$near.$geometry);
 	}
 	// Get the count of all users
-	Point.count().exec(function (err, count) {
+	Point.estimatedDocumentCount().exec(function (err, count) {
 
 		// Get a random entry
 		var random = Math.floor(Math.random() * (count-limit));
