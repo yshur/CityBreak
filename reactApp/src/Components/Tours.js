@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Tour from './Tour'
 import axios from 'axios'
 
 class ToursDemo extends Component {

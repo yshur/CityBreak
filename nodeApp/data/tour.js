@@ -30,7 +30,7 @@ exports.createTour = (req, res) => {
 };
 exports.getTours = (req, res) => {
     console.log('getTours');
-    var limit = 20;
+    var limit = 0;
     var queryData = url.parse(req.url, true).query;
     var params = {};
     var show = {
