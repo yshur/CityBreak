@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Tour from './Tour'
+import TourItem from './TourItem'
 import {Card, CardGroup} from 'react-bootstrap';
 
 class ToursList extends Component {
@@ -27,9 +27,8 @@ class ToursList extends Component {
 		 		})
 			 })
 	 }
-	 componentWillReceiveProps(nextProps) {
-		 console.log(nextProps.params)
-			const url = "http://localhost:3000/getTours?"+nextProps.params;
+	 componentWillReceiveProps() {
+			const url = "http://localhost:3000/getTours?"+(this.props.params ? this.props.params : 'limit=3');
 			console.log(url)
 			fetch(url)
 			 .then((res) => {
@@ -48,21 +47,8 @@ class ToursList extends Component {
 		return (
 			<div key={tour._id+i} index={i} >
 				<CardGroup style={{display:'block', marginLeft:'4%'}}>
-				  <Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", margin:'15px', border:'none'}}>
-						<Tour>
-				    <Card.Body style={{background:'#F2F1EF'}}>
-							<div>
-							<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url(${tour.image_url})`}}></Card.Title>
-							<p style={{fontSize:'24px', marginTop:'-50px', color:'black', fontWeight:'bold'}}>{tour.name}</p>
-							</div>
-			      	<Card.Text style={{color:'black'}}>Area: {tour.area}</Card.Text>
-							<Card.Text style={{color:'black'}}>About: {tour.about}</Card.Text>
-						</Card.Body>
-				    <Card.Footer style={{width:'365px'}}>
-				      <small className="text-muted">Duration:</small>
-				    </Card.Footer>
-						</Tour>
-				  </Card>
+				  <TourItem tour={tour}>
+					</TourItem>
 				</CardGroup>
 			</div>
 		)
