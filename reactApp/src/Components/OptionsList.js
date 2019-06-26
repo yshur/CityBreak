@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import {Card, CardGroup} from 'react-bootstrap';
-import {Form, FormControl, Button,ButtonToolbar,Col } from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 
 class OptionsList extends Component {
 

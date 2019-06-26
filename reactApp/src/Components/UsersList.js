@@ -82,11 +82,9 @@ class UsersList extends Component {
 				<UserItem key={User._id} index={User._id}
 				onChange={this.update}
 				onDelete={this.delete}>
-					<li className="list-group-item" style = {this.h5}>{User.full_name}
-					// <div style = {this.profile}>
-
-				  	// </div>
-				  	</li>
+					<li className="list-group-item" style = {this.h5}>
+						{User.full_name}
+					</li>
 				</UserItem>
         </div>
 

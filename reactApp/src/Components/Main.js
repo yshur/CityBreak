@@ -15,7 +15,6 @@ class Home extends Component {
   this.routeChange = this.routeChange.bind(this);
 }
   routeChange(event, path) {
-      let current_path = path;
       this.props.history.push(path);
     }
   render(){

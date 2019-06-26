@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-
+import {Button } from 'react-bootstrap';
 
 class SignUpAdmin extends Component {
 
@@ -109,13 +109,13 @@ class SignUpAdmin extends Component {
       			</div>
           </div>
               <div className="form-group">
-            <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <Button>Terms of Use</Button> &amp; <Button>Privacy Policy</Button></label>
           </div>
           <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-lg" onClick={this.setAdmin}>Sign Up</button>
+                  <Button type="submit" className="btn btn-primary btn-lg" onClick={this.setAdmin}>Sign Up</Button>
               </div>
         </form>
-        <div className="text-center">Already have an account? <a href="#">Login here</a></div>
+        <div className="text-center">Already have an account? <Button>Login here</Button></div>
         </div>
 
     )
@@ -129,7 +129,7 @@ class SignUpAdmin extends Component {
     )
   }
   render(){
-    if(this.state.logged_in == false){
+    if(this.state.logged_in === false){
       return this.renderSignUp()
     }else {
       return this.renderLoggedIn()

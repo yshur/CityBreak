@@ -11,21 +11,21 @@ class FilterableTourTable extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      params: ""
+      value: ""
     }
     this.update = this.update.bind(this);
   }
 
   update(params) {
     console.log('update: '+params)
-    this.setState({params: params});
+    this.setState({value: params});
   }
   render(){
     return(
       <div>
         <Header/>
         <SearchBar onSubmit={this.update}/>
-        <ToursList params={this.state.params} />
+        <ToursList params={this.state.value} />
       </div>
     )
   }

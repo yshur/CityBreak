@@ -22,14 +22,14 @@ class ToursList extends Component {
 		 	.then((data) => {
 		 		var self=this;
 		 		data.map((data) => {
-		 			console.log(data)
+		 			// console.log(data)
 		 			self.add(data._id, data.area, data.name,data.about,data.image_url);
 		 		})
 			 })
 	 }
-	 componentWillReceiveProps() {
-		 console.log(this.props.params)
-			const url = "http://localhost:3000/getTours?"+this.props.params;
+	 componentWillReceiveProps(nextProps) {
+		 console.log(nextProps.params)
+			const url = "http://localhost:3000/getTours?"+nextProps.params;
 			console.log(url)
 			fetch(url)
 			 .then((res) => {
@@ -37,8 +37,9 @@ class ToursList extends Component {
 			 })
 			 .then((data) => {
 				 var self=this;
+				 this.setState({tours: []});
 				 data.map((data) => {
-					 console.log(data)
+					 // console.log(data)
 					 self.add(data._id, data.area, data.name,data.about,data.image_url);
 				 })
 				})
@@ -67,7 +68,7 @@ class ToursList extends Component {
 		)
 	}
 	add(_id, area, name, about, image_url) {
-		console.log(image_url)
+		// console.log(image_url)
 		this.setState(prevState => ({
 			tours: [
 				...prevState.tours,
