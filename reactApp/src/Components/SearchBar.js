@@ -68,7 +68,7 @@ class SearchBar extends Component {
               <OptionsList index="sub_area" onChange={this.handleChange} />
               <OptionsList index="tag" onChange={this.handleChange} />
             </Form.Group>
-          <Button onClick={this.handleSubmit} variant="primary" type="submit" style={{marginLeft:'40%',marginTop:'40%'}}>
+          <Button onClick={this.handleSubmit} variant="primary" type="submit" style={{marginLeft:'10%',marginTop:'5%'}}>
             Submit
           </Button>
         </Form>
