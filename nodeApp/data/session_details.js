@@ -67,3 +67,47 @@ exports.getUserDetails = (req, res) => {
     });
   });
 };
+exports.getLastSessionDetails = (session_id, callback) => {
+  var user_id = req.params.user_id;
+  console.log(`getUserDetails: ${req.params.session_id}`);
+  Session.getUserSessionId(user_id, (err, session_ids) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        callback(err);
+    }
+    var sort = {
+        limit:1,
+        sort:{ setup_time: -1 }
+    };
+    var q = SessionDetails.find({session_id:session_id}, sort);
+    q.exec(function(err, details)  {
+      callback(details);
+    });
+  });
+};
+exports.getLastUserDetails = (req, res) => {
+  var user_id = req.params.user_id;
+  console.log(`getLastUserDetails: ${req.params.session_id}`);
+  Session.getUserSessionId(user_id, (err, session_ids) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        callback(err);
+    }
+    var q = SessionDetails.find({session_id: {$in: {session_ids}}});
+    q.exec(function(err, sessions)  {
+      if (err) {
+        console.log(`err: ${err}`);
+        res.status(200).json(`{ err : ${err}`);
+      }
+      getLastSessionsDetails(session_ids, (details) => {
+        callback(details);
+      });
+    });
+  });
+};
+exports.getLastSessionsDetails = (session_ids, callback) => {
+    var details = session_ids.map(function(v) {
+      return getLastSessionDetails(v);
+    });
+    callback(details);
+};
