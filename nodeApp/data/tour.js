@@ -75,7 +75,7 @@ exports.getTours = (req, res) => {
   		console.log(params.loc.$near.$geometry);
   	}
     // Get the count of all users
-    Tour.count().exec(function (err, count) {
+    Tour.estimatedDocumentCount().exec(function (err, count) {
 
       // Get a random entry
       var random = Math.floor(Math.random() * (count-limit));
