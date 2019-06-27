@@ -12,8 +12,8 @@ class PointItem extends Component {
 		this.openItem = this.openItem.bind(this);
 	}
 	openItem() {
-this.setState({item: false})
-}
+		this.setState({item: false})
+	}
 	renderItem(){
 		return(
 				<div className='point'>
