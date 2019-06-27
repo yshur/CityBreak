@@ -43,9 +43,13 @@ class CreateTour extends Component {
   }
   addPoint(id){
     console.log(id);
+    const headers = {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    };
     const url = `http://localhost:3000/addPoint/${this.state.tour_id}/${id}`
     console.log(url);
-    axios.post(url)
+    axios.post(url, headers)
       .then((result) => {
         //access the results here....
         console.log(result);

@@ -12,6 +12,8 @@ import Main from "../Components/Main";
 import FilterableTourTable from "../Components/FilterableTourTable";
 import FilterablePointTable from "../Components/FilterablePointTable";
 import Tours from "../Components/Tours";
+import PointDetails from "../Components/PointDetails";
+import TourDetails from "../Components/TourDetails";
 import CreateTour from "../Components/CreateTour";
 
 const ReactRouter =()=>{
@@ -31,6 +33,8 @@ const ReactRouter =()=>{
             <Route exact path="/allpoints" component={FilterablePointTable}/>
             <Route exact path="/tours" component={Tours}/>
             <Route exact path="/createtour" component={CreateTour}/>
+            <Route exact path="/pointdetails" component={PointDetails}/>
+            <Route exact path="/tourdetails" component={TourDetails}/>
         </React.Fragment>
         );
 }
