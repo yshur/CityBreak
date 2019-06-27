@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PointItem from './PointItem'
+import AddPointItem from './AddPointItem'
 import {Card, CardGroup} from 'react-bootstrap';
 
 class AddPointsList extends Component {
@@ -28,7 +28,7 @@ class AddPointsList extends Component {
 		 		})
 			 })
 	 }
-	 componentWillReceiveProps() {
+	componentWillReceiveProps() {
 			const url = "http://localhost:3000/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
 			console.log(url)
 			fetch(url)
@@ -48,15 +48,13 @@ class AddPointsList extends Component {
 		return (
 			<div key={point._id+i} index={point._id} >
 				<CardGroup style={{display:'block', marginLeft:'4%'}}>
-				  <PointItem point={point}>
-					</PointItem>
-					<button className="btn btn-primary" onClick={this.save}>Add</button>
+				  <AddPointItem onChange={this.save} point={point}>
+					</AddPointItem>
 				</CardGroup>
 			</div>
 		)
 	}
-	save(e,index) {
-		e.preventDefault()
+	save(index) {
 		this.props.onChange(index)
 	}
 
