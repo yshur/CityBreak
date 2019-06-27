@@ -65,7 +65,7 @@ class CreateTour extends Component {
             Add points
           </Button>
         </Alert>
-        <AddPointsList onChange = {this.addPoint} />
+        <AddPointsList onChange = {this.addPoint}/>
       </div>
     )
   }
