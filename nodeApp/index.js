@@ -66,7 +66,7 @@ app.get('/getTour/:tourid', 	tour.getTour);
 app.put('/updateTour/:tourid', tour.updateTour);
 app.delete('/deleteTour/:tourid', tour.deleteTour);
 
-app.put('/addPoint/:tourid/:pointid', tour.addPoint);
+app.post('/addPoint/:tourid/:pointid', tour.addPoint);
 app.put('/rmPoint/:tourid/:pointid', tour.rmPoint);
 
 app.get('/getTags',	point.getTags);
