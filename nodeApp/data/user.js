@@ -184,17 +184,24 @@ exports.updateUser = (req, res) => {
     		params.tags = req.body.tags;
     	}
 
-      var opts = { new: true };
-      User.findByIdAndUpdate(userid, params, opts,
-          (err, user) => {
-              if(err) {
-                  console.log(`err: ${err}`);
-                  res.status(300).json(err);
-              } else {
-                  console.log(`Updated user: ${user}`)
-                  res.status(200).json(user);
-              }
-          });
+      if(req.session.user._id === userid) {
+        updateUser(userid, params, (err, user) => {
+          if (err) return res.status(300).json(err);
+          return res.status(200).json(user);
+        });
+      } else {
+        isAdmin(req.session.user._id, (err, user) => {
+          if (err) return res.status(300).json(err);
+          if (user == null) {
+            return res.status(300).json("You have no permissions");
+          } else {
+            updateUser(userid, params, (err, user) => {
+              if (err) return res.status(300).json(err);
+              return res.status(200).json(user);
+            });
+          }
+        });
+      }
     }});
 };
 exports.deleteUser = (req, res) => {
@@ -204,27 +211,60 @@ exports.deleteUser = (req, res) => {
       console.log(`err: ${err}`);
       res.status(300).json(err);
     } else {
-
       var userid = req.params.userid;
       console.log('deleteUser: userid = '+userid);
-      User.findByIdAndRemove(userid, (err, user) => {
-            // As always, handle any potential errors:
-            if (err) return res.status(300).json(err);
-            // We'll create a simple object to send back with a message and the id of the document that was removed
-            // You can really do this however you want, though.
-            if (user == null){
-              return res.status(200).json({"message": `User ${userid} not found`});
-            } else {
-              return res.status(200).json({"message": `User ${userid} successfully deleted`});
-            }
+      if(req.session.user._id === userid) {
+        removeUser(userid, (err, user) => {
+          if (err) return res.status(300).json(err);
+          return res.status(200).json(user);
         });
-    }});
+      } else {
+        isAdmin(req.session.user._id, (err, user) => {
+          if (err) return res.status(300).json(err);
+          if (user == null) {
+            return res.status(300).json("You have no permissions");
+          } else {
+            removeUser(userid, (err, user) => {
+              if (err) return res.status(300).json(err);
+              return res.status(200).json(user);
+            });
+          }
+        });
+      }
+    }
+  });
 };
+function updateUser(userid, params, callback) {
+  var opts = { new: true };
+  User.findByIdAndUpdate(userid, params, opts,
+      (err, user) => {
+          if(err) callback(err);
+          if (user == null){
+            callback({"message": `User ${userid} not found`});
+          } else {
+            callback(null, user);
+          }
+      });
+}
+function removeUser(userid, callback){
+  User.findByIdAndRemove(userid, (err, user) => {
+        // As always, handle any potential errors:
+        if (err) callback(err);
+        // We'll create a simple object to send back with a message and the id of the document that was removed
+        // You can really do this however you want, though.
+        if (user == null){
+          callback({"message": `User ${userid} not found`});
+        } else {
+          callback(null, {"message": `User ${userid} successfully deleted`});
+        }
+    });
+}
 exports.isAdmin = (user_id, callback) => {
   var show = {
     "is_admin":1
     };
-  User.findById(user_id, show,
+  var conditions = {_id:user_id, is_admin:true};
+  User.findById(conditions, show,
     (err, user) => {
         callback(err, user);
     });
