@@ -59,6 +59,14 @@ app.get('/getPoint/:pointid', 	point.getPoint);
 app.put('/updatePoint/:pointid', point.updatePoint);
 app.delete('/deletePoint/:pointid', point.deletePoint);
 
+app.get('/getTags',	point.getTags);
+app.get('/getSub_areas', point.getSubAreas);
+app.get('/getAreas', point.getAreas);
+
+app.post('scorePoint/:pointid/:score', point.scorePoint);
+app.post('feedbackPoint/:pointid', point.feedbackPoint);
+app.post('updateVisitPoint/:pointid', point.updateVisitPoint);
+
 /*---------------- Tour Routes ----------------*/
 app.post('/createTour/', tour.createTour);
 app.get('/getTours', 	tour.getTours);
@@ -66,12 +74,14 @@ app.get('/getTour/:tourid', 	tour.getTour);
 app.put('/updateTour/:tourid', tour.updateTour);
 app.delete('/deleteTour/:tourid', tour.deleteTour);
 
-app.post('/addPoint/:tourid/:pointid', tour.addPoint);
-app.put('/rmPoint/:tourid/:pointid', tour.rmPoint);
+app.post('scoreTour/:tourid/:score', tour.scoreTour);
+app.post('feedbackTour/:tourid', tour.feedbackTour);
+app.post('updateVisitTour/:tourid', tour.updateVisitTour);
 
-app.get('/getTags',	point.getTags);
-app.get('/getSub_areas',	point.getSubAreas);
-app.get('/getAreas',	point.getAreas);
+app.post('updateIsDone/:tourid/:status', tour.updateIsDone);
+app.post('updateIsPublic/:tourid/:status', tour.updateIsPublic);
+app.post('/addPoint/:tourid/:pointid', tour.addPoint);
+app.post('/rmPoint/:tourid/:pointid', tour.rmPoint);
 
 /*---------------- State Routes ----------------*/
 app.post('/createState/', state.createState);

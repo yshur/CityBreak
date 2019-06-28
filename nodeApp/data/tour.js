@@ -420,3 +420,155 @@ exports.owner = (tour_id, callback) => {
         callback(err, user);
     });
 };
+exports.updateIsDone = (req, res) => {
+  console.log("updateIsDone");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var tourid = req.params.tourid,
+        status = req.params.status==1 ? true : false;
+    	console.log(`updateIsDone: tourid=${req.params.tourid}, status=${status}`);
+      var params = {is_done: status};
+      var opts = { new: true };
+      console.log(params);
+      Tour.findByIdAndUpdate(tourid, params, opts,
+        (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+      });
+    }
+  });
+}
+exports.updateIsPublic = (req, res) => {
+  console.log("updateIsPublic");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var tourid = req.params.tourid,
+        status = req.params.status==1 ? true : false;
+    	console.log(`updateIsPublic: tourid=${req.params.tourid}, status=${status}`);
+      var update = {is_public: status};
+      var params = {_id: tourid, is_done: true}
+      var opts = { new: true };
+      console.log(params);
+      Tour.findOneAndUpdate(params, update, opts,
+        (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+      });
+    }
+  });
+}
+exports.updateVisitTour = (req, res) => {
+  console.log("updateVisitTour");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var tourid = req.params.tourid;
+    	console.log(`updateVisitTour: tourid=${req.params.tourid}`);
+      var content = req.body.content;
+      var new_visit = {
+        user: user_id
+      };
+      var update = {$push: {visitors:new_visit}};
+      var opts = { new: true };
+      Tour.findByIdAndUpdate(tourid, update, opts,
+        (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+      });
+    }
+  });
+}
+exports.scoreTour = (req, res) => {
+  console.log("scoreTour");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var tourid = req.params.tourid,
+        score = req.params.score;
+      console.log(`scoreTour: tourid=${req.params.tourid}, score=${score}`);
+      if(score < 1 || score > 5) {
+        es.status(300).json("score invalid");
+      } else {
+        getTourById(tourid, (err, tour) => {
+          if(err) {
+            console.log(`err: ${err}`);
+            res.status(300).json(err);
+          } else {
+            var new_score = {
+              content: score,
+              user: user_id
+            }
+            var count = tour.scores.length * tour.score;
+            tour.scores.push(new_score);
+            tour.score = ((count+score)/tour.scores.length).toFixed(2);
+            var update = {scores: tour.scores, score: tour.score}
+            var opts = { new: true };
+            var conditions = {_id:tourid};
+            console.log(update);
+            Tour.updateOne(conditions, update, opts,
+              (err, tour) => {
+                if(err) {
+                    console.log(`err: ${err}`);
+                    res.status(300).json(err);
+                } else {
+                    console.log(`Updated tour: ${tour}`)
+                    res.status(200).json(tour);
+                }
+            });
+          }
+      }
+    }
+  });
+}
+exports.feedbackTour = (req, res) => {
+  console.log("feedbackTour");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var content = req.body.content;
+      var new_feedback = {
+        content: content,
+        user: user_id
+      };
+      var update = {$push: {feedbacks:new_feedback}};
+      var opts = { new: true };
+      Tour.findByIdAndUpdate(tourid, update, opts,
+        (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated tour: ${tour}`)
+              res.status(200).json(tour);
+          }
+      });
+    }
+  });
+}

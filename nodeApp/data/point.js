@@ -5,11 +5,10 @@ var mongoose = require('mongoose'),
     User = require('./schemas/user'),
     Point = require('./schemas/point'),
 		Session = require('./session'),
-    SessionDetails = require('./session_details'),
     Tour = require('./schemas/tour');
 
 exports.createPoint = (req, res) => {
-	console.log("createUser");
+	console.log("createPoint");
   Session.checkActiveSession(req, (err, result) => {
     if(err) {
         console.log(`err: ${err}`);
@@ -247,7 +246,7 @@ exports.getSubAreas = (req, res) => {
     });
 }
 exports.getTags = (req, res) => {
-    console.log('getTourTags');
+    console.log('getTourTags');00
     var q = Point.distinct( "tags" );
     q.exec(function(err, tags)  {
         if (err) {
@@ -257,4 +256,104 @@ exports.getTags = (req, res) => {
         console.log(tags);
         res.status(200).json(tags);
     });
+}
+
+exports.updateVisitPoint = (req, res) => {
+  console.log("updateVisitPoint");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var pointid = req.params.pointid;
+    	console.log(`updateVisitPoint: pointid=${req.params.pointid}`);
+      var content = req.body.content;
+      var new_visit = {
+        user: user_id
+      };
+      var update = {$push: {visitors:new_visit}};
+      var opts = { new: true };
+      Point.findByIdAndUpdate(pointid, update, opts,
+        (err, point) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated point: ${point}`)
+              res.status(200).json(point);
+          }
+      });
+    }
+  });
+}
+exports.scorePoint = (req, res) => {
+  console.log("scorePoint");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var pointid = req.params.pointid,
+        score = req.params.score;
+      console.log(`scorePoint: pointid=${req.params.pointid}, score=${score}`);
+      if(score < 1 || score > 5) {
+        es.status(300).json("score invalid");
+      } else {
+        getPointById(pointid, (err, point) => {
+          if(err) {
+            console.log(`err: ${err}`);
+            res.status(300).json(err);
+          } else {
+            var new_score = {
+              content: score,
+              user: user_id
+            }
+            var count = point.scores.length * point.score;
+            point.scores.push(new_score);
+            point.score = ((count+score)/point.scores.length).toFixed(2);
+            var update = {scores: point.scores, score: point.score}
+            var opts = { new: true };
+            var conditions = {_id:pointid};
+            console.log(update);
+            Point.updateOne(conditions, update, opts,
+              (err, point) => {
+                if(err) {
+                    console.log(`err: ${err}`);
+                    res.status(300).json(err);
+                } else {
+                    console.log(`Updated point: ${point}`)
+                    res.status(200).json(point);
+                }
+            });
+          }
+      }
+    }
+  });
+}
+exports.feedbackPoint = (req, res) => {
+  console.log("feedbackPoint");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var content = req.body.content;
+      var new_feedback = {
+        content: content,
+        user: user_id
+      };
+      var update = {$push: {feedbacks:new_feedback}};
+      var opts = { new: true };
+      Point.findByIdAndUpdate(pointid, update, opts,
+        (err, point) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+              console.log(`Updated point: ${point}`)
+              res.status(200).json(point);
+          }
+      });
+    }
+  });
 }
