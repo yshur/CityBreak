@@ -264,12 +264,12 @@ exports.updateVisitPoint = (req, res) => {
     if(err) {
         console.log(`err: ${err}`);
         res.status(300).json(err);
-    } else{
+    } else {
       var pointid = req.params.pointid;
     	console.log(`updateVisitPoint: pointid=${req.params.pointid}`);
       var content = req.body.content;
       var new_visit = {
-        user: user_id
+        user: req.session.user._id
       };
       var update = {$push: {visitors:new_visit}};
       var opts = { new: true };
@@ -292,12 +292,12 @@ exports.scorePoint = (req, res) => {
     if(err) {
         console.log(`err: ${err}`);
         res.status(300).json(err);
-    } else{
+    } else {
       var pointid = req.params.pointid,
         score = req.params.score;
       console.log(`scorePoint: pointid=${req.params.pointid}, score=${score}`);
       if(score < 1 || score > 5) {
-        es.status(300).json("score invalid");
+        res.status(300).json("score invalid");
       } else {
         getPointById(pointid, (err, point) => {
           if(err) {
@@ -306,8 +306,8 @@ exports.scorePoint = (req, res) => {
           } else {
             var new_score = {
               content: score,
-              user: user_id
-            }
+              user: req.session.user._id
+            };
             var count = point.scores.length * point.score;
             point.scores.push(new_score);
             point.score = ((count+score)/point.scores.length).toFixed(2);
@@ -326,8 +326,9 @@ exports.scorePoint = (req, res) => {
                 }
             });
           }
-      }
-    }
+	      });
+	    }
+		}
   });
 }
 exports.feedbackPoint = (req, res) => {
@@ -340,7 +341,7 @@ exports.feedbackPoint = (req, res) => {
       var content = req.body.content;
       var new_feedback = {
         content: content,
-        user: user_id
+        user: req.session.user._id
       };
       var update = {$push: {feedbacks:new_feedback}};
       var opts = { new: true };

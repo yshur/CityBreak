@@ -452,7 +452,7 @@ exports.updateIsPublic = (req, res) => {
     if(err) {
         console.log(`err: ${err}`);
         res.status(300).json(err);
-    } else{
+    } else {
       var tourid = req.params.tourid,
         status = req.params.status==1 ? true : false;
     	console.log(`updateIsPublic: tourid=${req.params.tourid}, status=${status}`);
@@ -484,7 +484,7 @@ exports.updateVisitTour = (req, res) => {
     	console.log(`updateVisitTour: tourid=${req.params.tourid}`);
       var content = req.body.content;
       var new_visit = {
-        user: user_id
+        user: req.session.user._id
       };
       var update = {$push: {visitors:new_visit}};
       var opts = { new: true };
@@ -507,12 +507,12 @@ exports.scoreTour = (req, res) => {
     if(err) {
         console.log(`err: ${err}`);
         res.status(300).json(err);
-    } else{
+    } else {
       var tourid = req.params.tourid,
         score = req.params.score;
       console.log(`scoreTour: tourid=${req.params.tourid}, score=${score}`);
       if(score < 1 || score > 5) {
-        es.status(300).json("score invalid");
+        res.status(300).json("score invalid");
       } else {
         getTourById(tourid, (err, tour) => {
           if(err) {
@@ -521,7 +521,7 @@ exports.scoreTour = (req, res) => {
           } else {
             var new_score = {
               content: score,
-              user: user_id
+              user: req.session.user._id
             }
             var count = tour.scores.length * tour.score;
             tour.scores.push(new_score);
@@ -541,6 +541,7 @@ exports.scoreTour = (req, res) => {
                 }
             });
           }
+        });
       }
     }
   });
@@ -551,11 +552,11 @@ exports.feedbackTour = (req, res) => {
     if(err) {
         console.log(`err: ${err}`);
         res.status(300).json(err);
-    } else{
+    } else {
       var content = req.body.content;
       var new_feedback = {
         content: content,
-        user: user_id
+        user: req.session.user._id
       };
       var update = {$push: {feedbacks:new_feedback}};
       var opts = { new: true };
