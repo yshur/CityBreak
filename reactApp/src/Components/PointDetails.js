@@ -15,21 +15,24 @@ class PointDetails extends Component {
 		}
 		this.setImages = this.setImages.bind(this);
 		this.changeRating = this.changeRating.bind(this);
+		this.closeItem = this.closeItem.bind(this);
 	}
 	changeRating( newRating, name ) {
 	 this.setState({
 		 rating: newRating
 	 });
  }
-
+	closeItem(e){
+		e.preventDefault()
+		this.props.onChange(this.props.point)
+	}
 	setImages() {
-		var images = this.props.point.image_url.map(function(i, j) {
+		return this.props.point.image_url.map(function(i) {
 			return {
 				src: i,
 				width: 1,
 				height: 1
 			}});
-		return images;
 	}
 	componentDidMount() {
 		 const url = "http://localhost:3000/getPoint/"+this.props.point._id;
@@ -50,7 +53,7 @@ class PointDetails extends Component {
 		return(
 				<div className='point'>
 					<div>
-					<h1  id="productTitle" className="font-weight-bold mb-0">{this.state.point.name}</h1>
+					<h1  id="productTitle" className="font-weight-bold mb-0">{this.props.point.name}</h1>
 					<div className="mt-2 mb-3 d-md-flex align-items-center">
 					<StarRatings
 							starDimension="20px"
@@ -65,6 +68,7 @@ class PointDetails extends Component {
 					<div data-scroll-target="#userReviews" className="text-body" data-action-capture="click" data-action-servlet-name="product_detail" data-action-tag="click_review_top_link" data-action-prod-attr="256" data-attraction-product-id="5674SSGAUCHA">{this.state.reviews_num} Reviews</div>
 					<div className="d-none d-md-inline-block small pr-3"> | </div>
 					<div className="small mr-md-4">{this.state.point.address}</div>
+					<button className="btn btn-primary" onClick={this.closeItem}>Close</button>
 
 					</div>
 					<Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", margin:'15px', border:'none'}}>
