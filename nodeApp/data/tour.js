@@ -7,16 +7,23 @@ var mongoose = require('mongoose'),
     User = require('./schemas/user'),
     Tour = require('./schemas/tour'),
     Point = require('./schemas/point'),
+    Session = require('./session'),
     point_manager = require('./point');
 
 exports.createTour = (req, res) => {
-    var newTour = new Tour({
+  console.log("createPoint");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var newTour = new Tour({
         name:       req.body.name,
         creator:    req.body.creator,
         about:      req.body.about
-    });
-    console.log('Create Tour');
-    newTour.save(
+      });
+      console.log('Create Tour');
+      newTour.save(
         (err) => {
             if(err) {
                 console.log(`err: ${err}`);
@@ -27,6 +34,8 @@ exports.createTour = (req, res) => {
                 console.log(newTour);
             }
         });
+    }
+  });
 };
 exports.getTours = (req, res) => {
     console.log('getTours');
@@ -74,24 +83,15 @@ exports.getTours = (req, res) => {
   		 };
   		console.log(params.loc.$near.$geometry);
   	}
-    // Get the count of all users
-    // Tour.estimatedDocumentCount().exec(function (err, count) {
-    //
-    //   // Get a random entry
-    //   var random = Math.floor(Math.random() * (count-limit));
-    //   console.log(params);
-      var q = Tour.find(params, show);
-      q.exec(function(err, tours)  {
-        if (err) {
-          console.log(`err: ${err}`);
-          res.status(200).json(`{ err : ${err}`);
-        }
-        console.log(tours);
-        res.status(200).json(tours);
-      });
-      // Again query all users but only fetch one offset by our random #
-
-    // });
+    var q = Tour.find(params, show);
+    q.exec(function(err, tours)  {
+      if (err) {
+        console.log(`err: ${err}`);
+        res.status(200).json(`{ err : ${err}`);
+      }
+      console.log(tours);
+      res.status(200).json(tours);
+    });
 };
 exports.getTour = (req, res) => {
     var tourid = req.params.tourid;
@@ -134,21 +134,25 @@ function updateWholeTourById(tourid, tour, req, res) {
       });
 };
 exports.updateTour = (req, res) => {
-	var tourid = req.params.tourid;
-	console.log(`updateTour: tourid = ${req.params.tourid}`);
-  var params = {};
-  if (req.body.name) {
-    params.name = req.body.name;
-  }
-  if (req.body.about) {
-    params.about = req.body.about;
-  }
-  var opts = {
-      new: true
-  };
-  console.log(params);
-  Tour.findByIdAndUpdate(tourid, params, opts,
-      (err, tour) => {
+  console.log("updateTour");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+    	var tourid = req.params.tourid;
+    	console.log(`updateTour: tourid = ${req.params.tourid}`);
+      var params = {};
+      if (req.body.name) {
+        params.name = req.body.name;
+      }
+      if (req.body.about) {
+        params.about = req.body.about;
+      }
+      var opts = { new: true };
+      console.log(params);
+      Tour.findByIdAndUpdate(tourid, params, opts,
+        (err, tour) => {
           if(err) {
               console.log(`err: ${err}`);
               res.status(300).json(err);
@@ -157,12 +161,19 @@ exports.updateTour = (req, res) => {
               res.status(200).json(tour);
           }
       });
+    }
+  });
 };
 exports.deleteTour = (req, res) => {
-	console.log(`deleteTour: tourid = ${req.params.tourid}`);
-    var tourid = req.params.tourid;
-
-    Tour.findByIdAndRemove(tourid, (err, tour) => {
+  console.log("deleteTour");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      console.log(`deleteTour: tourid = ${req.params.tourid}`);
+      var tourid = req.params.tourid;
+      Tour.findByIdAndRemove(tourid, (err, tour) => {
           // As always, handle any potential errors:
           if (err) return res.status(300).json(err);
           // We'll create a simple object to send back with a message and the id of the document that was removed
@@ -172,22 +183,31 @@ exports.deleteTour = (req, res) => {
           } else {
             return res.status(200).json({"message": `Tour ${tourid} successfully deleted`});
           }
-      });
+        });
+    }
+  });
 };
 exports.addPoint = (req, res) => {
-  var tourid = req.params.tourid,
-      pointid = req.params.pointid;
-  getTourById(tourid, (err, tour) => {
-      if(err) {
-          console.log(`err: ${err}`);
-          res.status(300).json(err);
-      }
-      go_over_point_list_on_add(tour, pointid, (err, tour) => {
+  console.log("addPoint");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      var tourid = req.params.tourid,
+        pointid = req.params.pointid;
+      console.log(`addPoint: tourid=${tourid}, pointid=${pointid}`);
+      getTourById(tourid, (err, tour) => {
         if(err) {
             console.log(`err: ${err}`);
             res.status(300).json(err);
-        } else {
-          point_manager.getPointById(pointid, (err, new_point) => {
+        }
+        go_over_point_list_on_add(tour, pointid, (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          } else {
+            point_manager.getPointById(pointid, (err, new_point) => {
                 if(err) {
                     console.log(`err: ${err}`);
                     res.status(300).json(err);
@@ -212,32 +232,41 @@ exports.addPoint = (req, res) => {
                           updateWholeTourById(tourid, tour, req, res);
                       }
                     });
-
                   }
                 }
             });
-        }
+          }
+        });
       });
+    }
   });
 }
 exports.rmPoint = (req, res) => {
-  console.log(`rmPoint: tourid = ${req.params.tourid}`);
-  var tourid = req.params.tourid,
-      pointid = req.params.pointid;
-  getTourById(tourid, (err, tour) => {
-      if(err) {
-          console.log(`err: ${err}`);
-          res.status(300).json(err);
+  console.log("rmPoint");
+  Session.checkActiveSession(req, (err, result) => {
+    if(err) {
+        console.log(`err: ${err}`);
+        res.status(300).json(err);
+    } else{
+      console.log(`rmPoint: tourid = ${req.params.tourid}`);
+      var tourid = req.params.tourid,
+          pointid = req.params.pointid;
+      getTourById(tourid, (err, tour) => {
+          if(err) {
+              console.log(`err: ${err}`);
+              res.status(300).json(err);
+          }
+          go_over_point_list_on_rm(tour, pointid, (err, tour) => {
+            if(err) {
+                console.log(`err: ${err}`);
+                res.status(300).json(err);
+            } else {
+                console.log(tour);
+                updateWholeTourById(tourid, tour, req, res);
+            }
+          });
+        });
       }
-      go_over_point_list_on_rm(tour, pointid, (err, tour) => {
-        if(err) {
-            console.log(`err: ${err}`);
-            res.status(300).json(err);
-        } else {
-            console.log(tour);
-            updateWholeTourById(tourid, tour, req, res);
-        }
-      });
     });
 }
 function go_over_point_list_on_rm(tour, pointid, callback) {

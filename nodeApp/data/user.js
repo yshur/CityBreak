@@ -3,12 +3,7 @@
 var mongoose = require('mongoose'),
     session = require('express-session'),
     Session = require('./session'),
-    SessionDetails = require('./session_details'),
-    User = require('./schemas/user'),
-    options = {
-        server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
-        replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
-    };
+    User = require('./schemas/user');
 
 exports.login = (req, res) => {
   var username = req.body.username,
@@ -61,34 +56,29 @@ res.status(200).json({"result":"You havn't logged in"});
 };
 
 exports.createUser = (req, res) => {
-  Session.checkActiveSession(req, (err, result) => {
-    if(err) {
-        console.log(`err: ${err}`);
-        res.status(300).json(err);
-    } else{
-      var newUser = new User({
-          first_name: req.body.first_name,
-          last_name: req.body.last_name,
-          phone: req.body.phone,
-          email: req.body.email,
-          username: req.body.username,
-          password: req.body.password,
-          image_url: req.body.image_url,
-          family_status: req.body.family_status,
-          birthdate: req.body.birthdate,
-          living_area: req.body.living_area,
-          living_city: req.body.living_city,
-          health_condition: req.body.health_condition,
-          accessibility: req.body.accessibility,
-          profession: req.body.profession,
-          about: req.body.about,
-          tags: req.body.tags
-      });
-      console.log('createUser:');
-      console.log(newUser);
-
-      newUser.save(
-          (err) => {
+  console.log("createUser");
+  var newUser = new User({
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      phone: req.body.phone,
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+      image_url: req.body.image_url,
+      family_status: req.body.family_status,
+      birthdate: req.body.birthdate,
+      living_area: req.body.living_area,
+      living_city: req.body.living_city,
+      health_condition: req.body.health_condition,
+      accessibility: req.body.accessibility,
+      profession: req.body.profession,
+      about: req.body.about,
+      tags: req.body.tags
+  });
+  console.log('createUser:');
+  console.log(newUser);
+  newUser.save(
+      (err) => {
               if(err) {
                   console.log(`err: ${err}`);
                   res.status(300).json(err);
@@ -98,8 +88,6 @@ exports.createUser = (req, res) => {
                   res.status(200).json(newUser);
               }
           });
-      }
-  });
 };
 exports.getUsers = (req, res) => {
   console.log('getUsers');
