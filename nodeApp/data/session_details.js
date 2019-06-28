@@ -19,10 +19,10 @@ exports.saveDetails = (req, callback) => {
         (err) => {
             if(err) {
                 console.log(`err: ${err}`);
-                return err;
+                callback(err);
             } else {
                 console.log(`Saved document:`);
-                return null;
+                callback(null, 1);
             }
         });
 };
