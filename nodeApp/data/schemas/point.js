@@ -23,6 +23,7 @@ var mongoose = require('mongoose'),
           },
           setup_time: { type: Date, default: Date.now }
         }],
+        score: {type:Number, default:0},
         scores: [{
           content: Number,
           user: {

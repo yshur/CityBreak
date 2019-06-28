@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap';
-import PointDetails from './PointDetails';
 
 class PointItem extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			item: true
 		}
 		this.openItem = this.openItem.bind(this);
 	}
-	openItem() {
-this.setState({item: false})
-}
-	renderItem(){
+	openItem(e) {
+		e.preventDefault()
+		this.props.onChange(this.props.point)
+	}
+	render(){
 		return(
 				<div className='point'>
 					<Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", margin:'15px', border:'none'}}>
@@ -33,16 +32,6 @@ this.setState({item: false})
 					</Card>
 				</div>
 		)
-	}
-	renderDetails() {
-		return (
-			<div>
-				<PointDetails point={this.props.point} />
-			</div>
-		)
-	}
-	render() {
-		return this.state.item ? this.renderItem() : this.renderDetails()
 	}
 }
 
