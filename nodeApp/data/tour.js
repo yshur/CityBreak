@@ -35,8 +35,8 @@ exports.createTour = (req, res) => {
                 console.log(newTour);
             }
         });
-  //  }
- // });
+   }
+ });
 };
 exports.getTours = (req, res) => {
     console.log('getTours');
@@ -204,11 +204,11 @@ function removeTour(tourid, req, res){
 }
 exports.addPoint = (req, res) => {
   console.log("addPoint");
- // Session.checkActiveSession(req, (err, result) => {
-//    if(err) {
- //       console.log(`err: ${err}`);
-//        res.status(300).json(err);
- //   } else{
+  Session.checkActiveSession(req, (err, result) => {
+   if(err) {
+       console.log(`err: ${err}`);
+       res.status(300).json(err);
+   } else{
       var tourid = req.params.tourid,
         pointid = req.params.pointid;
       console.log(`addPoint: tourid=${tourid}, pointid=${pointid}`);
@@ -253,8 +253,8 @@ exports.addPoint = (req, res) => {
           }
         });
       });
- //   }
-//  });
+     }
+   });
 }
 exports.rmPoint = (req, res) => {
   console.log("rmPoint");
@@ -597,4 +597,4 @@ function isCreator(tourid, user_id, callback) {
     (err, tour) => {
         callback(err, tour);
     });
-};
+}
