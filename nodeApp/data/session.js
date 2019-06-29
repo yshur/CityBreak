@@ -117,11 +117,12 @@ exports.destroyCookie = (req, res) => {
 };
 
 exports.checkActiveSession = (req, callback) => {
-  if ((!req.session.session_id) || (!req.session.user)) {
+  console.log(req.headers);
+  if (!req.header('session_id') || !req.header('user_id')) {
     callback("unauthorized");
   } else {
-  var session_id = req.session.session_id;
-  var user_id = req.session.user._id;
+  var session_id = req.header('session_id');
+  var user_id = req.header('user_id');
   var conditions = { "session_id": session_id, "user_id":user_id, "status":0 };
 	console.log(`checkActiveSession: session_id = ${session_id}`);
 

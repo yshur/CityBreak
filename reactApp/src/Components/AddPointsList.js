@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AddPointItem from './AddPointItem'
 import PointDetails from './PointDetails';
+import Cookies from 'js-cookie'
 import {Card, CardGroup} from 'react-bootstrap';
 
 class AddPointsList extends Component {
@@ -23,7 +24,11 @@ class AddPointsList extends Component {
 	componentDidMount() {
 		 const url = "http://localhost:3000/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
 		 console.log(url)
-		 fetch(url)
+		 const headers = {
+			 session_id: Cookies.get('session_id'),
+			 user_id: Cookies.get('user_id')
+		 }
+		 fetch(url, headers)
 		 	.then((res) => {
 		 		return res.json();
 		 	})

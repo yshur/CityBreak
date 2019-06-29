@@ -40,7 +40,6 @@ var mongoose = require('mongoose'),
           },
           setup_time: { type: Date, default: Date.now }
         }],
-        tours_used: [mongoose.Schema.ObjectId],
     		loc: {
     			type: { type: String },
     			coordinates: []

@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 exports.login = (req, res) => {
   var username = req.body.username,
       password = req.body.password;
-  console.log(`login: username = ${req.body.username}, password = {req.body.password}`);
+  console.log(`login: username = ${req.body.username}, password = ${req.body.password}`);
 
   var q = User.findOne({
       $and: [
@@ -21,27 +21,31 @@ exports.login = (req, res) => {
     q.exec(function(err, user) {
         if (err) {
             console.log(`err: ${err}`);
-            res.status(200).json({ "err" : err });
+            res.status(300).json({ "err" : err });
+        } else if(user == null) {
+          res.status(300).json({ "err" : "user not found" });
+        } else {
+
+          var unix = Math.floor(new Date() / 1000);
+          var session_id = user._id+'_'+String(unix);
+          console.log(user);
+          req.session.user = user;
+          req.session.session_id = session_id;
+          Session.saveSession(session_id, user._id, (err, session) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json({ "err" : err });
+            }
+            res.status(200).json({"user":user,"session":session});
+          });
         }
-        var unix = Math.floor(new Date() / 1000);
-        var session_id = user._id+'_'+String(unix);
-        console.log(user);
-        req.session.user = user;
-        req.session.session_id = session_id;
-        Session.saveSession(session_id, user._id, (err, session) => {
-          if (err) {
-              console.log(`err: ${err}`);
-              res.status(200).json({ "err" : err });
-          }
-          res.status(200).json(user);
-        });
       }
   );
 };
 exports.logout = (req, res) => {
   console.log("logout");
-  if (req.session && req.session.session_id) {
-    Session.destroySession(req.session.session_id, (err, result) => {
+  if (req.header('session_id')) {
+    Session.destroySession(req.header('session_id'), (err, result) => {
       if(err) {
         req.session.destroy();
         res.status(200).json(err);
@@ -184,17 +188,24 @@ exports.updateUser = (req, res) => {
     		params.tags = req.body.tags;
     	}
 
-      var opts = { new: true };
-      User.findByIdAndUpdate(userid, params, opts,
-          (err, user) => {
-              if(err) {
-                  console.log(`err: ${err}`);
-                  res.status(300).json(err);
-              } else {
-                  console.log(`Updated user: ${user}`)
-                  res.status(200).json(user);
-              }
-          });
+      if(req.header('user_id') === userid) {
+        updateUser(userid, params, (err, user) => {
+          if (err) return res.status(300).json(err);
+          return res.status(200).json(user);
+        });
+      } else {
+        isAdmin(req.header('user_id'), (err, user) => {
+          if (err) return res.status(300).json(err);
+          if (user == null) {
+            return res.status(300).json("You have no permissions");
+          } else {
+            updateUser(userid, params, (err, user) => {
+              if (err) return res.status(300).json(err);
+              return res.status(200).json(user);
+            });
+          }
+        });
+      }
     }});
 };
 exports.deleteUser = (req, res) => {
@@ -204,27 +215,60 @@ exports.deleteUser = (req, res) => {
       console.log(`err: ${err}`);
       res.status(300).json(err);
     } else {
-
       var userid = req.params.userid;
       console.log('deleteUser: userid = '+userid);
-      User.findByIdAndRemove(userid, (err, user) => {
-            // As always, handle any potential errors:
-            if (err) return res.status(300).json(err);
-            // We'll create a simple object to send back with a message and the id of the document that was removed
-            // You can really do this however you want, though.
-            if (user == null){
-              return res.status(200).json({"message": `User ${userid} not found`});
-            } else {
-              return res.status(200).json({"message": `User ${userid} successfully deleted`});
-            }
+      if(req.header('user_id') === userid) {
+        removeUser(userid, (err, user) => {
+          if (err) return res.status(300).json(err);
+          return res.status(200).json(user);
         });
-    }});
+      } else {
+        isAdmin(req.header('user_id'), (err, user) => {
+          if (err) return res.status(300).json(err);
+          if (user == null) {
+            return res.status(300).json("You have no permissions");
+          } else {
+            removeUser(userid, (err, user) => {
+              if (err) return res.status(300).json(err);
+              return res.status(200).json(user);
+            });
+          }
+        });
+      }
+    }
+  });
 };
+function updateUser(userid, params, callback) {
+  var opts = { new: true };
+  User.findByIdAndUpdate(userid, params, opts,
+      (err, user) => {
+          if(err) callback(err);
+          if (user == null){
+            callback({"message": `User ${userid} not found`});
+          } else {
+            callback(null, user);
+          }
+      });
+}
+function removeUser(userid, callback){
+  User.findByIdAndRemove(userid, (err, user) => {
+        // As always, handle any potential errors:
+        if (err) callback(err);
+        // We'll create a simple object to send back with a message and the id of the document that was removed
+        // You can really do this however you want, though.
+        if (user == null){
+          callback({"message": `User ${userid} not found`});
+        } else {
+          callback(null, {"message": `User ${userid} successfully deleted`});
+        }
+    });
+}
 exports.isAdmin = (user_id, callback) => {
   var show = {
     "is_admin":1
     };
-  User.findById(user_id, show,
+  var conditions = {_id:user_id, is_admin:true};
+  User.findById(conditions, show,
     (err, user) => {
         callback(err, user);
     });

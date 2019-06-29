@@ -19,7 +19,9 @@ import CreateTour from "../Components/CreateTour";
 const ReactRouter =()=>{
     return (
         <React.Fragment>
-            <Route exact path="/" component={SignInUser}/>
+          <Route exact path="/" component={SignInUser} />
+          <Route path="/login" component={SignInUser} />
+            <Route exact path="/signinuser" component={SignInUser}/>
             <Route exact path="/users" component={UsersList}/>
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/signupadmin" component={SignUpAdmin}/>
