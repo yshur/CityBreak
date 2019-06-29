@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
         creator: {
             type: mongoose.Schema.ObjectId,
             ref: 'user',
-            // required: true
+            required: true
         },
         tags: [String],
         duration: { type: Number, default: 0 },
