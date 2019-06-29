@@ -32,7 +32,14 @@ class CreateTour extends Component {
         //access the results here....
         this.setState({tour_id:result.data._id})
         console.log(result);
-      });
+      }).catch(function (error) {
+         if (error.response) {
+           alert("Unautorized");
+           console.log(error.response.data);
+           console.log(error.response.status);
+           // console.log(error.response.headers);
+         }
+       });
   }
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
@@ -43,17 +50,20 @@ class CreateTour extends Component {
   }
   addPoint(id){
     console.log(id);
-    const headers = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    };
     const url = `http://localhost:3000/addPoint/${this.state.tour_id}/${id}`
     console.log(url);
-    axios.post(url, headers)
+    axios.post(url)
       .then((result) => {
         //access the results here....
         console.log(result);
-      });
+      }).catch(function (error) {
+         if (error.response) {
+           alert("Error");
+           console.log(error.response.data);
+           console.log(error.response.status);
+           // console.log(error.response.headers);
+         }
+       });
   }
   renderUI(){
     return (

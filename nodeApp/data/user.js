@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 exports.login = (req, res) => {
   var username = req.body.username,
       password = req.body.password;
-  console.log(`login: username = ${req.body.username}, password = {req.body.password}`);
+  console.log(`login: username = ${req.body.username}, password = ${req.body.password}`);
 
   var q = User.findOne({
       $and: [
@@ -21,20 +21,24 @@ exports.login = (req, res) => {
     q.exec(function(err, user) {
         if (err) {
             console.log(`err: ${err}`);
-            res.status(200).json({ "err" : err });
+            res.status(300).json({ "err" : err });
+        } else if(user == null) {
+          res.status(300).json({ "err" : "user not found" });
+        } else {
+
+          var unix = Math.floor(new Date() / 1000);
+          var session_id = user._id+'_'+String(unix);
+          console.log(user);
+          req.session.user = user;
+          req.session.session_id = session_id;
+          Session.saveSession(session_id, user._id, (err, session) => {
+            if (err) {
+                console.log(`err: ${err}`);
+                res.status(200).json({ "err" : err });
+            }
+            res.status(200).json(user);
+          });
         }
-        var unix = Math.floor(new Date() / 1000);
-        var session_id = user._id+'_'+String(unix);
-        console.log(user);
-        req.session.user = user;
-        req.session.session_id = session_id;
-        Session.saveSession(session_id, user._id, (err, session) => {
-          if (err) {
-              console.log(`err: ${err}`);
-              res.status(200).json({ "err" : err });
-          }
-          res.status(200).json(user);
-        });
       }
   );
 };

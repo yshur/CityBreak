@@ -20,24 +20,26 @@ class SignInUser extends Component {
   }
   signInUser() {
     console.log("signInUser")
-    var url = "http://localhost:3000/signInUser"
+    var url = "http://localhost:3000/login";
     axios.post(url, {
-        'email': this.state.email,
-        'pass': this.state.password,
+        'username': this.state.email,
+        'password': this.state.password,
     })
     .then((res) => {
-      console.log("res.data" + res.data)
-      if(res.data === null){
-        alert('Not Found');
-        this.renderSignIn();
-      } else {
-        this.setState({
-          user: res.data,
-          logged_in:true
-        });
-      }
-     })
-
+      console.log(res.data)
+      alert('Success');
+      this.setState({
+        user: res.data,
+        logged_in:true
+      });
+     }).catch(function (error) {
+        if (error.response) {
+          alert("Not found");
+          console.log(error.response.data);
+          console.log(error.response.status);
+          // console.log(error.response.headers);
+        }
+      });
   }
   setUser(e) {
     console.log("setUser")
@@ -95,7 +97,7 @@ class SignInUser extends Component {
       <div>
       <Redirect to={{
             pathname: '/home',
-            state: { name: this.state.user.name }
+            state: { name: this.state.user.first_name }
           }}
       />
       </div>
