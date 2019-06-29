@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import { sessionService } from 'redux-react-session';
 import UsersList from "../Components/UsersList";
 import SignUp from "../Components/SignUp";
 import SignUpAdmin from "../Components/SignUpAdmin";
@@ -19,7 +20,9 @@ import CreateTour from "../Components/CreateTour";
 const ReactRouter =()=>{
     return (
         <React.Fragment>
-            <Route exact path="/" component={SignInUser}/>
+          <Route exact path="/" component={SignInUser} />
+          <Route path="/login" component={SignInUser} />
+            <Route exact path="/signinuser" component={SignInUser}/>
             <Route exact path="/users" component={UsersList}/>
             <Route exact path="/signup" component={SignUp}/>
             <Route exact path="/signupadmin" component={SignUpAdmin}/>
