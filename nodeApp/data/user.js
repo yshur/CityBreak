@@ -36,7 +36,7 @@ exports.login = (req, res) => {
                 console.log(`err: ${err}`);
                 res.status(200).json({ "err" : err });
             }
-            res.status(200).json(user);
+            res.status(200).json({"user":user,"session":session});
           });
         }
       }
@@ -44,8 +44,8 @@ exports.login = (req, res) => {
 };
 exports.logout = (req, res) => {
   console.log("logout");
-  if (req.session && req.session.session_id) {
-    Session.destroySession(req.session.session_id, (err, result) => {
+  if (req.header('session_id')) {
+    Session.destroySession(req.header('session_id'), (err, result) => {
       if(err) {
         req.session.destroy();
         res.status(200).json(err);
@@ -188,13 +188,13 @@ exports.updateUser = (req, res) => {
     		params.tags = req.body.tags;
     	}
 
-      if(req.session.user._id === userid) {
+      if(req.header('user_id') === userid) {
         updateUser(userid, params, (err, user) => {
           if (err) return res.status(300).json(err);
           return res.status(200).json(user);
         });
       } else {
-        isAdmin(req.session.user._id, (err, user) => {
+        isAdmin(req.header('user_id'), (err, user) => {
           if (err) return res.status(300).json(err);
           if (user == null) {
             return res.status(300).json("You have no permissions");
@@ -217,13 +217,13 @@ exports.deleteUser = (req, res) => {
     } else {
       var userid = req.params.userid;
       console.log('deleteUser: userid = '+userid);
-      if(req.session.user._id === userid) {
+      if(req.header('user_id') === userid) {
         removeUser(userid, (err, user) => {
           if (err) return res.status(300).json(err);
           return res.status(200).json(user);
         });
       } else {
-        isAdmin(req.session.user._id, (err, user) => {
+        isAdmin(req.header('user_id'), (err, user) => {
           if (err) return res.status(300).json(err);
           if (user == null) {
             return res.status(300).json("You have no permissions");

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from "./Header";
 import {Card} from 'react-bootstrap';
+import Cookies from 'js-cookie'
 import {Form, FormControl, Button,ButtonToolbar,Col} from 'react-bootstrap';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
@@ -27,7 +28,12 @@ class CreateTour extends Component {
       editing: true
     })
     const { name, about } = this.state;
-    axios.post('http://localhost:3000/createtour', { name, about })
+    const headers = {
+      session_id: Cookies.get('session_id'),
+      user_id: Cookies.get('user_id')
+    }
+    console.log(headers);
+    axios.post('http://localhost:3000/createtour', { name, about }, {headers})
       .then((result) => {
         //access the results here....
         this.setState({tour_id:result.data._id})
@@ -52,7 +58,11 @@ class CreateTour extends Component {
     console.log(id);
     const url = `http://localhost:3000/addPoint/${this.state.tour_id}/${id}`
     console.log(url);
-    axios.post(url)
+    const headers = {
+      session_id: Cookies.get('session_id'),
+      user_id: Cookies.get('user_id')
+    }
+    axios.post(url, headers)
       .then((result) => {
         //access the results here....
         console.log(result);

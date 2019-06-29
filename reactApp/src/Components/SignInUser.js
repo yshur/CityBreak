@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 import { Redirect } from 'react-router'
 import {Form, FormControl, Button } from 'react-bootstrap';
 
@@ -28,8 +29,10 @@ class SignInUser extends Component {
     .then((res) => {
       console.log(res.data)
       alert('Success');
+      Cookies.set('user_id', res.data.user._id, { expires: 1 });
+      Cookies.set('session_id', res.data.session.session_id, { expires: 1 });
       this.setState({
-        user: res.data,
+        user: res.data.user,
         logged_in:true
       });
      }).catch(function (error) {

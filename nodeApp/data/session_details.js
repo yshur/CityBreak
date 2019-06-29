@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
 
 exports.saveDetails = (req, callback) => {
     var newDetails = new SessionDetails({
-        session_id: req.session.session_id,
+        session_id: req.header('session_id'),
         host: req.headers.host,
         remote_addr: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
         user_agent: req.get('User-Agent'),

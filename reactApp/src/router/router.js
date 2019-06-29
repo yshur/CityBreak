@@ -1,6 +1,5 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { sessionService } from 'redux-react-session';
 import UsersList from "../Components/UsersList";
 import SignUp from "../Components/SignUp";
 import SignUpAdmin from "../Components/SignUpAdmin";

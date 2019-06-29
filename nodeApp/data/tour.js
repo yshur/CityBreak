@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
     user_manager = require('./user');
 
 exports.createTour = (req, res) => {
-  console.log("createPoint");
+  console.log("createTour");
   Session.checkActiveSession(req, (err, result) => {
     if(err) {
         console.log(`err: ${err}`);
@@ -20,7 +20,7 @@ exports.createTour = (req, res) => {
     } else{
       var newTour = new Tour({
         name:       req.body.name,
-        creator:    req.session.user._id,
+        creator:    req.header('user_id'),
         about:      req.body.about
       });
       console.log('Create Tour');
@@ -147,14 +147,14 @@ exports.updateTour = (req, res) => {
       if (req.body.about) {
         params.about = req.body.about;
       }
-      isCreator(tourid, req.session.user._id, (err, tour) => {
+      isCreator(tourid, req.header('user_id'), (err, tour) => {
         if(err) {
             console.log(`err: ${err}`);
             res.status(300).json(err);
         } else if(tour != null) {
           updateTourById(tourid, params, req, res);
         } else {
-          user_manager.isAdmin(req.session.user._id, (err, user) => {
+          user_manager.isAdmin(req.header('user_id'), (err, user) => {
             if (err) return res.status(300).json(err);
             if (user == null) {
               return res.status(300).json("You have no permissions");
@@ -176,14 +176,14 @@ exports.deleteTour = (req, res) => {
     } else {
       console.log(`deleteTour: tourid = ${req.params.tourid}`);
       var tourid = req.params.tourid;
-      isCreator(tourid, req.session.user._id, (err, tour) => {
+      isCreator(tourid, req.header('user_id'), (err, tour) => {
         if(err) {
             console.log(`err: ${err}`);
             res.status(300).json(err);
         } else if(tour != null) {
           removeTour(tourid, req, res);
         } else {
-          user_manager.isAdmin(req.session.user._id, (err, user) => {
+          user_manager.isAdmin(req.header('user_id'), (err, user) => {
             if (err) return res.status(300).json(err);
             if (user == null) {
               return res.status(300).json("You have no permissions");
@@ -499,7 +499,7 @@ exports.updateVisitTour = (req, res) => {
     	console.log(`updateVisitTour: tourid=${req.params.tourid}`);
       var content = req.body.content;
       var new_visit = {
-        user: req.session.user._id
+        user: req.header('user_id')
       };
       var update = {$push: {visitors:new_visit}};
       var opts = { new: true };
@@ -536,7 +536,7 @@ exports.scoreTour = (req, res) => {
           } else {
             var new_score = {
               content: score,
-              user: req.session.user._id
+              user: req.header('user_id')
             }
             var count = tour.scores.length * tour.score;
             tour.scores.push(new_score);
@@ -571,7 +571,7 @@ exports.feedbackTour = (req, res) => {
       var content = req.body.content;
       var new_feedback = {
         content: content,
-        user: req.session.user._id
+        user: req.header('user_id')
       };
       var update = {$push: {feedbacks:new_feedback}};
       var opts = { new: true };

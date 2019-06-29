@@ -15,7 +15,7 @@ exports.createPoint = (req, res) => {
         console.log(`err: ${err}`);
         res.status(300).json(err);
     } else{
-			user_manager.isAdmin(req.session.user._id, (err, user) => {
+			user_manager.isAdmin(req.header('user_id'), (err, user) => {
 				if (err) return res.status(300).json(err);
 				if (user == null) {
 					return res.status(300).json("You have no permissions");
@@ -142,7 +142,7 @@ exports.updatePoint = (req, res) => {
 			console.log(`err: ${err}`);
 			res.status(300).json(err);
 		} else{
-			user_manager.isAdmin(req.session.user._id, (err, user) => {
+			user_manager.isAdmin(req.header('user_id'), (err, user) => {
 				if (err) return res.status(300).json(err);
 				if (user == null) {
 					return res.status(300).json("You have no permissions");
@@ -219,7 +219,7 @@ exports.deletePoint = (req, res) => {
 			console.log(`err: ${err}`);
 			res.status(300).json(err);
 		} else{
-			user_manager.isAdmin(req.session.user._id, (err, user) => {
+			user_manager.isAdmin(req.header('user_id'), (err, user) => {
 				if (err) return res.status(300).json(err);
 				if (user == null) {
 					return res.status(300).json("You have no permissions");
@@ -291,7 +291,7 @@ exports.updateVisitPoint = (req, res) => {
     	console.log(`updateVisitPoint: pointid=${req.params.pointid}`);
       var content = req.body.content;
       var new_visit = {
-        user: req.session.user._id
+        user: req.header('user_id')
       };
       var update = {$push: {visitors:new_visit}};
       var opts = { new: true };
@@ -328,7 +328,7 @@ exports.scorePoint = (req, res) => {
           } else {
             var new_score = {
               content: score,
-              user: req.session.user._id
+              user: req.header('user_id')
             };
             var count = point.scores.length * point.score;
             point.scores.push(new_score);
@@ -363,7 +363,7 @@ exports.feedbackPoint = (req, res) => {
       var content = req.body.content;
       var new_feedback = {
         content: content,
-        user: req.session.user._id
+        user: req.header('user_id')
       };
       var update = {$push: {feedbacks:new_feedback}};
       var opts = { new: true };
