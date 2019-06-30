@@ -54,7 +54,7 @@ class PointsList extends Component {
 	eachPoint(point, i) {
 		return (
 			<div key={point._id+i} index={i} >
-				<CardGroup style={{display:'block', marginLeft:'4%'}}>
+				<CardGroup style={{display:'block'}}>
 				  <PointItem onChange={this.openDetails} point={point}>
 					</PointItem>
 				</CardGroup>

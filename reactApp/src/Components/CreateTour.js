@@ -20,7 +20,6 @@ class CreateTour extends Component {
     this.edit = this.edit.bind(this);
     this.renderUI = this.renderUI.bind(this);
     this.renderForm = this.renderForm.bind(this);
-    this.routeChange = this.routeChange.bind(this);
     this.addPoint = this.addPoint.bind(this);
 }
   edit() {
@@ -49,10 +48,6 @@ class CreateTour extends Component {
   }
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
-  }
-  routeChange() {
-    let path = `addPoint`;
-    this.props.history.push(path);
   }
   addPoint(id){
     console.log(id);
@@ -86,10 +81,8 @@ class CreateTour extends Component {
           <p className="mb-0">
             Continue to add points...
           </p>
-          <Button onClick={this.routeChange} variant="primary" type="submit" style={{marginTop:'2%'}}>
-            Add points
-          </Button>
         </Alert>
+        <h1 style={{marginTop: '5%', textAlign: 'center'}}>Popular Points for your tour</h1>
         <AddPointsList onChange = {this.addPoint}/>
       </div>
     )
@@ -100,21 +93,38 @@ class CreateTour extends Component {
     return(
       <div>
         <Header/>
-          <Form inline style={{background:'#22A7F0', height:'55px'}}>
-            <h1 style={{color:'black', fontSize:'24px', marginLeft:'40%'}}> Create your own tour </h1>
-          </Form>
-          <Form onSubmit={this.onSubmit}>
-            <Form.Text className="text-muted" style={{marginTop:'2%'}}>
-              Fill the fields and submit
-            </Form.Text>
-              <input type="text" placeholder="Tour name" name='name' style={{width:'100%'}} onChange={this.onChange} />
-              <br/>
-              <input type="text" placeholder="About" name='about' style={{width:'100%',marginTop:'2%'}} onChange={this.onChange} />
-              <br/>
-            <Button onClick={this.edit} variant="primary" type="submit" style={{marginTop:'2%'}}>
-              Submit
-            </Button>
-        </Form>
+        <div className="container contact">
+        	<div className="row">
+        		<div className="col-md-3" >
+        			<div className="contact-info">
+        				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
+        				<h2 style={{color:'rgb(31, 71, 136)'}}>Create Tour</h2>
+        				<h4 style={{color:'rgb(31, 71, 136)'}}>We would love to suggest your tour !</h4>
+        			</div>
+        		</div>
+        		<div className="col-md-9" >
+        			<div className="contact-form">
+        				<div className="form-group">
+        				  <label className="control-label col-sm-2" >Tour Name:</label>
+        				  <div className="col-sm-10">
+        					<input type="text" className="form-control" id="fname" placeholder="Tour Name" name="fname"/>
+        				  </div>
+        				</div>
+        				<div className="form-group">
+        				  <label className="control-label col-sm-2" >About:</label>
+        				  <div className="col-sm-10">
+        					<textarea className="form-control" rows="5" id="comment"></textarea>
+        				  </div>
+        				</div>
+        				<div className="form-group">
+        				  <div className="col-sm-offset-2 col-sm-10">
+        					<button onClick={this.edit} type="submit" className="btn btn-default">Submit</button>
+        				  </div>
+        				</div>
+        			</div>
+        		</div>
+        	</div>
+        </div>
       </div>
     )
   }
