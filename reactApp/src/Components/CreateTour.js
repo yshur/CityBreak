@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from "./Header";
 import {Card} from 'react-bootstrap';
+import Cookies from 'js-cookie'
 import {Form, FormControl, Button,ButtonToolbar,Col} from 'react-bootstrap';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
@@ -26,29 +27,48 @@ class CreateTour extends Component {
       editing: true
     })
     const { name, about } = this.state;
-    axios.post('http://localhost:3000/createtour', { name, about })
+    const headers = {
+      session_id: Cookies.get('session_id'),
+      user_id: Cookies.get('user_id')
+    }
+    console.log(headers);
+    axios.post('http://localhost:3000/createtour', { name, about }, {headers})
       .then((result) => {
         //access the results here....
         this.setState({tour_id:result.data._id})
         console.log(result);
-      });
+      }).catch(function (error) {
+         if (error.response) {
+           alert("Unautorized");
+           console.log(error.response.data);
+           console.log(error.response.status);
+           // console.log(error.response.headers);
+         }
+       });
   }
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
   addPoint(id){
     console.log(id);
-    const headers = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
-    };
     const url = `http://localhost:3000/addPoint/${this.state.tour_id}/${id}`
     console.log(url);
+    const headers = {
+      session_id: Cookies.get('session_id'),
+      user_id: Cookies.get('user_id')
+    }
     axios.post(url, headers)
       .then((result) => {
         //access the results here....
         console.log(result);
-      });
+      }).catch(function (error) {
+         if (error.response) {
+           alert("Error");
+           console.log(error.response.data);
+           console.log(error.response.status);
+           // console.log(error.response.headers);
+         }
+       });
   }
   renderUI(){
     return (

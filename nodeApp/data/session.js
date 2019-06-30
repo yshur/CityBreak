@@ -24,9 +24,12 @@ exports.getSessions = (req, res) => {
   console.log('getSessions');
   var show = {
     "session_id":1, "user_id":1,"setup_time":1,
-    "end_time":1,"status":1,
+    "end_time":1,"status":1
     };
-	var q = Session.find({}, show);
+  var sort = {
+      sort:{ setup_time: -1 }
+  };
+	var q = Session.find({}, show, sort);
 	q.exec(function(err, sessions)  {
 		if (err) {
 			console.log(`err: ${err}`);
@@ -52,22 +55,25 @@ exports.getSession = (req, res) => {
     )
 };
 exports.destroySession = (session_id, callback) => {
-  var id = {"session_id": Number(session_id), "status": 0 };
-	console.log(`endSession: session_id = ${session_id}`);
+  console.log(`destroySession: session_id = ${session_id}`);
+
+  var id = {"session_id": session_id, "status": 0 };
   var params = {
     end_time: Date.now(),
     status: 1
   };
-  var opts = {
-      new: true
-  };
+  var opts = { new: true };
   Session.findOneAndUpdate(id, params, opts,
     (err, session) => {
         if(err) {
             console.log(`err: ${err}`);
             callback(err);
         }
-        console.log(`Saved session:`);
+        if(session == null) {
+          console.log(`session not found`);
+          callback("session not found");
+        }
+        console.log(`Saved session: ${session}`);
         callback(null, 1);
     });
 };
@@ -111,11 +117,12 @@ exports.destroyCookie = (req, res) => {
 };
 
 exports.checkActiveSession = (req, callback) => {
-  if ((!req.session.session_id) || (!req.session.user)) {
+  console.log(req.headers);
+  if (!req.header('session_id') || !req.header('user_id')) {
     callback("unauthorized");
-  }
-  var session_id = req.session.session_id;
-  var user_id = req.session.user._id;
+  } else {
+  var session_id = req.header('session_id');
+  var user_id = req.header('user_id');
   var conditions = { "session_id": session_id, "user_id":user_id, "status":0 };
 	console.log(`checkActiveSession: session_id = ${session_id}`);
 
@@ -137,13 +144,15 @@ exports.checkActiveSession = (req, callback) => {
               if(err) {
                   console.log(`err: ${err}`);
                   callback(err);
+              } else {
+                callback(null, status);
               }
-              callback(null, status);
             });
           });
       });
+  }
 };
-exports.checkTimeSession = (setup_time, callback) => {
+function checkTimeSession(setup_time, callback) {
   var diffMs = Date.now() - setup_time; // milliseconds between now & setup_time
   var diffMins = Math.round(diffMs / 60000); // minutes
   if(diffMins > 60) {

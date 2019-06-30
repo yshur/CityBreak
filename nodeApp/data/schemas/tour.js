@@ -9,7 +9,7 @@ var mongoose = require('mongoose'),
         creator: {
             type: mongoose.Schema.ObjectId,
             ref: 'user',
-            // required: true
+            required: true
         },
         tags: [String],
         duration: { type: Number, default: 0 },
@@ -39,6 +39,7 @@ var mongoose = require('mongoose'),
           },
           setup_time: { type: Date, default: Date.now }
         }],
+        score: {type:Number, default:0},
         scores: [{
           content: Number,
           user: {

@@ -11,11 +11,12 @@ class Home extends Component {
   }
 }
   render(){
+    console.log(`name = ${this.props.location.state.name}`);
     return(
       <div>
         <Header/>
         <b>Hi {this.props.location.state.name} </b>
-		    <ToursList/>
+
       </div>
     )
   }
