@@ -28,7 +28,7 @@ class AddPointsList extends Component {
 			 session_id: Cookies.get('session_id'),
 			 user_id: Cookies.get('user_id')
 		 }
-		 fetch(url, headers)
+		 fetch(url, {headers})
 		 	.then((res) => {
 		 		return res.json();
 		 	})
