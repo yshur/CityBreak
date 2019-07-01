@@ -5,7 +5,6 @@ import { Redirect } from 'react-router'
 import {Form, FormControl, Button } from 'react-bootstrap';
 
 class Login extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -101,7 +100,7 @@ class Login extends Component {
     return(
       <div>
       <Redirect to={{
-            pathname: '/home',
+            pathname: '/main',
             state: { name: this.state.user.first_name }
           }}
       />

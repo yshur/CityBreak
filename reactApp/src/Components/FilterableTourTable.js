@@ -23,7 +23,6 @@ class FilterableTourTable extends Component {
   render(){
     return(
       <div>
-        <Header/>
         <SearchBar onSubmit={this.update}/>
         <ToursList params={this.state.value} />
       </div>

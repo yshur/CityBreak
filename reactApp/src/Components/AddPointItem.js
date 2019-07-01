@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap';
-
+import { Redirect } from 'react-router'
 
 class AddPointItem extends Component {
 
 	constructor(props) {
 		super(props)
 		this.state = {
+			tourPage: false
 		}
 		this.save = this.save.bind(this)
 		this.openItem = this.openItem.bind(this);
+
 	}
+
 	save(e) {
 		e.preventDefault()
 		this.props.onSubmit(this.props.point._id)
@@ -19,6 +22,7 @@ class AddPointItem extends Component {
 		e.preventDefault()
 		this.props.onChange(this.props.point)
 	}
+
 	render(){
 		return(
 				<div className='point'>
@@ -31,7 +35,6 @@ class AddPointItem extends Component {
 								<button className="btn btn-primary" style={{background: 'rgb(242, 241, 239)', marginTop:'6%',border: 'none',color: 'blue',marginLeft: '-12px'}}onClick={this.openItem}>Read more</button>
 								<Card.Text >Area: {this.props.point.area}</Card.Text>
 								<Card.Text >Duration: {this.props.point.duration}</Card.Text>
-							 	
 							<button className="btn btn-primary" style={{width:'100%', marginTop:'1%'}}onClick={this.save}>Add</button>
 						</Card.Body>
 					</Card>

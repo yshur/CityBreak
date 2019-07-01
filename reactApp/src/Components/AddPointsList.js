@@ -20,6 +20,8 @@ class AddPointsList extends Component {
 		this.renderList = this.renderList.bind(this)
 		this.renderDetails = this.renderDetails.bind(this)
 		this.closeDetails = this.closeDetails.bind(this)
+
+
 	}
 	componentDidMount() {
 		 const url = "http://localhost:3000/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
@@ -69,6 +71,7 @@ class AddPointsList extends Component {
 	save(index) {
 		this.props.onChange(index)
 	}
+
 	add(_id, area, name, about, image_url) {
 		// console.log(image_url)
 		this.setState(prevState => ({
@@ -109,6 +112,7 @@ class AddPointsList extends Component {
 			</div>
 		)
 	}
+
 	render() {
 		return this.state.details ? this.renderDetails() : this.renderList()
 	}

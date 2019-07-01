@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Header from "./Header";
 import ToursList from "./ToursList";
 import mainImg from "./ban1.jpg"
 import {Card} from 'react-bootstrap';
@@ -20,7 +19,6 @@ class Home extends Component {
   render(){
     return(
       <div>
-        <Header/>
         <Card className="bg-dark text-white" style={{border:'none', marginTop:'10px'}}>
           <Card.Img src={mainImg} style={{height:'400px'}} alt="Card image" />
           <Card.ImgOverlay>

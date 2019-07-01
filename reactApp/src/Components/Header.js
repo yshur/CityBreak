@@ -44,14 +44,7 @@ class Header extends Component {
             <NavLink exact to="/" activeStyle={this.style} >
               <img src = {logo}  alt="Card cap" />
             </NavLink>
-            <div style={this.header}>
-              <Navbar bg="white" expand="lg">
-                <Navbar.Brand href="#home" style={{color:'#1F4788', fontWeight:'bold'}}>City Break</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                </Navbar.Collapse>
-              </Navbar>
-            </div>
+            
             <div style={this.header}>
               <NavLink  onClick={this.logout}
                   exact to="/login" activeStyle={this.style} >

@@ -16,6 +16,7 @@ import Tours from "../Components/Tours";
 import PointDetails from "../Components/PointDetails";
 import TourDetails from "../Components/TourDetails";
 import CreateTour from "../Components/CreateTour";
+import TourPage from "../Components/TourPage";
 
 const ReactRouter =()=>{
     return (
@@ -29,6 +30,7 @@ const ReactRouter =()=>{
             <Route exact path="/signupadmin" component={SignUpAdmin}/>
             <Route exact path="/home" component={Home}/>
             <Route exact path="/header" component={Header}/>
+            <Route exact path="/TourPage" component={TourPage}/>
             <Route exact path="/signinadmin" component={SignInAdmin}/>
             <Route exact path="/adminhome" component={AdminHome}/>
             <Route exact path="/main" component={Main}/>
