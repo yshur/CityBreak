@@ -37,7 +37,7 @@ class tourPage extends Component {
 		)
 	}
 	componentDidMount() {
-		 const url = "http://localhost:3000/getTour/"+this.state.tour_id;
+		 const url = "https://citybreakshenkar.herokuapp.com//getTour/"+this.state.tour_id;
 		 console.log(url)
 		 fetch(url)
 			.then((res) => {

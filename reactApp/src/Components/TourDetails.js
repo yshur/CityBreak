@@ -12,7 +12,7 @@ class TourDetails extends Component {
 	}
 
 	componentDidMount() {
-		 const url = "http://localhost:3000/getTour/"+this.props.tour._id;
+		 const url = "https://citybreakshenkar.herokuapp.com//getTour/"+this.props.tour._id;
 		 console.log(url)
 		 fetch(url)
 			.then((res) => {
