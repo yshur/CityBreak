@@ -57,7 +57,8 @@ class CreateTour extends Component {
       session_id: Cookies.get('session_id'),
       user_id: Cookies.get('user_id')
     }
-    axios.post(url, headers)
+    console.log(headers);
+    axios.post(url, {}, {headers})
       .then((result) => {
         //access the results here....
         console.log(result);

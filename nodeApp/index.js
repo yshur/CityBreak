@@ -42,6 +42,7 @@ app.post('/login/', user.login);
 app.get('/logout', user.logout);
 
 app.all('*', (req, res, next) => {
+	// console.log(req.headers);
   console.log("runs for all HTTP verbs first");
 	next();
 });

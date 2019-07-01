@@ -126,8 +126,8 @@ function updateTourById(tourid, update, req, res) {
               console.log(`err: ${err}`);
               res.status(300).json(err);
           } else {
-              console.log(`Updated tour: ${tour}`)
-              res.status(200).json(tour);
+              console.log(`Updated tour: ${result}`)
+              res.status(200).json(result);
           }
       });
 };
