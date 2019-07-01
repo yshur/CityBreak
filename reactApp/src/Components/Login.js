@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import { Redirect } from 'react-router'
 import {Form, FormControl, Button } from 'react-bootstrap';
 
-class SignInUser extends Component {
+class Login extends Component {
 
   constructor(props) {
     super(props)
@@ -31,6 +31,8 @@ class SignInUser extends Component {
       alert('Success');
       Cookies.set('user_id', res.data.user._id, { expires: 1 });
       Cookies.set('session_id', res.data.session.session_id, { expires: 1 });
+      Cookies.set('first_name', res.data.user.first_name, { expires: 1 });
+      Cookies.set('last_name', res.data.user.last_name, { expires: 1 });
       this.setState({
         user: res.data.user,
         logged_in:true
@@ -114,4 +116,4 @@ class SignInUser extends Component {
     }
   }
 }
-export default SignInUser
+export default Login

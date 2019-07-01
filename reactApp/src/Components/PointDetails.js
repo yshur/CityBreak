@@ -16,12 +16,29 @@ class PointDetails extends Component {
 		this.setImages = this.setImages.bind(this);
 		this.changeRating = this.changeRating.bind(this);
 		this.closeItem = this.closeItem.bind(this);
+		this.eachDescription = this.eachDescription.bind(this);
+		this.getMap = this.getMap.bind(this);
+	}
+	eachDescription(description, i) {
+		return (
+			<p index={i}>{description}</p>
+		)
+	}
+	getMap(){
+		if(this.state.point.longitude) {
+			return (
+				<iframe width='600' height='450' frameborder='0' style='border:0'
+					src=`https://www.google.com/maps/embed/v1/place?key=AIzaSyCmaNR4ecZxT5KTRxh2JVV0uQDl5nbgH-k&q=${this.state.point.latitude},${this.state.point.longitude}`
+					allowfullscreen></iframe>
+							</div>
+			)
+		}
 	}
 	changeRating( newRating, name ) {
 	 this.setState({
 		 rating: newRating
 	 });
- }
+ 	}
 	closeItem(e){
 		e.preventDefault()
 		this.props.onChange(this.props.point)
@@ -50,6 +67,7 @@ class PointDetails extends Component {
 			 })
 	 }
 	render(){
+		console.log(this.state.point.description);
 		return(
 				<div className='point'>
 					<div>
@@ -64,12 +82,11 @@ class PointDetails extends Component {
 							 numberOfStars={5}
 							 name='rating'
 						 />
+						 <div className="d-none d-md-inline-block small pr-3"> | </div>
+						 <div data-scroll-target="#userReviews" className="text-body" data-action-capture="click" data-action-servlet-name="product_detail" data-action-tag="click_review_top_link" data-action-prod-attr="256" data-attraction-product-id="5674SSGAUCHA">{this.state.reviews_num} Reviews</div>
 					</div>
-					<div data-scroll-target="#userReviews" className="text-body" data-action-capture="click" data-action-servlet-name="product_detail" data-action-tag="click_review_top_link" data-action-prod-attr="256" data-attraction-product-id="5674SSGAUCHA">{this.state.reviews_num} Reviews</div>
-					<div className="d-none d-md-inline-block small pr-3"> | </div>
 					<div className="small mr-md-4">{this.state.point.address}</div>
 					<button className="btn btn-primary" onClick={this.closeItem}>Close</button>
-
 					</div>
 					<Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", margin:'15px', border:'none'}}>
 						<Card.Body style={{background:'#F2F1EF'}}>
@@ -89,10 +106,13 @@ class PointDetails extends Component {
 					</Card>
 					<Gallery photos={this.state.images}  direction={"column"} />
 					<Card>
-						<Card.Body style={{background:'#F2F1EF'}}>
-							<Card.Text>Description: {this.state.point.description}</Card.Text>
+						<Card.Body style={{background:'#F2F1EF', direction:'rtl', textAlign:'right'}}>
+							<Card.Text>{this.state.point.description ? this.state.point.description.map(this.eachDescription) : ''}</Card.Text>
 						</Card.Body>
 					</Card>
+					<div>
+					{this.state.point.description ?
+
 				</div>
 		)
 	}
