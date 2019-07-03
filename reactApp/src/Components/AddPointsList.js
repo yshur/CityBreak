@@ -24,7 +24,7 @@ class AddPointsList extends Component {
 
 	}
 	componentDidMount() {
-		 const url = "https://citybreakshenkar.herokuapp.com//getPoints?"+(this.props.params ? this.props.params : 'limit=6');
+		 const url = "https://citybreakshenkar.herokuapp.com/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
 		 console.log(url)
 		 const headers = {
 			 session_id: Cookies.get('session_id'),
@@ -43,7 +43,7 @@ class AddPointsList extends Component {
 			 })
 	 }
 	componentWillReceiveProps() {
-			const url = "https://citybreakshenkar.herokuapp.com//getPoints?"+(this.props.params ? this.props.params : 'limit=6');
+			const url = "https://citybreakshenkar.herokuapp.com/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
 			console.log(url)
 			fetch(url)
 			 .then((res) => {

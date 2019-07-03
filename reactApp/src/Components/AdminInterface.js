@@ -14,7 +14,7 @@ class AdminInterface extends Component {
 		this.delete = this.delete.bind(this)
 	}
 	componentDidMount() {
-		 const url = "https://citybreakshenkar.herokuapp.com//getTours";
+		 const url = "https://citybreakshenkar.herokuapp.com/getTours";
 		 fetch(url)
 		 	.then((res) => {
 		 		return res.json();

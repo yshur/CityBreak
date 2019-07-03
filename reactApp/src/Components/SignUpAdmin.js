@@ -38,7 +38,7 @@ class SignUpAdmin extends Component {
 
   createAdmin() {
     console.log("createAdmin")
-    var url = "https://citybreakshenkar.herokuapp.com//createAdmin"
+    var url = "https://citybreakshenkar.herokuapp.com/createAdmin"
     axios.post(url, {
 		    'name': this.state.name,
         'phone': this.state.phone,

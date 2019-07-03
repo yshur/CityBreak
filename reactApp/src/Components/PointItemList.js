@@ -13,7 +13,7 @@ class PointItemList extends Component {
 		this.openItem = this.openItem.bind(this);
 	}
 	componentDidMount() {
-		 const url = "https://citybreakshenkar.herokuapp.com//getPoint/"+this.state.point_id;
+		 const url = "https://citybreakshenkar.herokuapp.com/getPoint/"+this.state.point_id;
 		 console.log(url)
 		 fetch(url)
 			.then((res) => {
