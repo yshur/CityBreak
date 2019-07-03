@@ -4,8 +4,7 @@ import Cookies from 'js-cookie'
 import { Redirect } from 'react-router'
 import {Form, FormControl, Button } from 'react-bootstrap';
 
-class SignInUser extends Component {
-
+class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -21,7 +20,7 @@ class SignInUser extends Component {
   }
   signInUser() {
     console.log("signInUser")
-    var url = "http://localhost:3000/login";
+    var url = "https://citybreakshenkar.herokuapp.com/login";
     axios.post(url, {
         'username': this.state.email,
         'password': this.state.password,
@@ -31,6 +30,8 @@ class SignInUser extends Component {
       alert('Success');
       Cookies.set('user_id', res.data.user._id, { expires: 1 });
       Cookies.set('session_id', res.data.session.session_id, { expires: 1 });
+      Cookies.set('first_name', res.data.user.first_name, { expires: 1 });
+      Cookies.set('last_name', res.data.user.last_name, { expires: 1 });
       this.setState({
         user: res.data.user,
         logged_in:true
@@ -99,7 +100,7 @@ class SignInUser extends Component {
     return(
       <div>
       <Redirect to={{
-            pathname: '/home',
+            pathname: '/main',
             state: { name: this.state.user.first_name }
           }}
       />
@@ -114,4 +115,4 @@ class SignInUser extends Component {
     }
   }
 }
-export default SignInUser
+export default Login

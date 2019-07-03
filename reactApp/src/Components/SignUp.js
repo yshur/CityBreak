@@ -38,7 +38,7 @@ class SignUp extends Component {
 
   createUser() {
     console.log("createUser")
-    var url = "http://localhost:3000/createUser"
+    var url = "https://citybreakshenkar.herokuapp.com/createUser"
     axios.post(url, {
 		    'name': this.state.name,
         'phone': this.state.phone,

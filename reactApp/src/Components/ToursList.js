@@ -13,7 +13,7 @@ class ToursList extends Component {
 		this.add = this.add.bind(this)
 	}
 	componentDidMount() {
-		 const url = "http://localhost:3000/getTours?"+(this.props.params ? this.props.params : 'limit=3');
+		 const url = "https://citybreakshenkar.herokuapp.com/getTours?"+(this.props.params ? this.props.params : 'limit=3');
 		 console.log(url)
 		 fetch(url)
 		 	.then((res) => {
@@ -28,7 +28,7 @@ class ToursList extends Component {
 			 })
 	 }
 	 componentWillReceiveProps() {
-			const url = "http://localhost:3000/getTours?"+(this.props.params ? this.props.params : 'limit=3');
+			const url = "https://citybreakshenkar.herokuapp.com/getTours?"+(this.props.params ? this.props.params : 'limit=3');
 			console.log(url)
 			fetch(url)
 			 .then((res) => {

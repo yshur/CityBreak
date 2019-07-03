@@ -1,26 +1,36 @@
 import React, { Component } from 'react'
-import Header from "./Header";
 import {Card} from 'react-bootstrap';
 import Cookies from 'js-cookie'
 import {Form, FormControl, Button,ButtonToolbar,Col} from 'react-bootstrap';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
 import AddPointsList from "./AddPointsList";
+import { Redirect } from 'react-router'
 
 class CreateTour extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
+      tour: null,
       name: '',
       about: '',
       editing: false,
-      tour_id:''
+      tour_id:'',
+      tourPage: false
     }
     this.edit = this.edit.bind(this);
     this.renderUI = this.renderUI.bind(this);
     this.renderForm = this.renderForm.bind(this);
     this.addPoint = this.addPoint.bind(this);
+    this.renderTourPage = this.renderTourPage.bind(this);
+    this.renderList = this.renderList.bind(this);
+    this.open = this.open.bind(this);
+}
+open() {
+  this.setState({
+    tourPage: true
+  })
 }
   edit() {
     this.setState({
@@ -32,7 +42,7 @@ class CreateTour extends Component {
       user_id: Cookies.get('user_id')
     }
     console.log(headers);
-    axios.post('http://localhost:3000/createtour', { name, about }, {headers})
+    axios.post('https://citybreakshenkar.herokuapp.com/createtour', { name, about }, {headers})
       .then((result) => {
         //access the results here....
         this.setState({tour_id:result.data._id})
@@ -51,7 +61,7 @@ class CreateTour extends Component {
   }
   addPoint(id){
     console.log(id);
-    const url = `http://localhost:3000/addPoint/${this.state.tour_id}/${id}`
+    const url = `https://citybreakshenkar.herokuapp.com/addPoint/${this.state.tour_id}/${id}`
     console.log(url);
     const headers = {
       session_id: Cookies.get('session_id'),
@@ -71,10 +81,21 @@ class CreateTour extends Component {
          }
        });
   }
+  renderTourPage(){
+    // alert(this.state.name + ' You Have Been Successfully Registered!');
+    return(
+      <div>
+      <Redirect to={{
+            pathname: '/tourPage',
+            state: { tour_id: this.state.tour_id }
+          }}
+      />
+      </div>
+    )
+  }
   renderUI(){
     return (
       <div>
-      <Header/>
         <Alert variant="primary">
           <Alert.Heading>Your tour has been successfully created !</Alert.Heading>
           <hr />
@@ -84,6 +105,7 @@ class CreateTour extends Component {
         </Alert>
         <h1 style={{marginTop: '5%', textAlign: 'center'}}>Popular Points for your tour</h1>
         <AddPointsList onChange = {this.addPoint}/>
+        <Button onClick={this.open} style={{marginTop:'85px',marginLeft:'100px'}} type="submit" className="btn btn-default">Submit</Button>
       </div>
     )
   }
@@ -92,7 +114,6 @@ class CreateTour extends Component {
     const { name, about } = this.state;
     return(
       <div>
-        <Header/>
         <div className="container contact">
         	<div className="row">
         		<div className="col-md-3" >
@@ -128,8 +149,15 @@ class CreateTour extends Component {
       </div>
     )
   }
+  renderList() {
+      if(this.state.tourPage == false){
+        return this.renderUI()
+      }else {
+        return this.renderTourPage()
+}
+  }
   render(){
-    return this.state.editing ? this.renderUI() : this.renderForm()
+    return this.state.editing ? this.renderList() : this.renderForm()
   }
 }
 

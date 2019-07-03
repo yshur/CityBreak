@@ -23,7 +23,6 @@ class FilterablePointTable extends Component {
   render(){
     return(
       <div>
-        <Header/>
         <SearchBar onSubmit={this.update}/>
         <PointsList params={this.state.value} />
       </div>

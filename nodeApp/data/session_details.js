@@ -28,7 +28,10 @@ exports.saveDetails = (req, callback) => {
 };
 exports.getAllDetails = (req, res) => {
   console.log("getAllDetails");
-	var q = SessionDetails.find({});
+  var sort = {
+      sort:{ setup_time: -1 }
+  };
+	var q = SessionDetails.find({}, sort);
 	q.exec(function(err, sessions)  {
 		if (err) {
 			console.log(`err: ${err}`);
@@ -40,7 +43,10 @@ exports.getAllDetails = (req, res) => {
 exports.getSessionDetails = (req, res) => {
   var session_id = req.params.session_id;
   console.log(`getSessionDetails: ${req.params.session_id}`);
-	var q = SessionDetails.find({session_id:session_id});
+  var sort = {
+      sort:{ setup_time: -1 }
+  };
+	var q = SessionDetails.find({session_id:session_id}, sort);
 	q.exec(function(err, sessions)  {
 		if (err) {
 			console.log(`err: ${err}`);

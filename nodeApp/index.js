@@ -20,7 +20,7 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true
 }));
-app.use('/includes', express.static(`${__dirname}/public`));
+// app.use('/includes', express.static(`${__dirname}/public`));
 app.use('/', express.static('./'));
 
 app.use( (req, res, next) => {
@@ -31,11 +31,11 @@ app.use( (req, res, next) => {
 	next();
 });
 
-app.get('/', (req,res) => {
-	// res.status(200).json(req.session);
-	console.log(`__dirname: ${__dirname}`);
-	res.status(200).sendFile(`${__dirname}/index.html`);
-});
+// app.get('/', (req,res) => {
+// 	// res.status(200).json(req.session);
+// 	console.log(`__dirname: ${__dirname}`);
+// 	res.status(200).sendFile(`${__dirname}/index.html`);
+// });
 
 /*---------------- User Routes ----------------*/
 app.post('/login/', user.login);
