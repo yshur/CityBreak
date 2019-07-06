@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Form} from 'react-bootstrap';
+import ReactMultiSelectCheckboxes from 'react-multiselect-checkboxes';
 
 class OptionsList extends Component {
 
@@ -17,20 +18,19 @@ class OptionsList extends Component {
 		this.renderMultipleOptionList = this.renderMultipleOptionList.bind(this)
 	}
 	handleChange(e) {
+		console.log(e);
 		if(this.props.index=='tag') {
-			var options = e.target.options;
+			var options = e;
 			var value = [];
 			for (var i = 0, l = options.length; i < l; i++) {
-				if (options[i].selected) {
-					value.push(options[i].value);
-				}
+				value.push(options[i].value);
 			}
 			this.props.onChange(this.props.index, value);
 		} else {
 			console.log("OptionsList: handleChange - " +this.props.index+"="+e.target.value);
 			this.props.onChange(this.props.index, e.target.value);
+			e.preventDefault();
 		}
-		e.preventDefault();
 	}
 	componentDidMount() {
 		 const url = "https://citybreakshenkar.herokuapp.com/get"+this.props.index+"s";
@@ -48,22 +48,30 @@ class OptionsList extends Component {
 			 })
 	 }
 	eachOption(Option, i) {
-		// console.log(Option)
 		return (
 				<option key={Option} index={i}>{Option}</option>
 		)
 	}
 	add(name) {
-		this.setState(prevState => ({
-			options: [
-				...prevState.options,
-					name
-				]
-		}))
+		if(this.props.index!=='tag') {
+			this.setState(prevState => ({
+				options: [
+					...prevState.options,
+						name
+					]
+			}))
+		} else {
+			this.setState(prevState => ({
+				options: [
+					...prevState.options,
+						{label: name, value: name }
+					]
+			}))
+		}
 	}
 	renderOneOptionList() {
 		return (
-			<Form.Control as="select" class="custom-select" onChange={this.handleChange} style={{margin:'10px'}}>
+			<Form.Control as="select" className="custom-select" onChange={this.handleChange} style={{margin:'10px'}}>
 				<option key={this.props.index} index={this.props.index}>Choose {this.props.index}</option>
 				{this.state.options.map(this.eachOption)}
 			</Form.Control>
@@ -71,15 +79,7 @@ class OptionsList extends Component {
 	}
 	renderMultipleOptionList() {
 		return (
-			<div class="row">
-			  <div class="col-md-12">
-			    <select class="mdb-select colorful-select dropdown-primary md-form" searchable="Search here..">
-			      <option value="" disabled selected>Choose your {this.props.index}s</option>
-						{this.state.options.map(this.eachOption)}
-			    </select>
-			    <button class="btn-save btn btn-primary btn-sm" onClick={this.handleChange} >Save</button>
-			  </div>
-			</div>
+				<ReactMultiSelectCheckboxes className="custom-select" options={this.state.options} onChange={this.handleChange} style={{margin:'10px'}}/>
 		)
 	}
 	render() {
