@@ -16,12 +16,10 @@ class SearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChange(event, index) {
-    console.log("SearchBar: handleChange - " +index+"="+event.target.value);
-    this.setState({value: `${index}=${event.target.value}`});
-    event.preventDefault();
+  handleChange(index, value) {
+    console.log("SearchBar: handleChange - " +index+"="+value);
+    this.setState({value: `${index}=${value}`});
   }
-
   handleSubmit(event) {
     event.preventDefault();
     console.log("SearchBar: handleSubmit - "+ this.state.value);

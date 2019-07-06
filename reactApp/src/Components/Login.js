@@ -86,7 +86,7 @@ class Login extends Component {
         <Button variant="primary" type="submit" onClick={this.setUser} style={{width:'330px', marginBottom:'20px'}}>
           Login
         </Button>
-        <div className="text-center">Dont have an account? <a href="http://localhost:3001/SignUp">Sign Up</a></div>
+        <div className="text-center">Dont have an account? <a href="./SignUp">Sign Up</a></div>
       </Form>
 
       </div>
