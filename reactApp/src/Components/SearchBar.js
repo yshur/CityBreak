@@ -16,12 +16,10 @@ class SearchBar extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-  handleChange(event, index) {
-    console.log("SearchBar: handleChange - " +index+"="+event.target.value);
-    this.setState({value: `${index}=${event.target.value}`});
-    event.preventDefault();
+  handleChange(index, value) {
+    console.log("SearchBar: handleChange - " +index+"="+value);
+    this.setState({value: `${index}=${value}`});
   }
-
   handleSubmit(event) {
     event.preventDefault();
     console.log("SearchBar: handleSubmit - "+ this.state.value);
@@ -35,14 +33,10 @@ class SearchBar extends Component {
           <Button variant="outline-light" style={{width:'10%',border:'none', background:'#4B77BE', fontWeight:'bold'}}>Search</Button>
         </Form>
         <Form style={{}}>
-            <Form.Group as={Col} controlId="formGridState" style={{width:'30%'}}>
-              <Form.Label>State</Form.Label>
-            </Form.Group>
             <Form.Group as={Col} controlId="formGridState" style={{width:'30%', display:'-webkit-inline-box'}}>
-              <Form.Label>State</Form.Label>
-              <OptionsList index="area"	onChange={this.handleChange} />
-              <OptionsList index="sub_area" onChange={this.handleChange} />
-              <OptionsList index="tag" onChange={this.handleChange} />
+              <OptionsList style={{margin:'10px'}} index="area"	onChange={this.handleChange} />
+              <OptionsList style={{margin:'10px'}} index="sub_area" onChange={this.handleChange} />
+              <OptionsList style={{margin:'10px'}} index="tag" onChange={this.handleChange} />
             </Form.Group>
           <Button onClick={this.handleSubmit} variant="primary" type="submit" style={{marginLeft:'10%',marginTop:'5%'}}>
             Submit
