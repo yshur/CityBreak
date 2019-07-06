@@ -55,7 +55,7 @@ exports.logout = (req, res) => {
       }
     });
   } else {
-res.status(200).json({"result":"You havn't logged in"});
+    res.status(200).json({"result":"You havn't logged in"});
   }
 };
 
@@ -82,16 +82,15 @@ exports.createUser = (req, res) => {
   console.log('createUser:');
   console.log(newUser);
   newUser.save(
-      (err) => {
-              if(err) {
-                  console.log(`err: ${err}`);
-                  res.status(300).json(err);
-              } else {
-
-                  console.log(`Saved document:`);
-                  res.status(200).json(newUser);
-              }
-          });
+    (err) => {
+        if(err) {
+          console.log(`err: ${err}`);
+          res.status(300).json(err);
+        } else {
+          console.log(`Saved document:`);
+          res.status(200).json(newUser);
+        }
+      });
 };
 exports.getUsers = (req, res) => {
   console.log('getUsers');

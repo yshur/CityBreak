@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router'
 import {Button } from 'react-bootstrap';
-import Cookies from 'js-cookie'
 import OptionsList from "./OptionsList";
+import Header from "./Header";
 
 class SignUp extends Component {
   constructor(props) {
@@ -86,10 +86,13 @@ class SignUp extends Component {
     } else {
       this.setState({living_area: value});
     }
+    console.log(this.state.tags);
+    console.log(this.state.living_area);
   }
   createUser() {
     console.log("createUser")
-    var url = this.state.url+"sign-up"
+    var url = this.state.url+"sign-up";
+    console.log(url);
     axios.post(url, {
 	    'first_name': this.state.first_name,
       'last_name': this.state.last_name,
@@ -106,10 +109,6 @@ class SignUp extends Component {
 		.then((res) => {
       console.log(res.data)
       alert('Success');
-      Cookies.set('user_id', res.data.user._id, { expires: 1 });
-      Cookies.set('session_id', res.data.session.session_id, { expires: 1 });
-      Cookies.set('first_name', res.data.user.first_name, { expires: 1 });
-      Cookies.set('last_name', res.data.user.last_name, { expires: 1 });
       this.setState({
         newUser: res.data,
         logged_in: true
@@ -127,9 +126,7 @@ class SignUp extends Component {
         password = document.getElementById('password').value,
         image_url = document.getElementById('image_url').value,
         birthdate = document.getElementById('birthdate').value,
-        tags = document.getElementById('tags').value,
-        about = document.getElementById('about').value,
-        living_area = document.getElementById('living_area').value;
+        about = document.getElementById('about').value;
   	this.setState({
       first_name: first_name,
       last_name: last_name,
@@ -139,9 +136,7 @@ class SignUp extends Component {
       password: password,
       image_url: image_url,
       birthdate: birthdate,
-      tags: tags,
       about: about,
-      living_area: living_area,
       editing: true
   	}, ()=>{
       this.createUser();
@@ -149,86 +144,87 @@ class SignUp extends Component {
   }
   renderSignUp() {
     return (
-      <div className="signup-form">
-      <form onSubmit={this.setUser}>
-        <h2>Sign Up</h2>
-        <p>Please fill in this form to create an account!</p>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-user"></i></span>
-            <input type="text" className="form-control" name="first_name" placeholder="First Name" id="first_name" required="required"/>
+      <div>
+        <Header />
+        <div className="signup-form">
+        <form onSubmit={this.setUser}>
+          <h2>Sign Up</h2>
+          <p>Please fill in this form to create an account!</p>
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-user-circle"></i></span>
+              <input type="text" className="form-control" name="first_name" placeholder="First Name" id="first_name" required="required"/>
+            </div>
           </div>
-        </div>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-user"></i></span>
-            <input type="text" className="form-control" name="last_name" placeholder="Last Name" id="last_name" required="required"/>
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-user-circle-o"></i></span>
+              <input type="text" className="form-control" name="last_name" placeholder="Last Name" id="last_name" required="required"/>
+            </div>
           </div>
-        </div>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-            <input type="phone" className="form-control" name="phone" placeholder="Phone Number" id="phone" />
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-phone"></i></span>
+              <input type="phone" className="form-control" name="phone" placeholder="Phone Number" id="phone" />
+            </div>
           </div>
-        </div>
-        <div className="form-group">
-    			<div className="input-group">
-    				<span className="input-group-addon"><i className="fa fa-paper-plane"></i></span>
-    				<input type="email" className="form-control" name="email" placeholder="Email Address" id="email" required="required"/>
-    			</div>
-        </div>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-user"></i></span>
-            <input type="text" className="form-control" name="username" placeholder="UserName" id="username" required="required"/>
-          </div>
-        </div>
-        <div className="form-group">
-    			<div className="input-group">
-    				<span className="input-group-addon"><i className="fa fa-lock"></i></span>
-    				<input type="text" className="form-control" name="password" placeholder="Password" id="password" required="required"/>
-    			</div>
-        </div>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-user"></i></span>
-            <input type="url" className="form-control" name="image_url" placeholder="Image URL" id="image_url" />
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-user"></i></span>
-            <input type="date" className="form-control" name="birthdate" placeholder="Birthdate" id="birthdate" />
-          </div>
-        </div>
-        <div className="form-group">
-          <div className="input-group">
-            <span className="input-group-addon"><i className="fa fa-phone"></i></span>
-            <OptionsList index="tag" onChange={this.handleChange} />
-            <input type="text" className="form-control" name="tags" placeholder="Interests Areas" id="tags" />
-          </div>
-        </div>
           <div className="form-group">
       			<div className="input-group">
       				<span className="input-group-addon"><i className="fa fa-paper-plane"></i></span>
-              <OptionsList index="area"	onChange={this.handleChange} />
-      				<input type="text" className="form-control" name="living_area" placeholder="Living Area" id="living_area"  />
+      				<input type="email" className="form-control" name="email" placeholder="Email Address" id="email" required="required"/>
       			</div>
           </div>
           <div className="form-group">
             <div className="input-group">
               <span className="input-group-addon"><i className="fa fa-user"></i></span>
-              <input type="textarea" className="form-control" name="about" placeholder="about" id="about" />
+              <input type="text" className="form-control" name="username" placeholder="UserName" id="username" required="required"/>
             </div>
           </div>
           <div className="form-group">
-            <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+      			<div className="input-group">
+      				<span className="input-group-addon"><i className="fa fa-lock"></i></span>
+      				<input type="text" className="form-control" name="password" placeholder="Password" id="password" required="required"/>
+      			</div>
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary btn-lg" onClick={this.setUser}>Sign Up</button>
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-image"></i></span>
+              <input type="url" className="form-control" name="image_url" placeholder="Image URL" id="image_url" />
+            </div>
           </div>
-        </form>
-        <div className="text-center">Already have an account? <a href="./login">Login here</a></div>
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-calendar"></i></span>
+              <input type="date" className="form-control" name="birthdate" placeholder="Birthdate" id="birthdate" />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="input-group">
+              <span className="input-group-addon"><i className="fa fa-star"></i></span>
+              <OptionsList index="tag" className="form-control" onChange={this.handleChange} />
+            </div>
+          </div>
+            <div className="form-group">
+        			<div className="input-group">
+        				<span className="input-group-addon"><i className="fa fa-home"></i></span>
+                <OptionsList className="form-control" index="area"	onChange={this.handleChange} />
+        			</div>
+            </div>
+            <div className="form-group">
+              <div className="input-group">
+                <span className="input-group-addon"><i className="fa fa-square"></i></span>
+                <input type="textarea" className="form-control" name="about" placeholder="about" id="about" />
+              </div>
+            </div>
+            <div className="form-group">
+              <label className="checkbox-inline"><input type="checkbox" required="required"/> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary btn-lg" onClick={this.setUser}>Sign Up</button>
+            </div>
+          </form>
+          <div className="text-center">Already have an account? <a href="./login">Login here</a></div>
+        </div>
       </div>
     )
   }
@@ -239,7 +235,7 @@ class SignUp extends Component {
     return(
       <div>
       <Redirect to={{
-            pathname: '/home',
+            pathname: '/login',
             state: { name: this.state.name }
           }}
       />

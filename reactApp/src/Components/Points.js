@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
+import FilterablePointTable from "./FilterablePointTable";
 import Header from "./Header";
-import ToursList from "./ToursList";
-import PointsList from "./PointsList";
 
-class Home extends Component {
-
+class Points extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -12,10 +10,11 @@ class Home extends Component {
   render(){
     return(
       <div>
-        <PointsList />
+        <Header />
+        <FilterablePointTable />
       </div>
     )
   }
 }
 
-export default Home
+export default Points

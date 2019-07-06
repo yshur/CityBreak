@@ -71,7 +71,7 @@ class OptionsList extends Component {
 	}
 	renderOneOptionList() {
 		return (
-			<Form.Control as="select" className="custom-select" onChange={this.handleChange} style={{margin:'10px'}}>
+			<Form.Control as="select" className="custom-select" onChange={this.handleChange} >
 				<option key={this.props.index} index={this.props.index}>Choose {this.props.index}</option>
 				{this.state.options.map(this.eachOption)}
 			</Form.Control>
@@ -79,7 +79,7 @@ class OptionsList extends Component {
 	}
 	renderMultipleOptionList() {
 		return (
-				<ReactMultiSelectCheckboxes className="custom-select" options={this.state.options} onChange={this.handleChange} style={{margin:'10px'}}/>
+				<ReactMultiSelectCheckboxes placeholderButtonLabel="Choose Categories from List..." className="custom-select" options={this.state.options} onChange={this.handleChange} />
 		)
 	}
 	render() {

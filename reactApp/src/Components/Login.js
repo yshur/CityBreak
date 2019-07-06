@@ -3,6 +3,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 import { Redirect } from 'react-router'
 import {Form, FormControl, Button } from 'react-bootstrap';
+import Header from "./Header";
 
 class Login extends Component {
   constructor(props) {
@@ -64,39 +65,37 @@ class Login extends Component {
 }
   renderSignIn(){
     return (
-      <div className="signup-form">
-      <Form>
-        <h2>Login</h2>
-        <p>Please fill in this form to login</p>
-        <hr/>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" id="email" />
-          <Form.Text className="text-muted">
+      <div>
+        <Header />
+        <div className="signup-form">
+          <Form>
+            <h2>Login</h2>
+            <p>Please fill in this form to login</p>
+            <hr/>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" id="email" />
+              <Form.Text className="text-muted">
 
-          </Form.Text>
-        </Form.Group>
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" id="password" />
-        </Form.Group>
-        <Form.Group controlId="formBasicChecbox">
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" id="password" />
+            </Form.Group>
+            <Form.Group controlId="formBasicChecbox">
 
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.setUser} style={{width:'330px', marginBottom:'20px'}}>
-          Login
-        </Button>
-        <div className="text-center">Dont have an account? <a href="./SignUp">Sign Up</a></div>
-      </Form>
-
+            </Form.Group>
+            <Button variant="primary" type="submit" onClick={this.setUser} style={{width:'330px', marginBottom:'20px'}}>
+              Login
+            </Button>
+            <div className="text-center">Dont have an account? <a href="./SignUp">Sign Up</a></div>
+          </Form>
+        </div>
       </div>
-
     )
   }
   renderLoggedIn(){
-    const logged_in = this.state.logged_in;
-    if (logged_in === true)
-    // alert(this.state.name + ' You Have Been Successfully Registered!');
     return(
       <div>
       <Redirect to={{
