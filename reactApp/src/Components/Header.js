@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, Nav } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
-import { Redirect } from 'react-router'
 import logo from './logo.PNG';
 import Cookies from 'js-cookie'
 
@@ -44,7 +42,7 @@ class Header extends Component {
             <NavLink exact to="/" activeStyle={this.style} >
               <img src = {logo}  alt="Card cap" />
             </NavLink>
-            
+
             <div style={this.header}>
               <NavLink  onClick={this.logout}
                   exact to="/login" activeStyle={this.style} >

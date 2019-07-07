@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import {Card} from 'react-bootstrap';
 import Cookies from 'js-cookie'
-import {Form, FormControl, Button,ButtonToolbar,Col} from 'react-bootstrap';
+import { Button} from 'react-bootstrap';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
 import AddPointsList from "./AddPointsList";
@@ -111,14 +110,13 @@ open() {
   }
 
   renderForm(){
-    const { name, about } = this.state;
     return(
       <div>
         <div className="container contact">
         	<div className="row">
         		<div className="col-md-3" >
         			<div className="contact-info">
-        				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="image"/>
+        				<img src="https://image.ibb.co/kUASdV/contact-image.png" alt="some img"/>
         				<h2 style={{color:'rgb(31, 71, 136)'}}>Create Tour</h2>
         				<h4 style={{color:'rgb(31, 71, 136)'}}>We would love to suggest your tour !</h4>
         			</div>
@@ -150,7 +148,7 @@ open() {
     )
   }
   renderList() {
-      if(this.state.tourPage == false){
+      if(this.state.tourPage === false){
         return this.renderUI()
       }else {
         return this.renderTourPage()

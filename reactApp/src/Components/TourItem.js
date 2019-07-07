@@ -1,20 +1,10 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap';
-import TourDetails from './TourDetails';
-
 
 class TourItem extends Component {
-
 	constructor(props) {
 		super(props)
-		this.state = {
-				item: true
-		}
-		this.openItem = this.openItem.bind(this);
-	}
-	openItem() {
-		this.setState({item: false})
-
+		this.state = {}
 	}
 	render(){
 		return(
@@ -30,8 +20,6 @@ class TourItem extends Component {
 						</Card.Body>
 						<Card.Footer style={{width:'365px'}}>
 							<small className="text-muted">Duration:</small>
-							<button className="btn btn-primary" onClick={this.openItem}>Open</button>
-
 						</Card.Footer>
 					</Card>
 				</div>

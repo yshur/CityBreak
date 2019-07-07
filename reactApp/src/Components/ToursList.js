@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import TourItem from './TourItem'
-import {Card, CardGroup} from 'react-bootstrap';
+import {CardGroup} from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class ToursList extends Component {
-
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -27,28 +27,34 @@ class ToursList extends Component {
 		 		})
 			 })
 	 }
-	 componentWillReceiveProps() {
-			const url = "https://citybreakshenkar.herokuapp.com/getTours?"+(this.props.params ? this.props.params : 'limit=3');
-			console.log(url)
-			fetch(url)
-			 .then((res) => {
-				 return res.json();
+	componentWillReceiveProps() {
+		const url = "https://citybreakshenkar.herokuapp.com/getTours?"+(this.props.params ? this.props.params : 'limit=3');
+		console.log(url)
+		fetch(url)
+		 .then((res) => {
+			 return res.json();
+		 })
+		 .then((data) => {
+			 var self=this;
+			 this.setState({tours: []});
+			 data.map((data) => {
+				 // console.log(data)
+				 self.add(data._id, data.area, data.name,data.about,data.image_url);
 			 })
-			 .then((data) => {
-				 var self=this;
-				 this.setState({tours: []});
-				 data.map((data) => {
-					 // console.log(data)
-					 self.add(data._id, data.area, data.name,data.about,data.image_url);
-				 })
-				})
-		}
+			})
+	}
 	eachTour(tour, i) {
 		return (
 			<div key={tour._id+i} index={i} >
 				<CardGroup style={{display:'block', marginLeft:'4%'}}>
-				  <TourItem tour={tour}>
-					</TourItem>
+					<Link to={{
+							pathname: '/tours/'+tour._id,
+							state: {
+								tour: tour
+							}
+						}}>
+					  <TourItem tour={tour} />
+					</Link>
 				</CardGroup>
 			</div>
 		)
@@ -67,7 +73,6 @@ class ToursList extends Component {
 				}]
 		}))
 	}
-
 	render() {
 		return (
 		 		<div>
