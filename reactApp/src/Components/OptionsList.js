@@ -19,16 +19,16 @@ class OptionsList extends Component {
 	}
 	handleChange(e) {
 		console.log(e);
-		if(this.props.index=='tag') {
+		if(this.props.index==='tag') {
 			var options = e;
 			var value = [];
 			for (var i = 0, l = options.length; i < l; i++) {
-				value.push(options[i].value);
+				value.push(options[i].value.replace(/ /g,'+'));
 			}
 			this.props.onChange(this.props.index, value);
 		} else {
 			console.log("OptionsList: handleChange - " +this.props.index+"="+e.target.value);
-			this.props.onChange(this.props.index, e.target.value);
+			this.props.onChange(this.props.index, e.target.value.replace(/ /g,'+'));
 			e.preventDefault();
 		}
 	}
@@ -72,7 +72,7 @@ class OptionsList extends Component {
 	renderOneOptionList() {
 		return (
 			<Form.Control as="select" className="custom-select" onChange={this.handleChange} >
-				<option key={this.props.index} index={this.props.index}>Choose {this.props.index}</option>
+				<option key={this.props.index} index={this.props.index} value=''>Choose {this.props.index}</option>
 				{this.state.options.map(this.eachOption)}
 			</Form.Control>
 		)
@@ -83,7 +83,7 @@ class OptionsList extends Component {
 		)
 	}
 	render() {
-		if(this.props.index=='tag') {
+		if(this.props.index==='tag') {
 			return this.renderMultipleOptionList();
 		} else {
 			return this.renderOneOptionList();

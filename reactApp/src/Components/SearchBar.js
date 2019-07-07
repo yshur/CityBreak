@@ -1,29 +1,45 @@
 import React, { Component } from 'react'
 import OptionsList from "./OptionsList";
-import {Card} from 'react-bootstrap';
-import {Form, FormControl, Button,ButtonToolbar,Col } from 'react-bootstrap';
+import {Form, FormControl, Button,Col } from 'react-bootstrap';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      value: '',
       area: '',
       sub_area: '',
-      tags: '',
-      limit: ''
+      tag: '',
+      limit: null
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleChange(index, value) {
     console.log("SearchBar: handleChange - " +index+"="+value);
-    this.setState({value: `${index}=${value}`});
-  }
+    this.setState(() => ({
+      [index]: value.toString()
+    }))
+    }
   handleSubmit(event) {
     event.preventDefault();
-    console.log("SearchBar: handleSubmit - "+ this.state.value);
-    this.props.onSubmit(this.state.value);
+    console.log(this.state);
+    var params1 = this.state.area.length > 0 ? "area="+this.state.area : '';
+    var params2 = this.state.sub_area.length > 0 ? "sub_area="+this.state.sub_area : '';
+    if((params1.length > 0) && (params2.length > 0)) {
+      params1 = params1+"&"+params2
+    } else if (params2.length > 0) {
+      params1 = params2
+      params2 = ''
+    }
+    var params2 = this.state.tag.length > 0 ? "tags="+this.state.tag : '';
+    if((params1.length > 0) && (params2.length > 0)) {
+      params1 = params1+"&"+params2
+    } else if (params2.length > 0) {
+      params1 = params2
+      params2 = ''
+    }
+    console.log("SearchBar: handleSubmit - "+ params1);
+    this.props.onSubmit(params1);
   }
   render(){
     return(

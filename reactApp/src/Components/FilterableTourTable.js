@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import Header from "./Header";
 import ToursList from "./ToursList";
 import SearchBar from "./SearchBar";
-import {Card} from 'react-bootstrap';
-import {Form, FormControl, Button,ButtonToolbar,Col } from 'react-bootstrap';
-
 
 class FilterableTourTable extends Component {
 

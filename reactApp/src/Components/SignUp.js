@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router'
-import {Button } from 'react-bootstrap';
 import OptionsList from "./OptionsList";
 import Header from "./Header";
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Card} from 'react-bootstrap';
-import { Redirect } from 'react-router'
 
 class AddPointItem extends Component {
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 import { Redirect } from 'react-router'
-import {Form, FormControl, Button } from 'react-bootstrap';
+import {Form, Button } from 'react-bootstrap';
 import Header from "./Header";
 
 class Login extends Component {
@@ -75,17 +75,13 @@ class Login extends Component {
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" id="email" />
-              <Form.Text className="text-muted">
-
-              </Form.Text>
+              <Form.Text className="text-muted" />
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" id="password" />
             </Form.Group>
-            <Form.Group controlId="formBasicChecbox">
-
-            </Form.Group>
+            <Form.Group controlId="formBasicChecbox" />
             <Button variant="primary" type="submit" onClick={this.setUser} style={{width:'330px', marginBottom:'20px'}}>
               Login
             </Button>
@@ -99,7 +95,7 @@ class Login extends Component {
     return(
       <div>
       <Redirect to={{
-            pathname: '/main',
+            pathname: '/',
             state: { name: this.state.user.first_name }
           }}
       />
@@ -107,7 +103,7 @@ class Login extends Component {
     )
   }
   render(){
-    if(this.state.logged_in == false){
+    if(this.state.logged_in === false){
       return this.renderSignIn()
     }else {
       return this.renderLoggedIn()

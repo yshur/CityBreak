@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PointItem from './PointItem'
-import {Card, CardGroup} from 'react-bootstrap';
-import PointDetails from './PointDetails';
+import {CardGroup} from 'react-bootstrap';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class PointsList extends Component {
 
@@ -14,11 +14,6 @@ class PointsList extends Component {
 		}
 		this.eachPoint = this.eachPoint.bind(this)
 		this.add = this.add.bind(this)
-		this.openDetails = this.openDetails.bind(this)
-		this.renderList = this.renderList.bind(this)
-		this.renderDetails = this.renderDetails.bind(this)
-		this.closeDetails = this.closeDetails.bind(this)
-
 	}
 	componentDidMount() {
 		 const url = "https://citybreakshenkar.herokuapp.com/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
@@ -55,8 +50,14 @@ class PointsList extends Component {
 		return (
 			<div key={point._id+i} index={i} >
 				<CardGroup style={{display:'block'}}>
-				  <PointItem onChange={this.openDetails} point={point}>
-					</PointItem>
+					<Link to={{
+						  pathname: '/points/'+point._id,
+						  state: {
+						    point: point
+						  }
+						}}>
+					  <PointItem onChange={this.openDetails} point={point} />
+					</Link>
 				</CardGroup>
 			</div>
 		)
@@ -75,35 +76,12 @@ class PointsList extends Component {
 				}]
 		}))
 	}
-	openDetails(point){
-		console.log(point);
-		this.setState({
-			point: point,
-			details: true
-		});
-	}
-	closeDetails(){
-		this.setState({
-			details: false
-		});
-	}
-	renderList() {
+	render() {
 		return (
 				<div>
 					{this.state.points.map(this.eachPoint)}
 				</div>
 		)
-	}
-	renderDetails(){
-		return (
-			<div>
-				<PointDetails onChange={this.closeDetails} point={this.state.point} />
-			</div>
-		)
-	}
-
-	render() {
-		return this.state.details ? this.renderDetails() : this.renderList()
 	}
 }
 
