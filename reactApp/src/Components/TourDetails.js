@@ -51,33 +51,34 @@ class TourDetails extends Component {
 	render(){
 		return(
 			<div>
-				<Header />
+				<Header/>
 				<div className='tour'>
-					<h1 style={{textAlign:'center', margin:'30px', color:'#1F4788'}}> Your tour is ready </h1>
-					<Link to='/tours'>
-						<button className="btn btn-primary" >Close</button>
-					</Link>
-					<Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", marginTop:'90px', border:'none'}}>
-						<Card.Body style={{background:'#F2F1EF'}}>
+					<h1 style={{ color: '#1F4788', fontFamily: 'Raleway,sans-serif', fontSize: '62px', fontWeight: '800', lineHeight: '72px', margin: '0 0 24px', textAlign: 'center', textTransform: 'uppercase',paddingTop:'50px'}}>Your tour </h1>
+					<Card>
+						<Card.Body>
 							<div>
-								<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url(${this.state.details ? this.state.tour.image_url : ''})`}}></Card.Title>
-								<p style={{fontSize:'24px', marginTop:'-50px', color:'black', fontWeight:'bold'}}>{this.state.details ? this.state.tour.name : ''}</p>
+								<Card.Title style={{marginLeft:'25%',marginBottom:'60px', width:"100%",height:"240px",backgroundRepeat:"no-repeat", backgroundImage:`url(${this.state.details ? this.state.tour.image_url : ''})`}}></Card.Title>
+								<p style={{fontSize:'24px', marginTop:'-50px', fontWeight:'bold'}}>{this.state.details ? this.state.tour.name : ''}</p>
 							</div>
-							<h3 style={{marginTop:'60px'}}>Tour details </h3>
-							<Card.Text style={{color:'black'}}>Area: {this.state.details ? this.state.tour.area : '' }</Card.Text>
-							<Card.Text style={{color:'black'}}>Sub Area: {this.state.details ? this.state.tour.sub_area : '' }</Card.Text>
-							<Card.Text style={{color:'black'}}>About: {this.state.details ? this.state.tour.about : '' }</Card.Text>
-							<Card.Text style={{color:'black'}}>Distance: {this.state.details ? this.state.tour.distance : '' } KM</Card.Text>
-							<Card.Text style={{color:'black'}}>Tags: {this.state.details ? this.state.tour.tags : '' }</Card.Text>
+							<div style={{marginLeft:'24%', fontWeight:'bold',fontSize:'24px', color:'#4B77BE'}}>
+								<Card.Text style={{display:'inline',margin:'2%'}}>Area: {this.state.details ? this.state.tour.area : '' }</Card.Text>
+								<Card.Text style={{display:'inline',margin:'2%'}}>Sub Area: {this.state.details ? this.state.tour.sub_area : '' }</Card.Text>
+								<Card.Text style={{display:'inline',margin:'2%'}}>Distance: {this.state.details ? this.state.tour.distance : '' } KM</Card.Text>
+								<Card.Text style={{margin:'2%'}}>Tags: {this.state.details ? this.state.tour.tags : '' }</Card.Text>
+							</div>
 						</Card.Body>
-						<Card.Footer style={{width:'365px'}}>
-							<strong className="text-muted" style={{fontSize:'24px'}}>Tour duration: {this.state.details ? this.state.tour.duration : ''} min</strong>
+						<Card.Footer style={{width:'100%'}}>
+							<strong className="text-muted" style={{fontSize:'24px',marginLeft:'39%'}}>Tour duration: {this.state.details ? this.state.tour.duration : ''} min</strong>
 						</Card.Footer>
-					</Card>
+				  </Card>
+				  <br />
 					<div>
 						{this.state.details ? this.state.tour.points_list.map(this.eachPoint) : ''}
 					</div>
 				</div>
+				<Link to='/tours'>
+					<button className="btn btn-primary" >Close</button>
+				</Link>
 			</div>
 		)
 	}

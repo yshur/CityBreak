@@ -9,7 +9,7 @@ class PointItem extends Component {
 	render(){
 		return(
 				<div className='point'>
-					<Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"380px",float:"left", margin:'15px', border:'none'}}>
+					<Card style={{ boxShadow: '5px 10px 18px #888888', maxWidth:"365px",maxHeight:"450px",float:"left", margin:'15px', border:'none'}}>
 						<Card.Body style={{background:'#F2F1EF'}}>
 							<div>
 								<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url(${this.props.point.image_url[0]})`}}></Card.Title>
@@ -18,9 +18,6 @@ class PointItem extends Component {
 							<Card.Text style={{color:'black'}}>Area: {this.props.point.area}</Card.Text>
 							<Card.Text style={{color:'black'}}>About: {this.props.point.about}</Card.Text>
 						</Card.Body>
-						<Card.Footer style={{width:'365px'}}>
-							<small className="text-muted">Duration:</small>
-						</Card.Footer>
 					</Card>
 				</div>
 		)
