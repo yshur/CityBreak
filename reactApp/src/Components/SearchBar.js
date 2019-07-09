@@ -48,13 +48,13 @@ class SearchBar extends Component {
           <FormControl type="text" placeholder="City, Region or Country" className="mr-sm-2" style={{width: '45%', marginLeft:'5%'}}/>
           <Button variant="outline-light" style={{width:'10%',border:'none', background:'#4B77BE', fontWeight:'bold'}}>Search</Button>
         </Form>
-        <Form style={{}}>
+        <Form style={{marginTop:'3%'}}>
             <Form.Group as={Col} controlId="formGridState" style={{width:'30%', display:'-webkit-inline-box'}}>
               <OptionsList style={{margin:'10px'}} index="area"	onChange={this.handleChange} />
               <OptionsList style={{margin:'10px'}} index="sub_area" onChange={this.handleChange} />
               <OptionsList style={{margin:'10px'}} index="tag" onChange={this.handleChange} />
             </Form.Group>
-          <Button onClick={this.handleSubmit} variant="primary" type="submit" style={{marginLeft:'10%',marginTop:'5%'}}>
+          <Button onClick={this.handleSubmit} variant="primary" type="submit" style={{marginLeft:'55%'}}>
             Submit
           </Button>
         </Form>
