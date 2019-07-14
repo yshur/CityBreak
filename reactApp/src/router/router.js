@@ -8,6 +8,7 @@ import Tours from "../Components/Tours";
 import PointDetails from "../Components/PointDetails";
 import TourDetails from "../Components/TourDetails";
 import CreateTour from "../Components/CreateTour";
+import UpdateTour from "../Components/UpdateTour";
 
 const ReactRouter =()=>{
     return (
@@ -20,6 +21,7 @@ const ReactRouter =()=>{
           <Route exact path="/tours" component={Tours}/>
           <Route exact path="/tours/:id" component={TourDetails}/>
           <Route exact path="/createtour" component={CreateTour}/>
+          <Route exact path="/updatetour/:id" component={UpdateTour}/>
         </React.Fragment>
         );
 }

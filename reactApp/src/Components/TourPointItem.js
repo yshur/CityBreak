@@ -12,7 +12,7 @@ class TourPointItem extends Component {
 		}
 	}
 	componentDidMount() {
-		 const url = "https://citybreakshenkar.herokuapp.com/getPoint/"+this.state.point_id;
+		 const url = "http://localhost:3000/getPoint/"+this.state.point_id;
 		 console.log(url)
 		 fetch(url)
 			.then((res) => {

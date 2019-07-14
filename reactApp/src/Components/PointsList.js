@@ -16,7 +16,7 @@ class PointsList extends Component {
 		this.add = this.add.bind(this)
 	}
 	componentDidMount() {
-		 const url = "https://citybreakshenkar.herokuapp.com/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
+		 const url = "http://localhost:3000/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
 		 console.log(url)
 		 fetch(url)
 		 	.then((res) => {
@@ -31,7 +31,7 @@ class PointsList extends Component {
 			 })
 	 }
 	componentWillReceiveProps() {
-			const url = "https://citybreakshenkar.herokuapp.com/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
+			const url = "http://localhost:3000/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
 			console.log(url)
 			fetch(url)
 			 .then((res) => {

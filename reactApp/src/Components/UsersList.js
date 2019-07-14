@@ -23,7 +23,7 @@ class UsersList extends Component {
 
 		// var url = this.props.url;
 		// if(this.props.method === 'get') {
-    var url = "https://citybreakshenkar.herokuapp.com/getAllUsers";
+    var url = "http://localhost:3000/getAllUsers";
 		console.log(url)
 
 			fetch(url)
