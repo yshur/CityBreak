@@ -1,5 +1,5 @@
 {
-  "name": "eventbreak",
+  "name": "citybreak",
   "version": "1.0.0",
   "description": "TBD",
   "main": "index.js",
@@ -8,15 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yshur/eventbreak.git"
+    "url": "git+https://github.com/yshur/citybreak.git"
   },
   "author": "yshur & roishmueli1",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/yshur/eventbreak/issues"
+    "url": "https://github.com/yshur/citybreak/issues"
   },
-  "homepage": "https://github.com/yshur/eventbreak#readme",
+  "homepage": "https://github.com/yshur/citybreak#readme",
   "dependencies": {
+    "lodash": ">=4.17.13",
     "axios": "^0.19.0",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
