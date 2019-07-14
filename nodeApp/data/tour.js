@@ -25,14 +25,14 @@ exports.createTour = (req, res) => {
       });
       console.log('Create Tour');
       newTour.save(
-        (err) => {
+        (err, tour) => {
             if(err) {
                 console.log(`err: ${err}`);
                 res.status(300).json(err);
             } else {
                 console.log(`Saved document:`);
-                res.status(200).json(newTour);
-                console.log(newTour);
+                res.status(200).json(tour);
+                console.log(tour);
             }
         });
    }

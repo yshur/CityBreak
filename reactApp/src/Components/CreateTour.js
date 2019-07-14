@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Cookies from 'js-cookie'
 import axios from 'axios';
+import { Redirect } from 'react-router'
 import Header from "./Header";
 
 class CreateTour extends Component {
@@ -11,25 +12,28 @@ class CreateTour extends Component {
       tour: null,
       name: '',
       about: '',
-      editing: false,
+      editing: true,
       tour_id:''
     }
     this.edit = this.edit.bind(this);
+    this.renderCreateTour = this.renderCreateTour.bind(this);
+    this.renderUpdateTour = this.renderUpdateTour.bind(this);
   }
   edit() {
-    this.setState({
-      editing: true
-    })
     const { name, about } = this.state;
     const headers = {
       session_id: Cookies.get('session_id'),
       user_id: Cookies.get('user_id')
     }
     console.log(headers);
-    axios.post('https://citybreakshenkar.herokuapp.com/createtour', { name, about }, {headers})
+    axios.post('http://localhost:3000/createtour', { name, about }, {headers})
       .then((result) => {
         //access the results here....
-        this.setState({tour_id:result.data._id})
+        this.setState({
+          tour_id: result.data._id,
+          tour: result.data,
+          editing: false
+        })
         console.log(result);
       }).catch(function (error) {
          if (error.response) {
@@ -43,7 +47,7 @@ class CreateTour extends Component {
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
-  render(){
+  renderCreateTour(){
     return(
       <div>
         <Header />
@@ -81,6 +85,26 @@ class CreateTour extends Component {
         </div>
       </div>
     )
+  }
+  renderUpdateTour() {
+    return(
+      <div>
+        <Redirect to={{
+              pathname: '/updatetour/'+this.state.tour_id,
+              state: {
+								tour: this.state.tour
+							}
+            }}
+        />
+      </div>
+    )
+  }
+  render(){
+    if(this.state.editing === true){
+      return this.renderCreateTour()
+    }else {
+      return this.renderUpdateTour()
+    }
   }
 }
 

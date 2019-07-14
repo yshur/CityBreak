@@ -21,7 +21,7 @@ class Login extends Component {
   }
   signInUser() {
     console.log("signInUser")
-    var url = "https://citybreakshenkar.herokuapp.com/login";
+    var url = "http://localhost:3000/login";
     axios.post(url, {
         'username': this.state.email,
         'password': this.state.password,
@@ -94,11 +94,11 @@ class Login extends Component {
   renderLoggedIn(){
     return(
       <div>
-      <Redirect to={{
-            pathname: '/',
-            state: { name: this.state.user.first_name }
-          }}
-      />
+        <Redirect to={{
+              pathname: '/',
+              state: { name: this.state.user.first_name }
+            }}
+        />
       </div>
     )
   }
