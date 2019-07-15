@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 import { Button} from 'react-bootstrap';
 import axios from 'axios';
 import Alert from 'react-bootstrap/Alert'
-import AddPointsList from "./AddPointsList";
+import FilterablePointTable from "./FilterablePointTable";
 import Header from "./Header";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -79,7 +79,7 @@ class UpdateTour extends Component {
           </p>
         </Alert>
         <h1 style={{marginTop: '5%', textAlign: 'center'}}>Popular Points for your tour</h1>
-        <AddPointsList onChange = {this.addPoint}/>
+        <FilterablePointTable onChange={this.addPoint} tour={this.state.tour} />
         <Link to={{
             pathname: '/tours/'+this.state.tour._id,
             state: {

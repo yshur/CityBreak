@@ -54,7 +54,7 @@ exports.getSession = (req, res) => {
         }
     )
 };
-exports.destroySession = (session_id, callback) => {
+function destroySession(session_id, callback) {
   console.log(`destroySession: session_id = ${session_id}`);
 
   var id = {"session_id": session_id, "status": 0 };
@@ -135,7 +135,7 @@ exports.checkActiveSession = (req, callback) => {
           if (!session){
             callback("session not found");
           }
-          checkTimeSession(session.setup_time, (err, status) => {
+          checkTimeSession(session.setup_time, session_id, (err, status) => {
             if(err) {
                 console.log(`err: ${err}`);
                 callback(err);
@@ -152,7 +152,7 @@ exports.checkActiveSession = (req, callback) => {
       });
   }
 };
-function checkTimeSession(setup_time, callback) {
+function checkTimeSession(setup_time, session_id, callback) {
   var diffMs = Date.now() - setup_time; // milliseconds between now & setup_time
   var diffMins = Math.round(diffMs / 60000); // minutes
   if(diffMins > 60) {

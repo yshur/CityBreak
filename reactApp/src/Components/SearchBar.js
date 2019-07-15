@@ -31,7 +31,7 @@ class SearchBar extends Component {
       params1 = params2
       params2 = ''
     }
-    var params2 = this.state.tag.length > 0 ? "tags="+this.state.tag : '';
+    params2 = this.state.tag.length > 0 ? "tags="+this.state.tag : '';
     if((params1.length > 0) && (params2.length > 0)) {
       params1 = params1+"&"+params2
     } else if (params2.length > 0) {

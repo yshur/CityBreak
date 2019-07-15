@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PointItem from './PointItem'
 import {CardGroup} from 'react-bootstrap';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 class PointsList extends Component {
 
@@ -14,6 +13,7 @@ class PointsList extends Component {
 		}
 		this.eachPoint = this.eachPoint.bind(this)
 		this.add = this.add.bind(this)
+		this.save = this.save.bind(this)
 	}
 	componentDidMount() {
 		 const url = "http://localhost:3000/getPoints?"+(this.props.params ? this.props.params : 'limit=6');
@@ -46,18 +46,16 @@ class PointsList extends Component {
 				 })
 				})
 		}
+	save(index) {
+		if(this.props.onChange) {
+			this.props.onChange(index)
+		}
+	}
 	eachPoint(point, i) {
 		return (
 			<div key={point._id+i} index={i} >
 				<CardGroup style={{display:'block'}}>
-					<Link to={{
-						  pathname: '/points/'+point._id,
-						  state: {
-						    point: point
-						  }
-						}}>
-					  <PointItem onChange={this.openDetails} point={point} />
-					</Link>
+					<PointItem onChange={this.openDetails} point={point} tour={this.props.tour} onSubmit={this.save} />
 				</CardGroup>
 			</div>
 		)
