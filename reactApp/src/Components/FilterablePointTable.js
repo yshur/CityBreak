@@ -10,8 +10,13 @@ class FilterablePointTable extends Component {
       value: ""
     }
     this.update = this.update.bind(this);
+    this.save = this.save.bind(this)
   }
-
+  save(index) {
+		if(this.props.onChange) {
+			this.props.onChange(index)
+		}
+	}
   update(params) {
     console.log('update: '+params)
     this.setState({value: params});
@@ -20,7 +25,7 @@ class FilterablePointTable extends Component {
     return(
       <div>
         <SearchBar onSubmit={this.update}/>
-        <PointsList params={this.state.value} />
+        <PointsList params={this.state.value} onChange={this.save} tour={this.props.tour} />
       </div>
     )
   }
