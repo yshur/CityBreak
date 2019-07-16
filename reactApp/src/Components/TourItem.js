@@ -15,11 +15,12 @@ class TourItem extends Component {
 								<Card.Title style={{marginLeft:'-12px',color:'black', width:"350px",height:"240px", backgroundImage:`url(${this.props.tour.image_url})`}}></Card.Title>
 								<p style={{fontSize:'24px', marginTop:'-50px', color:'black', fontWeight:'bold'}}>{this.props.tour.name}</p>
 							</div>
+							<Card.Text style={{color:'black'}}>{this.props.tour.name}</Card.Text>
 							<Card.Text style={{color:'black'}}>Area: {this.props.tour.area}</Card.Text>
-							<Card.Text style={{color:'black'}}>About: {this.props.tour.about}</Card.Text>
+							<Card.Text style={{color:'black'}}>{this.props.tour.about}</Card.Text>
 						</Card.Body>
 						<Card.Footer style={{width:'365px'}}>
-							<small className="text-muted">Duration:</small>
+							<small className="text-muted">Duration: {this.props.tour.duration}</small>
 						</Card.Footer>
 					</Card>
 				</div>

@@ -15,7 +15,8 @@ class PointDetails extends Component {
 			point: this.props.location.state.point,
 			reviews_num: 0,
 			rating: 0,
-			images: this.setImages()
+			images: this.setImages(),
+			map: this.getMap()
 		}
 		this.setImages = this.setImages.bind(this);
 		this.changeRating = this.changeRating.bind(this);
@@ -28,13 +29,11 @@ class PointDetails extends Component {
 		)
 	}
 	getMap(){
-		const url = "https://www.google.com/maps/embed/v1/place?key=AIzaSyCmaNR4ecZxT5KTRxh2JVV0uQDl5nbgH-k&q="+this.state.point.latitude+","+this.state.point.longitude
-		if(this.state.point.longitude) {
-			return (
-				<Iframe width='600' height='450' frameborder='0' style={{border:0}}
-					url={url}	allowfullscreen />
-			)
-		}
+		const url = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDyxa82Pu90sGx3iBg2qVx9ZF15hfdLiEM&q="+this.props.location.state.point.latitude+","+this.props.location.state.point.longitude
+		return (
+			<Iframe width='600' height='450' frameborder='0' style={{border:0}}
+				url={url}	allowfullscreen />
+		)
 	}
 	changeRating( newRating, name ) {
 	 this.setState({
@@ -72,12 +71,6 @@ class PointDetails extends Component {
 					<div className='point'>
 						<h1 style={{textAlign:'center', margin:'15px'}} id="productTitle" className="font-weight-bold mb-0">{this.props.location.state.point.name}</h1>
 					</div>
-					<Gallery photos={this.state.images}  direction={"column"} />
-					<Card>
-						<Card.Body style={{background:'#F2F1EF', direction:'rtl', textAlign:'right'}}>
-							{this.state.point.description ? this.state.point.description.map(this.eachDescription) : ''}
-						</Card.Body>
-					</Card>
 					<div className="mt-2 mb-3 d-md-flex align-items-center">
 						<StarRatings
 								starDimension="20px"
@@ -92,11 +85,16 @@ class PointDetails extends Component {
 							<div data-scroll-target="#userReviews" className="text-body" data-action-capture="click" data-action-servlet-name="product_detail" data-action-tag="click_review_top_link" data-action-prod-attr="256" data-attraction-product-id="5674SSGAUCHA">{this.state.reviews_num} Reviews</div>
 					</div>
 					<div className="small mr-md-4" style={{fontWeight:'bold'}}>{this.state.point.address}</div>
+					<Gallery photos={this.state.images}  direction={"column"} />
+					<Card>
+						<Card.Body style={{background:'#F2F1EF', direction:'rtl', textAlign:'right'}}>
+							{this.state.point.description ? this.state.point.description.map(this.eachDescription) : ''}
+						</Card.Body>
+					</Card>
+					<div>{this.state.map}</div>
 					<Link to='/points'>
 						<button style={{width:'100%'}} className="btn btn-primary" >Close</button>
 					</Link>
-					{this.getMap}
-
 				</div>
 		)
 	}

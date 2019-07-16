@@ -10,8 +10,6 @@ class CreateTour extends Component {
     super(props)
     this.state = {
       tour: null,
-      name: '',
-      about: '',
       editing: true,
       tour_id:''
     }
@@ -20,7 +18,8 @@ class CreateTour extends Component {
     this.renderUpdateTour = this.renderUpdateTour.bind(this);
   }
   edit() {
-    const { name, about } = this.state;
+    const name = document.getElementById('fname').value,
+        about = document.getElementById('comment').value;
     const headers = {
       session_id: Cookies.get('session_id'),
       user_id: Cookies.get('user_id')
