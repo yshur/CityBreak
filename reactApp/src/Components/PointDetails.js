@@ -49,7 +49,7 @@ class PointDetails extends Component {
 			}});
 	}
 	componentDidMount() {
-		 const url = "http://localhost:3000/getPoint/"+this.props.location.state.point._id;
+		 const url = "https://citybreakshenkar.herokuapp.com/getPoint/"+this.props.location.state.point._id;
 		 console.log(url)
 		 fetch(url)
 			.then((res) => {

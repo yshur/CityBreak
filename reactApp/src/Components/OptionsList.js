@@ -33,7 +33,7 @@ class OptionsList extends Component {
 		}
 	}
 	componentDidMount() {
-		 const url = "http://localhost:3000/get"+this.props.index+"s";
+		 const url = "https://citybreakshenkar.herokuapp.com/get"+this.props.index+"s";
 		 console.log(url);
 		 fetch(url)
 		 	.then((res) => {
