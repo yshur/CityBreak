@@ -57,7 +57,7 @@ exports.createPoint = (req, res) => {
 };
 exports.getPoints = (req, res) => {
   console.log('getPoints');
-	var random = Math.floor(Math.random() * (100));
+	var random = Math.floor(Math.random() * (10));
 	var limit = {limit: 20,skip: random};
 	var queryData = url.parse(req.url, true).query;
 	var params = {};

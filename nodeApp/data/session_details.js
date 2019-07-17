@@ -31,7 +31,7 @@ exports.getAllDetails = (req, res) => {
   var sort = {
       sort:{ setup_time: -1 }
   };
-	var q = SessionDetails.find({}, sort);
+	var q = SessionDetails.find({}, {}, sort);
 	q.exec(function(err, sessions)  {
 		if (err) {
 			console.log(`err: ${err}`);
@@ -73,22 +73,15 @@ exports.getUserDetails = (req, res) => {
     });
   });
 };
-exports.getLastSessionDetails = (session_id, callback) => {
-  var user_id = req.params.user_id;
-  console.log(`getUserDetails: ${req.params.session_id}`);
-  Session.getUserSessionId(user_id, (err, session_ids) => {
-    if(err) {
-        console.log(`err: ${err}`);
-        callback(err);
-    }
-    var sort = {
-        limit:1,
-        sort:{ setup_time: -1 }
-    };
-    var q = SessionDetails.find({session_id:session_id}, sort);
-    q.exec(function(err, details)  {
-      callback(details);
-    });
+exports.getLastDetailsSession = (sessions, callback) => {
+  console.log(`getLastDetailsSession:`);
+  var sort = {
+      limit:1,
+      sort:{ setup_time: -1 }
+  };
+  var q = SessionDetails.findOne({session_id:{ $in: sessions}}, {}, sort);
+  q.exec(function(err, details)  {
+    callback(err, details);
   });
 };
 exports.getLastUserDetails = (req, res) => {

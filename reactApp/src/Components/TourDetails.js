@@ -98,9 +98,21 @@ class TourDetails extends Component {
 					</div>
 					<div>{this.state.map}</div>
 				</div>
+				<div>
+				<Link to={{
+						pathname: '/updatetour/'+this.state.tour._id,
+						state: {
+							tour: this.state.tour
+						}
+					}}>
+					<button className="btn btn-primary" >Update</button>
+				</Link>
+				</div>
+				<div>
 				<Link to='/tours'>
 					<button className="btn btn-primary" >Close</button>
 				</Link>
+				</div>
 			</div>
 		)
 	}

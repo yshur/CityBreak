@@ -15,7 +15,6 @@ class PointItem extends Component {
 		}
 	}
 	render(){
-		console.log(this.props.tour);
 		if(this.props.tour === null || this.props.tour === undefined) {
 			return(
 					<div className='point'>

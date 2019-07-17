@@ -27,12 +27,13 @@ class Login extends Component {
         'password': this.state.password,
     })
     .then((res) => {
-      console.log(res.data)
-      alert('Success');
+      console.log(res.data);
       Cookies.set('user_id', res.data.user._id, { expires: 1 });
-      Cookies.set('session_id', res.data.session.session_id, { expires: 1 });
+      Cookies.set('session_id', res.data.session.session.session_id, { expires: 1 });
+      Cookies.set('last_path', res.data.session.details.path, { expires: 1 });
       Cookies.set('first_name', res.data.user.first_name, { expires: 1 });
       Cookies.set('last_name', res.data.user.last_name, { expires: 1 });
+      alert(' Success \n Hi '+res.data.user.first_name+' '+res.data.user.last_name+'!!\n Your last API Request was \n'+res.data.session.details.path);
       this.setState({
         user: res.data.user,
         logged_in:true
