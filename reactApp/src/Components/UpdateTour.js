@@ -27,7 +27,7 @@ class UpdateTour extends Component {
       user_id: Cookies.get('user_id')
     }
     console.log(headers);
-    axios.post('http://localhost:3000/createtour', { name, about }, {headers})
+    axios.post('https://citybreakshenkar.herokuapp.com/createtour', { name, about }, {headers})
       .then((result) => {
         //access the results here....
         this.setState({tour_id:result.data._id})
@@ -46,7 +46,7 @@ class UpdateTour extends Component {
   }
   addPoint(id){
     console.log(id);
-    const url = `http://localhost:3000/addPoint/${this.state.tour._id}/${id}`
+    const url = `https://citybreakshenkar.herokuapp.com/addPoint/${this.state.tour._id}/${id}`
     console.log(url);
     const headers = {
       session_id: Cookies.get('session_id'),

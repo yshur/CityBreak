@@ -25,7 +25,7 @@ class CreateTour extends Component {
       user_id: Cookies.get('user_id')
     }
     console.log(headers);
-    axios.post('http://localhost:3000/createtour', { name, about }, {headers})
+    axios.post('https://citybreakshenkar.herokuapp.com/createtour', { name, about }, {headers})
       .then((result) => {
         //access the results here....
         this.setState({

@@ -24,7 +24,7 @@ class SignUp extends Component {
       about: "",
       living_area: "",
       logged_in: false,
-      url: "http://localhost:3000/",
+      url: "https://citybreakshenkar.herokuapp.com/",
       newUser: {}
     }
 
