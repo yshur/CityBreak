@@ -94,6 +94,8 @@ app.delete('/deleteState/:stateid', state.deleteState);
 /*---------------- Session Routes ----------------*/
 app.get('/getSessions', 	sessionManager.getSessions);
 app.get('/getSession/:session_id', 	sessionManager.getSession);
+app.get('/destroyAllSessions', 	sessionManager.destroyAllSessions);
+
 app.get('/getAllDetails', 	sessionDetails.getAllDetails);
 app.get('/getSessionDetails/:session_id', 	sessionDetails.getSessionDetails);
 app.get('/getUserDetails/:user_id', 	sessionDetails.getUserDetails);
